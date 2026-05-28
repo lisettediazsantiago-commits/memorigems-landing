@@ -457,21 +457,26 @@
     totalEl.textContent=total;
     var jarBody='<ellipse cx="80" cy="170" rx="46" ry="8" fill="#000" opacity="0.06"/>'+
       '<path d="M52 30 h56 v8 q12 3 12 18 v74 q0 12 -14 12 h-52 q-14 0 -14 -12 v-74 q0 -15 12 -18 z" fill="#DCEEF3" stroke="#4E97A6" stroke-width="2.5" opacity="0.75"/>';
-    var clip='<clipPath id="jarClip"><path d="M52 38 q12 3 12 18 v74 q0 8 -12 8 h-2 q-12 0 -12 -8 v-74 q0 -15 12 -18z M108 38 q12 3 12 18 v74 q0 8 -12 8 q-12 0 -12 -8 v-74 q0 -15 12 -18z"/></clipPath>';
-    var shown=Math.min(total,48);
+    var clip='<clipPath id="jarClip"><path d="M54 40 q-12 4 -12 18 v74 q0 10 14 10 h48 q14 0 14 -10 v-74 q0 -14 -12 -18 z"/></clipPath>';
+    var shown=Math.min(total,28);
     var gemsHTML='';
-    var floorY=130, topY=56, rows=10, perRow=3;
-    for(var i=0;i<shown;i++){
-      var row=Math.floor(i/perRow);
-      var inRow=i%perRow;
-      var stagger=(row%2)*13;
-      var baseX=46+inRow*20+stagger;
-      var y=floorY-row*((floorY-topY)/rows);
-      var jx=((i*37)%7)-3;
-      var jy=((i*23)%5)-2;
-      var s=0.6;
-      var cols=GEMSHAPES[(i*3+row)%GEMSHAPES.length];
-      gemsHTML+=gemSVG(baseX+jx-9, y+jy, s, cols);
+    var cxC=80, floorY=124, rowH=11, gw=19, s=0.86;
+    var caps=[2,3,3,4,4,4,5,5];
+    var placed=0, row=0;
+    while(placed<shown && row<caps.length){
+      var capN=caps[row];
+      var thisN=Math.min(capN, shown-placed);
+      var y=floorY-row*rowH;
+      var startX=cxC-((thisN-1)*gw)/2;
+      for(var k=0;k<thisN;k++){
+        var idx=placed+k;
+        var x=startX+k*gw;
+        var jx=((idx*29)%5)-2;
+        var jy=((idx*17)%4)-2;
+        var cols=GEMSHAPES[(idx*3+row)%GEMSHAPES.length];
+        gemsHTML+=gemSVG(x+jx-13, y+jy, s, cols);
+      }
+      placed+=thisN; row++;
     }
     var lid='<path d="M52 30 h56 v8 h-56 z" fill="#B89248" stroke="#8C6E32" stroke-width="2"/>'+
       '<rect x="74" y="24" width="12" height="8" rx="2" fill="#C9A66C" stroke="#8C6E32" stroke-width="1.5"/>';
