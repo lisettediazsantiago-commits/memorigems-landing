@@ -43,6 +43,14 @@
   .nav-links a:hover { color: var(--gold); }
   .nav-cta { padding: 10px 22px; border: 0.5px solid var(--gold); color: var(--gold) !important; border-radius: 100px; transition: all 0.3s ease; }
   .nav-cta:hover { background: var(--gold); color: var(--beige-cream) !important; }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; margin: -8px; color: var(--ink-soft); -webkit-tap-highlight-color: transparent; }
+  .nav-toggle svg { display: block; width: 26px; height: 26px; }
+  .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 99; padding: 76px 24px 26px; background: rgba(247, 241, 228, 0.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(184, 146, 72, 0.25); transform: translateY(-14px); opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+  .mobile-menu.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .mobile-menu a { display: block; font-family: var(--sans); font-size: 13px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; padding: 16px 4px; border-bottom: 0.5px solid rgba(184, 146, 72, 0.15); transition: color 0.3s ease; }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover, .mobile-menu a:active { color: var(--gold); }
+  .mobile-menu a.mm-cta { color: var(--gold-deep); font-weight: 500; }
   .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; padding: 140px 48px 100px; overflow: hidden; }
   .hero-motes { position: absolute; inset: 0; pointer-events: none; }
   .mote { position: absolute; width: 3px; height: 3px; background: var(--gold); border-radius: 50%; animation: drift 10s ease-in-out infinite; opacity: 0; }
@@ -163,7 +171,9 @@
   .reveal.visible { opacity: 1; transform: translateY(0); }
   @media (max-width: 768px) {
     nav { padding: 14px 20px; }
-    .nav-links a:not(.nav-cta) { display: none; }
+    .nav-links { display: none; }
+    .nav-toggle { display: inline-flex; }
+    .mobile-menu { display: block; }
     section { padding: 80px 24px; }
     .hero { padding: 110px 24px 80px; }
     .littlegems-teaser { padding: 80px 24px; }
@@ -193,7 +203,17 @@
     <a href="/littlegems">LittleGems</a>
     <a href="#waitlist" class="nav-cta">Join waitlist</a>
   </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <svg id="navToggleIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#how">How it works</a>
+  <a href="#story">Our story</a>
+  <a href="#team">Team</a>
+  <a href="/littlegems">LittleGems</a>
+  <a href="#waitlist" class="mm-cta">Join waitlist</a>
+</div>
 <section class="hero">
   <div class="hero-motes">
     <span class="mote"></span><span class="mote"></span><span class="mote"></span>
@@ -374,6 +394,26 @@
   </div>
 </footer>
 <script>
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('mobileMenu');
+    var icon = document.getElementById('navToggleIcon');
+    var menuSVG = '<line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/>';
+    var closeSVG = '<line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/>';
+    function setOpen(open){
+      menu.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      icon.innerHTML = open ? closeSVG : menuSVG;
+    }
+    toggle.addEventListener('click', function(){
+      setOpen(!menu.classList.contains('open'));
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ setOpen(false); });
+    });
+  })();
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
   }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
