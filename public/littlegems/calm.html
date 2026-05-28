@@ -43,20 +43,22 @@
   h1 em{font-style:italic;color:var(--sky-d);font-weight:500}
   .sub{text-align:center;color:var(--ink-soft);font-size:18px;margin-bottom:24px;font-style:italic}
 
-  .namebar{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .namebar{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
   .namebar label{font-style:italic;color:var(--ink-soft);font-size:15px}
   .namebar input{font-family:var(--serif);font-size:16px;color:var(--ink);border:none;border-bottom:1.5px solid #D9C39A;background:transparent;padding:2px 6px;width:130px;text-align:center;outline:none}
   .namebar input:focus{border-bottom-color:var(--sky)}
 
-  .jar-wrap{display:flex;align-items:center;gap:18px;justify-content:center;background:#FFFDF9;border:1px solid rgba(184,146,72,0.2);border-radius:16px;padding:16px 20px;margin-bottom:18px}
+  .jar-wrap{display:flex;align-items:center;gap:18px;justify-content:center}
   .jar-wrap svg{flex:0 0 auto}
   .jar-info{text-align:left}
   .jar-title{font-family:var(--serif);font-size:18px;color:var(--ink);margin:0 0 2px}
-  .jar-total{font-family:var(--display);font-size:26px;color:var(--coral-d);line-height:1.1;margin:0}
+  .jar-total{font-family:var(--display);font-size:24px;color:var(--coral-d);line-height:1.1;margin:0}
   .jar-total span{font-family:var(--serif);font-size:15px;color:var(--ink-soft);font-style:italic}
   .jar-reset{font-family:var(--sans);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-faint);background:none;border:none;cursor:pointer;margin-top:6px;padding:0;text-decoration:underline}
   .jar-reset:hover{color:var(--coral-d)}
-  @media(max-width:430px){.jar-wrap{gap:12px;padding:14px}.jar-total{font-size:22px}}
+  @media(max-width:430px){.jar-wrap{gap:12px}.jar-total{font-size:22px}}
+
+  .divider{height:1px;background:rgba(184,146,72,0.22);margin:20px 0}
 
   .panel{background:#FFFDF9;border-radius:20px;padding:24px;border:1px solid rgba(184,146,72,0.2);box-shadow:0 20px 50px -30px rgba(140,110,50,0.4);text-align:center}
 
@@ -94,21 +96,23 @@
   <h1>Calm the <em>Gem</em></h1>
   <p class="sub">Pick a gem, then breathe slowly to help it feel calm.</p>
 
-  <div class="namebar">
-    <label for="nick">My name (optional):</label>
-    <input id="nick" type="text" maxlength="14" placeholder="type here" aria-label="Your nickname, optional">
-  </div>
-
-  <div class="jar-wrap">
-    <svg id="jar" viewBox="0 0 160 180" width="120" height="135" aria-label="Your gem jar"></svg>
-    <div class="jar-info">
-      <p class="jar-title" id="jarTitle">My Gem Jar</p>
-      <p class="jar-total"><span id="totalNum">0</span> <span>gems collected</span></p>
-      <button class="jar-reset" id="jarReset">Start over</button>
-    </div>
-  </div>
-
   <div class="panel">
+    <div class="namebar">
+      <label for="nick">My name (optional):</label>
+      <input id="nick" type="text" maxlength="14" placeholder="type here" aria-label="Your nickname, optional">
+    </div>
+
+    <div class="jar-wrap">
+      <svg id="jar" viewBox="0 0 160 180" width="110" height="124" aria-label="Your gem jar"></svg>
+      <div class="jar-info">
+        <p class="jar-title" id="jarTitle">My Gem Jar</p>
+        <p class="jar-total"><span id="totalNum">0</span> <span>gems collected</span></p>
+        <button class="jar-reset" id="jarReset">Start over</button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
     <p class="pick-label" id="pickLabel">PICK YOUR GEM</p>
     <div class="picker" id="picker"></div>
 
@@ -130,32 +134,61 @@
 <script>
 (function(){
   var GEMS=[
-    {name:"coral",hot:{base:"#E07A52",lt:"#F0997B",dk:"#C96440"}},
-    {name:"rose", hot:{base:"#D4537E",lt:"#E48BA6",dk:"#A83D63"}},
-    {name:"amber",hot:{base:"#E0A93E",lt:"#EEC97A",dk:"#B5882E"}},
-    {name:"violet",hot:{base:"#8E72C7",lt:"#B3A0DC",dk:"#6E55A3"}},
-    {name:"green",hot:{base:"#6BA876",lt:"#97C49B",dk:"#4F8559"}}
+    {name:"coral", shape:"round",    hot:{base:"#E07A52",lt:"#F0997B",dk:"#C96440"}},
+    {name:"rose",  shape:"oval",     hot:{base:"#D4537E",lt:"#E48BA6",dk:"#A83D63"}},
+    {name:"amber", shape:"teardrop", hot:{base:"#E0A93E",lt:"#EEC97A",dk:"#B5882E"}},
+    {name:"violet",shape:"hexagon",  hot:{base:"#8E72C7",lt:"#B3A0DC",dk:"#6E55A3"}},
+    {name:"green", shape:"diamond",  hot:{base:"#6BA876",lt:"#97C49B",dk:"#4F8559"}}
   ];
   var CALM={base:"#4E97A6",lt:"#7FB7C4",dk:"#3A7B89"};
 
   function hex(c){return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)];}
   function mix(c1,c2,t){var a=hex(c1),b=hex(c2);function L(i){return Math.round(a[i]+(b[i]-a[i])*t);}return 'rgb('+L(0)+','+L(1)+','+L(2)+')';}
 
-  function gemFacets(cx,cy,w,h,base,lt,dk,outline,sw){
-    var top=cy-h*0.55, bot=cy+h*0.55, left=cx-w/2, right=cx+w/2, mid=cy-h*0.12;
-    var g='';
-    g+='<path d="M'+cx+' '+top+' L'+right+' '+mid+' L'+cx+' '+bot+' L'+left+' '+mid+' Z" fill="'+base+'" stroke="'+outline+'" stroke-width="'+sw+'" stroke-linejoin="round"/>';
-    g+='<path d="M'+cx+' '+top+' L'+cx+' '+(mid-2)+' L'+left+' '+mid+' Z" fill="'+lt+'"/>';
-    g+='<path d="M'+cx+' '+top+' L'+cx+' '+(mid-2)+' L'+right+' '+mid+' Z" fill="'+dk+'"/>';
-    g+='<path d="M'+left+' '+mid+' L'+cx+' '+(mid+2)+' L'+cx+' '+bot+' Z" fill="'+base+'"/>';
-    g+='<path d="M'+right+' '+mid+' L'+cx+' '+(mid+2)+' L'+cx+' '+bot+' Z" fill="'+dk+'" opacity="0.8"/>';
-    return g;
+  var O="#5B3A8C";
+  function shapeSVG(shape,cx,cy,s,base,lt,dk,sw){
+    if(shape==="round"){
+      var rr=20*s;
+      return '<circle cx="'+cx+'" cy="'+cy+'" r="'+rr+'" fill="'+base+'" stroke="'+O+'" stroke-width="'+sw+'"/>'+
+        '<path d="M'+cx+' '+(cy-rr)+' L'+(cx+rr*0.72)+' '+(cy-rr*0.44)+' L'+cx+' '+cy+' L'+(cx-rr*0.72)+' '+(cy-rr*0.44)+' Z" fill="'+lt+'"/>'+
+        '<path d="M'+(cx+rr*0.72)+' '+(cy-rr*0.44)+' L'+(cx+rr*0.72)+' '+(cy+rr*0.44)+' L'+cx+' '+cy+' Z" fill="'+dk+'"/>'+
+        '<path d="M'+(cx-rr*0.72)+' '+(cy-rr*0.44)+' L'+(cx-rr*0.72)+' '+(cy+rr*0.44)+' L'+cx+' '+cy+' Z" fill="'+dk+'" opacity="0.65"/>'+
+        '<path d="M'+(cx-rr*0.72)+' '+(cy+rr*0.44)+' L'+cx+' '+(cy+rr)+' L'+(cx+rr*0.72)+' '+(cy+rr*0.44)+' L'+cx+' '+cy+' Z" fill="'+base+'"/>';
+    }
+    if(shape==="oval"){
+      var rx=16*s, ry=21*s;
+      return '<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="'+base+'" stroke="'+O+'" stroke-width="'+sw+'"/>'+
+        '<path d="M'+cx+' '+(cy-ry)+' L'+(cx+rx)+' '+cy+' L'+cx+' '+cy+' Z" fill="'+dk+'"/>'+
+        '<path d="M'+cx+' '+(cy-ry)+' L'+(cx-rx)+' '+cy+' L'+cx+' '+cy+' Z" fill="'+lt+'"/>'+
+        '<path d="M'+(cx-rx)+' '+cy+' L'+cx+' '+(cy+ry)+' L'+cx+' '+cy+' Z" fill="'+base+'"/>'+
+        '<path d="M'+(cx+rx)+' '+cy+' L'+cx+' '+(cy+ry)+' L'+cx+' '+cy+' Z" fill="'+dk+'" opacity="0.7"/>';
+    }
+    if(shape==="teardrop"){
+      var u=21*s, w=16*s, bw=16*s, bh=14*s;
+      return '<path d="M'+cx+' '+(cy-u)+' C'+(cx+w*0.9)+' '+(cy-4*s)+' '+(cx+bw)+' '+(cy+4*s)+' '+(cx+bw)+' '+(cy+8*s)+' A'+bw+' '+bh+' 0 1 1 '+(cx-bw)+' '+(cy+8*s)+' C'+(cx-bw)+' '+(cy+4*s)+' '+(cx-w*0.9)+' '+(cy-4*s)+' '+cx+' '+(cy-u)+' Z" fill="'+base+'" stroke="'+O+'" stroke-width="'+sw+'" stroke-linejoin="round"/>'+
+        '<path d="M'+cx+' '+(cy-u)+' C'+(cx+w*0.65)+' '+(cy-4*s)+' '+(cx+w*0.8)+' '+(cy+4*s)+' '+cx+' '+(cy+6*s)+' Z" fill="'+dk+'"/>'+
+        '<path d="M'+cx+' '+(cy-u)+' C'+(cx-w*0.65)+' '+(cy-4*s)+' '+(cx-w*0.8)+' '+(cy+4*s)+' '+cx+' '+(cy+6*s)+' Z" fill="'+lt+'"/>';
+    }
+    if(shape==="hexagon"){
+      var hw=19*s, hh=21*s;
+      return '<path d="M'+(cx-hw*0.5)+' '+(cy-hh)+' L'+(cx+hw*0.5)+' '+(cy-hh)+' L'+(cx+hw)+' '+cy+' L'+(cx+hw*0.5)+' '+(cy+hh)+' L'+(cx-hw*0.5)+' '+(cy+hh)+' L'+(cx-hw)+' '+cy+' Z" fill="'+base+'" stroke="'+O+'" stroke-width="'+sw+'" stroke-linejoin="round"/>'+
+        '<path d="M'+(cx-hw*0.5)+' '+(cy-hh)+' L'+(cx+hw*0.5)+' '+(cy-hh)+' L'+cx+' '+cy+' Z" fill="'+lt+'"/>'+
+        '<path d="M'+(cx+hw*0.5)+' '+(cy-hh)+' L'+(cx+hw)+' '+cy+' L'+cx+' '+cy+' Z" fill="'+dk+'"/>'+
+        '<path d="M'+(cx-hw)+' '+cy+' L'+(cx-hw*0.5)+' '+(cy+hh)+' L'+cx+' '+cy+' Z" fill="'+dk+'" opacity="0.6"/>'+
+        '<path d="M'+(cx+hw*0.5)+' '+(cy+hh)+' L'+(cx+hw)+' '+cy+' L'+cx+' '+cy+' Z" fill="'+lt+'" opacity="0.5"/>';
+    }
+    var w2=36*s,h2=44*s,top=cy-h2*0.55,bot=cy+h2*0.55,l=cx-w2/2,r=cx+w2/2,m=cy-h2*0.12;
+    return '<path d="M'+cx+' '+top+' L'+r+' '+m+' L'+cx+' '+bot+' L'+l+' '+m+' Z" fill="'+base+'" stroke="'+O+'" stroke-width="'+sw+'" stroke-linejoin="round"/>'+
+      '<path d="M'+cx+' '+top+' L'+cx+' '+(m-2)+' L'+l+' '+m+' Z" fill="'+lt+'"/>'+
+      '<path d="M'+cx+' '+top+' L'+cx+' '+(m-2)+' L'+r+' '+m+' Z" fill="'+dk+'"/>'+
+      '<path d="M'+l+' '+m+' L'+cx+' '+(m+2)+' L'+cx+' '+bot+' Z" fill="'+base+'"/>'+
+      '<path d="M'+r+' '+m+' L'+cx+' '+(m+2)+' L'+cx+' '+bot+' Z" fill="'+dk+'" opacity="0.8"/>';
   }
 
   function thumb(gem){
     var c=gem.hot;
     return '<svg viewBox="0 0 60 60" width="50" height="50" aria-hidden="true">'+
-      gemFacets(30,30,34,42,c.base,c.lt,c.dk,"#5B3A8C",2.5)+'</svg>';
+      shapeSVG(gem.shape,30,30,1.35,c.base,c.lt,c.dk,2.5)+'</svg>';
   }
 
   var picker=document.getElementById("picker"),
@@ -193,9 +226,9 @@
     if(!chosen){svg.innerHTML="";return;}
     var c=chosen.hot;
     var base=mix(c.base,CALM.base,warmth), lt=mix(c.lt,CALM.lt,warmth), dk=mix(c.dk,CALM.dk,warmth);
-    var cx=100,cy=100,w=60*scale,h=74*scale;
-    var halo=warmth<0.6?'<circle cx="100" cy="100" r="'+(w*0.92)+'" fill="rgba(224,122,82,'+(0.16*(1-warmth)).toFixed(3)+')"/>':'';
-    svg.innerHTML=halo+gemFacets(cx,cy,w,h,base,lt,dk,"#5B3A8C",3);
+    var cx=100,cy=100;
+    var halo=warmth<0.6?'<circle cx="100" cy="100" r="'+(46*scale)+'" fill="rgba(224,122,82,'+(0.16*(1-warmth)).toFixed(3)+')"/>':'';
+    svg.innerHTML=halo+shapeSVG(chosen.shape,cx,cy,2.0*scale,base,lt,dk,3);
   }
 
   function session(){
