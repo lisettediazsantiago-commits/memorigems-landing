@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MemoriGems Match — A LittleGems Feelings Game</title>
+<meta name="description" content="A free social-emotional learning game for kids. Match each feeling to the moment that causes it, and collect gems along the way.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beige-cream:#FBF6EE;
+    --beige-warm:#FDF0E8;
+    --ink:#2A2317;
+    --ink-soft:#524634;
+    --ink-faint:rgba(42,35,23,0.6);
+    --gold:#B89248; --gold-deep:#8C6E32;
+    --coral:#E07A52; --coral-l:#FDEDE4; --coral-d:#B5552E;
+    --sky:#4E97A6;   --sky-l:#E4F1F4;   --sky-d:#2E6B78;
+    --mint:#6BA876;  --mint-l:#E8F3E9;  --mint-d:#3F7A4A;
+    --sun:#D6A94E;   --sun-l:#FBF0DC;   --sun-d:#946C1E;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --display:'Cinzel',serif;
+    --sans:'Inter',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:var(--serif);
+    background:
+      radial-gradient(ellipse at top,rgba(224,122,82,0.06) 0%,transparent 55%),
+      radial-gradient(ellipse at bottom left,rgba(78,151,166,0.05) 0%,transparent 50%),
+      linear-gradient(180deg,var(--beige-cream) 0%,var(--beige-warm) 100%);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:22px 16px;
+  }
+  .wrap{width:100%;max-width:600px}
+
+  .topline{
+    font-family:var(--display);
+    text-align:center;font-size:11px;letter-spacing:5px;
+    color:var(--coral-d);margin-bottom:12px;
+  }
+  h1{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(28px,6vw,40px);text-align:center;
+    line-height:1.1;margin-bottom:8px;color:var(--ink);
+  }
+  h1 em{font-style:italic;color:var(--coral);font-weight:500}
+  .sub{
+    text-align:center;color:var(--ink-soft);
+    font-size:18px;margin-bottom:24px;font-style:italic;
+  }
+
+  .panel{
+    background:#FFFDF9;
+    border-radius:20px;padding:24px;
+    border:1px solid rgba(184,146,72,0.2);
+    box-shadow:0 20px 50px -30px rgba(140,110,50,0.4);
+  }
+  .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand .dot{
+    width:40px;height:40px;border-radius:50%;
+    background:var(--coral);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:19px;
+  }
+  .brand b{font-weight:600;font-size:18px;color:var(--ink);font-family:var(--serif)}
+  .brand span{display:block;font-size:13px;color:var(--ink-faint);font-style:italic}
+
+  .gembox{
+    display:flex;align-items:center;gap:8px;
+    background:var(--sun-l);padding:7px 16px;border-radius:999px;
+    transition:transform .35s ease;
+  }
+  .gembox .ico{font-size:18px;color:var(--gold)}
+  .gembox b{font-size:20px;font-weight:600;color:var(--gold-deep);font-family:var(--sans)}
+
+  #board{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:480px){#board{gap:8px}.panel{padding:16px}}
+
+  .card{
+    aspect-ratio:1/1;border-radius:16px;
+    border:2.5px solid #EBD9B8;background:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:5px;padding:6px;cursor:pointer;
+    font-family:var(--serif);text-align:center;line-height:1.2;
+    transition:transform .12s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .card:hover{transform:translateY(-3px)}
+  .card:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+  .card .lbl{font-size:14px;font-weight:600}
+  @media(max-width:480px){.card .lbl{font-size:12px}}
+
+  .msg{
+    text-align:center;margin-top:18px;min-height:26px;
+    font-size:18px;font-style:italic;color:var(--ink-soft);
+  }
+  .msg .ok{color:var(--mint-d);font-style:normal;font-family:var(--sans);font-size:15px;font-weight:500}
+  .msg .win{color:var(--coral-d);font-size:19px}
+
+  .controls{text-align:center;margin-top:12px}
+  .btn{
+    font-family:var(--sans);font-size:12px;font-weight:500;
+    letter-spacing:2px;text-transform:uppercase;
+    padding:13px 32px;border-radius:999px;
+    background:var(--ink);color:var(--beige-cream);border:none;
+    cursor:pointer;transition:all .3s ease;
+  }
+  .btn:hover{background:var(--coral-d);transform:translateY(-2px)}
+  .btn:active{transform:scale(0.97)}
+
+  .foot{
+    font-family:var(--sans);
+    text-align:center;margin-top:18px;
+    font-size:12px;letter-spacing:1px;color:var(--ink-faint);
+  }
+  .foot a{color:var(--coral-d);text-decoration:none;font-weight:500}
+
+  @keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+  @keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+  .pop{animation:pop .35s ease}
+  .wiggle{animation:wiggle .4s ease}
+  @media(prefers-reduced-motion:reduce){.card,.pop,.wiggle,.gembox{animation:none!important;transition:none!important}}
+
+  .confetti{position:fixed;width:10px;height:14px;top:-20px;z-index:50;border-radius:2px;pointer-events:none}
+  @keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="topline">A LITTLE FEELINGS GAME</p>
+  <h1>MemoriGems <em>Match</em></h1>
+  <p class="sub">Match each feeling to the moment that gave it.</p>
+
+  <div class="panel">
+    <div class="bar">
+      <div class="brand">
+        <div class="dot">◆</div>
+        <div><b>MemoriGems Match</b><span>Match the feeling to the moment</span></div>
+      </div>
+      <div class="gembox" id="gembox"><span class="ico">◆</span><b id="gemcount">0</b></div>
+    </div>
+    <div id="board" aria-label="Memory match game board"></div>
+    <div class="msg" id="msg">Tap two cards to find a matching pair.</div>
+    <div class="controls"><button class="btn" id="reset">Play again</button></div>
+  </div>
+
+  <p class="foot">PART OF <a href="https://www.mymemorigems.com/littlegems">LITTLEGEMS</a> · FREE · NO SIGNUP NEEDED</p>
+</div>
+
+<script>
+(function(){
+  var STROKE="#7A5B00", SKIN="#FBC02D";
+  function face(type){
+    var common='<circle cx="32" cy="32" r="26" fill="'+SKIN+'" stroke="'+STROKE+'" stroke-width="2"/>';
+    var f={
+      nervous: common+
+        '<ellipse cx="23" cy="28" rx="3.2" ry="4" fill="#3a2c00"/><ellipse cx="41" cy="28" rx="3.2" ry="4" fill="#3a2c00"/>'+
+        '<path d="M18 20 Q23 18 27 21" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 21 Q41 18 46 20" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M25 44 Q32 40 39 44" stroke="'+STROKE+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>'+
+        '<path d="M46 13 q-3.5 5 0 9 q3.5 -4 0 -9z" fill="#5AB6E8" stroke="#3a8fc4" stroke-width="0.8"/>',
+      proud: common+
+        '<path d="M19 26 Q23 23 27 26" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 26 Q41 23 45 26" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M22 17 Q24 15 27 17" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 17 Q40 15 42 17" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M22 41 Q32 50 42 41" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<circle cx="17" cy="37" r="3.5" fill="#FF8A9B" opacity="0.55"/><circle cx="47" cy="37" r="3.5" fill="#FF8A9B" opacity="0.55"/>',
+      grateful: common+
+        '<path d="M19 29 Q23 25 27 29" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 29 Q41 25 45 29" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M24 40 Q32 48 40 40" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<circle cx="17" cy="36" r="3.5" fill="#FF8A9B" opacity="0.55"/><circle cx="47" cy="36" r="3.5" fill="#FF8A9B" opacity="0.55"/>'+
+        '<path d="M44 16 l1.6 3.4 3.4 0.4 -2.5 2.4 0.7 3.6 -3.2 -1.8 -3.2 1.8 0.7 -3.6 -2.5 -2.4 3.4 -0.4z" fill="#FFD54F" stroke="'+STROKE+'" stroke-width="0.8"/>',
+      frustrated: common+
+        '<path d="M19 23 L28 27" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M45 23 L36 27" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<ellipse cx="24" cy="31" rx="3" ry="3.4" fill="#3a2c00"/><ellipse cx="40" cy="31" rx="3" ry="3.4" fill="#3a2c00"/>'+
+        '<path d="M24 46 Q32 40 40 46" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<path d="M14 18 q-1 4 2 6 M16 16 q3 1 4 4" stroke="#E24B4A" stroke-width="2" fill="none" stroke-linecap="round"/>'
+    };
+    return '<svg viewBox="0 0 64 64" width="42" height="42" aria-hidden="true">'+f[type]+'</svg>';
+  }
+  function star(color){
+    return '<svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true"><path d="M32 8 l7.2 15.4 16.8 1.9 -12.6 11.6 3.5 16.6 -14.9 -8.4 -14.9 8.4 3.5 -16.6 -12.6 -11.6 16.8 -1.9z" fill="'+color+'" opacity="0.92"/></svg>';
+  }
+
+  var pairs=[
+    {id:1,key:"nervous",feel:"Nervous",situation:"First day at a new school",light:"#FDEDE4",dark:"#B5552E",raw:"#E07A52"},
+    {id:2,key:"proud",feel:"Proud",situation:"Finished something hard",light:"#E4F1F4",dark:"#2E6B78",raw:"#4E97A6"},
+    {id:3,key:"grateful",feel:"Grateful",situation:"A friend helped me out",light:"#E8F3E9",dark:"#3F7A4A",raw:"#6BA876"},
+    {id:4,key:"frustrated",feel:"Frustrated",situation:"My tower kept falling",light:"#FBF0DC",dark:"#946C1E",raw:"#D6A94E"}
+  ];
+  var cards=[];
+  pairs.forEach(function(p){
+    cards.push({pid:p.id,type:"feel",label:p.feel,art:face(p.key),c:p});
+    cards.push({pid:p.id,type:"sit",label:p.situation,art:star(p.raw),c:p});
+  });
+
+  var board=document.getElementById("board"),msg=document.getElementById("msg"),
+      gemEl=document.getElementById("gemcount"),gembox=document.getElementById("gembox");
+  var flipped=[],gems=0,lock=false;
+  var cheers=["Lovely match!","You found a pair!","Beautifully done.","That's a match!"];
+
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function backFace(){return '<svg viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><path d="M32 10 L50 26 L32 54 L14 26 Z" fill="none" stroke="#D9C39A" stroke-width="3" stroke-linejoin="round"/><path d="M14 26 L50 26 M32 10 L24 26 M32 10 L40 26" stroke="#D9C39A" stroke-width="2"/></svg>';}
+
+  function render(deck){
+    board.innerHTML="";
+    deck.forEach(function(card){
+      var cell=document.createElement("button");
+      cell.className="card";cell.setAttribute("aria-label","Hidden card");
+      cell.innerHTML=backFace();
+      cell.addEventListener("click",function(){flip(card,cell);});
+      board.appendChild(cell);
+    });
+  }
+  function flip(card,cell){
+    if(lock||cell.dataset.open||cell.dataset.done)return;
+    cell.style.background=card.c.light;cell.style.borderColor=card.c.raw;
+    cell.className="card pop";cell.setAttribute("aria-label",card.label);
+    cell.innerHTML=card.art+'<span class="lbl" style="color:'+card.c.dark+'">'+card.label+'</span>';
+    cell.dataset.open="1";flipped.push({card:card,cell:cell});
+    if(flipped.length===2){
+      lock=true;var a=flipped[0],b=flipped[1];
+      if(a.card.pid===b.card.pid&&a.card.type!==b.card.type){
+        setTimeout(function(){
+          [a,b].forEach(function(o){o.cell.dataset.done="1";o.cell.style.opacity="0.62";o.cell.className="card wiggle";});
+          gems++;gemEl.textContent=gems;
+          gembox.classList.remove("pop");void gembox.offsetWidth;gembox.classList.add("pop");
+          msg.innerHTML='<span class="ok">✦ '+cheers[gems%cheers.length]+'</span>';
+          flipped=[];lock=false;
+          if(gems===pairs.length){msg.innerHTML='<span class="win">◆ You collected every gem. Beautifully done. ✦</span>';celebrate();}
+        },650);
+      } else {
+        msg.textContent="Not a match — try again.";
+        setTimeout(function(){
+          [a,b].forEach(function(o){o.cell.style.background="#fff";o.cell.style.borderColor="#EBD9B8";o.cell.className="card";o.cell.setAttribute("aria-label","Hidden card");o.cell.innerHTML=backFace();delete o.cell.dataset.open;});
+          flipped=[];lock=false;
+        },950);
+      }
+    }
+  }
+  function celebrate(){
+    if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+    var colors=["#E07A52","#4E97A6","#6BA876","#D6A94E","#B89248"];
+    for(var i=0;i<60;i++){
+      var c=document.createElement("div");c.className="confetti";
+      c.style.left=Math.random()*100+"vw";c.style.background=colors[i%colors.length];
+      c.style.animation="fall "+(2+Math.random()*1.5)+"s linear "+(Math.random()*0.4)+"s forwards";
+      document.body.appendChild(c);
+      setTimeout((function(el){return function(){el.remove();};})(c),4200);
+    }
+  }
+  function start(){flipped=[];gems=0;lock=false;gemEl.textContent="0";msg.textContent="Tap two cards to find a matching pair.";render(shuffle(cards.slice()));}
+  document.getElementById("reset").addEventListener("click",start);
+  start();
+})();
+</script>
+</body>
+</html>
