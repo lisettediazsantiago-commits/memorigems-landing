@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calm the Gem — A LittleGems Feelings Game</title>
+<meta name="description" content="A free calming breathing activity for kids. Pick a gem, breathe along slowly, and help it feel calm — collecting gems along the way.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beige-cream:#FBF6EE;
+    --beige-warm:#FDF0E8;
+    --ink:#2A2317;
+    --ink-soft:#524634;
+    --ink-faint:rgba(42,35,23,0.6);
+    --gold:#B89248; --gold-deep:#8C6E32;
+    --coral:#E07A52; --coral-l:#FDEDE4; --coral-d:#B5552E;
+    --sky:#4E97A6;   --sky-l:#E4F1F4;   --sky-d:#2E6B78;
+    --mint:#6BA876;  --mint-l:#E8F3E9;  --mint-d:#3F7A4A;
+    --sun:#D6A94E;   --sun-l:#FBF0DC;   --sun-d:#946C1E;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --display:'Cinzel',serif;
+    --sans:'Inter',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:var(--serif);
+    background:
+      radial-gradient(ellipse at top,rgba(78,151,166,0.06) 0%,transparent 55%),
+      radial-gradient(ellipse at bottom left,rgba(107,168,118,0.05) 0%,transparent 50%),
+      linear-gradient(180deg,var(--beige-cream) 0%,var(--beige-warm) 100%);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:22px 16px;
+  }
+  .wrap{width:100%;max-width:600px}
+
+  .topline{font-family:var(--display);text-align:center;font-size:11px;letter-spacing:5px;color:var(--sky-d);margin-bottom:12px}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(28px,6vw,40px);text-align:center;line-height:1.1;margin-bottom:8px;color:var(--ink)}
+  h1 em{font-style:italic;color:var(--sky-d);font-weight:500}
+  .sub{text-align:center;color:var(--ink-soft);font-size:18px;margin-bottom:24px;font-style:italic}
+
+  .namebar{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .namebar label{font-style:italic;color:var(--ink-soft);font-size:15px}
+  .namebar input{font-family:var(--serif);font-size:16px;color:var(--ink);border:none;border-bottom:1.5px solid #D9C39A;background:transparent;padding:2px 6px;width:130px;text-align:center;outline:none}
+  .namebar input:focus{border-bottom-color:var(--sky)}
+
+  .jar-wrap{display:flex;align-items:center;gap:18px;justify-content:center;background:#FFFDF9;border:1px solid rgba(184,146,72,0.2);border-radius:16px;padding:16px 20px;margin-bottom:18px}
+  .jar-wrap svg{flex:0 0 auto}
+  .jar-info{text-align:left}
+  .jar-title{font-family:var(--serif);font-size:18px;color:var(--ink);margin:0 0 2px}
+  .jar-total{font-family:var(--display);font-size:26px;color:var(--coral-d);line-height:1.1;margin:0}
+  .jar-total span{font-family:var(--serif);font-size:15px;color:var(--ink-soft);font-style:italic}
+  .jar-reset{font-family:var(--sans);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-faint);background:none;border:none;cursor:pointer;margin-top:6px;padding:0;text-decoration:underline}
+  .jar-reset:hover{color:var(--coral-d)}
+  @media(max-width:430px){.jar-wrap{gap:12px;padding:14px}.jar-total{font-size:22px}}
+
+  .panel{background:#FFFDF9;border-radius:20px;padding:24px;border:1px solid rgba(184,146,72,0.2);box-shadow:0 20px 50px -30px rgba(140,110,50,0.4);text-align:center}
+
+  .pick-label{font-family:var(--display);font-size:11px;letter-spacing:3px;color:var(--sky-d);margin:0 0 14px}
+  .picker{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+  .pick{background:none;border:2.5px solid transparent;border-radius:16px;padding:8px;cursor:pointer;transition:transform .12s,border-color .2s;-webkit-tap-highlight-color:transparent;line-height:0}
+  .pick:hover{transform:translateY(-3px)}
+  .pick.sel{border-color:var(--sky)}
+  .pick:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
+  .breath-len{display:flex;gap:10px;justify-content:center;margin:8px 0 4px;flex-wrap:wrap}
+  .lenbtn{font-family:var(--sans);font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:8px 16px;border-radius:999px;border:1.5px solid #D9C39A;background:transparent;color:var(--ink-soft);cursor:pointer;transition:all .2s}
+  .lenbtn.sel{background:var(--sky);border-color:var(--sky);color:#fff}
+
+  .stage{position:relative;height:240px;display:flex;align-items:center;justify-content:center;margin:6px 0}
+  .stage svg{overflow:visible}
+
+  .cue{font-size:23px;color:var(--ink);min-height:30px;margin:0 0 4px;font-style:italic}
+  .count{font-family:var(--display);font-size:13px;letter-spacing:2px;color:var(--ink-faint);min-height:18px;margin:0 0 16px}
+
+  .btn{font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:13px 32px;border-radius:999px;background:var(--ink);color:var(--beige-cream);border:none;cursor:pointer;transition:all .3s ease}
+  .btn:hover{background:var(--sky-d);transform:translateY(-2px)}
+  .btn:active{transform:scale(0.97)}
+  .btn[disabled]{opacity:0.4;cursor:default;transform:none}
+
+  .foot{font-family:var(--sans);text-align:center;margin-top:18px;font-size:12px;letter-spacing:1px;color:var(--ink-faint)}
+  .foot a{color:var(--coral-d);text-decoration:none;font-weight:500}
+
+  @media(prefers-reduced-motion:reduce){.pick{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="topline">A CALMING GEM</p>
+  <h1>Calm the <em>Gem</em></h1>
+  <p class="sub">Pick a gem, then breathe slowly to help it feel calm.</p>
+
+  <div class="namebar">
+    <label for="nick">My name (optional):</label>
+    <input id="nick" type="text" maxlength="14" placeholder="type here" aria-label="Your nickname, optional">
+  </div>
+
+  <div class="jar-wrap">
+    <svg id="jar" viewBox="0 0 160 180" width="120" height="135" aria-label="Your gem jar"></svg>
+    <div class="jar-info">
+      <p class="jar-title" id="jarTitle">My Gem Jar</p>
+      <p class="jar-total"><span id="totalNum">0</span> <span>gems collected</span></p>
+      <button class="jar-reset" id="jarReset">Start over</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <p class="pick-label" id="pickLabel">PICK YOUR GEM</p>
+    <div class="picker" id="picker"></div>
+
+    <div class="breath-len" id="lenRow">
+      <button class="lenbtn sel" data-n="3">3 breaths</button>
+      <button class="lenbtn" data-n="5">5 breaths</button>
+    </div>
+
+    <div class="stage"><svg id="cg" viewBox="0 0 200 200" width="210" height="210" aria-hidden="true"></svg></div>
+
+    <p class="cue" id="cue">Choose a gem to begin.</p>
+    <p class="count" id="count"></p>
+    <button class="btn" id="go" disabled>Begin</button>
+  </div>
+
+  <p class="foot">PART OF <a href="https://www.mymemorigems.com/littlegems">LITTLEGEMS</a> · FREE · NO SIGNUP NEEDED</p>
+</div>
+
+<script>
+(function(){
+  var GEMS=[
+    {name:"coral",hot:{base:"#E07A52",lt:"#F0997B",dk:"#C96440"}},
+    {name:"rose", hot:{base:"#D4537E",lt:"#E48BA6",dk:"#A83D63"}},
+    {name:"amber",hot:{base:"#E0A93E",lt:"#EEC97A",dk:"#B5882E"}},
+    {name:"violet",hot:{base:"#8E72C7",lt:"#B3A0DC",dk:"#6E55A3"}},
+    {name:"green",hot:{base:"#6BA876",lt:"#97C49B",dk:"#4F8559"}}
+  ];
+  var CALM={base:"#4E97A6",lt:"#7FB7C4",dk:"#3A7B89"};
+
+  function hex(c){return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)];}
+  function mix(c1,c2,t){var a=hex(c1),b=hex(c2);function L(i){return Math.round(a[i]+(b[i]-a[i])*t);}return 'rgb('+L(0)+','+L(1)+','+L(2)+')';}
+
+  function gemFacets(cx,cy,w,h,base,lt,dk,outline,sw){
+    var top=cy-h*0.55, bot=cy+h*0.55, left=cx-w/2, right=cx+w/2, mid=cy-h*0.12;
+    var g='';
+    g+='<path d="M'+cx+' '+top+' L'+right+' '+mid+' L'+cx+' '+bot+' L'+left+' '+mid+' Z" fill="'+base+'" stroke="'+outline+'" stroke-width="'+sw+'" stroke-linejoin="round"/>';
+    g+='<path d="M'+cx+' '+top+' L'+cx+' '+(mid-2)+' L'+left+' '+mid+' Z" fill="'+lt+'"/>';
+    g+='<path d="M'+cx+' '+top+' L'+cx+' '+(mid-2)+' L'+right+' '+mid+' Z" fill="'+dk+'"/>';
+    g+='<path d="M'+left+' '+mid+' L'+cx+' '+(mid+2)+' L'+cx+' '+bot+' Z" fill="'+base+'"/>';
+    g+='<path d="M'+right+' '+mid+' L'+cx+' '+(mid+2)+' L'+cx+' '+bot+' Z" fill="'+dk+'" opacity="0.8"/>';
+    return g;
+  }
+
+  function thumb(gem){
+    var c=gem.hot;
+    return '<svg viewBox="0 0 60 60" width="50" height="50" aria-hidden="true">'+
+      gemFacets(30,30,34,42,c.base,c.lt,c.dk,"#5B3A8C",2.5)+'</svg>';
+  }
+
+  var picker=document.getElementById("picker"),
+      svg=document.getElementById("cg"), cue=document.getElementById("cue"),
+      countEl=document.getElementById("count"), go=document.getElementById("go"),
+      pickLabel=document.getElementById("pickLabel"), lenRow=document.getElementById("lenRow");
+  var chosen=null, breaths=3, running=false;
+
+  GEMS.forEach(function(gem,i){
+    var b=document.createElement("button");
+    b.className="pick"; b.setAttribute("aria-label","Choose the "+gem.name+" gem");
+    b.innerHTML=thumb(gem);
+    b.addEventListener("click",function(){
+      if(running)return;
+      chosen=gem;
+      [].forEach.call(picker.children,function(c){c.classList.remove("sel");});
+      b.classList.add("sel");
+      go.disabled=false;
+      cue.textContent="Press Begin when you're ready.";
+      drawGem(0.85,0);
+    });
+    picker.appendChild(b);
+  });
+
+  [].forEach.call(lenRow.children,function(btn){
+    btn.addEventListener("click",function(){
+      if(running)return;
+      breaths=parseInt(btn.dataset.n,10);
+      [].forEach.call(lenRow.children,function(c){c.classList.remove("sel");});
+      btn.classList.add("sel");
+    });
+  });
+
+  function drawGem(scale,warmth){
+    if(!chosen){svg.innerHTML="";return;}
+    var c=chosen.hot;
+    var base=mix(c.base,CALM.base,warmth), lt=mix(c.lt,CALM.lt,warmth), dk=mix(c.dk,CALM.dk,warmth);
+    var cx=100,cy=100,w=60*scale,h=74*scale;
+    var halo=warmth<0.6?'<circle cx="100" cy="100" r="'+(w*0.92)+'" fill="rgba(224,122,82,'+(0.16*(1-warmth)).toFixed(3)+')"/>':'';
+    svg.innerHTML=halo+gemFacets(cx,cy,w,h,base,lt,dk,"#5B3A8C",3);
+  }
+
+  function session(){
+    var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+    var IN=reduce?900:3000, OUT=reduce?900:3000, HOLD=reduce?200:600;
+    function breath(n){
+      if(n>breaths){
+        cue.textContent="Ahh… all calm.";
+        countEl.innerHTML='<span style="color:#3F7A4A">✦ gem earned</span>';
+        drawGem(1.0,1);
+        total++;saveTotal();drawJar();
+        running=false; go.disabled=false; go.style.display=""; go.textContent="Again";
+        return;
+      }
+      countEl.textContent="Breath "+n+" of "+breaths;
+      var base=(n-1)/breaths, step=1/breaths;
+      cue.textContent="Breathe in…";
+      var t0=Date.now();
+      function animIn(){
+        var p=Math.min((Date.now()-t0)/IN,1);
+        drawGem(0.85+0.5*p, base+step*0.5*p);
+        if(p<1)requestAnimationFrame(animIn);
+        else{cue.textContent="Hold…";setTimeout(startOut,HOLD);}
+      }
+      function startOut(){
+        cue.textContent="Breathe out…";
+        var t1=Date.now();
+        function animOut(){
+          var p=Math.min((Date.now()-t1)/OUT,1);
+          drawGem(1.35-0.5*p, base+step*(0.5+0.5*p));
+          if(p<1)requestAnimationFrame(animOut);
+          else setTimeout(function(){breath(n+1);},300);
+        }
+        animOut();
+      }
+      animIn();
+    }
+    breath(1);
+  }
+
+  go.addEventListener("click",function(){
+    if(running||!chosen)return;
+    running=true; go.style.display="none";
+    session();
+  });
+
+  var KEY_TOTAL="littlegems_match_total", KEY_NAME="littlegems_match_name";
+  var total=0;
+  var totalEl=document.getElementById("totalNum"),
+      jarEl=document.getElementById("jar"),
+      jarTitle=document.getElementById("jarTitle"),
+      nickEl=document.getElementById("nick");
+
+  function loadTotal(){try{var v=window.localStorage.getItem(KEY_TOTAL);total=v?parseInt(v,10)||0:0;}catch(e){total=0;}}
+  function saveTotal(){try{window.localStorage.setItem(KEY_TOTAL,String(total));}catch(e){}totalEl.textContent=total;}
+  function loadName(){try{var n=window.localStorage.getItem(KEY_NAME)||"";nickEl.value=n;applyName(n);}catch(e){}}
+  function applyName(n){n=(n||"").trim();jarTitle.textContent=n?(n+"'s Gem Jar"):"My Gem Jar";}
+  nickEl.addEventListener("input",function(){var n=nickEl.value.trim();applyName(n);try{window.localStorage.setItem(KEY_NAME,n);}catch(e){}});
+
+  var GEMSHAPES=[
+    ["#E07A52","#F0997B","#C96440"],["#4E97A6","#7FB7C4","#3A7B89"],
+    ["#6BA876","#97C49B","#4F8559"],["#D6A94E","#E8C77E","#B5882E"],
+    ["#C77EB5","#DDA8D0","#A85C97"],["#D88AA0","#EBB3C2","#B5647C"]
+  ];
+  function gemSVG(x,y,s,cols){
+    return '<g transform="translate('+x+','+y+')" stroke="#5B3A8C" stroke-width="'+(2*s).toFixed(1)+'" stroke-linejoin="round">'+
+      '<path d="M0 '+(6*s)+' L'+(8*s)+' '+(-6*s)+' L'+(20*s)+' '+(-6*s)+' L'+(28*s)+' '+(6*s)+' L'+(14*s)+' '+(16*s)+' Z" fill="'+cols[0]+'"/>'+
+      '<path d="M'+(8*s)+' '+(-6*s)+' L'+(14*s)+' '+(4*s)+' L0 '+(6*s)+' Z" fill="'+cols[1]+'"/>'+
+      '<path d="M'+(20*s)+' '+(-6*s)+' L'+(14*s)+' '+(4*s)+' L'+(28*s)+' '+(6*s)+' Z" fill="'+cols[2]+'"/>'+
+      '</g>';
+  }
+  function drawJar(){
+    totalEl.textContent=total;
+    var jarBody='<ellipse cx="80" cy="170" rx="46" ry="8" fill="#000" opacity="0.06"/>'+
+      '<path d="M52 30 h56 v8 q12 3 12 18 v74 q0 12 -14 12 h-52 q-14 0 -14 -12 v-74 q0 -15 12 -18 z" fill="#DCEEF3" stroke="#4E97A6" stroke-width="2.5" opacity="0.75"/>';
+    var clip='<clipPath id="jarClip"><path d="M54 40 q-12 4 -12 18 v74 q0 10 14 10 h48 q14 0 14 -10 v-74 q0 -14 -12 -18 z"/></clipPath>';
+    var shown=Math.min(total,28);
+    var gemsHTML='';
+    var cxC=80, floorY=124, rowH=11, gw=19, s=0.86;
+    var caps=[2,3,3,4,4,4,5,5];
+    var placed=0, row=0;
+    while(placed<shown && row<caps.length){
+      var capN=caps[row];var thisN=Math.min(capN, shown-placed);
+      var y=floorY-row*rowH;var startX=cxC-((thisN-1)*gw)/2;
+      for(var k=0;k<thisN;k++){
+        var idx=placed+k;var x=startX+k*gw;
+        var jx=((idx*29)%5)-2;var jy=((idx*17)%4)-2;
+        var cols=GEMSHAPES[(idx*3+row)%GEMSHAPES.length];
+        gemsHTML+=gemSVG(x+jx-13, y+jy, s, cols);
+      }
+      placed+=thisN; row++;
+    }
+    var lid='<path d="M52 30 h56 v8 h-56 z" fill="#B89248" stroke="#8C6E32" stroke-width="2"/>'+
+      '<rect x="74" y="24" width="12" height="8" rx="2" fill="#C9A66C" stroke="#8C6E32" stroke-width="1.5"/>';
+    jarEl.innerHTML=jarBody+clip+'<g clip-path="url(#jarClip)">'+gemsHTML+'</g>'+lid;
+  }
+
+  document.getElementById("jarReset").addEventListener("click",function(){
+    if(window.confirm("Start your gem jar over from zero?")){total=0;saveTotal();drawJar();}
+  });
+
+  loadTotal();loadName();drawJar();
+})();
+</script>
+</body>
+</html>
