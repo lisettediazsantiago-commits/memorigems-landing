@@ -173,6 +173,34 @@
     color: var(--coral); margin-top: 32px; opacity: 0; animation: fadeUp 2s 1s forwards;
   }
 
+  .hero-jumps {
+    display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+    max-width: 600px; margin: 40px auto 0; opacity: 0; animation: fadeUp 2.2s 1.2s forwards;
+  }
+  .jump-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--sans); font-size: 12px; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 12px 22px; border-radius: 100px;
+    border: 1px solid var(--coral); color: var(--coral-deep);
+    background: rgba(255,255,255,0.5); text-decoration: none;
+    transition: all 0.3s ease; cursor: pointer;
+  }
+  .jump-btn:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .jump-btn i, .jump-btn svg { width: 15px; height: 15px; }
+  .jump-btn.j-match { border-color: var(--coral); color: var(--coral-deep); }
+  .jump-btn.j-match:hover { background: var(--coral); }
+  .jump-btn.j-choices { border-color: var(--mint); color: var(--mint-deep); }
+  .jump-btn.j-choices:hover { background: var(--mint); color: #fff; }
+  .jump-btn.j-calm { border-color: var(--sky); color: var(--sky-deep); }
+  .jump-btn.j-calm:hover { background: var(--sky); color: #fff; }
+  .jump-btn.j-print { border-color: var(--gold); color: var(--gold-deep); }
+  .jump-btn.j-print:hover { background: var(--gold); color: #fff; }
+  @media (max-width: 600px) {
+    .hero-jumps { gap: 8px; margin-top: 28px; }
+    .jump-btn { font-size: 11px; padding: 10px 16px; letter-spacing: 0.5px; }
+  }
+
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -402,6 +430,25 @@
     <h1>Preserving connection shouldn't only begin when we're <em>afraid of losing it</em>.</h1>
     <p class="hero-sub">Free printable memory and connection sheets for the little ones in your life — to draw, color, and share gems with the people they love.</p>
     <div class="hero-note">FREE · PRINTABLE · MADE WITH CARE</div>
+
+    <div class="hero-jumps">
+      <a href="#printables" class="jump-btn j-print">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-2 6H8z"/><path d="M8 9l-2 12h12l-2-12"/></svg>
+        Coloring sheets
+      </a>
+      <a href="#game-match" class="jump-btn j-match">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Match game
+      </a>
+      <a href="#game-choices" class="jump-btn j-choices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>
+        Kindness game
+      </a>
+      <a href="#game-calm" class="jump-btn j-calm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
+        Calming game
+      </a>
+    </div>
   </div>
 </section>
 
@@ -409,7 +456,7 @@
   <p class="intro-quote">Children's drawings <em>are</em> gems. The little voice notes, the small stories, the way a kid remembers a moment — these are the beginnings of emotional memory keeping.</p>
 </section>
 
-<section class="gems-section">
+<section class="gems-section" id="printables">
   <div class="section-eyebrow">FIVE LITTLE GEMS</div>
   <h2 class="section-title">Print, color, share, <em>remember</em>.</h2>
   <div class="section-divider"></div>
@@ -484,7 +531,7 @@
   </div>
 </section>
 
-<section class="game-section">
+<section class="game-section" id="game-match">
   <div class="section-eyebrow">A LITTLE GAME</div>
   <h2 class="section-title">Match the feeling to the <em>moment</em>.</h2>
   <div class="section-divider"></div>
@@ -494,7 +541,7 @@
   </div>
 </section>
 
-<section class="game-section" style="background:var(--mint-soft);">
+<section class="game-section" id="game-choices" style="background:var(--mint-soft);">
   <div class="section-eyebrow">ANOTHER LITTLE GAME</div>
   <h2 class="section-title">Choose the <em>kindest</em> thing to do.</h2>
   <div class="section-divider"></div>
@@ -504,7 +551,7 @@
   </div>
 </section>
 
-<section class="game-section">
+<section class="game-section" id="game-calm">
   <div class="section-eyebrow">A CALMING GAME</div>
   <h2 class="section-title">Breathe, and help a gem feel <em>calm</em>.</h2>
   <div class="section-divider"></div>
