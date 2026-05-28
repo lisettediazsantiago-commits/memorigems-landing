@@ -155,59 +155,158 @@
 <script>
 (function(){
   var STROKE="#7A5B00", SKIN="#FBC02D";
+  var EYE="#3a2c00";
   function face(type){
-    var common='<circle cx="32" cy="32" r="26" fill="'+SKIN+'" stroke="'+STROKE+'" stroke-width="2"/>';
+    var c='<circle cx="32" cy="32" r="26" fill="'+SKIN+'" stroke="'+STROKE+'" stroke-width="2"/>';
+    var dotEyes='<ellipse cx="24" cy="29" rx="3" ry="3.6" fill="'+EYE+'"/><ellipse cx="40" cy="29" rx="3" ry="3.6" fill="'+EYE+'"/>';
+    var happyEyes='<path d="M19 29 Q23 25 27 29" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M37 29 Q41 25 45 29" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/>';
+    var blush='<circle cx="17" cy="37" r="3.5" fill="#FF8A9B" opacity="0.55"/><circle cx="47" cy="37" r="3.5" fill="#FF8A9B" opacity="0.55"/>';
     var f={
-      nervous: common+
-        '<ellipse cx="23" cy="28" rx="3.2" ry="4" fill="#3a2c00"/><ellipse cx="41" cy="28" rx="3.2" ry="4" fill="#3a2c00"/>'+
+      nervous: c+
+        '<ellipse cx="23" cy="28" rx="3.2" ry="4" fill="'+EYE+'"/><ellipse cx="41" cy="28" rx="3.2" ry="4" fill="'+EYE+'"/>'+
         '<path d="M18 20 Q23 18 27 21" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
         '<path d="M37 21 Q41 18 46 20" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
         '<path d="M25 44 Q32 40 39 44" stroke="'+STROKE+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>'+
         '<path d="M46 13 q-3.5 5 0 9 q3.5 -4 0 -9z" fill="#5AB6E8" stroke="#3a8fc4" stroke-width="0.8"/>',
-      proud: common+
-        '<path d="M19 26 Q23 23 27 26" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
-        '<path d="M37 26 Q41 23 45 26" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+      proud: c+
+        '<path d="M19 26 Q23 23 27 26" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 26 Q41 23 45 26" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/>'+
         '<path d="M22 17 Q24 15 27 17" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
         '<path d="M37 17 Q40 15 42 17" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
-        '<path d="M22 41 Q32 50 42 41" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
-        '<circle cx="17" cy="37" r="3.5" fill="#FF8A9B" opacity="0.55"/><circle cx="47" cy="37" r="3.5" fill="#FF8A9B" opacity="0.55"/>',
-      grateful: common+
-        '<path d="M19 29 Q23 25 27 29" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
-        '<path d="M37 29 Q41 25 45 29" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
-        '<path d="M24 40 Q32 48 40 40" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
-        '<circle cx="17" cy="36" r="3.5" fill="#FF8A9B" opacity="0.55"/><circle cx="47" cy="36" r="3.5" fill="#FF8A9B" opacity="0.55"/>'+
+        '<path d="M22 41 Q32 50 42 41" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+blush,
+      grateful: c+happyEyes+
+        '<path d="M24 40 Q32 48 40 40" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+blush+
         '<path d="M44 16 l1.6 3.4 3.4 0.4 -2.5 2.4 0.7 3.6 -3.2 -1.8 -3.2 1.8 0.7 -3.6 -2.5 -2.4 3.4 -0.4z" fill="#FFD54F" stroke="'+STROKE+'" stroke-width="0.8"/>',
-      frustrated: common+
-        '<path d="M19 23 L28 27" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
-        '<path d="M45 23 L36 27" stroke="#3a2c00" stroke-width="3" fill="none" stroke-linecap="round"/>'+
-        '<ellipse cx="24" cy="31" rx="3" ry="3.4" fill="#3a2c00"/><ellipse cx="40" cy="31" rx="3" ry="3.4" fill="#3a2c00"/>'+
+      frustrated: c+
+        '<path d="M19 23 L28 27" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M45 23 L36 27" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<ellipse cx="24" cy="31" rx="3" ry="3.4" fill="'+EYE+'"/><ellipse cx="40" cy="31" rx="3" ry="3.4" fill="'+EYE+'"/>'+
         '<path d="M24 46 Q32 40 40 46" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
-        '<path d="M14 18 q-1 4 2 6 M16 16 q3 1 4 4" stroke="#E24B4A" stroke-width="2" fill="none" stroke-linecap="round"/>'
+        '<path d="M14 18 q-1 4 2 6 M16 16 q3 1 4 4" stroke="#E24B4A" stroke-width="2" fill="none" stroke-linecap="round"/>',
+      happy: c+happyEyes+
+        '<path d="M21 40 Q32 51 43 40" stroke="'+STROKE+'" stroke-width="2.8" fill="none" stroke-linecap="round"/>'+blush,
+      sad: c+
+        '<ellipse cx="24" cy="30" rx="3" ry="3.6" fill="'+EYE+'"/><ellipse cx="40" cy="30" rx="3" ry="3.6" fill="'+EYE+'"/>'+
+        '<path d="M19 25 Q23 27 27 25" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 25 Q41 27 45 25" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M25 45 Q32 40 39 45" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round" transform="rotate(180 32 42.5)"/>'+
+        '<path d="M40 34 q0 5 0 7" stroke="#5AB6E8" stroke-width="2.2" fill="none" stroke-linecap="round"/>',
+      excited: c+
+        '<path d="M19 27 Q23 22 27 27" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 27 Q41 22 45 27" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<ellipse cx="32" cy="43" rx="6" ry="7" fill="'+EYE+'"/>'+blush,
+      worried: c+
+        '<ellipse cx="24" cy="30" rx="3" ry="3.6" fill="'+EYE+'"/><ellipse cx="40" cy="30" rx="3" ry="3.6" fill="'+EYE+'"/>'+
+        '<path d="M19 22 Q24 19 28 23" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M36 23 Q40 19 45 22" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M25 44 Q32 41 39 44" stroke="'+STROKE+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>',
+      shy: c+
+        '<path d="M19 30 Q23 27 27 30" stroke="'+EYE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 30 Q41 27 45 30" stroke="'+EYE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<path d="M27 44 Q32 47 37 44" stroke="'+STROKE+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>'+
+        '<circle cx="16" cy="38" r="4" fill="#FF8A9B" opacity="0.6"/><circle cx="48" cy="38" r="4" fill="#FF8A9B" opacity="0.6"/>',
+      calm: c+
+        '<path d="M20 30 L28 30" stroke="'+EYE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<path d="M36 30 L44 30" stroke="'+EYE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<path d="M26 42 Q32 46 38 42" stroke="'+STROKE+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>'+blush,
+      surprised: c+
+        '<circle cx="24" cy="29" r="4" fill="'+EYE+'"/><circle cx="40" cy="29" r="4" fill="'+EYE+'"/>'+
+        '<path d="M20 21 Q24 18 28 21" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M36 21 Q40 18 44 21" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<ellipse cx="32" cy="44" rx="4.5" ry="5.5" fill="'+EYE+'"/>',
+      loved: c+happyEyes+
+        '<path d="M24 41 Q32 49 40 41" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+blush+
+        '<path d="M46 14 c-2 -2 -5 0 -5 2.5 c0 2.5 5 5 5 5 s5 -2.5 5 -5 c0 -2.5 -3 -4.5 -5 -2.5z" fill="#E8617A"/>',
+      jealous: c+
+        '<path d="M19 24 L27 27" stroke="'+EYE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<path d="M45 24 L37 27" stroke="'+EYE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<ellipse cx="24" cy="31" rx="2.8" ry="3.2" fill="'+EYE+'"/><ellipse cx="40" cy="31" rx="2.8" ry="3.2" fill="'+EYE+'"/>'+
+        '<path d="M26 44 L38 44" stroke="'+STROKE+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>',
+      lonely: c+
+        '<ellipse cx="24" cy="31" rx="3" ry="3.4" fill="'+EYE+'"/><ellipse cx="40" cy="31" rx="3" ry="3.4" fill="'+EYE+'"/>'+
+        '<path d="M19 26 Q23 28 27 26" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 26 Q41 28 45 26" stroke="'+STROKE+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+        '<path d="M26 45 Q32 42 38 45" stroke="'+STROKE+'" stroke-width="2.4" fill="none" stroke-linecap="round" transform="rotate(180 32 43.5)"/>',
+      hopeful: c+
+        '<path d="M19 28 Q23 25 27 28" stroke="'+EYE+'" stroke-width="2.8" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 28 Q41 25 45 28" stroke="'+EYE+'" stroke-width="2.8" fill="none" stroke-linecap="round"/>'+
+        '<path d="M25 42 Q32 47 39 42" stroke="'+STROKE+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>'+
+        '<path d="M44 15 l1.2 2.6 2.8 0.3 -2 1.9 0.5 2.8 -2.5 -1.4 -2.5 1.4 0.5 -2.8 -2 -1.9 2.8 -0.3z" fill="#FFD54F"/>',
+      embarrassed: c+
+        '<path d="M19 30 Q23 27 27 30" stroke="'+EYE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 30 Q41 27 45 30" stroke="'+EYE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<path d="M26 43 Q32 46 38 43" stroke="'+STROKE+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>'+
+        '<circle cx="15" cy="37" r="4.5" fill="#FF6B7E" opacity="0.6"/><circle cx="49" cy="37" r="4.5" fill="#FF6B7E" opacity="0.6"/>',
+      brave: c+
+        '<path d="M19 25 Q23 23 27 25" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M37 25 Q41 23 45 25" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        dotEyes+
+        '<path d="M24 42 L40 42" stroke="'+STROKE+'" stroke-width="2.8" fill="none" stroke-linecap="round"/>',
+      silly: c+
+        '<path d="M19 28 Q23 24 27 28" stroke="'+EYE+'" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<ellipse cx="40" cy="29" rx="3" ry="3.6" fill="'+EYE+'"/>'+
+        '<path d="M24 41 Q32 49 40 41" stroke="'+STROKE+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+        '<path d="M34 44 Q37 50 40 46" fill="#E8617A" stroke="'+STROKE+'" stroke-width="0.8"/>'
     };
-    return '<svg viewBox="0 0 64 64" width="42" height="42" aria-hidden="true">'+f[type]+'</svg>';
+    return '<svg viewBox="0 0 64 64" width="42" height="42" aria-hidden="true">'+(f[type]||f.happy)+'</svg>';
   }
   function star(color){
     return '<svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true"><path d="M32 8 l7.2 15.4 16.8 1.9 -12.6 11.6 3.5 16.6 -14.9 -8.4 -14.9 8.4 3.5 -16.6 -12.6 -11.6 16.8 -1.9z" fill="'+color+'" opacity="0.92"/></svg>';
   }
 
-  var pairs=[
-    {id:1,key:"nervous",feel:"Nervous",situation:"First day at a new school",light:"#FDEDE4",dark:"#B5552E",raw:"#E07A52"},
-    {id:2,key:"proud",feel:"Proud",situation:"Finished something hard",light:"#E4F1F4",dark:"#2E6B78",raw:"#4E97A6"},
-    {id:3,key:"grateful",feel:"Grateful",situation:"A friend helped me out",light:"#E8F3E9",dark:"#3F7A4A",raw:"#6BA876"},
-    {id:4,key:"frustrated",feel:"Frustrated",situation:"My tower kept falling",light:"#FBF0DC",dark:"#946C1E",raw:"#D6A94E"}
+  var BANK=[
+    {key:"nervous",feel:"Nervous",situation:"First day at a new school"},
+    {key:"proud",feel:"Proud",situation:"I finished something really hard"},
+    {key:"grateful",feel:"Grateful",situation:"A friend helped me when I was stuck"},
+    {key:"frustrated",feel:"Frustrated",situation:"My tower kept falling down"},
+    {key:"happy",feel:"Happy",situation:"We got to play outside all afternoon"},
+    {key:"sad",feel:"Sad",situation:"My best friend moved away"},
+    {key:"excited",feel:"Excited",situation:"Tomorrow is my birthday party"},
+    {key:"worried",feel:"Worried",situation:"I have a big test in the morning"},
+    {key:"shy",feel:"Shy",situation:"I had to talk in front of the class"},
+    {key:"calm",feel:"Calm",situation:"Reading a story before bedtime"},
+    {key:"surprised",feel:"Surprised",situation:"There was a puppy waiting at home"},
+    {key:"loved",feel:"Loved",situation:"Grandma gave me a big warm hug"},
+    {key:"jealous",feel:"Jealous",situation:"My sister got a turn before me"},
+    {key:"lonely",feel:"Lonely",situation:"Nobody picked me for their team"},
+    {key:"hopeful",feel:"Hopeful",situation:"I'm trying again after I missed"},
+    {key:"embarrassed",feel:"Embarrassed",situation:"I tripped in front of everyone"},
+    {key:"brave",feel:"Brave",situation:"I went down the big slide by myself"},
+    {key:"silly",feel:"Silly",situation:"We made up a goofy dance together"},
+    {key:"frustrated",feel:"Frustrated",situation:"My shoelaces won't stay tied"},
+    {key:"proud",feel:"Proud",situation:"I read a whole chapter book"},
+    {key:"happy",feel:"Happy",situation:"My drawing went up on the fridge"},
+    {key:"worried",feel:"Worried",situation:"My pet had to visit the vet"},
+    {key:"grateful",feel:"Grateful",situation:"Someone shared their snack with me"},
+    {key:"excited",feel:"Excited",situation:"We're going on a field trip today"}
   ];
-  var cards=[];
-  pairs.forEach(function(p){
-    cards.push({pid:p.id,type:"feel",label:p.feel,art:face(p.key),c:p});
-    cards.push({pid:p.id,type:"sit",label:p.situation,art:star(p.raw),c:p});
-  });
 
+  var SWATCHES=[
+    {light:"#FDEDE4",dark:"#B5552E",raw:"#E07A52"},
+    {light:"#E4F1F4",dark:"#2E6B78",raw:"#4E97A6"},
+    {light:"#E8F3E9",dark:"#3F7A4A",raw:"#6BA876"},
+    {light:"#FBF0DC",dark:"#946C1E",raw:"#D6A94E"}
+  ];
+
+  var ROUND=4;
   var board=document.getElementById("board"),msg=document.getElementById("msg"),
       gemEl=document.getElementById("gemcount"),gembox=document.getElementById("gembox");
-  var flipped=[],gems=0,lock=false;
+  var flipped=[],gems=0,lock=false,roundPairs=ROUND;
   var cheers=["Lovely match!","You found a pair!","Beautifully done.","That's a match!"];
 
   function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+  function buildRound(){
+    var picks=shuffle(BANK.slice()).slice(0,ROUND);
+    var cards=[];
+    picks.forEach(function(p,i){
+      var sw=SWATCHES[i%SWATCHES.length];
+      var c={raw:sw.raw,light:sw.light,dark:sw.dark};
+      cards.push({pid:i,type:"feel",label:p.feel,art:face(p.key),c:c});
+      cards.push({pid:i,type:"sit",label:p.situation,art:star(sw.raw),c:c});
+    });
+    return shuffle(cards);
+  }
   function backFace(){return '<svg viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><path d="M32 10 L50 26 L32 54 L14 26 Z" fill="none" stroke="#D9C39A" stroke-width="3" stroke-linejoin="round"/><path d="M14 26 L50 26 M32 10 L24 26 M32 10 L40 26" stroke="#D9C39A" stroke-width="2"/></svg>';}
 
   function render(deck){
@@ -235,7 +334,7 @@
           gembox.classList.remove("pop");void gembox.offsetWidth;gembox.classList.add("pop");
           msg.innerHTML='<span class="ok">✦ '+cheers[gems%cheers.length]+'</span>';
           flipped=[];lock=false;
-          if(gems===pairs.length){msg.innerHTML='<span class="win">◆ You collected every gem. Beautifully done. ✦</span>';celebrate();}
+          if(gems===roundPairs){msg.innerHTML='<span class="win">◆ You collected every gem. Beautifully done. ✦</span>';celebrate();}
         },650);
       } else {
         msg.textContent="Not a match — try again.";
@@ -257,7 +356,13 @@
       setTimeout((function(el){return function(){el.remove();};})(c),4200);
     }
   }
-  function start(){flipped=[];gems=0;lock=false;gemEl.textContent="0";msg.textContent="Tap two cards to find a matching pair.";render(shuffle(cards.slice()));}
+  function start(){
+    flipped=[];gems=0;lock=false;gemEl.textContent="0";
+    msg.textContent="Tap two cards to find a matching pair.";
+    var deck=buildRound();
+    roundPairs=deck.length/2;
+    render(deck);
+  }
   document.getElementById("reset").addEventListener("click",start);
   start();
 })();
