@@ -297,9 +297,12 @@
   }
   .game-frame-wrap { max-width: 660px; margin: 0 auto; }
   .game-frame {
-    width: 100%; height: 760px; border: none; border-radius: 20px;
+    width: 100%; border: none; border-radius: 20px;
     box-shadow: 0 24px 60px -30px rgba(140, 110, 50, 0.5); background: var(--beige-cream);
   }
+  .game-frame.gf-match { height: 880px; }
+  .game-frame.gf-choices { height: 860px; }
+  .game-frame.gf-calm { height: 930px; }
 
   .use-ideas { background: var(--mint-soft); padding: 120px 48px; text-align: center; }
   .use-ideas-grid {
@@ -364,7 +367,9 @@
     .gems-section { padding: 80px 24px; }
     .gems-grid { gap: 32px; }
     .game-section { padding: 80px 20px; }
-    .game-frame { height: 720px; }
+    .game-frame.gf-match { height: 1260px; }
+    .game-frame.gf-choices { height: 920px; }
+    .game-frame.gf-calm { height: 1050px; }
     .use-ideas { padding: 80px 24px; }
     .cta-band { padding: 90px 24px; }
     footer { padding: 40px 24px 24px; }
@@ -485,7 +490,7 @@
   <div class="section-divider"></div>
   <p class="game-intro reveal">A gentle game for children — pair each feeling with the moment that gave it, and collect a gem for every match. A small way to put words to big feelings.</p>
   <div class="game-frame-wrap reveal">
-    <iframe class="game-frame" src="/littlegems/match.html" title="MemoriGems Match — a feelings game" loading="lazy"></iframe>
+    <iframe class="game-frame gf-match" src="/littlegems/match.html" title="MemoriGems Match — a feelings game" loading="lazy"></iframe>
   </div>
 </section>
 
@@ -495,7 +500,7 @@
   <div class="section-divider"></div>
   <p class="game-intro reveal">Read a little moment, then tap the gem holding the kindest choice. A gentle way to practice empathy and good decisions — and every kind choice adds a gem to the same jar.</p>
   <div class="game-frame-wrap reveal">
-    <iframe class="game-frame" src="/littlegems/choices.html" title="Gem Choices — a kindness game" loading="lazy"></iframe>
+    <iframe class="game-frame gf-choices" src="/littlegems/choices.html" title="Gem Choices — a kindness game" loading="lazy"></iframe>
   </div>
 </section>
 
@@ -505,7 +510,7 @@
   <div class="section-divider"></div>
   <p class="game-intro reveal">Pick a gem, then breathe along slowly as it grows and shrinks. Watch it cool from a big feeling to calm — a gentle way to settle a racing heart. Each calm breath adds a gem to the same jar.</p>
   <div class="game-frame-wrap reveal">
-    <iframe class="game-frame" src="/littlegems/calm.html" title="Calm the Gem — a breathing game" loading="lazy"></iframe>
+    <iframe class="game-frame gf-calm" src="/littlegems/calm.html" title="Calm the Gem — a breathing game" loading="lazy"></iframe>
   </div>
 </section>
 
