@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Color a Gem online · LittleGems by MemoriGems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beige-cream:#FBF6EE;--beige-warm:#FDF0E8;--beige-paper:#FFFDF9;--beige-deep:#F2E2CF;
+    --gold:#B89248;--gold-deep:#8C6E32;--gold-pale:#E8D9B5;
+    --coral:#E07A52;--coral-deep:#B5552E;--coral-soft:#FDEDE4;
+    --sky:#4E97A6;--sky-deep:#2E6B78;--sky-soft:#E4F1F4;
+    --mint:#6BA876;--mint-deep:#3F7A4A;--mint-soft:#E8F3E9;
+    --sun:#D6A94E;--sun-deep:#946C1E;--sun-soft:#FBF0DC;
+    --ink:#2A2317;--ink-soft:#524634;--ink-faint:rgba(42,35,23,.6);
+    --serif:'Cormorant Garamond',serif;--display:'Cinzel',serif;--sans:'Inter',system-ui,sans-serif;
+    --card-shadow:0 24px 60px -30px rgba(140,110,50,.5), 0 4px 14px -8px rgba(42,35,23,.2);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--ink);padding:22px 14px 56px;min-height:100vh;
+    background:
+      radial-gradient(ellipse at top, rgba(224,122,82,.08) 0%, transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(78,151,166,.06) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(107,168,118,.05) 0%, transparent 50%),
+      linear-gradient(180deg,#FBF6EE,#FDF0E8 50%,#FBF6EE);
+    background-attachment:fixed;}
+  .wrap{max-width:1080px;margin:0 auto;}
+  header.site{text-align:center;margin-bottom:14px;}
+  .eyebrow{font-family:var(--display);font-size:11px;font-weight:500;letter-spacing:5px;color:var(--coral-deep);}
+  .brand{font-family:var(--serif);font-weight:400;font-size:40px;letter-spacing:-1px;color:var(--ink-soft);line-height:1;margin:8px 0 2px;}
+  .brand .gems{color:var(--coral);font-weight:700;}
+  .tagline{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink-soft);margin:4px 0 0;}
+  .studio{display:grid;grid-template-columns:282px 1fr;gap:22px;align-items:start;margin-top:22px;}
+  @media (max-width:880px){.studio{grid-template-columns:1fr;}}
+  .panel{background:var(--beige-paper);border:.5px solid rgba(184,146,72,.25);border-radius:16px;padding:18px;box-shadow:0 12px 30px -22px rgba(140,110,50,.4);}
+  .panel h2{font-family:var(--serif);font-weight:500;font-size:21px;margin:0 0 14px;color:var(--ink);display:flex;align-items:center;gap:9px;}
+  .panel h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);}
+  .group{margin-bottom:18px;}.group:last-child{margin-bottom:0;}
+  .lbl{font-family:var(--display);font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px;}
+  .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+  .tool{border:1px solid rgba(184,146,72,.3);background:#fff;border-radius:13px;padding:11px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:.2s;font-family:var(--sans);font-weight:600;font-size:11px;color:var(--ink-soft);}
+  .tool svg{width:23px;height:23px;}
+  .tool:hover{transform:translateY(-2px);border-color:var(--coral);}
+  .tool.active{background:var(--coral);color:#fff;border-color:var(--coral);box-shadow:0 8px 16px -9px rgba(181,85,46,.8);}
+  .tool.active svg *{stroke:#fff !important;}
+  .swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;}
+  .swatch{aspect-ratio:1;border-radius:50%;cursor:pointer;border:3px solid #fff;box-shadow:0 0 0 1.5px rgba(184,146,72,.4);transition:.15s;}
+  .swatch:hover{transform:scale(1.12);}
+  .swatch.active{box-shadow:0 0 0 3px var(--coral-deep);transform:scale(1.12);}
+  .swatch.white{border:3px solid #e6dccb;}
+  .custom-row{display:flex;align-items:center;gap:10px;margin-top:12px;}
+  .custom-row label{font-family:var(--sans);font-weight:600;font-size:12px;color:var(--ink-soft);}
+  input[type=color]{width:42px;height:34px;border:none;background:none;padding:0;cursor:pointer;}
+  input[type=color]::-webkit-color-swatch-wrapper{padding:0;}
+  input[type=color]::-webkit-color-swatch{border:2px solid var(--gold-pale);border-radius:9px;}
+  .sizes{display:flex;gap:10px;}
+  .size-btn{flex:1;border:1px solid rgba(184,146,72,.3);background:#fff;border-radius:12px;height:46px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
+  .size-btn:hover{border-color:var(--coral);}
+  .size-btn.active{border-color:var(--coral);background:var(--coral-soft);}
+  .size-dot{background:var(--coral-deep);border-radius:50%;}
+  .stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+  .stamp{border:1px solid rgba(184,146,72,.3);background:#fff;border-radius:12px;height:48px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
+  .stamp:hover{transform:translateY(-2px);border-color:var(--coral);}
+  .stamp.active{border-color:var(--coral);background:var(--coral-soft);}
+  .stamp svg{width:25px;height:25px;}
+  .actions{display:flex;flex-direction:column;gap:10px;}
+  .btn{border:none;border-radius:100px;padding:14px 16px;font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:.22s;}
+  .btn svg{width:17px;height:17px;}
+  .btn-primary{background:var(--ink);color:var(--beige-cream);}
+  .btn-primary:hover{background:var(--coral-deep);transform:translateY(-2px);}
+  .btn-gold{background:var(--gold);color:#fff;}
+  .btn-gold:hover{filter:brightness(.96);transform:translateY(-2px);}
+  .btn-ghost{background:#fff;color:var(--coral-deep);border:1px solid var(--coral);}
+  .btn-ghost:hover{background:var(--coral-soft);}
+  .mini-actions{display:flex;gap:10px;}.mini-actions .btn{flex:1;padding:12px 6px;font-size:12px;}
+  .stage-wrap{display:flex;flex-direction:column;align-items:center;}
+  .template-switch{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:16px;background:var(--beige-paper);padding:6px;border-radius:18px;border:.5px solid rgba(184,146,72,.3);box-shadow:0 8px 20px -16px rgba(140,110,50,.5);max-width:560px;}
+  .tpl-tab{border:none;background:transparent;padding:9px 14px;border-radius:100px;cursor:pointer;font-family:var(--sans);font-weight:600;font-size:12px;color:var(--ink-faint);transition:.2s;white-space:nowrap;}
+  .tpl-tab:hover{color:var(--coral-deep);}
+  .tpl-tab.active{background:var(--coral);color:#fff;}
+  .card-shell{position:relative;width:100%;max-width:560px;aspect-ratio:600/770;background:#fff;border-radius:18px;box-shadow:var(--card-shadow);overflow:hidden;touch-action:none;border:.5px solid rgba(184,146,72,.2);}
+  .card-shell canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+  #templateCanvas{pointer-events:none;z-index:3;}
+  #drawCanvas{z-index:2;cursor:crosshair;}
+  .overlay-inputs{position:absolute;inset:0;z-index:4;pointer-events:none;}
+  .field{position:absolute;pointer-events:auto;border:none;background:transparent;outline:none;font-family:var(--sans);font-weight:600;color:#4a3f2c;resize:none;overflow:hidden;text-align:center;line-height:1.25;border-radius:6px;transition:background .15s;}
+  .field:hover{background:rgba(224,122,82,.07);}
+  .field:focus{background:rgba(224,122,82,.12);}
+  .hint{text-align:center;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--ink-soft);margin-top:16px;max-width:520px;line-height:1.5;}
+  .hint b{font-style:normal;color:var(--coral-deep);}
+  .modal-bg{position:fixed;inset:0;background:rgba(42,35,23,.55);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;}
+  .modal-bg.show{display:flex;}
+  .modal{background:var(--beige-paper);border-radius:20px;padding:26px;max-width:420px;width:100%;text-align:center;box-shadow:0 30px 70px -20px rgba(42,35,23,.6);animation:pop .28s ease;}
+  @keyframes pop{from{transform:scale(.92);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .modal h3{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:26px;margin:0 0 6px;}
+  .modal p{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink-soft);margin:0 0 16px;}
+  .modal img{width:100%;border-radius:12px;border:1px solid var(--gold-pale);margin-bottom:16px;box-shadow:0 8px 20px -12px rgba(0,0,0,.3);}
+  .modal .btn{width:100%;margin-bottom:10px;}
+  footer.site{text-align:center;margin-top:32px;font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink-faint);}
+  footer.site .gems{color:var(--gold-deep);font-weight:600;font-style:normal;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div class="eyebrow">A LITTLE GEM YOU CAN COLOR</div>
+    <div class="brand"><span>Little</span><span class="gems">Gems</span></div>
+    <p class="tagline">Color it on the screen — then keep it forever.</p>
+  </header>
+
+  <div class="studio">
+    <aside class="panel">
+      <h2><span class="dot"></span>My Art Tools</h2>
+      <div class="group">
+        <div class="lbl">Tools</div>
+        <div class="tools" id="tools">
+          <button class="tool active" data-tool="brush"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21c2-1 3-3 4-5l9-9 3 3-9 9c-2 1-4 2-7 2z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 5l5 5" stroke="#524634" stroke-width="1.6"/></svg>Brush</button>
+          <button class="tool" data-tool="crayon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 21l-3 1 1-3 11-11 2 2L7 21z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 6l4 4" stroke="#524634" stroke-width="1.6"/></svg>Crayon</button>
+          <button class="tool" data-tool="fill"><svg viewBox="0 0 24 24" fill="none"><path d="M5 11l6-6 7 7-6 6a2 2 0 0 1-3 0l-4-4a2 2 0 0 1 0-3z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M19 15c1 1.5 1.5 2.5 1.5 3a1.5 1.5 0 1 1-3 0c0-.5.5-1.5 1.5-3z" stroke="#524634" stroke-width="1.6"/></svg>Fill</button>
+          <button class="tool" data-tool="stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M5 9l3-4h8l3 4-7 9z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/></svg>Stamp</button>
+          <button class="tool" data-tool="eraser"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16l7-7 6 6-4 4H7l-3-3z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M11 9l5 5" stroke="#524634" stroke-width="1.6"/></svg>Eraser</button>
+          <button class="tool" data-tool="undo" id="undoBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M9 7L4 11l5 4" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 11h9a6 6 0 0 1 0 12H9" stroke="#524634" stroke-width="1.6" stroke-linecap="round"/></svg>Undo</button>
+        </div>
+      </div>
+      <div class="group">
+        <div class="lbl">Colors</div>
+        <div class="swatches" id="swatches"></div>
+        <div class="custom-row"><label for="customColor">Any color:</label><input type="color" id="customColor" value="#E07A52" /></div>
+      </div>
+      <div class="group">
+        <div class="lbl">Brush Size</div>
+        <div class="sizes" id="sizes">
+          <button class="size-btn" data-size="6"><span class="size-dot" style="width:8px;height:8px;"></span></button>
+          <button class="size-btn active" data-size="14"><span class="size-dot" style="width:15px;height:15px;"></span></button>
+          <button class="size-btn" data-size="26"><span class="size-dot" style="width:26px;height:26px;"></span></button>
+        </div>
+      </div>
+      <div class="group" id="stampGroup" style="display:none;">
+        <div class="lbl">Pick a Stamp</div>
+        <div class="stamps" id="stamps">
+          <button class="stamp active" data-stamp="gem"><svg viewBox="0 0 24 24" fill="none"><path d="M5 9l3-4h8l3 4-7 9z" stroke="#B5552E" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 9h14" stroke="#B5552E" stroke-width="1.1"/></svg></button>
+          <button class="stamp" data-stamp="heart"><svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" stroke="#E07A52" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
+          <button class="stamp" data-stamp="star"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.3 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19l1-5.8L3.5 9.1l5.9-.8z" stroke="#D6A94E" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
+          <button class="stamp" data-stamp="sparkle"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c.5 4 1.5 5.5 6 6-4.5.5-5.5 2-6 6-.5-4-1.5-5.5-6-6 4.5-.5 5.5-2 6-6z" stroke="#4E97A6" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+    </aside>
+
+    <section class="stage-wrap">
+      <div class="template-switch" id="tplSwitch">
+        <button class="tpl-tab active" data-tpl="special">Someone Special</button>
+        <button class="tpl-tab" data-tpl="friend">Friendship</button>
+        <button class="tpl-tab" data-tpl="grand">Grandparent</button>
+        <button class="tpl-tab" data-tpl="today">Today's Gem</button>
+        <button class="tpl-tab" data-tpl="forever">Keep Forever</button>
+        <button class="tpl-tab" data-tpl="feelings">Feelings</button>
+      </div>
+
+      <div class="card-shell" id="cardShell">
+        <canvas id="drawCanvas"></canvas>
+        <canvas id="templateCanvas"></canvas>
+        <div class="overlay-inputs" id="overlayInputs"></div>
+      </div>
+
+      <p class="hint">Pick a color, then draw right on the page. Tap <b>Stamp</b> for gems &amp; hearts, and tap any line to <b>type</b>. When you're done, <b>Save my picture</b>.</p>
+
+      <div class="panel" style="width:100%;max-width:560px;margin-top:16px;">
+        <div class="actions">
+          <button class="btn btn-primary" id="saveBtn">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12M8 11l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Save my picture
+          </button>
+          <div class="mini-actions">
+            <button class="btn btn-gold" id="printBtn">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 8V4h10v4M7 18H5a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="15" width="10" height="6" rx="1" stroke="#fff" stroke-width="1.7"/></svg>
+              Print it
+            </button>
+            <button class="btn btn-ghost" id="clearBtn">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Start over
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="site">Made with care for little hands · <span class="gems">LittleGems by MemoriGems</span></footer>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h3>Your Gem is ready</h3>
+    <p id="modalText">Tap the button to save it to your device.</p>
+    <img id="previewImg" alt="Your colored LittleGems page" />
+    <button class="btn btn-primary" id="downloadBtn">Download / Save to Photos</button>
+    <button class="btn btn-ghost" id="modalClose">Keep coloring</button>
+  </div>
+</div>
+
+<script>
+const BASE_W=600,BASE_H=770,SCALE=2;
+const drawCanvas=document.getElementById('drawCanvas');
+const tplCanvas=document.getElementById('templateCanvas');
+const dctx=drawCanvas.getContext('2d',{willReadFrequently:true});
+const tctx=tplCanvas.getContext('2d');
+[drawCanvas,tplCanvas].forEach(c=>{c.width=BASE_W*SCALE;c.height=BASE_H*SCALE;});
+dctx.scale(SCALE,SCALE);tctx.scale(SCALE,SCALE);
+dctx.lineCap='round';dctx.lineJoin='round';
+const overlay=document.getElementById('overlayInputs');
+let state={tool:'brush',color:'#E07A52',size:14,stamp:'gem',template:'special',drawing:false,lastX:0,lastY:0};
+let undoStack=[];
+let fillClip={x:70,y:130,w:460,h:360,r:28};
+
+const PALETTE=['#E07A52','#F4A38A','#FDEDE4','#D6A94E','#F2D58A','#6BA876','#3F7A4A','#4E97A6','#2E6B78','#9B7BB8','#B5552E','#8C6E32','#8D5524','#C68642','#E0AC69','#F1C27D','#FFDBAC','#2A2317','#8A8070','#FFFFFF'];
+const swatchWrap=document.getElementById('swatches');
+PALETTE.forEach(c=>{const s=document.createElement('div');s.className='swatch'+(c==='#FFFFFF'?' white':'')+(c===state.color?' active':'');s.style.background=c;s.dataset.color=c;s.addEventListener('click',()=>setColor(c));swatchWrap.appendChild(s);});
+function setColor(c){state.color=c;document.querySelectorAll('.swatch').forEach(el=>el.classList.toggle('active',el.dataset.color===c));document.getElementById('customColor').value=(c.length===7?c:'#E07A52');}
+document.getElementById('customColor').addEventListener('input',e=>{state.color=e.target.value;document.querySelectorAll('.swatch').forEach(el=>el.classList.remove('active'));});
+
+document.querySelectorAll('.tool').forEach(btn=>{btn.addEventListener('click',()=>{const t=btn.dataset.tool;if(t==='undo'){doUndo();return;}state.tool=t;document.querySelectorAll('.tool').forEach(b=>b.classList.toggle('active',b===btn));document.getElementById('undoBtn').classList.remove('active');document.getElementById('stampGroup').style.display=(t==='stamp')?'block':'none';});});
+document.querySelectorAll('.size-btn').forEach(btn=>{btn.addEventListener('click',()=>{state.size=+btn.dataset.size;document.querySelectorAll('.size-btn').forEach(b=>b.classList.toggle('active',b===btn));});});
+document.querySelectorAll('.stamp').forEach(btn=>{btn.addEventListener('click',()=>{state.stamp=btn.dataset.stamp;document.querySelectorAll('.stamp').forEach(b=>b.classList.toggle('active',b===btn));});});
+
+function drawHead(ctx,titleLines,subLines){
+  ctx.textAlign='center';ctx.fillStyle='#2A2317';ctx.font="600 30px 'Cormorant Garamond'";
+  let y=titleLines.length>1?46:58;
+  titleLines.forEach(l=>{ctx.fillText(l,300,y);y+=29;});
+  ctx.fillStyle='#524634';ctx.font="italic 500 16px 'Cormorant Garamond'";
+  subLines.forEach(l=>{ctx.fillText(l,300,y);y+=19;});
+  return y;
+}
+function caption(ctx,text,y){ctx.fillStyle='#3A3228';ctx.textAlign='center';ctx.font="600 17px 'Cormorant Garamond'";ctx.fillText(text,300,y);}
+
+const TEMPLATES={
+  special:{
+    fields:[{x:90,y:584,w:420,h:54}],
+    drawTemplate(ctx){
+      const top=drawHead(ctx,['Someone Special to Me'],['Draw or color someone who','makes you feel loved.'])+8;
+      strokeRound(ctx,70,top,460,486-top,28,2.2);fillClip={x:70,y:top,w:460,h:486-top,r:28};
+      drawSparkle(ctx,56,top-4,13);drawSparkle(ctx,92,top-22,9);drawGem(ctx,70,top+35,20);
+      drawPencil(ctx,532,top+28,34,-38);drawSparkle(ctx,520,top-20,12);
+      drawGem(ctx,78,460,22);drawGem(ctx,528,460,22);
+      caption(ctx,'What do you love about them?',556);
+      writeLine(ctx,90,600,510);writeLine(ctx,90,636,510);
+      drawFooter(ctx);
+    }
+  },
+  friend:{
+    fields:[{x:60,y:592,w:200,h:48},{x:340,y:592,w:200,h:48}],
+    drawTemplate(ctx){
+      drawHead(ctx,['My Friendship Gem'],['Draw you and your best friend!']);
+      drawHeartOutline(ctx,52,128,15);drawHeartOutline(ctx,96,158,11);
+      drawHeartOutline(ctx,548,128,15);drawHeartOutline(ctx,504,158,11);
+      strokeRect(ctx,88,176,424,292,2.2);fillClip={x:88,y:176,w:424,h:292,r:0};
+      drawTape(ctx,96,168,60,26,-22);drawTape(ctx,504,168,60,26,22);
+      ctx.fillStyle='#3A3228';ctx.textAlign='center';ctx.font="600 14px 'Cormorant Garamond'";
+      wrapText(ctx,'My favorite thing about my best friend is...',160,504,190,17);
+      wrapText(ctx,'A fun memory we shared...',440,504,190,17);
+      writeLine(ctx,60,600,260);writeLine(ctx,60,632,260);
+      writeLine(ctx,340,600,540);writeLine(ctx,340,632,540);
+      drawHeartOutline(ctx,300,612,26);
+      drawFooter(ctx);
+    }
+  },
+  grand:{
+    fields:[{x:96,y:516,w:408,h:22},{x:96,y:574,w:408,h:22},{x:96,y:632,w:408,h:22}],
+    drawTemplate(ctx){
+      const top=drawHead(ctx,['Grandparent Gem'],['Draw a picture of you with your','grandma or grandpa!'])+8;
+      strokeRound(ctx,70,top,460,470-top,28,2.2);fillClip={x:70,y:top,w:460,h:470-top,r:28};
+      drawSparkle(ctx,54,top-2,12);drawSparkle(ctx,512,top+2,11);drawHeartOutline(ctx,552,top+14,13);
+      drawMug(ctx,135,438,30);drawHeartOutline(ctx,470,440,16);
+      caption(ctx,'Something I love doing with them',506);writeLine(ctx,90,538,510);
+      caption(ctx,'Something they taught me',564);writeLine(ctx,90,596,510);
+      caption(ctx,'A funny thing they say...',622);writeLine(ctx,90,654,510);
+      drawFooter(ctx);
+    }
+  },
+  today:{
+    fields:[{x:90,y:584,w:420,h:54}],
+    drawTemplate(ctx){
+      const top=drawHead(ctx,["Today's Tiny Gem"],['What was the best part','of today?'])+8;
+      strokeRound(ctx,70,top,460,500-top,28,2.2);fillClip={x:70,y:top,w:460,h:500-top,r:28};
+      drawSparkle(ctx,52,top-2,12);drawSparkle(ctx,86,top-20,9);
+      drawSun(ctx,548,top+24,20);
+      drawHeartOutline(ctx,108,596,16);drawSparkle(ctx,548,596,13);
+      caption(ctx,'Why was it special?',558);
+      writeLine(ctx,90,600,510);writeLine(ctx,90,636,510);
+      drawFooter(ctx);
+    }
+  },
+  forever:{
+    fields:[{x:90,y:584,w:420,h:54}],
+    drawTemplate(ctx){
+      const top=drawHead(ctx,['A Memory I Want to','Keep Forever.'],['Draw your favorite memory.'])+8;
+      strokeRound(ctx,70,top,460,492-top,28,2.2);fillClip={x:70,y:top,w:460,h:492-top,r:28};
+      drawSparkle(ctx,52,top-6,12);drawSparkle(ctx,84,top+12,8);drawSparkle(ctx,474,top-8,11);
+      drawRainbow(ctx,500,top+30,30);
+      drawGem(ctx,92,560,20);drawGem(ctx,500,560,20);drawSparkle(ctx,534,548,9);
+      caption(ctx,'What happened in the memory?',560);
+      writeLine(ctx,90,600,510);writeLine(ctx,90,636,510);
+      drawFooter(ctx);
+    }
+  },
+  feelings:{
+    fields:[{x:150,y:594,w:128,h:24},{x:340,y:594,w:160,h:24}],
+    drawTemplate(ctx){
+      drawHead(ctx,['Feelings Gem'],['Name a feeling. Then draw','the face that feeling makes.']);
+      drawSparkle(ctx,54,150,12);drawSparkle(ctx,88,130,9);
+      drawSparkle(ctx,546,150,12);drawSparkle(ctx,512,130,9);
+      drawHeadGuide(ctx,300,310,92);fillClip={x:120,y:200,w:360,h:330,r:0};
+      ctx.fillStyle='#3A3228';ctx.font="600 19px 'Cormorant Garamond'";
+      ctx.textAlign='right';ctx.fillText('I felt',146,618);
+      ctx.textAlign='center';ctx.fillText('when',312,618);
+      ctx.textAlign='left';ctx.fillText('.',504,618);
+      writeLine(ctx,150,622,278);writeLine(ctx,340,622,500);
+      drawFooter(ctx);
+    }
+  }
+};
+
+function drawFooter(ctx){
+  ctx.textAlign='left';const a='LittleGems',b=' by ',c='MemoriGems';
+  ctx.font="700 13px Inter";const wA=ctx.measureText(a).width;
+  ctx.font="400 13px Inter";const wB=ctx.measureText(b).width;
+  ctx.font="700 13px Inter";const wC=ctx.measureText(c).width;
+  let x=300-(wA+wB+wC)/2;
+  ctx.font="700 13px Inter";ctx.fillStyle='#E07A52';ctx.fillText(a,x,724);x+=wA;
+  ctx.font="400 13px Inter";ctx.fillStyle='#524634';ctx.fillText(b,x,724);x+=wB;
+  ctx.font="700 13px Inter";ctx.fillStyle='#8C6E32';ctx.fillText(c,x,724);
+  ctx.textAlign='center';
+}
+function strokeRound(ctx,x,y,w,h,r,lw){ctx.strokeStyle='#3A3228';ctx.lineWidth=lw;ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();ctx.stroke();}
+function strokeRect(ctx,x,y,w,h,lw){ctx.strokeStyle='#3A3228';ctx.lineWidth=lw;ctx.strokeRect(x,y,w,h);}
+function writeLine(ctx,x1,y,x2){ctx.strokeStyle='#524634';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(x2,y);ctx.stroke();}
+function drawGem(ctx,cx,cy,s){ctx.strokeStyle='#3A3228';ctx.lineWidth=1.6;ctx.lineJoin='round';const top=cy-s*0.55,mid=cy-s*0.15,bot=cy+s*0.7;ctx.beginPath();ctx.moveTo(cx-s*0.7,top);ctx.lineTo(cx+s*0.7,top);ctx.lineTo(cx+s*0.5,mid);ctx.lineTo(cx,bot);ctx.lineTo(cx-s*0.5,mid);ctx.closePath();ctx.stroke();ctx.beginPath();ctx.moveTo(cx-s*0.25,top);ctx.lineTo(cx-s*0.5,mid);ctx.moveTo(cx+s*0.25,top);ctx.lineTo(cx+s*0.5,mid);ctx.moveTo(cx-s*0.5,mid);ctx.lineTo(cx,bot);ctx.moveTo(cx+s*0.5,mid);ctx.lineTo(cx,bot);ctx.moveTo(cx-s*0.25,top);ctx.lineTo(cx,bot);ctx.moveTo(cx+s*0.25,top);ctx.lineTo(cx,bot);ctx.stroke();}
+function drawSparkle(ctx,cx,cy,s){ctx.strokeStyle='#3A3228';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(cx,cy-s);ctx.quadraticCurveTo(cx,cy,cx+s,cy);ctx.quadraticCurveTo(cx,cy,cx,cy+s);ctx.quadraticCurveTo(cx,cy,cx-s,cy);ctx.quadraticCurveTo(cx,cy,cx,cy-s);ctx.stroke();}
+function drawPencil(ctx,cx,cy,len,deg){ctx.save();ctx.translate(cx,cy);ctx.rotate(deg*Math.PI/180);ctx.strokeStyle='#3A3228';ctx.lineWidth=1.6;ctx.lineJoin='round';const w=10;ctx.strokeRect(-w/2,-len/2,w,len*0.8);ctx.beginPath();ctx.moveTo(-w/2,len/2-len*0.2);ctx.lineTo(0,len/2+6);ctx.lineTo(w/2,len/2-len*0.2);ctx.stroke();ctx.restore();}
+function drawHeartOutline(ctx,cx,cy,s){ctx.strokeStyle='#3A3228';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(cx,cy+s*0.6);ctx.bezierCurveTo(cx-s*1.2,cy-s*0.2,cx-s*0.5,cy-s*0.9,cx,cy-s*0.25);ctx.bezierCurveTo(cx+s*0.5,cy-s*0.9,cx+s*1.2,cy-s*0.2,cx,cy+s*0.6);ctx.stroke();}
+function drawTape(ctx,cx,cy,w,h,deg){ctx.save();ctx.translate(cx,cy);ctx.rotate(deg*Math.PI/180);ctx.fillStyle='rgba(184,146,72,.20)';ctx.strokeStyle='rgba(140,110,50,.4)';ctx.lineWidth=1;ctx.fillRect(-w/2,-h/2,w,h);ctx.strokeRect(-w/2,-h/2,w,h);ctx.restore();}
+function drawMug(ctx,cx,cy,s){ctx.strokeStyle='#3A3228';ctx.lineWidth=1.6;ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(cx-s*0.55,cy-s*0.5);ctx.lineTo(cx+s*0.55,cy-s*0.5);ctx.lineTo(cx+s*0.42,cy+s*0.6);ctx.lineTo(cx-s*0.42,cy+s*0.6);ctx.closePath();ctx.stroke();ctx.beginPath();ctx.arc(cx+s*0.72,cy-s*0.02,s*0.3,-0.5*Math.PI,0.5*Math.PI);ctx.stroke();ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(cx-s*0.22,cy-s*0.72);ctx.bezierCurveTo(cx-s*0.45,cy-s*0.98,cx,cy-s*1.05,cx-s*0.2,cy-s*1.4);ctx.moveTo(cx+s*0.22,cy-s*0.72);ctx.bezierCurveTo(cx,cy-s*0.98,cx+s*0.45,cy-s*1.05,cx+s*0.2,cy-s*1.4);ctx.stroke();}
+function drawSun(ctx,cx,cy,r){ctx.strokeStyle='#3A3228';ctx.lineWidth=1.6;ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.stroke();for(let i=0;i<10;i++){const a=i*Math.PI/5;ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*(r+4),cy+Math.sin(a)*(r+4));ctx.lineTo(cx+Math.cos(a)*(r+11),cy+Math.sin(a)*(r+11));ctx.stroke();}ctx.fillStyle='#3A3228';ctx.beginPath();ctx.arc(cx-r*0.32,cy-r*0.12,1.7,0,7);ctx.fill();ctx.beginPath();ctx.arc(cx+r*0.32,cy-r*0.12,1.7,0,7);ctx.fill();ctx.beginPath();ctx.arc(cx,cy+r*0.08,r*0.5,0.15*Math.PI,0.85*Math.PI);ctx.stroke();}
+function drawCloud(ctx,cx,cy){ctx.strokeStyle='#3A3228';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(cx-6,cy,6,0.5*Math.PI,1.5*Math.PI);ctx.arc(cx,cy-6,7,Math.PI,2*Math.PI);ctx.arc(cx+6,cy,6,1.5*Math.PI,0.5*Math.PI);ctx.lineTo(cx-6,cy+6);ctx.stroke();}
+function drawRainbow(ctx,cx,cy,r){ctx.strokeStyle='#3A3228';ctx.lineWidth=1.6;for(let i=0;i<3;i++){ctx.beginPath();ctx.arc(cx,cy,r-i*5,Math.PI,2*Math.PI);ctx.stroke();}drawCloud(ctx,cx-r+3,cy);drawCloud(ctx,cx+r-3,cy);}
+function drawHeadGuide(ctx,cx,cy,r){ctx.strokeStyle='#9a9384';ctx.lineWidth=1.8;ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.stroke();ctx.beginPath();ctx.moveTo(cx-r*0.45,cy+r*0.92);ctx.lineTo(cx-r*1.7,cy+r*2.2);ctx.moveTo(cx+r*0.45,cy+r*0.92);ctx.lineTo(cx+r*1.7,cy+r*2.2);ctx.stroke();}
+function wrapText(ctx,text,cx,y,maxW,lh){const words=text.split(' ');let line='';let yy=y;for(let n=0;n<words.length;n++){const test=line+words[n]+' ';if(ctx.measureText(test).width>maxW&&n>0){ctx.fillText(line.trim(),cx,yy);line=words[n]+' ';yy+=lh;}else line=test;}ctx.fillText(line.trim(),cx,yy);}
+
+function renderTemplate(){tctx.clearRect(0,0,BASE_W,BASE_H);TEMPLATES[state.template].drawTemplate(tctx);buildFields();}
+function buildFields(){overlay.innerHTML='';TEMPLATES[state.template].fields.forEach((f,i)=>{const el=document.createElement('textarea');el.className='field';el.placeholder='';el.dataset.i=i;el.rows=1;el.style.left=(f.x/BASE_W*100)+'%';el.style.top=(f.y/BASE_H*100)+'%';el.style.width=(f.w/BASE_W*100)+'%';el.style.height=(f.h/BASE_H*100)+'%';el.style.fontSize='clamp(11px,'+(f.size?f.size:14)/BASE_W*100+'vw,'+(f.size?f.size:15)+'px)';overlay.appendChild(el);});}
+
+function pos(e){const r=drawCanvas.getBoundingClientRect();const cx=(e.touches?e.touches[0].clientX:e.clientX);const cy=(e.touches?e.touches[0].clientY:e.clientY);return{x:(cx-r.left)/r.width*BASE_W,y:(cy-r.top)/r.height*BASE_H};}
+function pushUndo(){try{undoStack.push(dctx.getImageData(0,0,drawCanvas.width,drawCanvas.height));}catch(err){}if(undoStack.length>22)undoStack.shift();}
+function doUndo(){if(!undoStack.length)return;const img=undoStack.pop();dctx.save();dctx.setTransform(1,0,0,1,0,0);dctx.clearRect(0,0,drawCanvas.width,drawCanvas.height);dctx.putImageData(img,0,0);dctx.restore();}
+function start(e){if(state.tool==='fill'){pushUndo();const p=pos(e);floodFill(p.x,p.y);return;}if(state.tool==='stamp'){pushUndo();const p=pos(e);placeStamp(p.x,p.y);return;}pushUndo();state.drawing=true;const p=pos(e);state.lastX=p.x;state.lastY=p.y;drawDot(p.x,p.y);}
+function move(e){if(!state.drawing)return;e.preventDefault();const p=pos(e);strokeSeg(state.lastX,state.lastY,p.x,p.y);state.lastX=p.x;state.lastY=p.y;}
+function end(){state.drawing=false;}
+function applyStyle(){if(state.tool==='eraser'){dctx.globalCompositeOperation='destination-out';dctx.strokeStyle='rgba(0,0,0,1)';dctx.fillStyle='rgba(0,0,0,1)';dctx.globalAlpha=1;}else{dctx.globalCompositeOperation='source-over';dctx.strokeStyle=state.color;dctx.fillStyle=state.color;dctx.globalAlpha=(state.tool==='crayon')?0.55:1;}dctx.lineWidth=state.size;}
+function strokeSeg(x1,y1,x2,y2){applyStyle();dctx.beginPath();dctx.moveTo(x1,y1);dctx.lineTo(x2,y2);dctx.stroke();if(state.tool==='crayon'){const d=Math.hypot(x2-x1,y2-y1);const steps=Math.max(1,d/3);for(let i=0;i<steps;i++){const t=i/steps;const jx=(Math.random()-.5)*state.size*.6;const jy=(Math.random()-.5)*state.size*.6;dctx.beginPath();dctx.arc(x1+(x2-x1)*t+jx,y1+(y2-y1)*t+jy,state.size*0.12,0,7);dctx.fill();}}}
+function drawDot(x,y){applyStyle();dctx.beginPath();dctx.arc(x,y,state.size/2,0,7);dctx.fill();}
+function placeStamp(x,y){const s=state.size*2.2+14;dctx.globalCompositeOperation='source-over';dctx.globalAlpha=1;dctx.save();dctx.translate(x,y);if(state.stamp==='heart')fillHeart(dctx,0,0,s*0.5,state.color);else if(state.stamp==='star')fillStar(dctx,0,0,s*0.5,state.color);else if(state.stamp==='sparkle')fillSparkle(dctx,0,0,s*0.5,state.color);else fillGem(dctx,0,0,s*0.55,state.color);dctx.restore();}
+function fillHeart(ctx,cx,cy,s,color){ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(cx,cy+s*0.55);ctx.bezierCurveTo(cx-s*1.2,cy-s*0.25,cx-s*0.5,cy-s*0.95,cx,cy-s*0.3);ctx.bezierCurveTo(cx+s*0.5,cy-s*0.95,cx+s*1.2,cy-s*0.25,cx,cy+s*0.55);ctx.fill();}
+function fillStar(ctx,cx,cy,s,color){ctx.fillStyle=color;ctx.beginPath();for(let i=0;i<10;i++){const r=i%2?s*0.45:s;const a=Math.PI/5*i-Math.PI/2;const px=cx+Math.cos(a)*r,py=cy+Math.sin(a)*r;i?ctx.lineTo(px,py):ctx.moveTo(px,py);}ctx.closePath();ctx.fill();}
+function fillSparkle(ctx,cx,cy,s,color){ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(cx,cy-s);ctx.quadraticCurveTo(cx,cy,cx+s,cy);ctx.quadraticCurveTo(cx,cy,cx,cy+s);ctx.quadraticCurveTo(cx,cy,cx-s,cy);ctx.quadraticCurveTo(cx,cy,cx,cy-s);ctx.fill();}
+function fillGem(ctx,cx,cy,s,color){const top=cy-s*0.55,mid=cy-s*0.05,bot=cy+s*0.85;ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(cx-s*0.7,top);ctx.lineTo(cx+s*0.7,top);ctx.lineTo(cx+s*0.5,mid);ctx.lineTo(cx,bot);ctx.lineTo(cx-s*0.5,mid);ctx.closePath();ctx.fill();ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(cx-s*0.7,top);ctx.lineTo(cx+s*0.7,top);ctx.moveTo(cx-s*0.25,top);ctx.lineTo(cx,bot);ctx.moveTo(cx+s*0.25,top);ctx.lineTo(cx,bot);ctx.stroke();}
+function inClip(x,y){const cx0=fillClip.x*SCALE,cy0=fillClip.y*SCALE,cx1=(fillClip.x+fillClip.w)*SCALE,cy1=(fillClip.y+fillClip.h)*SCALE;if(x<cx0||x>cx1||y<cy0||y>cy1)return false;const r=(fillClip.r||0)*SCALE;if(r>0){if(x<cx0+r&&y<cy0+r)return (x-(cx0+r))*(x-(cx0+r))+(y-(cy0+r))*(y-(cy0+r))<=r*r;if(x>cx1-r&&y<cy0+r)return (x-(cx1-r))*(x-(cx1-r))+(y-(cy0+r))*(y-(cy0+r))<=r*r;if(x<cx0+r&&y>cy1-r)return (x-(cx0+r))*(x-(cx0+r))+(y-(cy1-r))*(y-(cy1-r))<=r*r;if(x>cx1-r&&y>cy1-r)return (x-(cx1-r))*(x-(cx1-r))+(y-(cy1-r))*(y-(cy1-r))<=r*r;}return true;}
+function floodFill(lx,ly){const W=drawCanvas.width,H=drawCanvas.height;const sx=Math.floor(lx*SCALE),sy=Math.floor(ly*SCALE);if(!inClip(sx,sy))return;const cx0=Math.max(0,Math.floor(fillClip.x*SCALE)),cx1=Math.min(W-1,Math.ceil((fillClip.x+fillClip.w)*SCALE)),cy0=Math.max(0,Math.floor(fillClip.y*SCALE)),cy1=Math.min(H-1,Math.ceil((fillClip.y+fillClip.h)*SCALE));const img=dctx.getImageData(0,0,W,H);const d=img.data;const idx=(sy*W+sx)*4;const tr=d[idx],tg=d[idx+1],tb=d[idx+2],ta=d[idx+3];const fc=hexToRgb(state.color);if(Math.abs(tr-fc.r)<8&&Math.abs(tg-fc.g)<8&&Math.abs(tb-fc.b)<8&&ta>250)return;const tol=42;const match=(x,y)=>{if(!inClip(x,y))return false;const i=(y*W+x)*4;return Math.abs(d[i]-tr)<=tol&&Math.abs(d[i+1]-tg)<=tol&&Math.abs(d[i+2]-tb)<=tol&&Math.abs(d[i+3]-ta)<=tol;};const stack=[[sx,sy]];while(stack.length){const [x,y]=stack.pop();let nx=x;while(nx>=cx0&&match(nx,y))nx--;nx++;let up=false,down=false;while(nx<=cx1&&match(nx,y)){const i=(y*W+nx)*4;d[i]=fc.r;d[i+1]=fc.g;d[i+2]=fc.b;d[i+3]=255;if(y>cy0){if(match(nx,y-1)){if(!up){stack.push([nx,y-1]);up=true;}}else up=false;}if(y<cy1){if(match(nx,y+1)){if(!down){stack.push([nx,y+1]);down=true;}}else down=false;}nx++;}}dctx.save();dctx.setTransform(1,0,0,1,0,0);dctx.putImageData(img,0,0);dctx.restore();}
+function hexToRgb(h){if(h[0]!=='#'){const m=document.createElement('canvas').getContext('2d');m.fillStyle=h;h=m.fillStyle;}const n=parseInt(h.slice(1),16);return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
+
+drawCanvas.addEventListener('pointerdown',e=>{drawCanvas.setPointerCapture(e.pointerId);start(e);});
+drawCanvas.addEventListener('pointermove',move);
+drawCanvas.addEventListener('pointerup',end);
+drawCanvas.addEventListener('pointerleave',end);
+drawCanvas.addEventListener('touchstart',e=>e.preventDefault(),{passive:false});
+
+document.querySelectorAll('.tpl-tab').forEach(tab=>{tab.addEventListener('click',()=>{if(tab.dataset.tpl===state.template)return;if(undoStack.length&&!confirm('Switch page? Your current drawing will be cleared.'))return;state.template=tab.dataset.tpl;document.querySelectorAll('.tpl-tab').forEach(t=>t.classList.toggle('active',t===tab));clearDraw();renderTemplate();});});
+function clearDraw(){dctx.save();dctx.setTransform(1,0,0,1,0,0);dctx.clearRect(0,0,drawCanvas.width,drawCanvas.height);dctx.restore();undoStack=[];}
+document.getElementById('clearBtn').addEventListener('click',()=>{if(confirm('Start over with a fresh page?')){clearDraw();document.querySelectorAll('.field').forEach(f=>f.value='');}});
+
+function compose(){const out=document.createElement('canvas');out.width=BASE_W*SCALE;out.height=BASE_H*SCALE;const o=out.getContext('2d');o.fillStyle='#ffffff';o.fillRect(0,0,out.width,out.height);o.drawImage(drawCanvas,0,0);o.drawImage(tplCanvas,0,0);o.scale(SCALE,SCALE);o.fillStyle='#4a3f2c';o.textAlign='center';TEMPLATES[state.template].fields.forEach((f,i)=>{const el=overlay.querySelector('[data-i="'+i+'"]');if(!el||!el.value.trim())return;const fs=f.size?f.size:15;o.font='600 '+fs+'px Inter';const cx=f.x+f.w/2;const lines=wrapToWidth(o,el.value.trim(),f.w-6);lines.slice(0,3).forEach((ln,k)=>o.fillText(ln,cx,f.y+16+k*(fs+5)));});return out;}
+function wrapToWidth(ctx,text,maxW){const words=text.split(/\s+/);const lines=[];let line='';words.forEach(w=>{const t=line?line+' '+w:w;if(ctx.measureText(t).width>maxW&&line){lines.push(line);line=w;}else line=t;});if(line)lines.push(line);return lines;}
+
+const modalBg=document.getElementById('modalBg');const previewImg=document.getElementById('previewImg');let currentBlobUrl=null;
+document.getElementById('saveBtn').addEventListener('click',async()=>{await document.fonts.ready;const out=compose();out.toBlob(blob=>{if(currentBlobUrl)URL.revokeObjectURL(currentBlobUrl);currentBlobUrl=URL.createObjectURL(blob);previewImg.src=currentBlobUrl;const isTouch=matchMedia('(pointer:coarse)').matches;document.getElementById('modalText').textContent=isTouch?'Press and hold the picture to save it to your Photos — or tap Download below.':'Tap Download to save it to your computer.';modalBg.classList.add('show');},'image/png');});
+document.getElementById('downloadBtn').addEventListener('click',()=>{const a=document.createElement('a');a.href=currentBlobUrl;a.download='MyLittleGem-'+state.template+'.png';document.body.appendChild(a);a.click();a.remove();});
+document.getElementById('modalClose').addEventListener('click',()=>modalBg.classList.remove('show'));
+modalBg.addEventListener('click',e=>{if(e.target===modalBg)modalBg.classList.remove('show');});
+document.getElementById('printBtn').addEventListener('click',async()=>{await document.fonts.ready;const out=compose();const data=out.toDataURL('image/png');const w=window.open('','_print');w.document.write('<html><head><title>My LittleGem</title><style>@page{margin:12mm;}body{margin:0;display:flex;justify-content:center;}img{max-width:100%;}</style></head><body><img src="'+data+'" onload="setTimeout(function(){print();},250)"/></body></html>');w.document.close();});
+
+document.fonts.ready.then(renderTemplate);
+</script>
+</body>
+</html>
