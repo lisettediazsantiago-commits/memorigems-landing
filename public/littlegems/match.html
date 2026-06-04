@@ -79,7 +79,21 @@
   .gembox b{font-size:20px;font-weight:600;color:var(--gold-deep);font-family:var(--sans)}
 
   #board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-  @media(max-width:520px){#board{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.panel{padding:16px}}
+  @media(max-width:520px){
+    #board{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+    .panel{padding:14px}
+    .card{border-radius:11px;border-width:2px;padding:3px;gap:2px}
+    .card svg{width:28px;height:28px}
+    .card .lbl{font-size:10px;line-height:1.1;word-break:break-word;hyphens:auto}
+    .jar-wrap{gap:12px;padding:12px 14px;margin-bottom:12px}
+    .jar-wrap svg{width:78px;height:88px}
+    .jar-total{font-size:20px}
+    .bar{margin-bottom:12px}
+    .topline{margin-bottom:6px}
+    h1{font-size:26px;margin-bottom:4px}
+    .sub{font-size:14px;margin-bottom:12px}
+    .namebar{margin-bottom:10px}
+  }
 
   .card{
     aspect-ratio:1/1;border-radius:16px;
@@ -93,7 +107,7 @@
   .card:hover{transform:translateY(-3px)}
   .card:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
   .card .lbl{font-size:14px;font-weight:600}
-  @media(max-width:480px){.card .lbl{font-size:12px}}
+  @media(max-width:480px){.card .lbl{font-size:10px}}
 
   .msg{
     text-align:center;margin-top:18px;min-height:26px;
@@ -157,7 +171,7 @@
     margin-top:6px;padding:0;text-decoration:underline;
   }
   .jar-reset:hover{color:var(--coral-d)}
-  @media(max-width:430px){.jar-wrap{gap:12px;padding:14px}.jar-total{font-size:22px}}</style>
+  @media(max-width:430px){.jar-wrap{gap:10px;padding:11px 12px}.jar-wrap svg{width:70px;height:79px}.jar-total{font-size:19px}.card svg{width:26px;height:26px}.card .lbl{font-size:9.5px}}</style>
 </head>
 <body>
 <div class="wrap">
