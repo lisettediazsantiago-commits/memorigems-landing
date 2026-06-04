@@ -10,19 +10,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --beige-cream: #F7F1E4;
-    --beige-warm: #F0E7D2;
-    --beige-deep: #E6D9BC;
-    --beige-paper: #FBF6EB;
+    --beige-cream: #FBF6EE;
+    --beige-warm: #FDF0E8;
+    --beige-deep: #F2E2CF;
+    --beige-paper: #FFFDF9;
 
     --gold: #B89248;
     --gold-warm: #C9A66C;
     --gold-deep: #8C6E32;
     --gold-pale: #E8D9B5;
 
-    --sage: #8FA28A;
-    --sage-deep: #5E7359;
-    --sage-mist: #DDE5DA;
+    --coral: #E07A52;
+    --coral-soft: #FDEDE4;
+    --coral-deep: #B5552E;
+    --sky: #4E97A6;
+    --sky-soft: #E4F1F4;
+    --sky-deep: #2E6B78;
+    --mint: #6BA876;
+    --mint-soft: #E8F3E9;
+    --mint-deep: #3F7A4A;
+    --sun: #D6A94E;
+    --sun-soft: #FBF0DC;
+    --sun-deep: #946C1E;
 
     --ink: #2A2317;
     --ink-soft: #524634;
@@ -52,13 +61,13 @@
     position: fixed;
     inset: 0;
     background:
-      radial-gradient(ellipse at top, rgba(184, 146, 72, 0.07) 0%, transparent 55%),
-      radial-gradient(ellipse at bottom left, rgba(143, 162, 138, 0.06) 0%, transparent 50%),
-      linear-gradient(180deg, #F7F1E4 0%, #F0E7D2 50%, #F7F1E4 100%);
+      radial-gradient(ellipse at top, rgba(224, 122, 82, 0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(78, 151, 166, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(107, 168, 118, 0.05) 0%, transparent 50%),
+      linear-gradient(180deg, #FBF6EE 0%, #FDF0E8 50%, #FBF6EE 100%);
     z-index: -1;
   }
 
-  /* ===== NAV ===== */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -67,7 +76,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(247, 241, 228, 0.9);
+    background: rgba(251, 246, 238, 0.9);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 0.5px solid rgba(184, 146, 72, 0.2);
@@ -76,7 +85,7 @@
   .nav-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0;
     font-family: var(--serif);
     font-size: 28px;
     font-weight: 400;
@@ -85,10 +94,7 @@
     line-height: 1;
     text-decoration: none;
   }
-  .nav-brand .gems {
-    color: var(--gold-deep);
-    font-weight: 700;
-  }
+  .nav-brand .gems { color: var(--gold-deep); font-weight: 700; }
 
   .nav-links {
     display: flex;
@@ -100,132 +106,101 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
   }
-  .nav-links a {
-    color: var(--ink-soft);
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  .nav-links a:hover { color: var(--gold); }
+  .nav-links a { color: var(--ink-soft); text-decoration: none; transition: color 0.3s ease; }
+  .nav-links a:hover { color: var(--coral); }
 
   .nav-cta {
     padding: 10px 22px;
-    border: 0.5px solid var(--gold);
-    color: var(--gold) !important;
+    border: 0.5px solid var(--coral);
+    color: var(--coral) !important;
     border-radius: 100px;
     transition: all 0.3s ease;
   }
-  .nav-cta:hover {
-    background: var(--gold);
-    color: var(--beige-cream) !important;
-  }
+  .nav-cta:hover { background: var(--coral); color: var(--beige-cream) !important; }
 
-  /* ===== HERO ===== */
-  .hero {
-    padding: 180px 48px 100px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
+  .hero { padding: 180px 48px 100px; text-align: center; position: relative; overflow: hidden; }
 
-  .hero-motes {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
+  .hero-motes { position: absolute; inset: 0; pointer-events: none; }
   .mote {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: var(--gold);
-    border-radius: 50%;
-    animation: drift 10s ease-in-out infinite;
-    opacity: 0;
+    position: absolute; width: 3px; height: 3px;
+    background: var(--coral); border-radius: 50%;
+    animation: drift 10s ease-in-out infinite; opacity: 0;
   }
   .mote:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
-  .mote:nth-child(2) { top: 35%; left: 80%; animation-delay: 1.4s; background: var(--sage); }
-  .mote:nth-child(3) { top: 50%; left: 10%; animation-delay: 2.8s; width: 4px; height: 4px; }
-  .mote:nth-child(4) { top: 65%; left: 85%; animation-delay: 4.2s; background: var(--sage); }
-  .mote:nth-child(5) { top: 25%; left: 50%; animation-delay: 5.6s; }
-  .mote:nth-child(6) { top: 80%; left: 30%; animation-delay: 7s; }
+  .mote:nth-child(2) { top: 35%; left: 80%; animation-delay: 1.4s; background: var(--sky); }
+  .mote:nth-child(3) { top: 50%; left: 10%; animation-delay: 2.8s; width: 4px; height: 4px; background: var(--mint); }
+  .mote:nth-child(4) { top: 65%; left: 85%; animation-delay: 4.2s; background: var(--sky); }
+  .mote:nth-child(5) { top: 25%; left: 50%; animation-delay: 5.6s; background: var(--gold); }
+  .mote:nth-child(6) { top: 80%; left: 30%; animation-delay: 7s; background: var(--mint); }
 
   @keyframes drift {
     0%, 100% { opacity: 0; transform: translateY(0); }
-    20%, 80% { opacity: 0.55; }
+    20%, 80% { opacity: 0.6; }
     50% { transform: translateY(-14px); }
   }
 
-  .hero-inner {
-    max-width: 760px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
+  .hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 2; }
 
   .hero-eyebrow {
-    font-family: var(--display);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 6px;
-    color: var(--gold-deep);
-    margin-bottom: 32px;
-    opacity: 0;
-    animation: fadeUp 1.2s 0.2s forwards;
+    font-family: var(--display); font-size: 11px; font-weight: 500;
+    letter-spacing: 6px; color: var(--coral-deep);
+    margin-bottom: 32px; opacity: 0; animation: fadeUp 1.2s 0.2s forwards;
   }
 
   .hero-wordmark {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(56px, 8vw, 96px);
-    line-height: 1;
-    letter-spacing: -1.5px;
-    color: var(--ink-soft);
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 1.4s 0.4s forwards;
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(56px, 8vw, 96px); line-height: 1;
+    letter-spacing: -1.5px; color: var(--ink-soft);
+    margin-bottom: 28px; opacity: 0; animation: fadeUp 1.4s 0.4s forwards;
   }
-  .hero-wordmark .gems {
-    color: var(--gold-deep);
-    font-weight: 700;
-  }
+  .hero-wordmark .gems { color: var(--coral); font-weight: 700; }
 
   .hero h1 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-style: italic;
-    font-size: clamp(28px, 3.5vw, 42px);
-    line-height: 1.3;
-    color: var(--ink);
-    margin-bottom: 32px;
-    opacity: 0;
-    animation: fadeUp 1.6s 0.6s forwards;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(28px, 3.5vw, 42px); line-height: 1.3; color: var(--ink);
+    margin-bottom: 32px; opacity: 0; animation: fadeUp 1.6s 0.6s forwards;
   }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold-deep);
-    font-weight: 500;
-  }
+  .hero h1 em { font-style: italic; color: var(--coral-deep); font-weight: 500; }
 
   .hero-sub {
-    font-family: var(--serif);
-    font-size: clamp(18px, 1.6vw, 21px);
-    font-weight: 400;
-    color: var(--ink-soft);
-    max-width: 620px;
-    margin: 0 auto 24px;
-    line-height: 1.7;
-    opacity: 0;
-    animation: fadeUp 1.8s 0.8s forwards;
+    font-family: var(--serif); font-size: clamp(18px, 1.6vw, 21px);
+    font-weight: 400; color: var(--ink-soft); max-width: 620px;
+    margin: 0 auto 24px; line-height: 1.7; opacity: 0; animation: fadeUp 1.8s 0.8s forwards;
   }
 
   .hero-note {
-    font-family: var(--display);
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: var(--gold);
-    margin-top: 32px;
-    opacity: 0;
-    animation: fadeUp 2s 1s forwards;
+    font-family: var(--display); font-size: 11px; letter-spacing: 4px;
+    color: var(--coral); margin-top: 32px; opacity: 0; animation: fadeUp 2s 1s forwards;
+  }
+
+  .hero-jumps {
+    display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+    max-width: 600px; margin: 40px auto 0; opacity: 0; animation: fadeUp 2.2s 1.2s forwards;
+  }
+  .jump-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--sans); font-size: 12px; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 12px 22px; border-radius: 100px;
+    border: 1px solid var(--coral); color: var(--coral-deep);
+    background: rgba(255,255,255,0.5); text-decoration: none;
+    transition: all 0.3s ease; cursor: pointer;
+  }
+  .jump-btn:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .jump-btn i, .jump-btn svg { width: 15px; height: 15px; }
+  .jump-btn.j-color { background: var(--coral); border-color: var(--coral); color: #fff; }
+  .jump-btn.j-color:hover { background: var(--coral-deep); border-color: var(--coral-deep); color: #fff; }
+  .jump-btn.j-match { border-color: var(--coral); color: var(--coral-deep); }
+  .jump-btn.j-match:hover { background: var(--coral); }
+  .jump-btn.j-choices { border-color: var(--mint); color: var(--mint-deep); }
+  .jump-btn.j-choices:hover { background: var(--mint); color: #fff; }
+  .jump-btn.j-calm { border-color: var(--sky); color: var(--sky-deep); }
+  .jump-btn.j-calm:hover { background: var(--sky); color: #fff; }
+  .jump-btn.j-print { border-color: var(--gold); color: var(--gold-deep); }
+  .jump-btn.j-print:hover { background: var(--gold); color: #fff; }
+  @media (max-width: 600px) {
+    .hero-jumps { gap: 8px; margin-top: 28px; }
+    .jump-btn { font-size: 11px; padding: 10px 16px; letter-spacing: 0.5px; }
   }
 
   @keyframes fadeUp {
@@ -233,370 +208,212 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ===== INTRO BAND ===== */
   .intro-band {
-    background: var(--beige-warm);
-    padding: 90px 48px;
-    text-align: center;
+    background: var(--beige-warm); padding: 90px 48px; text-align: center;
     border-top: 0.5px solid rgba(184, 146, 72, 0.2);
     border-bottom: 0.5px solid rgba(184, 146, 72, 0.2);
   }
-
   .intro-quote {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(22px, 2.6vw, 30px);
-    line-height: 1.5;
-    color: var(--ink);
-    max-width: 780px;
-    margin: 0 auto;
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(22px, 2.6vw, 30px); line-height: 1.5; color: var(--ink);
+    max-width: 780px; margin: 0 auto;
   }
+  .intro-quote em { color: var(--coral-deep); font-weight: 500; }
 
-  .intro-quote em {
-    color: var(--gold-deep);
-    font-weight: 500;
-  }
+  /* ===== Color Online featured block ===== */
+  .color-feature-section { padding: 110px 48px 90px; background: var(--beige-cream); }
+  .cf-pill { display:inline-block; font-family:var(--sans); font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#fff; background:var(--coral); padding:6px 14px; border-radius:100px; margin-bottom:18px; }
+  .color-feature { max-width:1000px; margin:0 auto; background:var(--beige-paper); border:0.5px solid rgba(224,122,82,0.35); border-radius:20px; overflow:hidden; display:grid; grid-template-columns:1.05fr 0.95fr; box-shadow:0 24px 60px -34px rgba(140,110,50,0.5); }
+  .cf-copy { padding:48px 44px; }
+  .cf-copy .tag { font-family:var(--display); font-size:10px; letter-spacing:3px; color:var(--coral); text-transform:uppercase; }
+  .cf-copy h3 { font-family:var(--serif); font-size:38px; font-weight:500; line-height:1.15; margin:14px 0 16px; color:var(--ink); }
+  .cf-copy p { font-size:18px; color:var(--ink-soft); margin-bottom:24px; }
+  .cf-list { list-style:none; padding:0; margin:0 0 30px; font-size:16px; color:var(--ink-soft); }
+  .cf-list li { display:flex; gap:10px; align-items:center; padding:5px 0; }
+  .cf-list .cf-dot { width:7px; height:7px; border-radius:50%; background:var(--coral); flex:none; }
+  .cf-btn { display:inline-flex; align-items:center; gap:9px; font-family:var(--sans); font-size:12px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; padding:15px 30px; border-radius:100px; background:var(--ink); color:var(--beige-cream); text-decoration:none; transition:all 0.3s ease; }
+  .cf-btn:hover { background:var(--coral-deep); transform:translateY(-2px); }
+  .cf-art { background:linear-gradient(160deg, var(--coral-soft), var(--sun-soft)); display:flex; align-items:center; justify-content:center; padding:34px; }
+  .cf-sheet { width:100%; max-width:300px; aspect-ratio:600/770; background:#fff; border-radius:14px; box-shadow:0 18px 40px -22px rgba(140,110,50,0.6); padding:22px 18px; text-align:center; }
+  .cf-sheet .mt { font-family:var(--serif); font-size:21px; font-weight:600; color:var(--ink); margin-top:6px; }
+  .cf-sheet .ms { font-family:var(--serif); font-style:italic; font-size:12px; color:var(--ink-soft); margin-bottom:10px; }
+  .cf-frame { border:2px solid #3A3228; border-radius:18px; height:46%; position:relative; overflow:hidden; }
+  .cf-scribble { position:absolute; border-radius:50%; }
+  .cf-swatches { display:flex; gap:6px; justify-content:center; margin-top:14px; }
+  .cf-swatches span { width:16px; height:16px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 0 1px rgba(184,146,72,0.4); }
+  .cf-foot { font-family:var(--sans); font-size:10px; font-weight:500; margin-top:14px; }
+  .cf-foot .lg { color:var(--coral); } .cf-foot .mg { color:var(--gold-deep); }
+  @media (max-width:760px){ .color-feature{ grid-template-columns:1fr; } .color-feature-section{ padding:70px 24px; } .cf-copy{ padding:36px 28px; } }
 
-  /* ===== GEMS GRID ===== */
-  .gems-section {
-    padding: 120px 48px;
-    background: var(--beige-cream);
-  }
+  .gems-section { padding: 120px 48px; background: var(--beige-cream); }
 
   .section-eyebrow {
-    font-family: var(--display);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 6px;
-    color: var(--gold-deep);
-    margin-bottom: 24px;
-    text-align: center;
+    font-family: var(--display); font-size: 11px; font-weight: 500;
+    letter-spacing: 6px; color: var(--coral-deep); margin-bottom: 24px; text-align: center;
   }
-
   .section-title {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(34px, 4.4vw, 52px);
-    line-height: 1.2;
-    text-align: center;
-    color: var(--ink);
-    margin-bottom: 28px;
+    font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 4.4vw, 52px);
+    line-height: 1.2; text-align: center; color: var(--ink); margin-bottom: 28px;
   }
-
-  .section-title em {
-    font-style: italic;
-    color: var(--gold-deep);
-    font-weight: 500;
-  }
+  .section-title em { font-style: italic; color: var(--coral-deep); font-weight: 500; }
 
   .section-divider {
-    width: 60px;
-    height: 0.5px;
-    background: var(--gold);
-    margin: 0 auto 80px;
+    width: 80px; height: 3px;
+    background: linear-gradient(90deg, var(--coral), var(--sky), var(--mint));
+    border-radius: 2px; margin: 0 auto 80px;
   }
 
   .gems-grid {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 48px;
+    max-width: 1200px; margin: 0 auto; display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 48px;
   }
 
   .gem-card {
-    background: var(--beige-paper);
-    border: 0.5px solid rgba(184, 146, 72, 0.25);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: all 0.4s ease;
-    display: flex;
-    flex-direction: column;
+    background: var(--beige-paper); border: 0.5px solid rgba(184, 146, 72, 0.25);
+    border-radius: 14px; overflow: hidden; transition: all 0.4s ease;
+    display: flex; flex-direction: column;
   }
-
-  .gem-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--gold);
-    box-shadow: 0 20px 40px rgba(184, 146, 72, 0.12);
-  }
+  .gem-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(140, 110, 50, 0.14); }
 
   .gem-preview {
-    aspect-ratio: 8.5 / 11;
-    background: white;
+    aspect-ratio: 8.5 / 11; background: white;
     border-bottom: 0.5px solid rgba(184, 146, 72, 0.15);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden; display: flex; align-items: center; justify-content: center;
   }
+  .gem-preview img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.6s ease; }
+  .gem-card:hover .gem-preview img { transform: scale(1.03); }
 
-  .gem-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    transition: transform 0.6s ease;
-  }
+  .gem-meta { padding: 28px 28px 32px; text-align: center; display: flex; flex-direction: column; flex: 1; }
 
-  .gem-card:hover .gem-preview img {
-    transform: scale(1.03);
-  }
-
-  .gem-meta {
-    padding: 28px 28px 32px;
-    text-align: center;
-  }
-
-  .gem-num {
-    font-family: var(--display);
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--gold);
-    margin-bottom: 12px;
-  }
+  .gem-num { font-family: var(--display); font-size: 10px; letter-spacing: 3px; margin-bottom: 12px; }
 
   .gem-name {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: 24px;
-    color: var(--ink);
-    margin-bottom: 10px;
-    line-height: 1.25;
-    letter-spacing: -0.2px;
+    font-family: var(--serif); font-weight: 500; font-size: 24px; color: var(--ink);
+    margin-bottom: 10px; line-height: 1.25; letter-spacing: -0.2px;
   }
-
   .gem-desc {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 16px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-    margin-bottom: 24px;
-    min-height: 48px;
+    font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--ink-soft);
+    line-height: 1.5; margin-bottom: 24px; min-height: 48px;
   }
 
   .gem-download {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 14px 28px;
-    border-radius: 100px;
-    border: 0.5px solid var(--ink-faint);
-    color: var(--ink);
-    background: transparent;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
+    margin-top: auto; align-self: center;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: 2px;
+    text-transform: uppercase; padding: 14px 28px; border-radius: 100px;
+    border: 0.5px solid; background: transparent; text-decoration: none;
+    transition: all 0.3s ease; cursor: pointer;
   }
+  .gem-download svg { width: 12px; height: 12px; }
 
-  .gem-download:hover {
-    background: var(--ink);
-    color: var(--beige-cream);
-    border-color: var(--ink);
+  .gem-card.t-coral { border-color: rgba(224,122,82,0.3); }
+  .gem-card.t-coral .gem-preview { background: var(--coral-soft); }
+  .gem-card.t-coral .gem-num { color: var(--coral); }
+  .gem-card.t-coral .gem-download { border-color: var(--coral); color: var(--coral-deep); }
+  .gem-card.t-coral:hover { border-color: var(--coral); }
+  .gem-card.t-coral .gem-download:hover { background: var(--coral); color: #fff; border-color: var(--coral); }
+
+  .gem-card.t-sky { border-color: rgba(78,151,166,0.3); }
+  .gem-card.t-sky .gem-preview { background: var(--sky-soft); }
+  .gem-card.t-sky .gem-num { color: var(--sky); }
+  .gem-card.t-sky .gem-download { border-color: var(--sky); color: var(--sky-deep); }
+  .gem-card.t-sky:hover { border-color: var(--sky); }
+  .gem-card.t-sky .gem-download:hover { background: var(--sky); color: #fff; border-color: var(--sky); }
+
+  .gem-card.t-mint { border-color: rgba(107,168,118,0.3); }
+  .gem-card.t-mint .gem-preview { background: var(--mint-soft); }
+  .gem-card.t-mint .gem-num { color: var(--mint); }
+  .gem-card.t-mint .gem-download { border-color: var(--mint); color: var(--mint-deep); }
+  .gem-card.t-mint:hover { border-color: var(--mint); }
+  .gem-card.t-mint .gem-download:hover { background: var(--mint); color: #fff; border-color: var(--mint); }
+
+  .gem-card.t-sun { border-color: rgba(214,169,78,0.35); }
+  .gem-card.t-sun .gem-preview { background: var(--sun-soft); }
+  .gem-card.t-sun .gem-num { color: var(--sun-deep); }
+  .gem-card.t-sun .gem-download { border-color: var(--sun); color: var(--sun-deep); }
+  .gem-card.t-sun:hover { border-color: var(--sun); }
+  .gem-card.t-sun .gem-download:hover { background: var(--sun); color: #fff; border-color: var(--sun); }
+
+  .gem-card.t-gold { border-color: rgba(184,146,72,0.3); }
+  .gem-card.t-gold .gem-preview { background: var(--gold-pale); }
+  .gem-card.t-gold .gem-num { color: var(--gold-deep); }
+  .gem-card.t-gold .gem-download { border-color: var(--gold); color: var(--gold-deep); }
+  .gem-card.t-gold:hover { border-color: var(--gold); }
+  .gem-card.t-gold .gem-download:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+  .game-section {
+    background: var(--beige-warm); padding: 120px 48px; text-align: center;
+    border-top: 0.5px solid rgba(184, 146, 72, 0.2);
+    border-bottom: 0.5px solid rgba(184, 146, 72, 0.2);
   }
-
-  .gem-download svg {
-    width: 12px;
-    height: 12px;
+  .game-intro {
+    font-family: var(--serif); font-size: 19px; color: var(--ink-soft);
+    max-width: 560px; margin: 0 auto 48px; line-height: 1.7;
   }
-
-  /* ===== USE-IDEAS ===== */
-  .use-ideas {
-    background: var(--sage-mist);
-    padding: 120px 48px;
-    text-align: center;
+  .game-frame-wrap { max-width: 660px; margin: 0 auto; }
+  .game-frame {
+    width: 100%; border: none; border-radius: 20px;
+    box-shadow: 0 24px 60px -30px rgba(140, 110, 50, 0.5); background: var(--beige-cream);
   }
+  .game-frame.gf-match { height: 880px; }
+  .game-frame.gf-choices { height: 860px; }
+  .game-frame.gf-calm { height: 930px; }
 
+  .use-ideas { background: var(--mint-soft); padding: 120px 48px; text-align: center; }
   .use-ideas-grid {
-    max-width: 980px;
-    margin: 60px auto 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 56px;
+    max-width: 980px; margin: 60px auto 0; display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 56px;
   }
-
-  .use-idea {
-    text-align: center;
-  }
-
-  .use-idea-icon {
-    width: 40px;
-    height: 40px;
-    margin: 0 auto 20px;
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
+  .use-idea { text-align: center; }
+  .use-idea-icon { width: 40px; height: 40px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; }
+  .use-idea:nth-child(1) .use-idea-icon { color: var(--coral); }
+  .use-idea:nth-child(2) .use-idea-icon { color: var(--sky); }
+  .use-idea:nth-child(3) .use-idea-icon { color: var(--mint-deep); }
   .use-idea-title {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-style: italic;
-    font-size: 22px;
-    color: var(--ink);
-    margin-bottom: 12px;
+    font-family: var(--serif); font-weight: 500; font-style: italic; font-size: 22px;
+    color: var(--ink); margin-bottom: 12px;
   }
-
   .use-idea-desc {
-    font-family: var(--serif);
-    font-size: 17px;
-    color: var(--ink-soft);
-    line-height: 1.65;
-    max-width: 280px;
-    margin: 0 auto;
+    font-family: var(--serif); font-size: 17px; color: var(--ink-soft);
+    line-height: 1.65; max-width: 280px; margin: 0 auto;
   }
 
-  /* ===== CTA BACK ===== */
-  .cta-band {
-    background: var(--beige-cream);
-    padding: 140px 48px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
+  .cta-band { background: var(--beige-cream); padding: 140px 48px; text-align: center; position: relative; overflow: hidden; }
   .cta-band::before {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px; height: 800px;
-    background: radial-gradient(circle, rgba(184, 146, 72, 0.08) 0%, transparent 55%);
-    pointer-events: none;
+    content: ''; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(224, 122, 82, 0.09) 0%, transparent 55%); pointer-events: none;
   }
-
-  .cta-inner {
-    max-width: 640px;
-    margin: 0 auto;
-    position: relative;
-  }
-
+  .cta-inner { max-width: 640px; margin: 0 auto; position: relative; }
   .cta-band h2 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-style: italic;
-    font-size: clamp(32px, 4.2vw, 48px);
-    line-height: 1.25;
-    color: var(--ink);
-    margin-bottom: 24px;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(32px, 4.2vw, 48px); line-height: 1.25; color: var(--ink); margin-bottom: 24px;
   }
-
-  .cta-band p {
-    color: var(--ink-soft);
-    margin-bottom: 40px;
-    font-size: 19px;
-  }
+  .cta-band p { color: var(--ink-soft); margin-bottom: 40px; font-size: 19px; }
 
   .btn {
-    font-family: var(--sans);
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 16px 36px;
-    border-radius: 100px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    border: 0.5px solid transparent;
+    font-family: var(--sans); font-size: 12px; font-weight: 400; letter-spacing: 2px;
+    text-transform: uppercase; padding: 16px 36px; border-radius: 100px; cursor: pointer;
+    transition: all 0.3s ease; text-decoration: none; display: inline-block; border: 0.5px solid transparent;
   }
+  .btn-primary { background: var(--ink); color: var(--beige-cream); border-color: var(--ink); }
+  .btn-primary:hover { background: var(--coral-deep); border-color: var(--coral-deep); transform: translateY(-2px); }
 
-  .btn-primary {
-    background: var(--ink);
-    color: var(--beige-cream);
-    border-color: var(--ink);
-  }
-  .btn-primary:hover {
-    background: var(--gold-deep);
-    border-color: var(--gold-deep);
-    transform: translateY(-2px);
-  }
-
-  /* ===== FOOTER ===== */
-  footer {
-    background: var(--beige-deep);
-    padding: 64px 48px 36px;
-    border-top: 0.5px solid rgba(184, 146, 72, 0.25);
-  }
-
-  .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-
-  .footer-brand {
-    font-family: var(--serif);
-    font-size: 24px;
-    font-weight: 400;
-    letter-spacing: -0.5px;
-    color: var(--ink-soft);
-    line-height: 1;
-  }
-  .footer-brand .gems {
-    color: var(--gold-deep);
-    font-weight: 700;
-  }
-
-  .footer-byline {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 12px;
-    color: var(--ink-faint);
-    margin-top: 4px;
-  }
+  footer { background: var(--beige-deep); padding: 64px 48px 36px; border-top: 0.5px solid rgba(184, 146, 72, 0.25); }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+  .footer-brand { font-family: var(--serif); font-size: 24px; font-weight: 400; letter-spacing: -0.5px; color: var(--ink-soft); line-height: 1; }
+  .footer-brand .gems { color: var(--gold-deep); font-weight: 700; }
+  .footer-byline { font-family: var(--serif); font-style: italic; font-size: 12px; color: var(--ink-faint); margin-top: 4px; }
   .footer-byline a { color: var(--gold-deep); text-decoration: none; }
-  .footer-byline a:hover { color: var(--gold); }
+  .footer-byline a:hover { color: var(--coral); }
+  .footer-links { display: flex; gap: 28px; font-family: var(--sans); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
+  .footer-links a { color: var(--ink-soft); text-decoration: none; transition: color 0.3s ease; }
+  .footer-links a:hover { color: var(--coral); }
+  .footer-copy { width: 100%; text-align: center; margin-top: 40px; font-size: 12px; color: var(--ink-faint); font-style: italic; }
 
-  .footer-links {
-    display: flex;
-    gap: 28px;
-    font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
-  .footer-links a {
-    color: var(--ink-soft);
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  .footer-links a:hover { color: var(--gold); }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  .footer-copy {
-    width: 100%;
-    text-align: center;
-    margin-top: 40px;
-    font-size: 12px;
-    color: var(--ink-faint);
-    font-style: italic;
-  }
-
-  /* ===== REVEAL ===== */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s ease, transform 1s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ===== MOBILE ===== */
   @media (max-width: 768px) {
     nav { padding: 14px 20px; }
     .nav-links a:not(.nav-cta) { display: none; }
@@ -604,6 +421,10 @@
     .intro-band { padding: 70px 24px; }
     .gems-section { padding: 80px 24px; }
     .gems-grid { gap: 32px; }
+    .game-section { padding: 80px 20px; }
+    .game-frame.gf-match { height: 1260px; }
+    .game-frame.gf-choices { height: 920px; }
+    .game-frame.gf-calm { height: 1050px; }
     .use-ideas { padding: 80px 24px; }
     .cta-band { padding: 90px 24px; }
     footer { padding: 40px 24px 24px; }
@@ -616,9 +437,7 @@
 <div class="gradient-bg"></div>
 
 <nav>
-  <a href="/" class="nav-brand">
-    <span>Memori</span><span class="gems">Gems</span>
-  </a>
+  <a href="/" class="nav-brand"><span>Memori</span><span class="gems">Gems</span></a>
   <div class="nav-links">
     <a href="/#how">How it works</a>
     <a href="/#story">Our story</a>
@@ -634,12 +453,33 @@
   </div>
   <div class="hero-inner">
     <div class="hero-eyebrow">A COMPANION FROM MEMORIGEMS</div>
-    <div class="hero-wordmark">
-      <span>Little</span><span class="gems">Gems</span>
-    </div>
+    <div class="hero-wordmark"><span>Little</span><span class="gems">Gems</span></div>
     <h1>Preserving connection shouldn't only begin when we're <em>afraid of losing it</em>.</h1>
     <p class="hero-sub">Free printable memory and connection sheets for the little ones in your life — to draw, color, and share gems with the people they love.</p>
     <div class="hero-note">FREE · PRINTABLE · MADE WITH CARE</div>
+
+    <div class="hero-jumps">
+      <a href="#color-online" class="jump-btn j-color">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c2-1 3-3 4-5l9-9 3 3-9 9c-2 1-4 2-7 2z"/><path d="M14 5l5 5"/></svg>
+        Color online
+      </a>
+      <a href="#printables" class="jump-btn j-print">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-2 6H8z"/><path d="M8 9l-2 12h12l-2-12"/></svg>
+        Coloring sheets
+      </a>
+      <a href="#game-match" class="jump-btn j-match">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Match game
+      </a>
+      <a href="#game-choices" class="jump-btn j-choices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>
+        Kindness game
+      </a>
+      <a href="#game-calm" class="jump-btn j-calm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
+        Calming game
+      </a>
+    </div>
   </div>
 </section>
 
@@ -647,17 +487,54 @@
   <p class="intro-quote">Children's drawings <em>are</em> gems. The little voice notes, the small stories, the way a kid remembers a moment — these are the beginnings of emotional memory keeping.</p>
 </section>
 
-<section class="gems-section">
-  <div class="section-eyebrow">FIVE LITTLE GEMS</div>
+<!-- ===== COLOR ONLINE — featured block ===== -->
+<section class="color-feature-section" id="color-online">
+  <div style="text-align:center;"><span class="cf-pill">★ New — no printer needed</span></div>
+  <div class="section-eyebrow">COLOR THEM ON ANY SCREEN</div>
+  <h2 class="section-title">Now you can color them <em>online</em>.</h2>
+  <div class="section-divider"></div>
+
+  <div class="color-feature reveal">
+    <div class="cf-copy">
+      <div class="tag">LITTLEGEMS COLORING STUDIO</div>
+      <h3>Color it on the screen — then keep it forever.</h3>
+      <p>All six sheets, now interactive. Kids draw, color, and stamp gems &amp; hearts right in the browser — no printing required.</p>
+      <ul class="cf-list">
+        <li><span class="cf-dot"></span> Brushes, crayons, fill &amp; gem / heart stamps</li>
+        <li><span class="cf-dot"></span> Type the answers right on the page</li>
+        <li><span class="cf-dot"></span> Save to Photos (phone) or computer (desktop)</li>
+        <li><span class="cf-dot"></span> Still fully printable too — nothing lost</li>
+      </ul>
+      <a class="cf-btn" href="/littlegems/color.html">Start coloring &rarr;</a>
+    </div>
+    <div class="cf-art">
+      <div class="cf-sheet">
+        <div class="mt">Someone Special to Me</div>
+        <div class="ms">Draw someone who makes you feel loved.</div>
+        <div class="cf-frame">
+          <span class="cf-scribble" style="width:38px;height:38px;background:#F4A38A;top:30%;left:24%;"></span>
+          <span class="cf-scribble" style="width:30px;height:30px;background:#6BA876;top:42%;left:52%;"></span>
+          <span class="cf-scribble" style="width:22px;height:22px;background:#D6A94E;top:22%;left:62%;"></span>
+        </div>
+        <div class="cf-swatches">
+          <span style="background:#E07A52;"></span><span style="background:#D6A94E;"></span><span style="background:#6BA876;"></span><span style="background:#4E97A6;"></span><span style="background:#9B7BB8;"></span>
+        </div>
+        <div class="cf-foot"><span class="lg">LittleGems</span> by <span class="mg">MemoriGems</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ===== END Color Online block ===== -->
+
+<section class="gems-section" id="printables">
+  <div class="section-eyebrow">SIX LITTLE GEMS</div>
   <h2 class="section-title">Print, color, share, <em>remember</em>.</h2>
   <div class="section-divider"></div>
 
   <div class="gems-grid">
 
-    <div class="gem-card reveal">
-      <div class="gem-preview">
-        <img src="/littlegems/special-person-preview.jpg" alt="Someone Special to Me — coloring sheet preview">
-      </div>
+    <div class="gem-card t-coral reveal">
+      <div class="gem-preview"><img src="/littlegems/special-person-preview.jpg" alt="Someone Special to Me — coloring sheet preview"></div>
       <div class="gem-meta">
         <div class="gem-num">01</div>
         <div class="gem-name">Someone Special to Me</div>
@@ -669,10 +546,8 @@
       </div>
     </div>
 
-    <div class="gem-card reveal">
-      <div class="gem-preview">
-        <img src="/littlegems/friendship-preview.jpg" alt="My Friendship Gem — coloring sheet preview">
-      </div>
+    <div class="gem-card t-sky reveal">
+      <div class="gem-preview"><img src="/littlegems/friendship-preview.jpg" alt="My Friendship Gem — coloring sheet preview"></div>
       <div class="gem-meta">
         <div class="gem-num">02</div>
         <div class="gem-name">My Friendship Gem</div>
@@ -684,10 +559,8 @@
       </div>
     </div>
 
-    <div class="gem-card reveal">
-      <div class="gem-preview">
-        <img src="/littlegems/grandparent-preview.jpg" alt="Grandparent Gem — coloring sheet preview">
-      </div>
+    <div class="gem-card t-mint reveal">
+      <div class="gem-preview"><img src="/littlegems/grandparent-preview.jpg" alt="Grandparent Gem — coloring sheet preview"></div>
       <div class="gem-meta">
         <div class="gem-num">03</div>
         <div class="gem-name">Grandparent Gem</div>
@@ -699,10 +572,8 @@
       </div>
     </div>
 
-    <div class="gem-card reveal">
-      <div class="gem-preview">
-        <img src="/littlegems/todays-preview.jpg" alt="Today's Tiny Gem — coloring sheet preview">
-      </div>
+    <div class="gem-card t-sun reveal">
+      <div class="gem-preview"><img src="/littlegems/todays-preview.jpg" alt="Today's Tiny Gem — coloring sheet preview"></div>
       <div class="gem-meta">
         <div class="gem-num">04</div>
         <div class="gem-name">Today's Tiny Gem</div>
@@ -714,10 +585,8 @@
       </div>
     </div>
 
-    <div class="gem-card reveal">
-      <div class="gem-preview">
-        <img src="/littlegems/forever-preview.jpg" alt="Forever Gem — coloring sheet preview">
-      </div>
+    <div class="gem-card t-gold reveal">
+      <div class="gem-preview"><img src="/littlegems/forever-preview.jpg" alt="Forever Gem — coloring sheet preview"></div>
       <div class="gem-meta">
         <div class="gem-num">05</div>
         <div class="gem-name">A Memory I Want to Keep Forever</div>
@@ -729,6 +598,49 @@
       </div>
     </div>
 
+    <div class="gem-card t-coral reveal">
+      <div class="gem-preview"><img src="/littlegems/feelings-preview.jpg" alt="Feelings Gem — coloring sheet preview"></div>
+      <div class="gem-meta">
+        <div class="gem-num">06</div>
+        <div class="gem-name">Feelings Gem</div>
+        <div class="gem-desc">Name a feeling, then draw the face it makes.</div>
+        <a href="/littlegems/LittleGems_FeelingsGem.pdf" download class="gem-download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="game-section" id="game-match">
+  <div class="section-eyebrow">A LITTLE GAME</div>
+  <h2 class="section-title">Match the feeling to the <em>moment</em>.</h2>
+  <div class="section-divider"></div>
+  <p class="game-intro reveal">A gentle game for children — pair each feeling with the moment that gave it, and collect a gem for every match. A small way to put words to big feelings.</p>
+  <div class="game-frame-wrap reveal">
+    <iframe class="game-frame gf-match" src="/littlegems/match.html" title="MemoriGems Match — a feelings game" loading="lazy"></iframe>
+  </div>
+</section>
+
+<section class="game-section" id="game-choices" style="background:var(--mint-soft);">
+  <div class="section-eyebrow">ANOTHER LITTLE GAME</div>
+  <h2 class="section-title">Choose the <em>kindest</em> thing to do.</h2>
+  <div class="section-divider"></div>
+  <p class="game-intro reveal">Read a little moment, then tap the gem holding the kindest choice. A gentle way to practice empathy and good decisions — and every kind choice adds a gem to the same jar.</p>
+  <div class="game-frame-wrap reveal">
+    <iframe class="game-frame gf-choices" src="/littlegems/choices.html" title="Gem Choices — a kindness game" loading="lazy"></iframe>
+  </div>
+</section>
+
+<section class="game-section" id="game-calm">
+  <div class="section-eyebrow">A CALMING GAME</div>
+  <h2 class="section-title">Breathe, and help a gem feel <em>calm</em>.</h2>
+  <div class="section-divider"></div>
+  <p class="game-intro reveal">Pick a gem, then breathe along slowly as it grows and shrinks. Watch it cool from a big feeling to calm — a gentle way to settle a racing heart. Each calm breath adds a gem to the same jar.</p>
+  <div class="game-frame-wrap reveal">
+    <iframe class="game-frame gf-calm" src="/littlegems/calm.html" title="Calm the Gem — a breathing game" loading="lazy"></iframe>
   </div>
 </section>
 
@@ -740,28 +652,21 @@
   <div class="use-ideas-grid">
     <div class="use-idea reveal">
       <div class="use-idea-icon">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/>
-        </svg>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>
       </div>
       <div class="use-idea-title">Give to a grandparent</div>
       <div class="use-idea-desc">A finished Gem becomes a small letter from a child — a moment they made just for someone they love.</div>
     </div>
     <div class="use-idea reveal">
       <div class="use-idea-icon">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="16" rx="2"/>
-          <line x1="3" y1="10" x2="21" y2="10"/>
-        </svg>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       </div>
       <div class="use-idea-title">Tuck into a memory box</div>
       <div class="use-idea-desc">Keep a child's Gems somewhere safe. Years later, their voice in those drawings will sound exactly like who they were.</div>
     </div>
     <div class="use-idea reveal">
       <div class="use-idea-icon">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-        </svg>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       </div>
       <div class="use-idea-title">Share them as conversation</div>
       <div class="use-idea-desc">Sit with a child and a Gem. Ask the questions out loud. Let them tell you about the people and moments they love.</div>
@@ -797,9 +702,7 @@
 
 <script>
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
   }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
