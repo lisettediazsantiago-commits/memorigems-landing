@@ -110,10 +110,59 @@
   .modal .btn{width:100%;margin-bottom:10px;}
   footer.site{text-align:center;margin-top:32px;font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink-faint);}
   footer.site .gems{color:var(--gold-deep);font-weight:600;font-style:normal;}
+  /* ===== top navigation: back + other activities ===== */
+  .lg-nav{max-width:1180px;margin:0 auto 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .lg-back{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.3px;text-decoration:none;color:var(--ink-soft);background:var(--beige-paper);border:1px solid rgba(184,146,72,.35);border-radius:100px;padding:10px 18px;transition:all .25s ease;box-shadow:0 8px 20px -16px rgba(140,110,50,.5);}
+  .lg-back:hover{background:var(--ink);color:var(--beige-cream);border-color:var(--ink);transform:translateY(-1px);}
+  .lg-back svg{width:15px;height:15px;}
+  .lg-jumps{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto;}
+  .jump-btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:10px 16px;border-radius:100px;border:1px solid var(--coral);color:var(--coral-deep);background:rgba(255,255,255,.6);text-decoration:none;transition:all .25s ease;cursor:pointer;}
+  .jump-btn:hover{transform:translateY(-1px);}
+  .jump-btn svg{width:14px;height:14px;}
+  .jump-btn.active{cursor:default;}
+  .jump-btn.active:hover{transform:none;}
+  .jump-btn.j-color{background:var(--coral);border-color:var(--coral);color:#fff;}
+  .jump-btn.j-print{border-color:var(--gold);color:var(--gold-deep);}
+  .jump-btn.j-print:hover{background:var(--gold);color:#fff;}
+  .jump-btn.j-match{border-color:var(--coral);color:var(--coral-deep);}
+  .jump-btn.j-match:hover{background:var(--coral);color:#fff;}
+  .jump-btn.j-choices{border-color:var(--mint);color:var(--mint-deep);}
+  .jump-btn.j-choices:hover{background:var(--mint);color:#fff;}
+  .jump-btn.j-calm{border-color:var(--sky);color:var(--sky-deep);}
+  .jump-btn.j-calm:hover{background:var(--sky);color:#fff;}
+  @media (max-width:760px){.lg-nav{justify-content:center;}.lg-back{width:100%;justify-content:center;}.lg-jumps{margin-left:0;width:100%;justify-content:center;}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <nav class="lg-nav" aria-label="LittleGems activities">
+    <a class="lg-back" href="/littlegems">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Back to LittleGems
+    </a>
+    <div class="lg-jumps">
+      <span class="jump-btn j-color active" aria-current="page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c2-1 3-3 4-5l9-9 3 3-9 9c-2 1-4 2-7 2z"/><path d="M14 5l5 5"/></svg>
+        Color online
+      </span>
+      <a class="jump-btn j-print" href="/littlegems#printables">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-2 6H8z"/><path d="M8 9l-2 12h12l-2-12"/></svg>
+        Coloring sheets
+      </a>
+      <a class="jump-btn j-match" href="/littlegems#game-match">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Match game
+      </a>
+      <a class="jump-btn j-choices" href="/littlegems#game-choices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>
+        Kindness game
+      </a>
+      <a class="jump-btn j-calm" href="/littlegems#game-calm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
+        Calming game
+      </a>
+    </div>
+  </nav>
   <header class="site">
     <div class="eyebrow">A LITTLE GEM YOU CAN COLOR</div>
     <div class="brand"><span>Little</span><span class="gems">Gems</span></div>
