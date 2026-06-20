@@ -429,7 +429,8 @@
   function renderPhotoSlot(){
     const slot=document.getElementById('photoSlot'); if(!slot) return;
     if (st.photo){
-      const thumb = SAMPLE_PHOTO ? '<span class="thumb"><img src="'+SAMPLE_PHOTO+'" alt=""></span>' : '<span class="thumb ph">'+ic('image')+'</span>';
+      const gemImg = GEM_SCENE[st.msg] || SAMPLE_PHOTO;
+      const thumb = gemImg ? '<span class="thumb"><img src="'+gemImg+'" alt=""></span>' : '<span class="thumb ph">'+ic('image')+'</span>';
       slot.innerHTML = '<div class="photo-added">'+thumb+'<span>Photo added</span><button class="remove-x" id="rmPhoto">remove</button></div>';
       document.getElementById('rmPhoto').onclick = () => { st.photo=false; renderPhotoSlot(); };
     } else {
@@ -501,7 +502,7 @@
     if (st.revealed) return; st.revealed = true;
     playerB.onended = null;
     const extra=document.getElementById('extra'); if(!extra) return;
-    const img = (st.photo && SAMPLE_PHOTO) ? SAMPLE_PHOTO : (GEM_SCENE[st.msg] || null);
+    const img = GEM_SCENE[st.msg] || (st.photo && SAMPLE_PHOTO) || null;
     const photoHtml = img ? '<div class="rcv-photo"><img src="'+img+'" alt=""></div>' : '';
     extra.innerHTML = photoHtml + '<div class="rcv-audio"><audio controls src="'+(GEM_AUDIO[st.msg]||'')+'"></audio></div>';
   }
