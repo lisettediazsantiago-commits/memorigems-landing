@@ -177,13 +177,22 @@
   .tag.moment  { background: var(--tan-pill-bg); color: var(--tan-pill-tx); }
   .for-line { font-size: 14px; color: var(--app-soft); }
   .for-line b { color: var(--green-deep); font-weight: 600; }
-  .glow-wrap { position: relative; display: flex; align-items: center; justify-content: center; margin: 26px 0; cursor: pointer; }
-  .glow-wrap::before { content: ''; position: absolute; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(226,180,140,0.34) 0%, transparent 68%); }
-  .glow-disc { position: relative; width: 96px; height: 96px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-  .glow-disc svg { width: 44px; height: 44px; }
+  .glow-wrap { position: relative; display: flex; align-items: center; justify-content: center; margin: 40px 0 34px; cursor: pointer; --glow: 64,170,126; }
+  .glow-wrap.comfort { --glow: 64,170,126; }
+  .glow-wrap.routine { --glow: 150,110,182; }
+  .glow-wrap.moment  { --glow: 224,150,95; }
+  .glow-wrap::before { content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(var(--glow),0.55) 0%, rgba(var(--glow),0.22) 38%, transparent 70%); filter: blur(4px); animation: glowAura 2.8s ease-in-out infinite; }
+  .glow-wrap::after { content: ''; position: absolute; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(var(--glow),0.6) 0%, transparent 62%); animation: glowCore 2.8s ease-in-out infinite; }
+  @keyframes glowAura { 0%,100% { transform: scale(1); opacity: .8; } 50% { transform: scale(1.22); opacity: 1; } }
+  @keyframes glowCore { 0%,100% { transform: scale(.95); opacity: .55; } 50% { transform: scale(1.18); opacity: .95; } }
+  .glow-disc { position: relative; z-index: 1; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: discBeat 2.8s ease-in-out infinite; }
+  @keyframes discBeat { 0%,100% { transform: scale(1); box-shadow: 0 8px 22px rgba(var(--glow),0.45), 0 0 14px 2px rgba(var(--glow),0.40); } 50% { transform: scale(1.05); box-shadow: 0 10px 30px rgba(var(--glow),0.60), 0 0 40px 9px rgba(var(--glow),0.70); } }
+  .glow-disc svg { width: 46px; height: 46px; }
   .glow-disc.comfort { background: var(--green-soft); color: var(--green-gem); }
   .glow-disc.routine { background: var(--purple-soft); color: var(--purple-gem); }
   .glow-disc.moment  { background: var(--tan-soft);  color: var(--tan-gem); }
+  .tap-open { animation: tapBreathe 2.8s ease-in-out infinite; }
+  @keyframes tapBreathe { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
   .tap-open { text-align: center; color: var(--app-soft); font-size: 14px; }
   .rcv-words { text-align: center; font-weight: 700; color: var(--app-ink); line-height: 1.3; margin: 4px 6px; }
   .now-playing { text-align: center; color: var(--app-soft); font-size: 13px; margin-top: 8px; }
@@ -466,7 +475,7 @@
       '<div class="pad h-center">' +
         '<span class="tag '+st.cat+'">'+c.tag+'</span>' +
         (st.recipient ? '<div class="for-line" style="margin-top:12px">For <b>'+escapeHtml(st.recipient)+'</b></div>' : '') +
-        '<div class="glow-wrap" id="openWrap"><div class="glow-disc '+st.cat+'">'+ic('diamond')+'</div></div>' +
+        '<div class="glow-wrap '+st.cat+'" id="openWrap"><div class="glow-disc '+st.cat+'">'+ic('diamond')+'</div></div>' +
         '<div class="tap-open">Tap to open</div>' +
       '</div>';
     wireHeader();
