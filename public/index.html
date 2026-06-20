@@ -111,6 +111,12 @@
   .btn-primary:hover { background: var(--gold-deep); border-color: var(--gold-deep); transform: translateY(-2px); }
   .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink-faint); }
   .btn-ghost:hover { border-color: var(--sage-deep); color: var(--sage-deep); }
+  .btn-demo { background: transparent; color: var(--gold-deep); border-color: var(--gold); }
+  .btn-demo:hover { background: var(--gold); color: var(--beige-cream); border-color: var(--gold); transform: translateY(-2px); }
+  .demo-band { background: var(--sage-mist); position: relative; overflow: hidden; }
+  .demo-glow { position: absolute; width: 700px; height: 700px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(184, 146, 72, 0.1) 0%, transparent 62%); pointer-events: none; }
+  .demo-band-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 2; text-align: center; }
+  .demo-cta-row { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 44px; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   section { padding: 140px 48px; position: relative; }
   .section-eyebrow { font-family: var(--display); font-size: 11px; font-weight: 500; letter-spacing: 6px; color: var(--gold-deep); margin-bottom: 24px; text-align: center; }
@@ -301,6 +307,7 @@
     <a href="#story">Our story</a>
     <a href="#research">Research</a>
     <a href="/littlegems">LittleGems</a>
+    <a href="/demo.html">Try demo</a>
     <a href="#join" class="nav-cta">Join</a>
   </div>
   <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -313,6 +320,7 @@
   <a href="#story">Our story</a>
   <a href="#research">Research</a>
   <a href="/littlegems">LittleGems</a>
+  <a href="/demo.html">Try the live demo</a>
   <a href="#join" class="mm-cta">Join the founding families</a>
 </div>
 
@@ -331,6 +339,7 @@
     <p class="hero-sub">MemoriGems is a voice-first connection platform. We help the people you love stay recognized — through their voice, their stories, and the moments that carry who they are.</p>
     <div class="hero-cta-row">
       <a href="#join" class="btn btn-primary">Join the founding families</a>
+      <a href="/demo.html" class="btn btn-demo">Try the live demo</a>
       <a href="#voice" class="btn btn-ghost">Why voice matters</a>
     </div>
   </div>
@@ -448,6 +457,20 @@
       <div class="step-num">03</div>
       <div class="step-title">Reconnect</div>
       <div class="step-desc">Replay voices, hear laughter, revisit stories — even when names slip away, emotional recognition often remains.</div>
+    </div>
+  </div>
+</section>
+
+<!-- See it for yourself / demo -->
+<section class="demo-band" id="demo">
+  <div class="demo-glow"></div>
+  <div class="demo-band-inner reveal">
+    <div class="section-eyebrow">SEE IT FOR YOURSELF</div>
+    <h2 class="section-title">Watch a gem <em class="sage">travel between two phones</em>.</h2>
+    <div class="section-divider"></div>
+    <p class="lead tight">Create a gem on one phone and open it on another — exactly the way a loved one or resident would receive it. Voice first. No signup, nothing to install.</p>
+    <div class="demo-cta-row">
+      <a href="/demo.html" class="btn btn-primary">Try the live demo</a>
     </div>
   </div>
 </section>
@@ -638,6 +661,7 @@
       <a href="#research">Research</a>
       <a href="#future">Our vision</a>
       <a href="/littlegems">LittleGems</a>
+      <a href="/demo.html">Try demo</a>
       <a href="#join">Join</a>
       <a href="mailto:LisetteDiazSantiago@huluxinnovations.com">Contact</a>
     </div>
