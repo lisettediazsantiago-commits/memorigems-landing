@@ -63,8 +63,11 @@
   .screen { position: relative; background: var(--app-bg); border-radius: 30px; height: 620px; overflow: hidden; display: flex; flex-direction: column; font-family: var(--sans); color: var(--app-ink); }
   .statusbar { display: flex; justify-content: space-between; align-items: center; padding: 11px 22px 2px; font-size: 11px; color: var(--app-soft); flex: 0 0 auto; }
   .statusbar .dots { display: inline-flex; gap: 5px; align-items: center; }
-  .body { flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  .body::-webkit-scrollbar { width: 0; }
+  .body { flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(47,142,107,0.45) rgba(0,0,0,0.05); }
+  .body::-webkit-scrollbar { width: 7px; }
+  .body::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 4px; margin: 4px 0; }
+  .body::-webkit-scrollbar-thumb { background: rgba(47,142,107,0.45); border-radius: 4px; }
+  .body::-webkit-scrollbar-thumb:hover { background: rgba(47,142,107,0.7); }
   .pad { padding: 6px 20px 22px; }
 
   .appbar { display: flex; align-items: center; gap: 10px; padding: 8px 18px 4px; min-height: 40px; }
@@ -130,6 +133,8 @@
   @keyframes pulse { 0%,100%{ box-shadow:0 0 0 0 rgba(192,82,74,.35);} 50%{ box-shadow:0 0 0 16px rgba(192,82,74,0);} }
   .rec-time { font-size: 28px; font-weight: 700; color: var(--app-ink); text-align: center; margin-top: 14px; }
   .rec-cap { font-size: 12px; color: var(--app-soft); text-align: center; margin-top: 2px; }
+  .privacy { font-size: 11px; color: var(--app-soft); margin-top: 16px; display: flex; gap: 6px; align-items: center; justify-content: center; line-height: 1.4; }
+  .privacy svg { width: 13px; height: 13px; flex: 0 0 auto; }
   .try-box { background: var(--tan-pill-bg); border-radius: 14px; padding: 13px 14px; font-size: 13px; color: #7A4A22; display: flex; gap: 9px; align-items: flex-start; margin-top: 26px; }
   .try-box svg { width: 16px; height: 16px; flex: 0 0 auto; margin-top: 1px; color: var(--tan-pill-tx); }
 
@@ -270,7 +275,7 @@
 </div>
 
 <div class="demo-foot">
-  <p>Nothing here is recorded or stored — the voices are sample clips, and both phones live in your browser for the length of this visit.</p>
+  <p>Anything you record stays in your browser — it's never uploaded or saved, and it clears the moment you restart or leave. The sample voices and both phones live here only for this visit.</p>
 </div>
 
 <audio id="previewA" preload="auto"></audio>
@@ -297,7 +302,8 @@
     help: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.4v.3"/><path d="M12 17h.01"/>',
     camera: '<path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.2"/>',
     image: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-5L5 19"/>',
-    bell: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>'
+    bell: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>',
+    lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'
   };
   function ic(n,cls){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="'+(cls||'')+'">'+ICON[n]+'</svg>'; }
 
@@ -322,6 +328,48 @@
   function durLabel(key){ const d = st.durations && st.durations[key]; return d ? fmt(d) : '0:03'; }
   function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
   function stopAll(){ try{ previewA.pause(); playerB.pause(); }catch(e){} bodyB.querySelectorAll('audio').forEach(a=>{try{a.pause();}catch(e){}}); }
+  function curSrc(){ return st.userAudioURL || GEM_AUDIO[st.msg] || ''; }
+  function fixDur(a, cb){
+    if (a.duration===Infinity || isNaN(a.duration)){
+      const onTU=()=>{ a.removeEventListener('timeupdate', onTU); try{ a.currentTime=0; }catch(e){} if(cb) cb(); };
+      a.addEventListener('timeupdate', onTU);
+      try { a.currentTime = 1e6; } catch(e){ a.removeEventListener('timeupdate', onTU); if(cb) cb(); }
+    } else if (cb) cb();
+  }
+
+  /* ---- Real in-browser recording — audio never leaves the device ---- */
+  let mediaRecorder=null, mediaStream=null, recChunks=[], recTimer=null, recStart=0, recCommit=true, recRequesting=false;
+  function clearRecTimer(){ if(recTimer){ clearInterval(recTimer); recTimer=null; } }
+  function stopStream(){ if(mediaStream){ mediaStream.getTracks().forEach(t=>{try{t.stop();}catch(e){}}); mediaStream=null; } }
+  function discardUserAudio(){ if(st.userAudioURL){ try{ URL.revokeObjectURL(st.userAudioURL); }catch(e){} } st.userAudioURL=null; st.userAudio=false; }
+  function useSampleFallback(cap){ st.userAudio=false; st.userAudioURL=null; st.recorded=true; if(cap) cap.textContent='Microphone unavailable — using a sample voice'; setTimeout(()=>{ st.step='review'; renderA(); }, 850); }
+  async function beginRecording(mic,t,cap){
+    if(recRequesting || st.recording) return;
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof window.MediaRecorder==='undefined'){ useSampleFallback(cap); return; }
+    recRequesting=true; cap.textContent='Allow microphone to record…';
+    let stream;
+    try { stream = await navigator.mediaDevices.getUserMedia({audio:true}); }
+    catch(e){ recRequesting=false; useSampleFallback(cap); return; }
+    recRequesting=false; discardUserAudio();
+    mediaStream=stream; recChunks=[]; recCommit=true;
+    try { mediaRecorder = new MediaRecorder(stream); }
+    catch(e){ stopStream(); useSampleFallback(cap); return; }
+    mediaRecorder.ondataavailable = ev => { if(ev.data && ev.data.size) recChunks.push(ev.data); };
+    mediaRecorder.onstop = () => {
+      clearRecTimer();
+      if(recCommit && recChunks.length){
+        const blob = new Blob(recChunks, {type:(mediaRecorder && mediaRecorder.mimeType) || 'audio/webm'});
+        st.userAudioURL = URL.createObjectURL(blob); st.userAudio=true; st.recorded=true;
+        stopStream(); st.step='review'; renderA();
+      } else { recChunks=[]; stopStream(); if(recCommit) useSampleFallback(); }
+    };
+    mediaRecorder.start();
+    st.recording=true; mic.classList.add('on'); mic.innerHTML=ic('stop');
+    cap.textContent='Recording… tap to stop'; recStart=Date.now(); t.textContent='0:00';
+    recTimer=setInterval(()=>{ const s=Math.floor((Date.now()-recStart)/1000); t.textContent=fmt(s); if(s>=60) finishRecording(); }, 200);
+  }
+  function finishRecording(){ if(!st.recording) return; recCommit=true; st.recording=false; clearRecTimer(); if(mediaRecorder && mediaRecorder.state!=='inactive'){ try{ mediaRecorder.stop(); }catch(e){ stopStream(); } } }
+  function cancelRecording(){ recCommit=false; st.recording=false; clearRecTimer(); if(mediaRecorder && mediaRecorder.state!=='inactive'){ try{ mediaRecorder.stop(); }catch(e){ stopStream(); } } else stopStream(); }
 
   /* ---------- Phone A ---------- */
   function renderA(){
@@ -376,20 +424,16 @@
       '<div class="pad h-center">' +
         '<div class="disc-lg '+st.cat+'">'+ic('diamond')+'</div>' +
         '<div class="scrn-h">Your voice is the gift</div>' +
-        '<div class="scrn-sub" style="max-width:240px;margin:6px auto 0">Speak from the heart. You can review and re-record before saving.</div>' +
+        '<div class="scrn-sub" style="max-width:240px;margin:6px auto 0">Speak from the heart. You can review and re-record before sending.</div>' +
         '<button class="rec-mic" id="mic" aria-label="Record">'+ic('mic')+'</button>' +
         '<div class="rec-time" id="recTime">0:00</div>' +
-        '<div class="rec-cap" id="recCap">Up to 60 seconds</div>' +
+        '<div class="rec-cap" id="recCap">Tap to record · up to 60 seconds</div>' +
         '<div class="try-box">'+ic('sparkle')+'<span>Try: &ldquo;'+MSG[st.msg].words+'&rdquo;</span></div>' +
+        '<div class="privacy">'+ic('lock')+'<span>Your voice stays on your device — never uploaded or saved.</span></div>' +
       '</div>';
     const mic=document.getElementById('mic'), t=document.getElementById('recTime'), cap=document.getElementById('recCap');
-    let sec=0;
-    document.getElementById('bk').onclick = () => { clearInterval(st.timer); st.step='intro'; renderA(); };
-    mic.onclick = () => {
-      if (!st.recording){ st.recording=true; sec=0; mic.classList.add('on'); cap.textContent='Recording… tap to stop';
-        st.timer=setInterval(()=>{ sec++; t.textContent=fmt(sec); }, 1000);
-      } else { clearInterval(st.timer); st.recording=false; st.recorded=true; mic.classList.remove('on'); st.step='review'; renderA(); }
-    };
+    document.getElementById('bk').onclick = () => { cancelRecording(); st.step='intro'; renderA(); };
+    mic.onclick = () => { if(!st.recording){ beginRecording(mic,t,cap); } else { finishRecording(); } };
   }
 
   function aReview(){
@@ -399,7 +443,7 @@
         '<div class="h-center"><div class="disc-lg '+st.cat+'">'+ic('diamond')+'</div><div class="scrn-h">Beautifully done</div><div class="scrn-sub">Take a listen, add a photo if you&rsquo;d like, then send.</div></div>' +
         '<div class="rv-player" style="margin-top:20px">' +
           '<button class="rv-play" id="rvPlay">'+ic('play')+'</button>' +
-          '<div class="rv-mid"><div class="rv-times"><span id="rvCur">0:00</span><span id="rvDur">'+durLabel(st.msg)+'</span></div><div class="rv-bar"><div class="rv-fill" id="rvFill"></div></div></div>' +
+          '<div class="rv-mid"><div class="rv-times"><span id="rvCur">0:00</span><span id="rvDur">'+(st.userAudio?'0:00':durLabel(st.msg))+'</span></div><div class="rv-bar"><div class="rv-fill" id="rvFill"></div></div></div>' +
         '</div>' +
         '<div class="field-l">The words</div>' +
         '<textarea class="words-ta" id="wordsTa">'+escapeHtml(st.words!==undefined?st.words:MSG[st.msg].words)+'</textarea>' +
@@ -412,11 +456,11 @@
       '</div>';
 
     const rvPlay=document.getElementById('rvPlay'), rvCur=document.getElementById('rvCur'), rvDur=document.getElementById('rvDur'), rvFill=document.getElementById('rvFill');
-    previewA.src = GEM_AUDIO[st.msg] || '';
+    previewA.src = curSrc();
     function setIcon(){ rvPlay.innerHTML = previewA.paused ? ic('play') : ic('pause'); }
     rvPlay.onclick = () => { if (previewA.paused){ playerB.pause(); previewA.play().catch(()=>{}); } else previewA.pause(); setIcon(); };
-    previewA.ontimeupdate = () => { if (previewA.duration){ rvFill.style.width=(previewA.currentTime/previewA.duration*100)+'%'; rvCur.textContent=fmt(previewA.currentTime); } };
-    previewA.onloadedmetadata = () => { if (isFinite(previewA.duration)) rvDur.textContent=fmt(previewA.duration); };
+    previewA.ontimeupdate = () => { if (isFinite(previewA.duration) && previewA.duration>0){ rvFill.style.width=(previewA.currentTime/previewA.duration*100)+'%'; rvCur.textContent=fmt(previewA.currentTime); } };
+    previewA.onloadedmetadata = () => { fixDur(previewA, ()=>{ if (isFinite(previewA.duration)) rvDur.textContent=fmt(previewA.duration); }); };
     previewA.onended = () => { rvFill.style.width='0%'; rvCur.textContent='0:00'; setIcon(); };
     previewA.onpause = setIcon; previewA.onplay = setIcon; setIcon();
 
@@ -492,7 +536,7 @@
         '<div id="extra"><div class="now-playing">Now playing…</div></div>' +
       '</div>';
     wireHeader();
-    playerB.src = GEM_AUDIO[st.msg] || '';
+    playerB.src = curSrc();
     playerB.currentTime = 0;
     playerB.onended = revealExtra;
     const pr = playerB.play();
@@ -504,7 +548,8 @@
     const extra=document.getElementById('extra'); if(!extra) return;
     const img = GEM_SCENE[st.msg] || (st.photo && SAMPLE_PHOTO) || null;
     const photoHtml = img ? '<div class="rcv-photo"><img src="'+img+'" alt=""></div>' : '';
-    extra.innerHTML = photoHtml + '<div class="rcv-audio"><audio controls src="'+(GEM_AUDIO[st.msg]||'')+'"></audio></div>';
+    extra.innerHTML = photoHtml + '<div class="rcv-audio"><audio id="rcvAudio" controls src="'+curSrc()+'"></audio></div>';
+    const ra=document.getElementById('rcvAudio'); if(ra){ ra.addEventListener('loadedmetadata', ()=>fixDur(ra)); }
   }
 
   function loadDurations(){
@@ -515,8 +560,9 @@
 
   function reset(){
     stopAll();
+    cancelRecording(); clearRecTimer(); stopStream(); discardUserAudio();
     const d = st.durations||{};
-    st = { step:'pick', cat:null, msg:null, recipient:'', title:'', words:undefined, wordsFinal:undefined, photo:false, recorded:false, recording:false, big:false, revealed:false, durations:d };
+    st = { step:'pick', cat:null, msg:null, recipient:'', title:'', words:undefined, wordsFinal:undefined, photo:false, recorded:false, recording:false, big:false, revealed:false, userAudio:false, userAudioURL:null, durations:d };
     bodyB.classList.remove('text-lg');
     renderA(); bWaiting();
   }
