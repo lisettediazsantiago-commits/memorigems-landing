@@ -329,6 +329,15 @@
   function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
   function stopAll(){ try{ previewA.pause(); playerB.pause(); }catch(e){} bodyB.querySelectorAll('audio').forEach(a=>{try{a.pause();}catch(e){}}); }
   function curSrc(){ return st.userAudioURL || GEM_AUDIO[st.msg] || ''; }
+  function curPhoto(){ return st.userPhotoURL || GEM_SCENE[st.msg] || (st.photo && SAMPLE_PHOTO) || ''; }
+  function discardUserPhoto(){ if(st.userPhotoURL){ try{ URL.revokeObjectURL(st.userPhotoURL); }catch(e){} } st.userPhotoURL=null; }
+  function handlePhotoFile(file){
+    if(!file || !/^image\//.test(file.type)) return;
+    discardUserPhoto();
+    st.userPhotoURL = URL.createObjectURL(file);
+    st.photo = true;
+    renderPhotoSlot();
+  }
   function fixDur(a, cb){
     if (a.duration===Infinity || isNaN(a.duration)){
       const onTU=()=>{ a.removeEventListener('timeupdate', onTU); try{ a.currentTime=0; }catch(e){} if(cb) cb(); };
@@ -394,7 +403,7 @@
       '</div>';
     document.getElementById('nameInp').addEventListener('input', e => { st.recipient = e.target.value; });
     [...bodyA.querySelectorAll('.cat')].forEach(el => el.onclick = () => {
-      st.cat = el.getAttribute('data-c'); st.msg = CATS[st.cat].msgs[0]; st.recorded=false; st.recording=false; st.photo=false; st.words=undefined;
+      st.cat = el.getAttribute('data-c'); st.msg = CATS[st.cat].msgs[0]; st.recorded=false; st.recording=false; st.photo=false; discardUserPhoto(); st.words=undefined;
       st.step='intro'; renderA();
     });
   }
@@ -473,13 +482,20 @@
   function renderPhotoSlot(){
     const slot=document.getElementById('photoSlot'); if(!slot) return;
     if (st.photo){
-      const gemImg = GEM_SCENE[st.msg] || SAMPLE_PHOTO;
+      const gemImg = curPhoto();
       const thumb = gemImg ? '<span class="thumb"><img src="'+gemImg+'" alt=""></span>' : '<span class="thumb ph">'+ic('image')+'</span>';
-      slot.innerHTML = '<div class="photo-added">'+thumb+'<span>Photo added</span><button class="remove-x" id="rmPhoto">remove</button></div>';
-      document.getElementById('rmPhoto').onclick = () => { st.photo=false; renderPhotoSlot(); };
+      slot.innerHTML = '<div class="photo-added">'+thumb+'<span>'+(st.userPhotoURL?'Your photo added':'Photo added')+'</span><button class="remove-x" id="rmPhoto">remove</button></div>';
+      document.getElementById('rmPhoto').onclick = () => { st.photo=false; discardUserPhoto(); renderPhotoSlot(); };
     } else {
-      slot.innerHTML = '<div class="photo-row"><button class="photo-btn" data-p="cam">'+ic('camera')+'Take a photo</button><button class="photo-btn" data-p="up">'+ic('image')+'Upload your own</button></div>';
-      [...slot.querySelectorAll('.photo-btn')].forEach(b => b.onclick = () => { st.photo=true; renderPhotoSlot(); });
+      slot.innerHTML =
+        '<div class="photo-row"><button class="photo-btn" data-p="cam">'+ic('camera')+'Take a photo</button><button class="photo-btn" data-p="up">'+ic('image')+'Upload your own</button></div>' +
+        '<input type="file" accept="image/*" capture="environment" id="photoCam" hidden>' +
+        '<input type="file" accept="image/*" id="photoUp" hidden>';
+      const camInput=document.getElementById('photoCam'), upInput=document.getElementById('photoUp');
+      slot.querySelector('[data-p="cam"]').onclick = () => camInput.click();
+      slot.querySelector('[data-p="up"]').onclick  = () => upInput.click();
+      camInput.onchange = e => handlePhotoFile(e.target.files && e.target.files[0]);
+      upInput.onchange  = e => handlePhotoFile(e.target.files && e.target.files[0]);
     }
   }
 
@@ -546,7 +562,7 @@
     if (st.revealed) return; st.revealed = true;
     playerB.onended = null;
     const extra=document.getElementById('extra'); if(!extra) return;
-    const img = GEM_SCENE[st.msg] || (st.photo && SAMPLE_PHOTO) || null;
+    const img = st.userPhotoURL || GEM_SCENE[st.msg] || (st.photo && SAMPLE_PHOTO) || null;
     const photoHtml = img ? '<div class="rcv-photo"><img src="'+img+'" alt=""></div>' : '';
     extra.innerHTML = photoHtml + '<div class="rcv-audio"><audio id="rcvAudio" controls src="'+curSrc()+'"></audio></div>';
     const ra=document.getElementById('rcvAudio'); if(ra){ ra.addEventListener('loadedmetadata', ()=>fixDur(ra)); }
@@ -560,9 +576,9 @@
 
   function reset(){
     stopAll();
-    cancelRecording(); clearRecTimer(); stopStream(); discardUserAudio();
+    cancelRecording(); clearRecTimer(); stopStream(); discardUserAudio(); discardUserPhoto();
     const d = st.durations||{};
-    st = { step:'pick', cat:null, msg:null, recipient:'', title:'', words:undefined, wordsFinal:undefined, photo:false, recorded:false, recording:false, big:false, revealed:false, userAudio:false, userAudioURL:null, durations:d };
+    st = { step:'pick', cat:null, msg:null, recipient:'', title:'', words:undefined, wordsFinal:undefined, photo:false, recorded:false, recording:false, big:false, revealed:false, userAudio:false, userAudioURL:null, userPhotoURL:null, durations:d };
     bodyB.classList.remove('text-lg');
     renderA(); bWaiting();
   }
