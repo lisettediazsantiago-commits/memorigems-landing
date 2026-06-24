@@ -10,228 +10,133 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: #F2F0E9;
       color: #2C2C2A;
-      line-height: 1.5;
-      padding: 32px 20px 64px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
     }
-    .wrap { max-width: 460px; margin: 0 auto; }
-
-    .hero { text-align: center; }
+    .container {
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
     .gem {
-      width: 96px; height: 96px; border-radius: 50%;
+      width: 120px; height: 120px; border-radius: 50%;
       background-color: #9FE1CB;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 22px;
+      margin: 0 auto 32px;
     }
-    .gem-icon { width: 46px; height: 46px; color: #0F6E56; }
-    h1 { font-size: 28px; font-weight: 500; margin-bottom: 12px; }
+    .gem-icon { width: 56px; height: 56px; color: #0F6E56; }
+
+    h1 { font-size: 28px; font-weight: 500; margin-bottom: 12px; color: #2C2C2A; }
+
     .tagline {
       font-size: 15px; color: #5F5E5A; line-height: 1.6;
-      margin: 0 auto 28px; max-width: 360px;
+      margin-bottom: 40px; padding: 0 16px;
     }
 
     .cta-button {
       display: inline-block;
       background-color: #1D9E75; color: #FFFFFF;
-      padding: 14px 36px; border-radius: 16px;
+      padding: 14px 32px; border-radius: 16px;
       font-size: 15px; font-weight: 500;
       text-decoration: none; cursor: pointer;
       border: none; font-family: inherit;
     }
     .cta-button:hover { background: #0F6E56; }
-    .signin-row { margin-top: 14px; font-size: 13px; color: #5F5E5A; }
+
+    .signin-row {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #5F5E5A;
+    }
     .signin-row a, .signin-row button.linklike {
-      color: #1D9E75; text-decoration: none; font-weight: 500;
-      background: none; border: none; cursor: pointer;
-      font-family: inherit; font-size: inherit; padding: 0;
+      color: #1D9E75;
+      text-decoration: none;
+      font-weight: 500;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: inherit;
+      padding: 0;
     }
     .signin-row a:hover, .signin-row button.linklike:hover { color: #0F6E56; }
 
-    .divider {
-      display: flex; align-items: center; gap: 12px;
-      margin: 40px 0 8px; color: #0F6E56;
-    }
-    .divider::before, .divider::after {
-      content: ""; flex: 1; height: 1px; background: #DAD7CC;
-    }
-    .divider span {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.8px;
-      text-transform: uppercase;
-    }
-    .explore-sub {
-      text-align: center; font-size: 13.5px; color: #5F5E5A;
-      margin-bottom: 18px; line-height: 1.55;
-    }
-
-    .card {
-      display: flex; align-items: flex-start; gap: 14px;
-      background: #FFFFFF; border: 1px solid #E6E2D6;
-      border-radius: 16px; padding: 16px 18px; margin-bottom: 12px;
-      text-decoration: none; color: inherit; transition: border-color .15s, transform .15s;
-    }
-    .card:hover { border-color: #C9C4B5; transform: translateY(-1px); }
-    .card .ci {
-      width: 46px; height: 46px; border-radius: 12px; flex: none;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .card .ci svg { width: 23px; height: 23px; }
-    .ci.mint { background: #E1F5EE; color: #0F6E56; }
-    .ci.rose { background: #F7E3EA; color: #B5536F; }
-    .ci.gold { background: #F6ECD9; color: #9A6E1C; }
-    .card .cmain { flex: 1; min-width: 0; }
-    .card .ct {
-      font-size: 15.5px; font-weight: 600; display: flex;
-      align-items: center; gap: 8px; flex-wrap: wrap;
-    }
-    .card .tag {
-      font-size: 10px; font-weight: 600; letter-spacing: .4px; text-transform: uppercase;
-      color: #0F6E56; background: #E1F5EE; border-radius: 100px; padding: 2px 8px;
-    }
-    .card .tag.try { color: #9A6E1C; background: #F6ECD9; }
-    .card .cd { font-size: 13px; color: #5F5E5A; margin-top: 4px; line-height: 1.5; }
-    .card .chev { color: #B6B2A6; flex: none; align-self: center; }
-    .card .chev svg { width: 18px; height: 18px; }
-
-    .practices {
-      background: #ECEFE9; border: 1px solid #DCE4D8;
-      border-radius: 16px; padding: 18px 20px; margin-top: 22px;
-    }
-    .practices .pt {
-      font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase;
-      color: #0F6E56; margin-bottom: 10px;
-    }
-    .practices .steps { display: flex; flex-wrap: wrap; gap: 8px; }
-    .practices .step {
-      font-size: 12.5px; color: #41514A; background: #FFFFFF;
-      border: 1px solid #D8E2D4; border-radius: 100px; padding: 6px 13px;
-    }
-
-    .partner {
-      text-align: center; margin-top: 26px; padding: 22px 18px;
-      background: #FFFFFF; border: 1px solid #E6E2D6; border-radius: 16px;
-    }
-    .partner h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-    .partner p { font-size: 13px; color: #5F5E5A; margin-bottom: 14px; line-height: 1.55; }
-    .partner a.loop {
-      display: inline-block; background: #1D9E75; color: #fff;
-      border-radius: 100px; padding: 11px 22px; font-size: 14px;
-      font-weight: 600; text-decoration: none;
-    }
-    .partner a.loop:hover { background: #0F6E56; }
-
-    .footer-note { text-align: center; margin-top: 28px; font-size: 12px; color: #888780; }
+    .footer-note { margin-top: 24px; font-size: 12px; color: #888780; font-style: italic; }
     .footer-link {
-      color: #1D9E75; text-decoration: none;
+      color: #1D9E75; text-decoration: none; font-style: normal;
       border-bottom: 1px dotted #B4D7C8; padding-bottom: 1px;
     }
     .footer-link:hover { color: #0F6E56; }
-    .site-footer { text-align: center; margin-top: 24px; font-size: 11px; color: #888780; line-height: 1.5; }
+
+    .site-footer {
+      position: fixed; bottom: 16px; left: 0; right: 0;
+      text-align: center; font-size: 11px; color: #888780;
+      line-height: 1.5;
+    }
     .footer-small { font-size: 10px; color: #B4B2A9; margin-top: 2px; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-
-    <div class="hero">
-      <div class="gem">
-        <svg class="gem-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z" /></svg>
-      </div>
-      <h1>MemoriGems</h1>
-      <p class="tagline">A space for the voices that carry comfort — for those we love, and the moments they need us most.</p>
-
-      <button class="cta-button" id="beginBtn">Begin</button>
-      <div class="signin-row" id="signinRow">
-        <span id="signinPrompt">Already have an account?</span>
-        <a href="signin.html" id="signinLink">Sign in</a>
-      </div>
+  <div class="container">
+    <div class="gem">
+      <svg class="gem-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6 3h12l4 6-10 13L2 9l4-6z" />
+      </svg>
     </div>
+    <h1>MemoriGems</h1>
+    <p class="tagline">
+      A space for the voices that carry comfort — for those we love, and the moments they need us most.
+    </p>
 
-    <div class="divider"><span>Explore MemoriGems</span></div>
-    <p class="explore-sub">A voice-first approach to connection in early dementia. Have a look at the pieces — no account needed.</p>
+    <button class="cta-button" id="beginBtn">Begin</button>
 
-    <a class="card" href="demo">
-      <span class="ci mint">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-      </span>
-      <span class="cmain">
-        <span class="ct">Create &amp; receive a Gem <span class="tag try">Try it</span></span>
-        <span class="cd">Record a short voice message, add a photo, and watch your person open it and hear your voice.</span>
-      </span>
-      <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
-    </a>
-
-    <a class="card" href="caregiver-preview.html">
-      <span class="ci rose">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg>
-      </span>
-      <span class="cmain">
-        <span class="ct">Caregiver Companion <span class="tag">Preview</span></span>
-        <span class="cd">A space for the care partner — a feelings-aware check-in, the seasons of caregiving, and support that meets you where you are.</span>
-      </span>
-      <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
-    </a>
-
-    <a class="card" href="support-preview.html">
-      <span class="ci gold">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4V2M5 8 3.5 6.5M19 8l1.5-1.5M3 14h2M19 14h2M7 14a5 5 0 0 1 10 0M2 18h20"/></svg>
-      </span>
-      <span class="cmain">
-        <span class="ct">Support Companion <span class="tag">Preview</span></span>
-        <span class="cd">The calm, audio-first space for the person living with memory change — gentle reminders that they are still themselves.</span>
-      </span>
-      <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
-    </a>
-
-    <div class="practices">
-      <div class="pt">Built on five practices</div>
-      <div class="steps">
-        <span class="step">Create</span>
-        <span class="step">Personalize</span>
-        <span class="step">Share</span>
-        <span class="step">Receive</span>
-        <span class="step">Adapt</span>
-      </div>
-    </div>
-
-    <div class="partner">
-      <h3>Visiting from AAIC 2026?</h3>
-      <p>If you're a clinician, care organization, or potential research or pilot partner, we'd love to stay in touch.</p>
-      <a class="loop" href="https://tally.so/r/449KRA" target="_blank" rel="noopener">Stay in the loop</a>
+    <div class="signin-row" id="signinRow">
+      <span id="signinPrompt">Already have an account?</span>
+      <a href="signin.html" id="signinLink">Sign in</a>
     </div>
 
     <p class="footer-note">
       <a href="about.html" class="footer-link">About MemoriGems</a>
+      <span class="footer-divider">·</span>
+      <a href="https://tally.so/r/449KRA" target="_blank" rel="noopener" class="footer-link">Stay in the loop</a>
     </p>
-
-    <footer class="site-footer">
-      <p>Made with care by Lisette Diaz-Santiago</p>
-      <p class="footer-small">MemoriGems · HuLux Innovations</p>
-    </footer>
-
   </div>
 
+  <footer class="site-footer">
+    <p>Made with care by Lisette Diaz-Santiago</p>
+    <p class="footer-small">MemoriGems · HuLux Innovations</p>
+  </footer>
+
   <script type="module">
+    import { waitForAuth, signOutUser } from "./firebase-config.js";
+
     const beginBtn = document.getElementById("beginBtn");
+    const signinRow = document.getElementById("signinRow");
     const signinPrompt = document.getElementById("signinPrompt");
     const signinLink = document.getElementById("signinLink");
 
-    let user = null;
-    let signOutUser = null;
-    try {
-      const m = await import("./firebase-config.js");
-      signOutUser = m.signOutUser;
-      user = await m.waitForAuth();
-    } catch (e) { /* preview / standalone — static content still works */ }
+    const user = await waitForAuth();
 
     if (user) {
+      // Already signed in — show "Signed in as" and turn the link into a Sign out action
       signinPrompt.textContent = `Signed in as ${user.email || 'you'}.`;
       signinLink.textContent = "Sign out";
       signinLink.removeAttribute("href");
       signinLink.style.cursor = "pointer";
+
       signinLink.addEventListener("click", async (e) => {
         e.preventDefault();
         if (confirm("Sign out of MemoriGems?")) {
-          try { if (signOutUser) await signOutUser(); window.location.href = "signin.html"; }
-          catch (err) { window.location.href = "signin.html"; }
+          try {
+            await signOutUser();
+            window.location.href = "signin.html";
+          } catch (err) {
+            console.error(err);
+            alert("Could not sign out. Please try again.");
+          }
         }
       });
     }
