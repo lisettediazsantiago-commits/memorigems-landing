@@ -2,11 +2,52 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Support Companion · Demo · MemoriGems</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Cinzel:wght@500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Cinzel:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{ --warm:#F7F1E4; --gold-deep:#8C6E32; --ink:#2A2317; --ink-soft:#524634; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ background:var(--warm); }
+  .stage{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+           padding:34px 16px 40px; background:var(--warm); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  .cap{ max-width:560px; margin:0 auto 26px; text-align:center; }
+  .cap-eyebrow{ font-family:'Cinzel',serif; font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--gold-deep); margin-bottom:12px; }
+  .cap-title{ font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; color:var(--ink); line-height:1.15; margin-bottom:10px; }
+  .cap-sum{ font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--ink-soft); line-height:1.55; }
+  .phone{ width:352px; max-width:90vw; background:#1b1d1c; border-radius:46px; padding:11px;
+          box-shadow:0 34px 70px rgba(42,35,23,.20); position:relative; }
+  .phone::before{ content:""; position:absolute; top:18px; left:50%; transform:translateX(-50%);
+                  width:46px; height:5px; border-radius:5px; background:rgba(255,255,255,.16); z-index:2; pointer-events:none; }
+  .screen{ position:relative; background:#EFEAE0; border-radius:36px; height:690px; overflow:hidden; }
+  .screen iframe{ width:100%; height:100%; border:0; display:block; background:#EFEAE0; }
+  @media (max-width:430px){
+    .phone{ width:100%; border-radius:40px; }
+    .screen{ height:620px; border-radius:30px; }
+    .cap-title{ font-size:25px; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="cap">
+      <div class="cap-eyebrow">On Their Phone</div>
+      <h2 class="cap-title">The Support Companion</h2>
+      <p class="cap-sum">The home base for the person you care for &mdash; warm, simple, and built around the Gems and the people who love them.</p>
+    </div>
+    <div class="phone">
+      <div class="screen">
+        <iframe title="Support Companion — interactive demo" loading="eager" srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot; />
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0&quot; />
+<title>Support Companion · Demo · MemoriGems</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot; />
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin />
+<link href=&quot;https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Cinzel:wght@500&amp;family=Inter:wght@300;400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot; />
 <style>
   :root{
     --cream:#FAF5EC; --panel:#FFFFFF; --ink:#33302A; --muted:#6F6A60; --faint:#9C968A; --line:#EBE4D6;
@@ -18,7 +59,7 @@
     --ease:cubic-bezier(.22,.61,.36,1);
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.5}
+  body{font-family:var(--sans);background:#EFEAE0;color:var(--ink);line-height:1.5}
   svg{display:block}
   a{text-decoration:none;color:inherit}
 
@@ -69,68 +110,72 @@
 
   @media(max-width:380px){ .grid{grid-template-columns:1fr} }
   @media(prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+  .democap{ max-width:520px; margin:0 auto; text-align:center; padding:30px 22px 4px; }
+  .democap-eyebrow{ font-family:var(--display); font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--golddeep); margin-bottom:12px; }
+  .democap-title{ font-family:var(--serif); font-size:27px; font-weight:600; color:var(--ink); line-height:1.15; margin-bottom:10px; }
+  .democap-sum{ font-family:var(--serif); font-size:17px; color:var(--muted); line-height:1.55; }
 </style>
 </head>
 <body>
 
-<div class="pvbanner">A <b>public preview</b> &mdash; a glimpse of the home the people you love see, with names and photos kept private.</div>
+<div class=&quot;pvbanner&quot;>A <b>public preview</b> &amp;mdash; a glimpse of the home the people you love see, with names and photos kept private.</div>
 
-<header class="topbar">
-  <button class="icon-btn" aria-label="Menu" data-demo><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-  <a class="wm" href="index.html">Memori<span class="g">Gems</span></a>
-  <button class="listen" aria-label="Listen" data-demo>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-3a9 9 0 0 1 18 0v3M21 16a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2zM3 16a2 2 0 0 0 2 2h1v-5H5a2 2 0 0 0-2 2z"/></svg>
+<header class=&quot;topbar&quot;>
+  <button class=&quot;icon-btn&quot; aria-label=&quot;Menu&quot; data-demo><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot;><path d=&quot;M4 6h16M4 12h16M4 18h16&quot;/></svg></button>
+  <a class=&quot;wm&quot; href=&quot;index.html&quot;>Memori<span class=&quot;g&quot;>Gems</span></a>
+  <button class=&quot;listen&quot; aria-label=&quot;Listen&quot; data-demo>
+    <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 14v-3a9 9 0 0 1 18 0v3M21 16a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2zM3 16a2 2 0 0 0 2 2h1v-5H5a2 2 0 0 0-2 2z&quot;/></svg>
     <span>Listen</span>
   </button>
 </header>
 
-<main class="wrap">
+<main class=&quot;wrap&quot;>
 
-  <div class="greeting">
-    <span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></span>
+  <div class=&quot;greeting&quot;>
+    <span class=&quot;avatar&quot; aria-hidden=&quot;true&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;12&quot; cy=&quot;9&quot; r=&quot;3.4&quot;/><path d=&quot;M5 20a7 7 0 0 1 14 0&quot;/></svg></span>
     <div>
-      <h1 id="greet">Good afternoon, Rosa <span class="hrt" aria-hidden="true">&#9825;</span></h1>
+      <h1 id=&quot;greet&quot;>Good afternoon, Rosa <span class=&quot;hrt&quot; aria-hidden=&quot;true&quot;>&amp;#9825;</span></h1>
       <p>Your Gems, your stories, and the people who love you.</p>
     </div>
   </div>
 
-  <div class="div" aria-hidden="true">
-    <span class="ln"></span>
-    <span class="gem"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span>
-    <span class="ln"></span>
+  <div class=&quot;div&quot; aria-hidden=&quot;true&quot;>
+    <span class=&quot;ln&quot;></span>
+    <span class=&quot;gem&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><path d=&quot;M6 3h12l4 6-10 13L2 9l4-6z&quot;/></svg></span>
+    <span class=&quot;ln&quot;></span>
   </div>
 
-  <div class="grid">
-    <button class="gcard create" data-demo>
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span>
+  <div class=&quot;grid&quot;>
+    <button class=&quot;gcard create&quot; data-demo>
+      <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M6 3h12l4 6-10 13L2 9l4-6z&quot;/></svg></span>
       <h2>Create / Send a Gem</h2>
       <p>Share a message, memory, or a little love.</p>
-      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      <span class=&quot;arrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
     </button>
 
-    <button class="gcard gems" data-demo>
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+    <button class=&quot;gcard gems&quot; data-demo>
+      <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;14&quot; rx=&quot;2&quot;/><path d=&quot;M3 7l9 6 9-6&quot;/></svg></span>
       <h2>My Gems</h2>
-      <p>View and listen to the Gems you&rsquo;ve received.</p>
-      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      <p>View and listen to the Gems you&amp;rsquo;ve received.</p>
+      <span class=&quot;arrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
     </button>
 
-    <button class="gcard people" data-demo>
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3 19a6 6 0 0 1 12 0M15 18a5 5 0 0 1 6 0"/></svg></span>
+    <button class=&quot;gcard people&quot; data-demo>
+      <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;9&quot; cy=&quot;9&quot; r=&quot;3&quot;/><circle cx=&quot;17&quot; cy=&quot;10&quot; r=&quot;2.4&quot;/><path d=&quot;M3 19a6 6 0 0 1 12 0M15 18a5 5 0 0 1 6 0&quot;/></svg></span>
       <h2>My People</h2>
       <p>See and connect with the people who send you Gems.</p>
-      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      <span class=&quot;arrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
     </button>
 
-    <button class="gcard about" data-demo>
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg></span>
+    <button class=&quot;gcard about&quot; data-demo>
+      <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z&quot;/></svg></span>
       <h2>About Me</h2>
-      <p>Share a little about you &mdash; your story, photos, and more.</p>
-      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      <p>Share a little about you &amp;mdash; your story, photos, and more.</p>
+      <span class=&quot;arrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
     </button>
   </div>
 
-  <p class="footnote">A gentle home for the people who matter most.</p>
+  <p class=&quot;footnote&quot;>A gentle home for the people who matter most.</p>
 </main>
 
 <script>
@@ -143,6 +188,13 @@
   document.querySelectorAll('[data-demo]').forEach(function(el){
     el.addEventListener('click', function(e){ e.preventDefault(); });
   });
+  document.addEventListener('click', function(e){ var a=e.target.closest('a[href]'); if(a &amp;&amp; (a.getAttribute('href')||'').endsWith('.html')) e.preventDefault(); }, true);
 </script>
+</body>
+</html>
+"></iframe>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
