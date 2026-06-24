@@ -74,17 +74,14 @@
   .tab .t-desc{font-family:var(--sans);font-size:12.5px;font-weight:300;color:var(--ink-faint);line-height:1.5}
   .tab:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-  /* screen frame */
-  .screen{background:#2A2317;border-radius:20px;padding:12px;box-shadow:0 40px 80px -50px rgba(42,35,23,.7);transition:box-shadow .4s}
-  .screen-bar{display:flex;align-items:center;gap:8px;padding:6px 8px 12px}
-  .screen-bar .dots{display:flex;gap:6px}
-  .screen-bar .dots span{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.28)}
-  .screen-url{flex:1;text-align:center;font-family:var(--sans);font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.55);background:rgba(255,255,255,.08);border-radius:20px;padding:5px 0;margin:0 12px;max-width:340px}
-  .screen-open{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-warm);white-space:nowrap;transition:color .2s}
-  .screen-open:hover{color:#fff}
-  .screen-body{position:relative;background:var(--beige-cream);border-radius:12px;overflow:hidden;height:min(74vh,700px);min-height:520px}
-  .screen-body iframe{width:100%;height:100%;border:0;display:block;background:var(--beige-cream)}
-  .screen-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:11px;letter-spacing:4px;color:var(--ink-faint);text-transform:uppercase;background:var(--beige-paper);transition:opacity .4s;pointer-events:none}
+  /* frameless embed — iframe auto-sizes to its content, so the page is the only scroll */
+  .embed{position:relative}
+  .embed-top{display:flex;justify-content:flex-end;margin-bottom:10px}
+  .embed-open{font-family:var(--sans);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);transition:color .2s}
+  .embed-open:hover{color:var(--gold)}
+  .embed-body{position:relative;border-radius:16px;overflow:hidden;background:var(--beige-cream)}
+  .embed-body iframe{width:100%;border:0;display:block;background:var(--beige-cream);min-height:300px}
+  .screen-loading{position:absolute;inset:0;min-height:300px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:11px;letter-spacing:4px;color:var(--ink-faint);text-transform:uppercase;background:var(--beige-paper);transition:opacity .4s;pointer-events:none}
   .screen-loading.hide{opacity:0}
 
   .caption{text-align:center;font-family:var(--sans);font-size:12.5px;color:var(--ink-faint);margin-top:22px}
@@ -104,8 +101,6 @@
     .tab .dot{margin-bottom:0}
     .stage{padding:34px 18px 70px}
     .intro{padding:54px 22px 4px}
-    .screen-url{display:none}
-    .screen-body{height:78vh;min-height:560px}
   }
   @media(prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
@@ -165,15 +160,13 @@
     </button>
   </div>
 
-  <div class="screen" id="screen" role="tabpanel" aria-labelledby="tab-create">
-    <div class="screen-bar">
-      <span class="dots" aria-hidden="true"><span></span><span></span><span></span></span>
-      <span class="screen-url" id="screenUrl">mymemorigems.com/demo</span>
-      <a class="screen-open" id="screenOpen" href="/demo" target="_blank" rel="noopener">Open full view &#8599;</a>
+  <div class="embed" id="screen" role="tabpanel" aria-labelledby="tab-create">
+    <div class="embed-top">
+      <a class="embed-open" id="screenOpen" href="/demo" target="_blank" rel="noopener">Open full view &#8599;</a>
     </div>
-    <div class="screen-body">
+    <div class="embed-body">
       <div class="screen-loading" id="screenLoading">Loading the experience</div>
-      <iframe id="frame" src="/demo" title="Create a Gem — interactive demo" loading="eager"></iframe>
+      <iframe id="frame" src="/demo" title="Create a Gem &mdash; interactive demo" loading="eager"></iframe>
     </div>
   </div>
 
@@ -197,26 +190,56 @@
 
   (function(){
     var EXP={
-      create:{src:'/demo', url:'mymemorigems.com/demo', title:'Create a Gem \u2014 interactive demo'},
-      care:{src:'/caregiver-demo', url:'mymemorigems.com/caregiver-demo', title:'Care Companion \u2014 interactive demo'},
-      support:{src:'/support-demo', url:'mymemorigems.com/support-demo', title:'Support Companion \u2014 interactive demo'}
+      create:{src:'/demo', title:'Create a Gem \u2014 interactive demo'},
+      care:{src:'/caregiver-demo', title:'Care Companion \u2014 interactive demo'},
+      support:{src:'/support-demo', title:'Support Companion \u2014 interactive demo'}
     };
     var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab'));
     var frame=document.getElementById('frame');
-    var urlEl=document.getElementById('screenUrl');
     var openEl=document.getElementById('screenOpen');
     var panel=document.getElementById('screen');
     var loading=document.getElementById('screenLoading');
+    var timers=[];
+    function clearTimers(){timers.forEach(clearTimeout);timers=[];}
 
-    frame.addEventListener('load',function(){loading.classList.add('hide');});
+    function sizeFrame(){
+      try{
+        var d=frame.contentWindow.document;
+        var h=Math.max(
+          d.documentElement.scrollHeight,
+          d.body ? d.body.scrollHeight : 0,
+          d.body ? d.body.offsetHeight : 0
+        );
+        if(h>160){
+          var cur=parseInt(frame.style.height,10)||0;
+          if(Math.abs(cur-h)>3){ frame.style.height=h+'px'; }  // guard: only change on real diff, no loop
+        }
+      }catch(e){}
+    }
+    function scheduleSize(){
+      clearTimers();
+      sizeFrame();
+      [120,350,700,1300].forEach(function(ms){ timers.push(setTimeout(sizeFrame,ms)); }); // catch fonts/images
+    }
+
+    frame.addEventListener('load',function(){
+      loading.classList.add('hide');
+      scheduleSize();
+      // re-measure after taps inside the demo (same-origin) — no continuous observer, so no resize loop
+      try{
+        frame.contentWindow.document.addEventListener('click',function(){
+          setTimeout(sizeFrame,70); setTimeout(sizeFrame,320);
+        },true);
+      }catch(e){}
+    });
 
     function activate(key,focus){
       var cfg=EXP[key];
       if(!cfg)return;
       loading.classList.remove('hide');
+      frame.style.height='420px';
       frame.title=cfg.title;
       frame.src=cfg.src;
-      urlEl.textContent=cfg.url;
       openEl.href=cfg.src;
       tabs.forEach(function(t){
         var on=t.dataset.key===key;
@@ -236,6 +259,8 @@
         if(ni!==null){e.preventDefault();activate(tabs[ni].dataset.key,true);}
       });
     });
+
+    window.addEventListener('resize',function(){clearTimeout(window.__rs);window.__rs=setTimeout(sizeFrame,150);});
   })();
 </script>
 </body>
