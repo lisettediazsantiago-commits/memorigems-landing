@@ -151,6 +151,78 @@
     .pvcta .primary:hover { background:var(--greend); }
     .pvcta .ghost { background:#fff; color:var(--greend); border:1px solid #BFD8C4; }
     .pvcta .ghost:hover { background:#EAF3EC; }
+
+    /* ---------- in-app action views (slide over the companion) ---------- */
+    .actview { position:fixed; inset:0; background:#EFEAE0; z-index:80; display:flex; flex-direction:column;
+               transform:translateX(100%); transition:transform .28s cubic-bezier(.4,0,.2,1); visibility:hidden; }
+    .actview.open { transform:translateX(0); visibility:visible; }
+    .av-head { display:flex; align-items:center; gap:12px; padding:14px 16px; background:var(--panel);
+               border-bottom:1px solid var(--line); flex:0 0 auto; }
+    .av-back { background:none; border:none; cursor:pointer; color:var(--ink); display:inline-flex; padding:4px; margin:-4px; }
+    .av-back svg { width:22px; height:22px; }
+    .av-title { font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink); }
+    .av-body { flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:24px 20px 44px; }
+    .av-intro { font-family:var(--serif); font-size:18px; color:var(--muted); line-height:1.55; margin-bottom:22px; }
+    .av-primary { display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%;
+                  background:var(--lav); color:#fff; border:none; border-radius:100px; padding:14px 20px;
+                  font-family:var(--sans); font-size:14.5px; font-weight:600; cursor:pointer; margin-top:8px; }
+    .av-primary:hover { background:#4A2F6B; }
+    .av-note { font-size:12.5px; color:var(--faint); text-align:center; margin-top:14px; line-height:1.5; }
+
+    /* breathing */
+    .breath { display:flex; flex-direction:column; align-items:center; padding:14px 0 6px; }
+    .breath-ring { width:200px; height:200px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+                   background:radial-gradient(circle at 50% 45%, #E1F0E7, #C7EBD9); border:1px solid rgba(29,158,117,.3);
+                   transform:scale(.62); transition:transform 4s ease-in-out; }
+    .breath-ring.inhale { transform:scale(1); transition-duration:4s; }
+    .breath-ring.hold   { transform:scale(1); transition-duration:.2s; }
+    .breath-ring.exhale { transform:scale(.62); transition-duration:6s; }
+    .breath-phase { font-family:var(--serif); font-size:23px; font-weight:600; color:var(--greend); }
+    .breath-count { font-size:13px; color:var(--muted); margin-top:24px; min-height:18px; }
+    .breath-btn { margin-top:18px; display:inline-flex; align-items:center; gap:8px; background:var(--green); color:#fff;
+                  border:none; border-radius:100px; padding:12px 30px; font-family:var(--sans); font-size:14px; font-weight:600; cursor:pointer; }
+    .breath-btn:hover { background:var(--greend); }
+
+    /* reflection */
+    .rfl-prompt { background:var(--lavtint); border:1px solid #EADFF2; border-radius:16px; padding:18px 20px;
+                  font-family:var(--serif); font-size:20px; font-weight:600; color:var(--lav); line-height:1.4; }
+    .rfl-new { background:none; border:none; color:var(--greend); font-family:var(--sans); font-size:13px; font-weight:600;
+               cursor:pointer; padding:10px 2px; display:inline-flex; align-items:center; gap:6px; }
+    .rfl-ta { width:100%; min-height:130px; resize:vertical; border:1px solid var(--line); background:var(--panel);
+              border-radius:14px; padding:14px; font-family:var(--sans); font-size:15px; color:var(--ink); outline:none; line-height:1.55; margin-top:6px; }
+    .rfl-ta:focus { border-color:#9D7CC4; }
+    .rfl-timer { display:flex; align-items:center; justify-content:center; gap:16px; margin-top:20px; }
+    .rfl-clock { font-family:var(--serif); font-size:34px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums; }
+    .rfl-tbtn { background:var(--panel); border:1px solid #BFD8C4; color:var(--greend); border-radius:100px;
+                padding:9px 20px; font-family:var(--sans); font-size:13.5px; font-weight:600; cursor:pointer; }
+    .rfl-tbtn:hover { background:#EAF3EC; }
+
+    /* gem ideas */
+    .gem-idea { display:flex; gap:13px; align-items:flex-start; width:100%; text-align:left; background:var(--panel);
+                border:1px solid var(--line); border-radius:14px; padding:15px 16px; margin-bottom:11px; cursor:pointer; transition:.15s; }
+    .gem-idea:hover { border-color:#D8C8E8; }
+    .gem-idea.sel { border:1.5px solid #9D7CC4; background:#EFE6F7; }
+    .gem-idea .gi-ic { width:38px; height:38px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center;
+                       background:var(--lavchip); color:var(--lav); }
+    .gem-idea .gi-ic svg { width:20px; height:20px; }
+    .gem-idea .gi-t { font-weight:600; font-size:15px; color:var(--ink); }
+    .gem-idea .gi-s { font-size:13px; color:var(--muted); margin-top:2px; line-height:1.45; }
+    .gem-confirm { background:var(--greentint); border:1px solid #DCEAE0; border-radius:14px; padding:16px 18px;
+                   font-size:14px; color:var(--greend); line-height:1.55; margin:8px 0 4px; display:none; }
+    .gem-confirm.show { display:block; }
+
+    /* stories */
+    .story-card { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:18px 20px; margin-bottom:14px; }
+    .story-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; cursor:pointer; }
+    .story-h { font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink); line-height:1.25; }
+    .story-by { font-size:12.5px; color:var(--greend); margin-top:3px; }
+    .story-chev { color:var(--faint); flex:none; transition:transform .2s; }
+    .story-chev svg { width:20px; height:20px; }
+    .story-card.open .story-chev { transform:rotate(180deg); }
+    .story-body { font-family:var(--serif); font-size:16.5px; color:var(--ink-soft,#524634); line-height:1.7;
+                  max-height:0; overflow:hidden; transition:max-height .3s ease; }
+    .story-card.open .story-body { max-height:640px; }
+    .story-body p { margin-top:14px; }
   </style>
 </head>
 <body>
@@ -248,7 +320,7 @@
       <h2 class="sec-h" id="resources">Tools &amp; resources to support you</h2>
       <div class="resgrid">
         <div class="res" data-soon><span class="ri" style="background:#E1F5EE;color:#0F6E56"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 6S9 4 4 4v14c5 0 8 2 8 2s3-2 8-2V4c-5 0-8 2-8 2z"/><path d="M12 6v14"/></svg></span><span class="rt">Emotional Preparation Workbook</span></div>
-        <a class="res" href="reflection.html"><span class="ri" style="background:#E6ECF5;color:#5B7FB0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m14 6 4 4"/></svg></span><span class="rt">Guided Reflection Prompts</span></a>
+        <a class="res" data-view="reflect" href="reflection.html"><span class="ri" style="background:#E6ECF5;color:#5B7FB0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m14 6 4 4"/></svg></span><span class="rt">Guided Reflection Prompts</span></a>
         <a class="res" href="voice-story-preservation.html"><span class="ri" style="background:#E8DEF0;color:#5B3E7F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span class="rt">Voice &amp; Story Preservation</span></a>
         <a class="res" href="family-conversation-guides.html"><span class="ri" style="background:#F4E6C8;color:#8A5A12"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M16 19a4 4 0 0 0-8 0M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6M19 19a3 3 0 0 0-3-3"/></svg></span><span class="rt">Family Conversation Guides</span></a>
         <a class="res" href="after-loss-support.html"><span class="ri" style="background:#F7E3EA;color:#B5536F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg></span><span class="rt">After Loss Support</span></a>
@@ -275,6 +347,96 @@
 
   </div>
 
+  <!-- ===== in-app action views ===== -->
+
+  <section class="actview" id="av-ground" aria-hidden="true" aria-label="Grounding Exercise">
+    <div class="av-head"><button class="av-back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><span class="av-title">Grounding Exercise</span></div>
+    <div class="av-body">
+      <p class="av-intro">When everything feels like too much, your breath is one thing you can come back to. Follow the circle for a minute &mdash; in through your nose, out through your mouth.</p>
+      <div class="breath">
+        <div class="breath-ring" id="breathRing"><span class="breath-phase" id="breathPhase">Ready</span></div>
+        <div class="breath-count" id="breathCount">Press start when you&rsquo;re ready.</div>
+        <button class="breath-btn" id="breathBtn">Begin</button>
+      </div>
+      <p class="av-note">Even one slow breath counts. There&rsquo;s no wrong way to do this.</p>
+    </div>
+  </section>
+
+  <section class="actview" id="av-reflect" aria-hidden="true" aria-label="Two-minute Reflection">
+    <div class="av-head"><button class="av-back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><span class="av-title">2-minute Reflection</span></div>
+    <div class="av-body">
+      <p class="av-intro">Two minutes, just for you. Read the prompt, then write whatever comes &mdash; messy is fine.</p>
+      <div class="rfl-prompt" id="rflPrompt">What is one small thing that went okay today?</div>
+      <button class="rfl-new" id="rflNew"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5"/></svg>Try another prompt</button>
+      <textarea class="rfl-ta" id="rflTa" placeholder="Write freely here&hellip;"></textarea>
+      <div class="rfl-timer">
+        <span class="rfl-clock" id="rflClock">2:00</span>
+        <button class="rfl-tbtn" id="rflStart">Start timer</button>
+      </div>
+      <p class="av-note">Nothing here is saved &mdash; this is just a quiet moment that belongs to you.</p>
+    </div>
+  </section>
+
+  <section class="actview" id="av-gem" aria-hidden="true" aria-label="Create a Meaningful Gem">
+    <div class="av-head"><button class="av-back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><span class="av-title">Create a Meaningful Gem</span></div>
+    <div class="av-body">
+      <p class="av-intro">A Gem is a small piece of you &mdash; a voice note, a memory, a song &mdash; kept for someone you love. Not sure where to begin? Pick a spark.</p>
+      <button class="gem-idea" data-gem="A reassurance">
+        <span class="gi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg></span>
+        <span><span class="gi-t">A reassurance</span><span class="gi-s">&ldquo;I&rsquo;m here. You&rsquo;re safe. I love you.&rdquo; A few words they can return to.</span></span>
+      </button>
+      <button class="gem-idea" data-gem="A shared memory">
+        <span class="gi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 15 5-5 4 4 3-3 6 6"/></svg></span>
+        <span><span class="gi-t">A shared memory</span><span class="gi-s">That summer at the lake, the song you always sang. Tell it the way you remember it.</span></span>
+      </button>
+      <button class="gem-idea" data-gem="An everyday anchor">
+        <span class="gi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <span><span class="gi-t">An everyday anchor</span><span class="gi-s">&ldquo;Good morning. Here&rsquo;s what today looks like.&rdquo; Gentle, familiar, steadying.</span></span>
+      </button>
+      <button class="gem-idea" data-gem="A favorite song or prayer">
+        <span class="gi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+        <span><span class="gi-t">A favorite song or prayer</span><span class="gi-s">The one that always settles them. Hum it, sing it, or just say the words.</span></span>
+      </button>
+      <div class="gem-confirm" id="gemConfirm"></div>
+      <button class="av-primary" id="gemStart"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18.5a3 3 0 0 0 3-3v-7a3 3 0 0 0-6 0v7a3 3 0 0 0 3 3zM5 11.5a7 7 0 0 0 14 0M12 18.5V22"/></svg>Open the Gem recorder</button>
+      <p class="av-note">In the full app this opens the recorder, so you can capture it in your own voice.</p>
+    </div>
+  </section>
+
+  <section class="actview" id="av-story" aria-hidden="true" aria-label="Read a Caregiver Story">
+    <div class="av-head"><button class="av-back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><span class="av-title">Read a Caregiver Story</span></div>
+    <div class="av-body">
+      <p class="av-intro">Short, true-to-life stories from people walking this path. Tap one to read.</p>
+
+      <article class="story-card open">
+        <div class="story-head"><div><div class="story-h">The Tuesday I stopped apologizing</div><div class="story-by">Renata, caring for her mother</div></div><span class="story-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
+        <div class="story-body">
+          <p>For a year I said sorry constantly. Sorry I was late. Sorry I forgot. Sorry I snapped when she asked the same question for the ninth time before lunch.</p>
+          <p>One Tuesday a nurse stopped me mid-apology and said, &ldquo;You&rsquo;re doing the work of three people. What if you spoke to yourself like you speak to her?&rdquo; I cried in the parking lot. Then I tried it. When I forgot something, I said, &ldquo;That&rsquo;s okay, you&rsquo;re tired.&rdquo; Out loud, like I would to Mom.</p>
+          <p>Nothing about the caregiving got easier. But I got kinder to the person doing it. That turned out to matter more than I expected.</p>
+        </div>
+      </article>
+
+      <article class="story-card">
+        <div class="story-head"><div><div class="story-h">What my father still knows</div><div class="story-by">David, son and care partner</div></div><span class="story-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
+        <div class="story-body">
+          <p>He doesn&rsquo;t always know my name now. For a long time that felt like losing him twice.</p>
+          <p>Then I noticed the things that stayed. He still reaches for my mother&rsquo;s hand. He still hums when the radio plays the old songs. He still says &ldquo;thank you&rdquo; to the woman who brings his tea, every single time, like it&rsquo;s the first kindness anyone&rsquo;s shown him.</p>
+          <p>What memory takes, it doesn&rsquo;t take all at once. The man who taught me to be gentle is still gentle. I&rsquo;ve stopped grieving who he forgot and started noticing who he still is.</p>
+        </div>
+      </article>
+
+      <article class="story-card">
+        <div class="story-head"><div><div class="story-h">Permission to rest</div><div class="story-by">Aisha, caring for her husband</div></div><span class="story-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
+        <div class="story-body">
+          <p>I thought love meant being there every minute. So I stopped sleeping, stopped seeing friends, stopped being a person who existed outside his needs.</p>
+          <p>My sister came for a weekend and made me leave the house. Two hours. I sat in a cafe and didn&rsquo;t know what to do with my hands. When I came back, he was fine &mdash; better, even, because I came back lighter.</p>
+          <p>Rest isn&rsquo;t abandoning him. An empty cup pours nothing. I take the two hours now. I&rsquo;ve learned that staying whole is part of staying.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <div class="scrim" id="scrim"></div>
 
   <script type="module">
@@ -289,6 +451,10 @@
     // inert (no 404). Real on-page anchors (#top, #season, #support, #resources) still scroll.
     // Delegated so dynamically re-rendered action links are covered too.
     document.addEventListener('click', function(e){
+      var open = e.target.closest('[data-view]');
+      if (open) { e.preventDefault(); openView(open.getAttribute('data-view')); return; }
+      var back = e.target.closest('.av-back');
+      if (back) { e.preventDefault(); closeView(); return; }
       var a = e.target.closest('a[href]');
       if (!a) return;
       var href = a.getAttribute('href') || '';
@@ -324,7 +490,7 @@
       t.textContent = d.t; m.textContent = d.m;
       actsEl.innerHTML = d.o.map(function(k, i){
         const a = ACTIONS[k];
-        return '<a class="act' + (i === 0 ? ' lead' : '') + '" href="' + a.href + '"><span class="ai">' + ICONS[k] + '</span>' + a.label + (i === 0 ? '<span class="sg">Suggested</span>' : '') + '</a>';
+        return '<a class="act' + (i === 0 ? ' lead' : '') + '" data-view="' + k + '" href="' + a.href + '"><span class="ai">' + ICONS[k] + '</span>' + a.label + (i === 0 ? '<span class="sg">Suggested</span>' : '') + '</a>';
       }).join('');
     }
     feels.forEach(function(b){
@@ -335,6 +501,95 @@
       });
     });
     render((document.querySelector('#feels .feel.active') || {dataset:{k:'overwhelmed'}}).dataset.k);
+
+    /* ---------- in-app action views ---------- */
+    var activeView = null;
+    function openView(key){
+      var v = document.getElementById('av-' + key); if (!v) return;
+      if (activeView && activeView !== v) activeView.classList.remove('open');
+      body.classList.remove('nav-open');
+      v.classList.add('open'); v.setAttribute('aria-hidden','false');
+      var b = v.querySelector('.av-body'); if (b) b.scrollTop = 0;
+      activeView = v;
+      if (key === 'ground') resetBreath();
+    }
+    function closeView(){
+      if (!activeView) return;
+      activeView.classList.remove('open'); activeView.setAttribute('aria-hidden','true');
+      if (activeView.id === 'av-ground') stopBreath();
+      if (activeView.id === 'av-reflect') stopReflTimer();
+      activeView = null;
+    }
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeView(); });
+
+    /* story expand / collapse */
+    document.querySelectorAll('#av-story .story-head').forEach(function(h){
+      h.addEventListener('click', function(){ h.closest('.story-card').classList.toggle('open'); });
+    });
+
+    /* breathing */
+    var breathRing = document.getElementById('breathRing'),
+        breathPhase = document.getElementById('breathPhase'),
+        breathCount = document.getElementById('breathCount'),
+        breathBtn = document.getElementById('breathBtn');
+    var breathTimers = [], breathing = false, breathCycles = 0;
+    var PHASES = [{c:'inhale',label:'Breathe in',ms:4000},{c:'hold',label:'Hold',ms:2000},{c:'exhale',label:'Breathe out',ms:6000}];
+    function clearBreath(){ breathTimers.forEach(clearTimeout); breathTimers = []; }
+    function stopBreath(){ breathing = false; clearBreath(); }
+    function resetBreath(){ stopBreath(); breathCycles = 0; breathRing.className = 'breath-ring'; breathPhase.textContent = 'Ready'; breathCount.textContent = 'Press start when you\u2019re ready.'; breathBtn.textContent = 'Begin'; }
+    function runPhase(i){
+      if (!breathing) return;
+      var p = PHASES[i];
+      breathRing.className = 'breath-ring ' + p.c;
+      breathPhase.textContent = p.label;
+      if (i === 0){ breathCycles++; breathCount.textContent = 'Breath ' + breathCycles; }
+      breathTimers.push(setTimeout(function(){ runPhase((i + 1) % PHASES.length); }, p.ms));
+    }
+    if (breathBtn) breathBtn.addEventListener('click', function(){
+      if (breathing){ stopBreath(); breathRing.className = 'breath-ring'; breathPhase.textContent = 'Paused'; breathBtn.textContent = 'Resume'; return; }
+      breathing = true; breathBtn.textContent = 'Pause'; runPhase(0);
+    });
+
+    /* reflection */
+    var RFL_PROMPTS = [
+      'What is one small thing that went okay today?',
+      'What do you need right now that no one has offered?',
+      'Name one thing you handled that you didn\u2019t think you could.',
+      'What would you say to a friend in your exact situation?',
+      'Where did you feel a moment of connection recently?',
+      'What can you set down, just for tonight?'
+    ];
+    var rflPrompt = document.getElementById('rflPrompt'), rflNew = document.getElementById('rflNew'),
+        rflClock = document.getElementById('rflClock'), rflStart = document.getElementById('rflStart');
+    var rflLeft = 120, rflInt = null, rflRunning = false;
+    function rflFmt(s){ var m = Math.floor(s/60), x = s%60; return m + ':' + (x<10?'0':'') + x; }
+    function stopReflTimer(){ rflRunning = false; if (rflInt){ clearInterval(rflInt); rflInt = null; } }
+    if (rflNew) rflNew.addEventListener('click', function(){ var n; do { n = RFL_PROMPTS[Math.floor(Math.random()*RFL_PROMPTS.length)]; } while (n === rflPrompt.textContent); rflPrompt.textContent = n; });
+    if (rflStart) rflStart.addEventListener('click', function(){
+      if (rflRunning){ stopReflTimer(); rflStart.textContent = 'Resume'; return; }
+      if (rflLeft <= 0){ rflLeft = 120; rflClock.textContent = '2:00'; }
+      rflRunning = true; rflStart.textContent = 'Pause';
+      rflInt = setInterval(function(){
+        rflLeft--; rflClock.textContent = rflFmt(rflLeft);
+        if (rflLeft <= 0){ stopReflTimer(); rflClock.textContent = 'Done'; rflStart.textContent = 'Again'; rflLeft = 0; }
+      }, 1000);
+    });
+
+    /* gem ideas */
+    var gemConfirm = document.getElementById('gemConfirm'), gemStart = document.getElementById('gemStart');
+    document.querySelectorAll('#av-gem .gem-idea').forEach(function(g){
+      g.addEventListener('click', function(){
+        document.querySelectorAll('#av-gem .gem-idea').forEach(function(x){ x.classList.remove('sel'); });
+        g.classList.add('sel');
+        gemConfirm.textContent = 'Lovely choice \u2014 ' + g.getAttribute('data-gem').toLowerCase() + '. When you\u2019re ready, the recorder below lets you capture it in your own voice.';
+        gemConfirm.classList.add('show');
+      });
+    });
+    if (gemStart) gemStart.addEventListener('click', function(){
+      gemConfirm.textContent = 'In the full app, this opens the recorder so you can capture your Gem in your own voice.';
+      gemConfirm.classList.add('show');
+      gemConfirm.scrollIntoView({behavior:'smooth', block:'center'});
+    });
   </script>
 </body>
 </html>
