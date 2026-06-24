@@ -475,6 +475,42 @@
   </div>
 </section>
 
+<!-- 4b. SUPPORT FOR BOTH OF YOU -->
+<style>
+  .companions { background: var(--beige-cream); }
+  .companion-grid { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: rgba(184, 146, 72, 0.22); border: 0.5px solid rgba(184, 146, 72, 0.22); }
+  .companion-card { background: var(--beige-cream); padding: 46px 40px 44px; transition: background 0.4s ease; display: flex; flex-direction: column; }
+  .companion-card:hover { background: var(--beige-paper); }
+  .companion-icon { width: 46px; height: 46px; color: var(--gold-deep); margin-bottom: 22px; }
+  .companion-card .who { font-family: var(--display); font-size: 11px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 14px; }
+  .companion-card h3 { font-family: var(--serif); font-weight: 500; font-size: 28px; color: var(--ink); margin-bottom: 14px; line-height: 1.25; }
+  .companion-card p { font-family: var(--serif); font-size: 17px; color: var(--ink-soft); line-height: 1.66; margin-bottom: 30px; flex: 1; }
+  .companion-card .btn-demo { align-self: flex-start; }
+  @media (max-width: 720px) { .companion-card { padding: 38px 30px; } }
+</style>
+<section class="companions" id="companions">
+  <div class="section-eyebrow">SUPPORT FOR BOTH OF YOU</div>
+  <h2 class="section-title">A companion for <em>both of you</em>.</h2>
+  <div class="section-divider"></div>
+  <p class="lead reveal">MemoriGems isn't only for the person whose memory is changing. There's a quiet space for the one carrying the care, too &mdash; because both of you deserve to feel held.</p>
+  <div class="companion-grid">
+    <div class="companion-card reveal">
+      <svg class="companion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.6 2.2 5.5 5.2 5.1c1.9-.3 3.6.7 4.5 2.2l.5.8.5-.8c.9-1.5 2.6-2.5 4.5-2.2 3 .4 4.6 3.5 3.2 6.6C19.5 16.4 12 21 12 21Z"/></svg>
+      <div class="who">A space for you</div>
+      <h3>Caregiver Companion</h3>
+      <p>The person doing the caring carries the most and is asked about the least. A private companion for the weight you hold &mdash; before diagnosis, through the long middle, and after. Your feelings matter. Start here.</p>
+      <a href="caregiver-preview.html" class="btn btn-demo">Open the Caregiver Companion</a>
+    </div>
+    <div class="companion-card reveal">
+      <svg class="companion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg>
+      <div class="who">A space for your loved one</div>
+      <h3>Support Companion</h3>
+      <p>Gentle, unhurried, and built on one quiet truth: you are still you. Familiar voices and moments to return to &mdash; on the hardest days and the ordinary ones, an anchor that says you are known.</p>
+      <a href="support-preview.html" class="btn btn-demo">Open the Support Companion</a>
+    </div>
+  </div>
+</section>
+
 <!-- 5. REAL FAMILY STORY -->
 <section class="family-story" id="story-family">
   <div class="section-eyebrow">A REAL FAMILY STORY</div>
