@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>Support Companion · Demo · MemoriGems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Cinzel:wght@500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#FAF5EC; --panel:#FFFFFF; --ink:#33302A; --muted:#6F6A60; --faint:#9C968A; --line:#EBE4D6;
+    --gold:#B58B33; --golddeep:#8C6E32; --goldbg:#F4EBD8;
+    --purple:#7A5AA8; --purplebg:#EEE6F5;
+    --green:#2E8B66; --greenbg:#E1F0E7;
+    --rose:#C06B7A; --rosebg:#F7E4E7;
+    --serif:'Cormorant Garamond',Georgia,serif; --display:'Cinzel',serif; --sans:'Inter',-apple-system,system-ui,sans-serif;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.5}
+  svg{display:block}
+  a{text-decoration:none;color:inherit}
+
+  .pvbanner{background:var(--goldbg);border-bottom:1px solid #EADFC4;color:var(--golddeep);font-size:12.5px;text-align:center;padding:9px 16px}
+  .pvbanner b{font-weight:600}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;max-width:480px;margin:0 auto}
+  .icon-btn{background:none;border:none;cursor:pointer;color:var(--ink);padding:6px;display:inline-flex}
+  .icon-btn svg{width:24px;height:24px}
+  .wm{font-family:var(--serif);font-size:27px;font-weight:500;letter-spacing:-.3px}
+  .wm .g{color:var(--golddeep);font-weight:600}
+  .listen{display:inline-flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--gold);border-radius:50%;width:52px;height:52px;justify-content:center;color:var(--golddeep);cursor:pointer;background:var(--panel);transition:background .2s}
+  .listen:hover{background:var(--goldbg)}
+  .listen svg{width:19px;height:19px}
+  .listen span{font-size:8.5px;letter-spacing:.04em}
+
+  .wrap{max-width:480px;margin:0 auto;padding:8px 22px 48px}
+
+  .greeting{display:flex;align-items:center;gap:15px;margin:14px 0 4px}
+  .avatar{width:62px;height:62px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 30%,#F0E6D2,#E4D3B8);display:flex;align-items:center;justify-content:center;color:#B89B6C;border:1px solid rgba(184,139,51,.35)}
+  .avatar svg{width:32px;height:32px}
+  .greeting h1{font-family:var(--serif);font-size:29px;font-weight:600;line-height:1.05;display:flex;align-items:center;gap:8px}
+  .greeting h1 .hrt{color:var(--rose);font-size:20px}
+  .greeting p{font-size:14px;color:var(--muted);margin-top:3px;line-height:1.45}
+
+  .div{display:flex;align-items:center;gap:14px;margin:22px 0 20px}
+  .div .ln{flex:1;height:1px;background:var(--line)}
+  .div .gem{color:var(--gold)}
+  .div .gem svg{width:18px;height:18px}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .gcard{border-radius:20px;padding:22px 18px 18px;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease);min-height:188px;display:flex;flex-direction:column}
+  .gcard:hover{transform:translateY(-4px);box-shadow:0 18px 40px -26px rgba(51,48,42,.5)}
+  .gcard:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .gcard .ic{width:58px;height:58px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .gcard .ic svg{width:27px;height:27px}
+  .gcard h2{font-family:var(--serif);font-size:23px;font-weight:600;line-height:1.1;margin-bottom:6px}
+  .gcard p{font-size:12.5px;color:var(--muted);line-height:1.45;flex:1}
+  .gcard .arrow{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;margin-top:14px}
+  .gcard .arrow svg{width:19px;height:19px}
+
+  .create{background:var(--purplebg)} .create .ic{color:var(--purple)} .create .arrow{background:var(--purple)}
+  .gems{background:var(--greenbg)} .gems .ic{color:var(--green)} .gems .arrow{background:var(--green)}
+  .people{background:var(--goldbg)} .people .ic{color:var(--golddeep)} .people .arrow{background:var(--gold)}
+  .about{background:var(--rosebg)} .about .ic{color:var(--rose)} .about .arrow{background:var(--rose)}
+
+  .footnote{text-align:center;font-family:var(--serif);font-style:italic;font-size:16px;color:#5E7359;margin-top:30px}
+
+  @media(max-width:380px){ .grid{grid-template-columns:1fr} }
+  @media(prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+
+<div class="pvbanner">A <b>public preview</b> &mdash; a glimpse of the home the people you love see, with names and photos kept private.</div>
+
+<header class="topbar">
+  <button class="icon-btn" aria-label="Menu" data-demo><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="wm" href="index.html">Memori<span class="g">Gems</span></a>
+  <button class="listen" aria-label="Listen" data-demo>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-3a9 9 0 0 1 18 0v3M21 16a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2zM3 16a2 2 0 0 0 2 2h1v-5H5a2 2 0 0 0-2 2z"/></svg>
+    <span>Listen</span>
+  </button>
+</header>
+
+<main class="wrap">
+
+  <div class="greeting">
+    <span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></span>
+    <div>
+      <h1 id="greet">Good afternoon, Rosa <span class="hrt" aria-hidden="true">&#9825;</span></h1>
+      <p>Your Gems, your stories, and the people who love you.</p>
+    </div>
+  </div>
+
+  <div class="div" aria-hidden="true">
+    <span class="ln"></span>
+    <span class="gem"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span>
+    <span class="ln"></span>
+  </div>
+
+  <div class="grid">
+    <button class="gcard create" data-demo>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span>
+      <h2>Create / Send a Gem</h2>
+      <p>Share a message, memory, or a little love.</p>
+      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </button>
+
+    <button class="gcard gems" data-demo>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+      <h2>My Gems</h2>
+      <p>View and listen to the Gems you&rsquo;ve received.</p>
+      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </button>
+
+    <button class="gcard people" data-demo>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3 19a6 6 0 0 1 12 0M15 18a5 5 0 0 1 6 0"/></svg></span>
+      <h2>My People</h2>
+      <p>See and connect with the people who send you Gems.</p>
+      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </button>
+
+    <button class="gcard about" data-demo>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg></span>
+      <h2>About Me</h2>
+      <p>Share a little about you &mdash; your story, photos, and more.</p>
+      <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </button>
+  </div>
+
+  <p class="footnote">A gentle home for the people who matter most.</p>
+</main>
+
+<script>
+  (function(){
+    var h=new Date().getHours();
+    var part = h<12 ? 'Good morning' : (h<18 ? 'Good afternoon' : 'Good evening');
+    var el=document.getElementById('greet');
+    el.firstChild.textContent = part + ', Rosa ';
+  })();
+  document.querySelectorAll('[data-demo]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); });
+  });
+</script>
+</body>
+</html>
