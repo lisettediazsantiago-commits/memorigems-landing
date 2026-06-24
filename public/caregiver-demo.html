@@ -1,336 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Caregiver Companion · Demo · MemoriGems</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --cream: #FCFAF5; --panel: #FFFFFF; --ink: #2C2C2A; --muted: #6B6A64; --faint: #9C988E;
-      --line: #ECE7DC; --line2: #EFEAE0;
-      --green: #1D9E75; --greend: #0F6E56; --greent: #2E7D52; --greenbg: #EAF3EC; --greentint: #F3F8F3;
-      --amber: #B5772A; --ambertint: #FBF4E8; --amberchip: #F4E6C8; --amberico: #8A5A12;
-      --lav: #5B3E7F; --lavtint: #F4EFF8; --lavchip: #E8DEF0; --lavhover: #EDE3F5;
-      --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { font-family: var(--sans); background: var(--cream); color: var(--ink); line-height: 1.5; }
-    svg { display: block; }
-    a { text-decoration: none; color: inherit; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Caregiver Companion · Demo · MemoriGems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{ --cream:#FCFAF5; --ink-faint:rgba(42,35,23,.5); }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ background:var(--cream); }
+  .stage{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+           padding:32px 16px 40px; background:var(--cream); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  .device-label{ font-family:'Cinzel',serif; font-size:10px; letter-spacing:4px; text-transform:uppercase;
+                 color:var(--ink-faint); margin-bottom:18px; }
 
-    .topbar { background: var(--panel); border-bottom: 1px solid var(--line);
-      display: flex; align-items: center; justify-content: space-between; padding: 16px 26px; position: sticky; top: 0; z-index: 30; }
-    .tb-left, .tb-right { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .tb-right { gap: 18px; }
-    .menu-btn { display: none; background: none; border: none; cursor: pointer; color: var(--ink); padding: 4px; }
-    .menu-btn svg { width: 22px; height: 22px; }
-    .back { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); font-size: 14.5px; font-weight: 500; }
-    .back svg { width: 18px; height: 18px; }
-    .back:hover { color: var(--greend); }
-    .brand { display: flex; align-items: center; gap: 10px; }
-    .brand .gd { width: 38px; height: 38px; border-radius: 50%; background: #C7EBD9; display: flex; align-items: center; justify-content: center; }
-    .brand .gd svg { width: 21px; height: 21px; color: var(--greend); }
-    .brand b { font-family: var(--serif); font-size: 24px; font-weight: 600; letter-spacing: .2px; }
-    .tb-link { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-size: 14px; font-weight: 500; }
-    .tb-link:hover { color: var(--greend); }
-    .tb-link svg { width: 18px; height: 18px; color: var(--muted); }
-    .tb-sep { width: 1px; height: 22px; background: var(--line); }
+  /* phone bezel — matches the Create-a-Gem device family */
+  .phone{ width:352px; max-width:90vw; background:#1b1d1c; border-radius:46px; padding:11px;
+          box-shadow:0 34px 70px rgba(42,35,23,.20); position:relative; }
+  .phone::before{ content:""; position:absolute; top:18px; left:50%; transform:translateX(-50%);
+                  width:46px; height:5px; border-radius:5px; background:rgba(255,255,255,.16); z-index:2; pointer-events:none; }
+  .screen{ position:relative; background:var(--cream); border-radius:36px; height:690px; overflow:hidden; }
+  .screen iframe{ width:100%; height:100%; border:0; display:block; background:var(--cream); }
 
-    .shell { display: flex; align-items: flex-start; max-width: 1280px; margin: 0 auto; }
-
-    .sidebar { width: 264px; flex: none; padding: 26px 20px; min-height: calc(100vh - 71px); display: flex; flex-direction: column; }
-    .pcard { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 13px; margin-bottom: 22px; }
-    .pcard .pa { width: 46px; height: 46px; border-radius: 50%; background: var(--greenbg); color: var(--greend); display: flex; align-items: center; justify-content: center; flex: none; }
-    .pcard .pa svg { width: 24px; height: 24px; }
-    .pcard .pn { font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--greend); }
-    .nav { display: flex; flex-direction: column; gap: 3px; }
-    .nav a { display: flex; align-items: center; gap: 13px; padding: 11px 14px; border-radius: 12px; color: var(--ink); font-size: 14.5px; font-weight: 500; }
-    .nav a svg { width: 20px; height: 20px; color: var(--muted); flex: none; }
-    .nav a:hover { background: #F4F1EA; }
-    .nav a.active { background: var(--greenbg); color: var(--greend); }
-    .nav a.active svg { color: var(--greend); }
-    .help { margin-top: auto; background: var(--greentint); border: 1px solid #E0EBE0; border-radius: 16px; padding: 16px; }
-    .help .ht { display: flex; align-items: center; gap: 9px; font-size: 14.5px; font-weight: 600; color: var(--greend); margin-bottom: 7px; }
-    .help .ht svg { width: 19px; height: 19px; }
-    .help p { font-size: 12.5px; color: var(--muted); margin-bottom: 13px; line-height: 1.5; }
-    .help .hbtn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #BFD8C4; border-radius: 100px; padding: 8px 15px; font-size: 12.5px; font-weight: 600; color: var(--greend); background: var(--panel); }
-    .help .hbtn:hover { background: #EAF3EC; }
-    .help .hbtn svg { width: 14px; height: 14px; }
-
-    .main { flex: 1; min-width: 0; padding: 34px 40px 56px; max-width: 880px; }
-    .main h1 { font-family: var(--serif); font-size: 42px; font-weight: 600; line-height: 1.05; }
-    .intro { font-size: 15.5px; color: var(--muted); margin-top: 12px; max-width: 600px; line-height: 1.6; }
-
-    .alone { display: flex; gap: 14px; align-items: flex-start; background: var(--lavtint); border: 1px solid #EADFF2; border-radius: 16px; padding: 16px 18px; margin-top: 22px; }
-    .alone .ah { width: 38px; height: 38px; border-radius: 11px; background: var(--lavchip); color: var(--lav); display: flex; align-items: center; justify-content: center; flex: none; }
-    .alone .ah svg { width: 19px; height: 19px; }
-    .alone b { font-family: var(--serif); font-size: 19px; font-weight: 600; display: block; }
-    .alone p { font-size: 13.5px; color: var(--muted); margin-top: 1px; }
-
-    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 24px 26px; margin-top: 24px; }
-    .ci-h { font-family: var(--serif); font-size: 26px; font-weight: 600; }
-    .ci-sub { font-size: 13px; color: var(--faint); margin-bottom: 16px; }
-    .feels { display: flex; flex-wrap: wrap; gap: 10px; }
-    .feel { border: 1.5px solid #ECE7DC; background: #FBF9F4; border-radius: 13px; padding: 11px 18px; font-family: var(--sans); font-size: 14px; color: var(--muted); cursor: pointer; transition: .15s; }
-    .feel:hover { border-color: #D8C8E8; background: var(--lavtint); }
-    .feel.active { border-color: #9D7CC4; background: var(--lavtint); color: var(--lav); font-weight: 600; }
-
-    .support { margin-top: 18px; background: var(--lavtint); border: 1px solid #EADFF2; border-radius: 16px; padding: 20px 22px; }
-    .support h3 { font-family: var(--serif); font-size: 23px; font-weight: 600; }
-    .support p { font-size: 14.5px; color: var(--muted); margin: 3px 0 16px; }
-    .support .lbl { font-size: 11px; letter-spacing: .8px; text-transform: uppercase; color: #9C8FB0; margin-bottom: 11px; }
-    .actions { display: flex; flex-direction: column; gap: 9px; }
-    .act { display: flex; align-items: center; gap: 12px; background: var(--panel); border: 1px solid #EADFF2; border-radius: 12px; padding: 13px 15px; font-size: 14.5px; color: var(--ink); cursor: pointer; transition: .15s; }
-    .act:hover { background: var(--lavhover); }
-    .act.lead { border: 1.5px solid #9D7CC4; background: #EFE6F7; }
-    .act .ai { width: 32px; height: 32px; border-radius: 9px; background: var(--lavchip); color: var(--lav); display: flex; align-items: center; justify-content: center; flex: none; }
-    .act .ai svg { width: 17px; height: 17px; }
-    .act .sg { margin-left: auto; font-size: 10.5px; color: var(--lav); background: var(--lavchip); border-radius: 100px; padding: 3px 10px; font-weight: 600; }
-
-    .sec-h { font-family: var(--serif); font-size: 28px; font-weight: 600; margin-top: 36px; }
-    .seasons-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
-    .smini { display: flex; flex-direction: column; gap: 10px; border-radius: 16px; padding: 18px; border: 1px solid var(--line2); }
-    .smini.noticing { background: var(--greentint); border-color: #E2EDE3; }
-    .smini.holding { background: var(--ambertint); border-color: #F0E6D3; }
-    .smini.continuing { background: var(--lavtint); border-color: #EADFF2; }
-    .smini .sc { width: 44px; height: 44px; border-radius: 13px; display: flex; align-items: center; justify-content: center; }
-    .smini .sc svg { width: 23px; height: 23px; }
-    .noticing .sc { background: #DCEDE0; color: var(--greend); } .holding .sc { background: var(--amberchip); color: var(--amberico); } .continuing .sc { background: var(--lavchip); color: var(--lav); }
-    .smini .snm { font-family: var(--serif); font-size: 19px; font-weight: 600; line-height: 1.1; }
-    .smini .ssub { font-size: 12px; font-weight: 600; margin-top: 2px; }
-    .noticing .ssub { color: var(--greent); } .holding .ssub { color: var(--amber); } .continuing .ssub { color: var(--lav); }
-    .smini .go { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; margin-top: 2px; }
-    .noticing .go { color: var(--greend); } .holding .go { color: var(--amber); } .continuing .go { color: var(--lav); }
-    .smini .go svg { width: 15px; height: 15px; }
-
-    .resgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
-    .res { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; cursor: pointer; transition: .15s; }
-    .res:hover { border-color: #D9D3C6; }
-    .res .ri { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-    .res .ri svg { width: 22px; height: 22px; }
-    .res .rt { font-size: 13px; font-weight: 600; color: #4A4A45; line-height: 1.3; }
-
-    .community { background: var(--lavtint); border: 1px solid #EADFF2; border-radius: 18px; padding: 28px; text-align: center; margin-top: 24px; }
-    .community h3 { font-family: var(--serif); font-size: 26px; font-weight: 600; color: var(--lav); }
-    .community p { font-size: 14px; color: var(--muted); margin: 8px 0 16px; }
-    .join { display: inline-flex; align-items: center; gap: 8px; background: var(--lav); color: #fff; border: none; border-radius: 100px; padding: 13px 26px; font-family: var(--sans); font-size: 14px; font-weight: 600; cursor: pointer; }
-    .join:hover { background: #4A2F6B; }
-    .join svg { width: 16px; height: 16px; }
-
-    .closing { text-align: center; font-family: var(--serif); font-size: 19px; font-style: italic; color: #5E7359; margin: 30px 0 4px; }
-
-    .scrim { display: none; position: fixed; inset: 0; background: rgba(20,18,14,.35); z-index: 40; }
-    body.nav-open .scrim { display: block; }
-
-    @media (max-width: 860px) {
-      .topbar { padding: 14px 16px; }
-      .back span, .tb-right .tb-link span { display: none; }
-      .brand b { font-size: 21px; }
-      .menu-btn { display: inline-flex; }
-      .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 280px; background: var(--cream); border-right: 1px solid var(--line); transform: translateX(-100%); transition: transform .22s ease; z-index: 50; min-height: 100vh; overflow-y: auto; }
-      body.nav-open .sidebar { transform: translateX(0); }
-      .main { padding: 24px 18px 48px; max-width: 100%; }
-      .main h1 { font-size: 31px; }
-      .seasons-row { grid-template-columns: 1fr; }
-      .resgrid { grid-template-columns: 1fr 1fr; }
-    }
-    .pvbanner { background:#EAF3EC; border-bottom:1px solid #DCEAE0; color:#0F6E56; font-size:13px; text-align:center; padding:9px 16px; }
-    .pvbanner b { font-weight:600; }
-    .pvcta { margin-top:30px; padding:22px; background:#fff; border:1px solid var(--line); border-radius:16px; text-align:center; }
-    .pvcta h3 { font-family:var(--serif); font-size:22px; font-weight:600; color:#0F6E56; margin-bottom:6px; }
-    .pvcta p { font-size:13.5px; color:var(--muted); margin-bottom:14px; line-height:1.5; }
-    .pvcta .row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-    .pvcta a { display:inline-block; border-radius:100px; padding:11px 22px; font-size:14px; font-weight:600; }
-    .pvcta .primary { background:var(--green); color:#fff; }
-    .pvcta .primary:hover { background:var(--greend); }
-    .pvcta .ghost { background:#fff; color:var(--greend); border:1px solid #BFD8C4; }
-    .pvcta .ghost:hover { background:#EAF3EC; }
-  </style>
+  @media (max-width:430px){
+    .phone{ width:100%; border-radius:40px; }
+    .screen{ height:620px; border-radius:30px; }
+  }
+</style>
 </head>
 <body>
-
-  <header class="topbar">
-    <div class="tb-left">
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-      <a class="back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Back to MemoriGems</span></a>
+  <div class="stage">
+    <div class="device-label">On her phone</div>
+    <div class="phone">
+      <div class="screen">
+        <iframe src="caregiver-app.html" title="Caregiver Companion — interactive demo" loading="eager"></iframe>
+      </div>
     </div>
-    <a class="brand" href="index.html" aria-label="MemoriGems home"><span class="gd"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span><b>MemoriGems</b></a>
-    <div class="tb-right">
-      <a class="tb-link" href="about.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 8 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H2a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 3.3 8a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H8a1.7 1.7 0 0 0 1-1.5V2a2 2 0 1 1 4 0v.1A1.7 1.7 0 0 0 16 3.3a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V8a1.7 1.7 0 0 0 1.5 1H22a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>About</span></a>
-      <span class="tb-sep"></span>
-      <a class="tb-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Exit</span></a>
-    </div>
-  </header>
-
-  <div class="pvbanner">You're viewing a <b>public preview</b> of the Caregiver&nbsp;Companion &mdash; the in-app support space for care partners.</div>
-
-  <div class="shell">
-
-    <aside class="sidebar" id="sidebar">
-      <div class="pcard">
-        <span class="pa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.2"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></span>
-        <span class="pn">Adult Profile</span>
-      </div>
-      <nav class="nav">
-        <a href="home.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>Overview</a>
-        <a href="season.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-7M12 14c0-3-2-5-5-5 0 3 2 5 5 5zM12 12c0-3 2-6 6-6 0 3-2 6-6 6z"/></svg>Your Caregiving Season</a>
-        <a href="caregiver.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg>Caregiver Companion</a>
-        <a href="reflection.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8M12 13c-1-3-4-4-6-3 0 3 3 5 6 3zM12 11c1-3 4-4 6-3 0 3-3 5-6 3z"/></svg>Reflection &amp; Self-Care</a>
-        <a href="#resources"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6S9 4 4 4v14c5 0 8 2 8 2s3-2 8-2V4c-5 0-8 2-8 2z"/><path d="M12 6v14"/></svg>Resources</a>
-        <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 8 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H2a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 3.3 8a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H8a1.7 1.7 0 0 0 1-1.5V2a2 2 0 1 1 4 0v.1A1.7 1.7 0 0 0 16 3.3a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V8a1.7 1.7 0 0 0 1.5 1H22a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</a>
-      </nav>
-      <div class="help">
-        <div class="ht"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.2a2.5 2.5 0 0 1 4 1.5c0 1.6-2 2-2 3.4M12 17h.01"/></svg>Need help?</div>
-        <p>We're here if you have questions or need support.</p>
-        <a class="hbtn" href="#" data-soon>Visit Help Center<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
-    </aside>
-
-    <main class="main">
-      <h1>Caregiver Companion</h1>
-      <p class="intro">Support through every stage of memory change. You don't have to navigate this journey alone.</p>
-
-      <div class="alone">
-        <span class="ah"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg></span>
-        <div><b>You are not alone.</b><p>Caregiving is a journey with many seasons. We're here to walk alongside you.</p></div>
-      </div>
-
-      <section class="card">
-        <div class="ci-h">How are you feeling today?</div>
-        <div class="ci-sub">Your feelings matter. Start here.</div>
-        <div class="feels" id="feels">
-          <button class="feel active" data-k="overwhelmed">Overwhelmed</button>
-          <button class="feel" data-k="sad">Sad</button>
-          <button class="feel" data-k="hopeful">Hopeful</button>
-          <button class="feel" data-k="frustrated">Frustrated</button>
-          <button class="feel" data-k="grateful">Grateful</button>
-          <button class="feel" data-k="exhausted">Exhausted</button>
-          <button class="feel" data-k="unsure">Unsure</button>
-        </div>
-        <div class="support">
-          <h3 id="supTitle">Caregiving can feel heavy.</h3>
-          <p id="supMsg">You don't have to carry everything today.</p>
-          <div class="lbl">A few gentle next steps</div>
-          <div class="actions" id="acts">
-            <a class="act lead" href="grounding.html"><span class="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 19c0-8 6-13 14-13 0 8-6 13-14 13z"/><path d="M5 19c2-4 5-6 9-7"/></svg></span>Grounding Exercise<span class="sg">Suggested</span></a>
-            <a class="act" href="reflection.html"><span class="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v18M12 8h4M12 12h4"/></svg></span>2-minute Reflection</a>
-            <a class="act" href="choose-gem.html"><span class="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span>Create a Meaningful Gem</a>
-            <a class="act" href="caregiver-stories.html"><span class="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 6S9 4 4 4v14c5 0 8 2 8 2s3-2 8-2V4c-5 0-8 2-8 2z"/><path d="M12 6v14"/></svg></span>Read a Caregiver Story</a>
-          </div>
-        </div>
-      </section>
-
-      <h2 class="sec-h">Your caregiving season</h2>
-      <div class="seasons-row">
-        <a class="smini noticing" href="season.html#noticing">
-          <span class="sc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-7M12 14c0-3-2-5-5-5 0 3 2 5 5 5zM12 12c0-3 2-6 6-6 0 3-2 6-6 6z"/></svg></span>
-          <div><div class="snm">The Noticing Season</div><div class="ssub">Before or around diagnosis</div></div>
-          <span class="go">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </a>
-        <a class="smini holding" href="season.html#holding">
-          <span class="sc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l5-5 4 4 4-4 5 5M7 11l3-3 4 4 3-3"/></svg></span>
-          <div><div class="snm">The Holding Season</div><div class="ssub">Active caregiving</div></div>
-          <span class="go">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </a>
-        <a class="smini continuing" href="season.html#continuing">
-          <span class="sc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13c5 1 8-2 9-5 3 6-1 11-6 11-2 0-3-2-3-3zM12 8c2-3 5-4 8-3"/></svg></span>
-          <div><div class="snm">The Continuing Season</div><div class="ssub">After loss or transition</div></div>
-          <span class="go">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </a>
-      </div>
-
-      <h2 class="sec-h" id="resources">Tools &amp; resources to support you</h2>
-      <div class="resgrid">
-        <div class="res" data-soon><span class="ri" style="background:#E1F5EE;color:#0F6E56"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 6S9 4 4 4v14c5 0 8 2 8 2s3-2 8-2V4c-5 0-8 2-8 2z"/><path d="M12 6v14"/></svg></span><span class="rt">Emotional Preparation Workbook</span></div>
-        <a class="res" href="reflection.html"><span class="ri" style="background:#E6ECF5;color:#5B7FB0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m14 6 4 4"/></svg></span><span class="rt">Guided Reflection Prompts</span></a>
-        <a class="res" href="voice-story-preservation.html"><span class="ri" style="background:#E8DEF0;color:#5B3E7F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span class="rt">Voice &amp; Story Preservation</span></a>
-        <a class="res" href="family-conversation-guides.html"><span class="ri" style="background:#F4E6C8;color:#8A5A12"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M16 19a4 4 0 0 0-8 0M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6M19 19a3 3 0 0 0-3-3"/></svg></span><span class="rt">Family Conversation Guides</span></a>
-        <a class="res" href="after-loss-support.html"><span class="ri" style="background:#F7E3EA;color:#B5536F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg></span><span class="rt">After Loss Support</span></a>
-        <a class="res" href="community-circle.html"><span class="ri" style="background:#E8DEF0;color:#5B3E7F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="10" r="2.5"/><path d="M4 19a5 5 0 0 1 10 0M14 18a4 4 0 0 1 6 0"/></svg></span><span class="rt">Community Circle</span></a>
-      </div>
-
-      <div class="community">
-        <h3>A Community That Understands</h3>
-        <p>Share, listen, and be uplifted by others walking a similar path. You are not alone.</p>
-        <a class="join" href="community-circle.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg>Explore Community Circle</a>
-      </div>
-
-      <div class="closing">You are doing enough. Your love and presence matter more than you know.</div>
-
-      <div class="pvcta">
-        <h3>This is one half of MemoriGems</h3>
-        <p>The Caregiver Companion supports the care partner. There's also a space built for the person living with memory change &mdash; and the voice-message Gems that connect them.</p>
-        <div class="row">
-          <a class="primary" href="index.html">Explore MemoriGems</a>
-          <a class="ghost" href="support-preview.html">See the recipient's space</a>
-        </div>
-      </div>
-    </main>
-
   </div>
-
-  <div class="scrim" id="scrim"></div>
-
-  <script type="module">
-    // Public preview — no authentication, no redirects.
-    const body = document.body;
-    document.getElementById('menuBtn').addEventListener('click', () => body.classList.add('nav-open'));
-    document.getElementById('scrim').addEventListener('click', () => body.classList.remove('nav-open'));
-    document.querySelectorAll('#sidebar .nav a').forEach(a => a.addEventListener('click', () => body.classList.remove('nav-open')));
-    document.querySelectorAll('[data-soon]').forEach(el => el.addEventListener('click', e => e.preventDefault()));
-
-    // In the preview, links into the full (sign-in) app stay on the page instead of hitting a login wall.
-    document.querySelectorAll('a[href]').forEach(a => {
-      const href = a.getAttribute('href') || '';
-      if (href.endsWith('.html') || href.includes('.html#')) {
-        a.addEventListener('click', e => { e.preventDefault(); });
-      }
-    });
-
-    const DATA = {
-      overwhelmed:{t:"Caregiving can feel heavy.",m:"You don't have to carry everything today.",o:['ground','reflect','gem','story']},
-      sad:{t:"It's okay to feel the weight of this.",m:"Sadness is love with nowhere to go right now — be gentle with yourself.",o:['reflect','story','ground','gem']},
-      hopeful:{t:"Hold onto that hope.",m:"It's a quiet strength worth protecting.",o:['gem','reflect','story','ground']},
-      frustrated:{t:"Frustration is human.",m:"It doesn't make you any less caring. Let's ease the pressure for a moment.",o:['ground','reflect','story','gem']},
-      grateful:{t:"What a gift to notice the good.",m:"Let's hold onto this feeling — maybe even keep it.",o:['gem','reflect','story','ground']},
-      exhausted:{t:"You've been giving so much.",m:"Rest isn't a luxury; it's part of caring well.",o:['ground','reflect','story','gem']},
-      unsure:{t:"Not knowing is okay.",m:"You don't need it all figured out today — just one small step.",o:['reflect','story','ground','gem']}
-    };
-    const ICONS = {
-      reflect:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v18M12 8h4M12 12h4"/></svg>',
-      ground:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 19c0-8 6-13 14-13 0 8-6 13-14 13z"/><path d="M5 19c2-4 5-6 9-7"/></svg>',
-      gem:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg>',
-      story:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 6S9 4 4 4v14c5 0 8 2 8 2s3-2 8-2V4c-5 0-8 2-8 2z"/><path d="M12 6v14"/></svg>'
-    };
-    const ACTIONS = {
-      reflect:{label:'2-minute Reflection', href:'reflection.html'},
-      ground:{label:'Grounding Exercise', href:'grounding.html'},
-      gem:{label:'Create a Meaningful Gem', href:'choose-gem.html'},
-      story:{label:'Read a Caregiver Story', href:'caregiver-stories.html'}
-    };
-    const feels = document.querySelectorAll('#feels .feel');
-    const t = document.getElementById('supTitle'), m = document.getElementById('supMsg');
-    const actsEl = document.getElementById('acts');
-    function render(key){
-      const d = DATA[key]; if (!d) return;
-      t.textContent = d.t; m.textContent = d.m;
-      actsEl.innerHTML = d.o.map(function(k, i){
-        const a = ACTIONS[k];
-        return '<a class="act' + (i === 0 ? ' lead' : '') + '" href="' + a.href + '"><span class="ai">' + ICONS[k] + '</span>' + a.label + (i === 0 ? '<span class="sg">Suggested</span>' : '') + '</a>';
-      }).join('');
-    }
-    feels.forEach(function(b){
-      b.addEventListener('click', function(){
-        feels.forEach(function(x){ x.classList.remove('active'); });
-        b.classList.add('active');
-        render(b.dataset.k);
-      });
-    });
-    render((document.querySelector('#feels .feel.active') || {dataset:{k:'overwhelmed'}}).dataset.k);
-  </script>
 </body>
 </html>
