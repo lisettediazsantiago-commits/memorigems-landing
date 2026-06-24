@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Caregiver Companion · Demo · MemoriGems</title>
-<meta name="description" content="A phone-screen preview of the MemoriGems Caregiver Companion — share how you feel and see how it meets you, with gentle next steps, caregiving seasons, and resources." />
+<meta name="description" content="An interactive phone-screen preview of the MemoriGems Caregiver Companion — feelings check-in, caregiving seasons, reflection, and resources, all in one place." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -18,7 +18,6 @@
     --ease:cubic-bezier(.22,.61,.36,1);
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  html,body{height:100%}
   body{
     font-family:var(--sans);color:var(--ink);line-height:1.5;
     background:
@@ -29,9 +28,8 @@
     padding:22px 14px 28px;
   }
   svg{display:block}
-  a{text-decoration:none;color:inherit}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 
-  /* device */
   .device{
     width:100%;max-width:372px;background:#15140F;border-radius:46px;padding:11px;
     box-shadow:0 50px 90px -46px rgba(20,18,14,.85), 0 8px 22px -10px rgba(20,18,14,.4);
@@ -44,51 +42,47 @@
   .status .ico{display:flex;gap:6px;align-items:center}
   .status .ico svg{width:16px;height:13px;color:#15140F}
 
-  .scroll{overflow:visible}
-
   /* app bar */
   .appbar{position:sticky;top:0;z-index:6;display:flex;align-items:center;justify-content:space-between;
-    padding:12px 18px;background:rgba(252,250,245,.93);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .appbar .wm{font-family:var(--serif);font-size:21px;font-weight:500;letter-spacing:-.3px}
+    padding:12px 16px;background:rgba(252,250,245,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .appbar .wm{font-family:var(--serif);font-size:21px;font-weight:500;letter-spacing:-.3px;text-decoration:none;color:var(--ink)}
   .appbar .wm .g{color:var(--golddeep);font-weight:600}
-  .appbar .back{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
-  .appbar .back svg{width:15px;height:15px}
-  .appbar .back:hover{color:var(--greend)}
+  .back{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--muted)}
+  .back svg{width:15px;height:15px}
+  .back:hover{color:var(--greend)}
   .avatar{width:30px;height:30px;border-radius:50%;background:var(--lavtint);color:var(--lav);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:600;font-size:14px;border:1px solid var(--lavline)}
 
+  /* profile + tabs */
   .pad{padding:16px 18px}
   .profile{display:inline-flex;align-items:center;gap:7px;background:var(--lavtint);border:1px solid var(--lavline);color:var(--lavd);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:600;letter-spacing:.02em}
   .profile .dot{width:7px;height:7px;border-radius:50%;background:var(--lav)}
-
-  /* tabs */
-  .tabs{display:flex;gap:8px;overflow-x:auto;padding:10px 18px 14px;border-bottom:1px solid var(--line);scrollbar-width:none}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{flex:none;font-size:12.5px;font-weight:500;color:var(--muted);background:#FBF9F4;border:1px solid var(--line);border-radius:100px;padding:7px 14px;white-space:nowrap}
+  .tabs{display:flex;flex-wrap:wrap;gap:7px;padding:10px 16px 13px;border-bottom:1px solid var(--line)}
+  .tab{font-size:12.5px;font-weight:500;color:var(--muted);background:#FBF9F4;border:1px solid var(--line);border-radius:100px;padding:7px 13px;white-space:nowrap}
   .tab:hover{border-color:var(--greenline);color:var(--greend)}
-  .tab.on{background:var(--greenbg);border-color:var(--greenline);color:var(--greend);font-weight:600}
+  .tab[aria-selected="true"]{background:var(--greenbg);border-color:var(--greenline);color:var(--greend);font-weight:600}
 
-  h1.title{font-family:var(--serif);font-size:32px;font-weight:600;line-height:1.08;margin:2px 0 7px}
+  /* content */
+  #content{padding:16px 18px 4px}
+  h1.title{font-family:var(--serif);font-size:31px;font-weight:600;line-height:1.08;margin:2px 0 7px}
   .sub{font-size:13.5px;color:var(--muted);line-height:1.55}
+  .sect-h{font-family:var(--serif);font-size:23px;font-weight:600;margin:24px 0 3px}
+  .sect-s{font-size:12.5px;color:var(--faint);margin-bottom:13px}
 
-  .hero{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(135deg,var(--greentint),var(--lavtint));border:1px solid var(--greenline);border-radius:16px;padding:15px 15px;margin:16px 0 4px}
+  .hero{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(135deg,var(--greentint),var(--lavtint));border:1px solid var(--greenline);border-radius:16px;padding:15px;margin:16px 0 4px}
   .hero .hi{width:34px;height:34px;border-radius:11px;background:var(--greenbg);color:var(--greend);display:flex;align-items:center;justify-content:center;flex:none}
   .hero .hi svg{width:19px;height:19px}
   .hero b{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--greend);display:block;margin-bottom:2px}
   .hero p{font-size:12.5px;color:var(--muted);line-height:1.5}
 
-  .sect-h{font-family:var(--serif);font-size:23px;font-weight:600;margin:26px 0 3px}
-  .sect-s{font-size:12.5px;color:var(--faint);margin-bottom:13px}
-
   /* feelings */
   .feels{display:flex;flex-wrap:wrap;gap:8px}
-  .feel{border:1.5px solid var(--line);background:#FBF9F4;border-radius:13px;padding:9px 15px;font-size:13.5px;color:var(--muted);cursor:pointer;transition:.15s;font-family:var(--sans)}
+  .feel{border:1.5px solid var(--line);background:#FBF9F4;border-radius:13px;padding:9px 15px;font-size:13.5px;color:var(--muted);transition:.15s}
   .feel:hover{border-color:#D8C8E8;background:var(--lavtint)}
   .feel.active{border-color:#9D7CC4;background:var(--lavtint);color:var(--lav);font-weight:600}
   .feel:focus-visible{outline:2px solid var(--lav);outline-offset:2px}
 
-  /* response */
-  .resp{opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease),transform .5s var(--ease);margin-top:16px}
-  .resp.show{opacity:1;transform:none}
+  .resp{margin-top:16px;animation:fade .45s var(--ease) both}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   .resp-card{background:var(--panel);border:1px solid var(--lavline);border-radius:16px;padding:15px}
   .greet{display:flex;align-items:center;gap:9px;background:var(--lavtint);border:1px solid var(--lavline);border-radius:12px;padding:10px 12px;margin-bottom:13px}
   .greet .gi{width:29px;height:29px;border-radius:9px;background:var(--lavchip);color:var(--lav);display:flex;align-items:center;justify-content:center;flex:none}
@@ -96,67 +90,76 @@
   .greet span{font-family:var(--serif);font-size:14.5px;font-weight:600;color:var(--lav)}
   .resp-card h3{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.15;margin-bottom:4px}
   .resp-card .msg{font-size:13.5px;color:var(--muted);line-height:1.55;margin-bottom:15px}
-  .lbl{font-family:var(--sans);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#9C8FB0;margin-bottom:9px}
+  .lbl{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#9C8FB0;margin-bottom:9px}
   .acts{display:flex;flex-direction:column;gap:8px}
-  .act{display:flex;align-items:center;gap:11px;background:var(--panel);border:1px solid var(--lavline);border-radius:12px;padding:10px 12px;font-size:13.5px;color:var(--ink);transition:.15s}
+  .act{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:var(--panel);border:1px solid var(--lavline);border-radius:12px;padding:10px 12px;font-size:13.5px;color:var(--ink);transition:.15s}
   .act:hover{background:var(--lavtint)}
   .act.lead{border:1.5px solid #9D7CC4;background:#EFE6F7}
   .act .ai{width:29px;height:29px;border-radius:9px;background:var(--lavchip);color:var(--lav);display:flex;align-items:center;justify-content:center;flex:none}
   .act .ai svg{width:16px;height:16px}
   .act .sg{margin-left:auto;font-size:9.5px;letter-spacing:.04em;color:var(--lav);background:var(--lavchip);border-radius:100px;padding:3px 9px;font-weight:600}
-  .act .chev{margin-left:auto;color:var(--faint)}
+  .act .chev{margin-left:auto;color:var(--faint);display:flex}
   .act.lead .chev{margin-left:8px}
-  .act .chev svg{width:15px;height:15px}
+  .chev svg{width:15px;height:15px}
 
-  /* seasons — color-coded by stage */
-  .season{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:14px;padding:13px 13px 13px 12px;margin-bottom:9px;transition:.15s}
+  /* seasons */
+  .season{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:14px;padding:13px 13px 13px 12px;margin-bottom:9px;transition:.15s}
   .season .si{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex:none}
   .season .si svg{width:19px;height:19px}
   .season .st b{font-family:var(--serif);font-size:16px;font-weight:600;display:block;line-height:1.15}
   .season .st span{font-size:11.5px;color:var(--faint)}
-  .season .go{margin-left:auto;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:3px}
+  .season .go{margin-left:auto;display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600}
   .season .go svg{width:13px;height:13px}
-
-  /* Noticing — warm gold/amber */
   .s-notice{border-left-color:#C9A66C}
   .s-notice:hover{border-color:#E4CE9B;border-left-color:#C9A66C;background:#FBF3E0}
-  .s-notice .si{background:#F5E8CC;color:#8A5A12}
-  .s-notice .go{color:#8C6E32}
-  /* Holding — sage green */
+  .s-notice .si{background:#F5E8CC;color:#8A5A12}.s-notice .go{color:#8C6E32}
   .s-hold{border-left-color:var(--green)}
   .s-hold:hover{border-color:var(--greenline);border-left-color:var(--green);background:var(--greentint)}
-  .s-hold .si{background:var(--greenbg);color:var(--greend)}
-  .s-hold .go{color:var(--greend)}
-  /* Continuing — soft lavender */
+  .s-hold .si{background:var(--greenbg);color:var(--greend)}.s-hold .go{color:var(--greend)}
   .s-cont{border-left-color:#9D7CC4}
   .s-cont:hover{border-color:var(--lavline);border-left-color:#9D7CC4;background:var(--lavtint)}
-  .s-cont .si{background:var(--lavchip);color:var(--lav)}
-  .s-cont .go{color:var(--lav)}
+  .s-cont .si{background:var(--lavchip);color:var(--lav)}.s-cont .go{color:var(--lav)}
 
-  /* resources */
-  .reslist{display:flex;flex-direction:column;gap:8px}
-  .res{display:flex;align-items:center;gap:11px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 13px;font-size:13.5px;transition:.15s}
-  .res:hover{border-color:var(--greenline);background:var(--greentint)}
-  .res .ri{width:28px;height:28px;border-radius:8px;background:var(--greenbg);color:var(--greend);display:flex;align-items:center;justify-content:center;flex:none}
-  .res .ri svg{width:15px;height:15px}
-  .res .chev{margin-left:auto;color:var(--faint)}
-  .res .chev svg{width:15px;height:15px}
+  /* topic / resource list */
+  .tlist{display:flex;flex-direction:column;gap:8px}
+  .titem{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 13px;font-size:13.5px;transition:.15s}
+  .titem:hover{border-color:var(--greenline);background:var(--greentint)}
+  .titem .bullet{width:7px;height:7px;border-radius:50%;flex:none}
+  .titem .chev{margin-left:auto;color:var(--faint);display:flex}
 
-  .community{background:linear-gradient(135deg,var(--greentint),#EAF1EE);border:1px solid var(--greenline);border-radius:16px;padding:16px;text-align:center;margin-top:10px}
+  /* detail */
+  .detail-back{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:14px}
+  .detail-back svg{width:15px;height:15px}
+  .detail-back:hover{color:var(--greend)}
+  .detail .d-ic{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .detail .d-ic svg{width:22px;height:22px}
+  .detail h2{font-family:var(--serif);font-size:27px;font-weight:600;line-height:1.12;margin-bottom:5px}
+  .detail .d-sub{font-size:12px;font-weight:600;letter-spacing:.02em;margin-bottom:14px}
+  .detail .d-body{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px}
+  .detail .d-note{font-size:12px;color:var(--faint);font-style:italic;border-top:1px solid var(--line);padding-top:14px}
+
+  /* reflection */
+  .rcats{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px}
+  .rcat{font-size:13px;color:var(--muted);background:#FBF9F4;border:1.5px solid var(--line);border-radius:12px;padding:8px 14px;transition:.15s}
+  .rcat:hover{border-color:#D8C8E8;background:var(--lavtint)}
+  .rcat.on{border-color:#9D7CC4;background:var(--lavtint);color:var(--lav);font-weight:600}
+  .rprompt{background:var(--panel);border:1px solid var(--lavline);border-radius:16px;padding:20px 17px;text-align:center}
+  .rprompt .q{font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.35;color:var(--ink);min-height:54px;display:flex;align-items:center;justify-content:center}
+  .ranother{margin-top:14px;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--greenline);background:var(--panel);color:var(--greend);border-radius:100px;padding:9px 18px;font-size:12.5px;font-weight:600}
+  .ranother:hover{background:var(--greenbg)}
+  .ranother svg{width:14px;height:14px}
+  .rnote{font-size:11.5px;color:var(--faint);text-align:center;margin-top:16px;line-height:1.5}
+
+  .community{background:linear-gradient(135deg,var(--greentint),#EAF1EE);border:1px solid var(--greenline);border-radius:16px;padding:16px;text-align:center;margin-top:14px}
   .community b{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--greend);display:block;margin-bottom:5px}
   .community p{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:13px}
-  .community a{display:inline-flex;align-items:center;gap:7px;background:var(--greend);color:#fff;border-radius:100px;padding:10px 18px;font-size:12.5px;font-weight:600}
-  .community a:hover{background:#0c5b46}
-  .community a svg{width:14px;height:14px}
+  .community button{display:inline-flex;align-items:center;gap:7px;background:var(--greend);color:#fff;border-radius:100px;padding:10px 18px;font-size:12.5px;font-weight:600}
+  .community button:hover{background:#0c5b46}
+  .community button svg{width:14px;height:14px}
 
-  .affirm{text-align:center;font-family:var(--serif);font-style:italic;font-size:16px;color:#5E7359;line-height:1.45;padding:24px 22px 30px}
+  .affirm{text-align:center;font-family:var(--serif);font-style:italic;font-size:16px;color:#5E7359;line-height:1.45;padding:22px 22px 12px}
 
-  .caption{margin-top:18px;font-family:var(--display);font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--golddeep);text-align:center;opacity:.9}
-
-  @media(prefers-reduced-motion:reduce){
-    *{transition:none!important;animation:none!important}
-    .resp{opacity:1;transform:none}
-  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -171,115 +174,49 @@
       </span>
     </div>
 
-    <div class="scroll" id="scroll">
-      <!-- app bar -->
-      <div class="appbar">
-        <a class="back" href="/experience" target="_top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Back</a>
-        <a class="wm" href="/" target="_top">Memori<span class="g">Gems</span></a>
-        <span class="avatar" aria-hidden="true">A</span>
-      </div>
-
-      <div class="pad" style="padding-bottom:0">
-        <span class="profile"><span class="dot"></span>Adult Profile</span>
-      </div>
-
-      <!-- tabs -->
-      <div class="tabs" role="tablist" aria-label="Sections">
-        <a class="tab" href="https://memorigems-web.vercel.app/home.html" target="_blank" rel="noopener">Overview</a>
-        <a class="tab" href="https://memorigems-web.vercel.app/season.html" target="_blank" rel="noopener">Your Season</a>
-        <a class="tab on" aria-current="page">Caregiver Companion</a>
-        <a class="tab" href="https://memorigems-web.vercel.app/reflection.html" target="_blank" rel="noopener">Reflection</a>
-        <a class="tab" href="https://memorigems-web.vercel.app/community-circle.html" target="_blank" rel="noopener">Resources</a>
-      </div>
-
-      <div class="pad">
-        <h1 class="title">Caregiver Companion</h1>
-        <p class="sub">Support through every stage of memory change. You don&rsquo;t have to navigate this journey alone.</p>
-
-        <div class="hero">
-          <span class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg></span>
-          <div><b>You are not alone.</b><p>Caregiving is a journey with many seasons. We&rsquo;re here to walk alongside you.</p></div>
-        </div>
-
-        <!-- feelings -->
-        <div class="sect-h">How are you feeling today?</div>
-        <div class="sect-s">Your feelings matter. Start here.</div>
-        <div class="feels" id="feels" role="group" aria-label="How are you feeling today?">
-          <button class="feel active" data-k="overwhelmed" aria-pressed="true">Overwhelmed</button>
-          <button class="feel" data-k="sad" aria-pressed="false">Sad</button>
-          <button class="feel" data-k="hopeful" aria-pressed="false">Hopeful</button>
-          <button class="feel" data-k="frustrated" aria-pressed="false">Frustrated</button>
-          <button class="feel" data-k="grateful" aria-pressed="false">Grateful</button>
-          <button class="feel" data-k="exhausted" aria-pressed="false">Exhausted</button>
-          <button class="feel" data-k="unsure" aria-pressed="false">Unsure</button>
-        </div>
-
-        <div id="respBody" aria-live="polite"></div>
-
-        <!-- seasons -->
-        <div class="sect-h">Your caregiving season</div>
-        <div class="sect-s">Wherever you are, there is support for this stage.</div>
-        <a class="season s-notice" href="https://memorigems-web.vercel.app/season.html#noticing" target="_blank" rel="noopener">
-          <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
-          <span class="st"><b>The Noticing Season</b><span>Before or around diagnosis</span></span>
-          <span class="go">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-        </a>
-        <a class="season s-hold" href="https://memorigems-web.vercel.app/season.html#holding" target="_blank" rel="noopener">
-          <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 21 12 21z"/></svg></span>
-          <span class="st"><b>The Holding Season</b><span>Active caregiving</span></span>
-          <span class="go">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-        </a>
-        <a class="season s-cont" href="https://memorigems-web.vercel.app/season.html#continuing" target="_blank" rel="noopener">
-          <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v5h-5"/></svg></span>
-          <span class="st"><b>The Continuing Season</b><span>After loss or transition</span></span>
-          <span class="go">Explore<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-        </a>
-
-        <!-- resources -->
-        <div class="sect-h">Tools &amp; resources to support you</div>
-        <div class="sect-s">Gentle, practical support — at your own pace.</div>
-        <div class="reslist">
-          <a class="res" href="https://memorigems-web.vercel.app/reflection.html" target="_blank" rel="noopener">
-            <span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v18M12 8h4M12 12h4"/></svg></span>
-            Guided Reflection Prompts
-            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </a>
-          <a class="res" href="https://memorigems-web.vercel.app/voice-story-preservation.html" target="_blank" rel="noopener">
-            <span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18.5a3 3 0 0 1-3-3V6a3 3 0 0 1 6 0v9.5a3 3 0 0 1-3 3z"/><path d="M19 12v3a7 7 0 0 1-14 0v-3M12 21v-2.5"/></svg></span>
-            Voice &amp; Story Preservation
-            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </a>
-          <a class="res" href="https://memorigems-web.vercel.app/family-conversation-guides.html" target="_blank" rel="noopener">
-            <span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></span>
-            Family Conversation Guides
-            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </a>
-          <a class="res" href="https://memorigems-web.vercel.app/after-loss-support.html" target="_blank" rel="noopener">
-            <span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 21 12 21z"/></svg></span>
-            After Loss Support
-            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </a>
-          <a class="res" href="https://memorigems-web.vercel.app/community-circle.html" target="_blank" rel="noopener">
-            <span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6M18.5 19a5.5 5.5 0 0 0-3-4.9"/></svg></span>
-            Community Circle
-            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </a>
-        </div>
-
-        <div class="community">
-          <b>A Community That Understands</b>
-          <p>Share, listen, and be uplifted by others walking a similar path. You are not alone.</p>
-          <a href="https://memorigems-web.vercel.app/community-circle.html" target="_blank" rel="noopener">Explore Community Circle<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
-      </div>
-
-      <p class="affirm">You are doing enough. Your love and presence matter more than you know.</p>
+    <div class="appbar">
+      <button class="back" id="backBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span id="backLabel">Back</span></button>
+      <a class="wm" href="/" target="_top">Memori<span class="g">Gems</span></a>
+      <span class="avatar" aria-hidden="true">A</span>
     </div>
+
+    <div class="pad" style="padding-bottom:0">
+      <span class="profile"><span class="dot"></span>Adult Profile</span>
+    </div>
+
+    <div class="tabs" id="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" data-tab="companion" aria-selected="true">Companion</button>
+      <button class="tab" role="tab" data-tab="season" aria-selected="false">Your Season</button>
+      <button class="tab" role="tab" data-tab="reflection" aria-selected="false">Reflection</button>
+      <button class="tab" role="tab" data-tab="resources" aria-selected="false">Resources</button>
+    </div>
+
+    <div id="content" aria-live="polite"></div>
+
+    <p class="affirm" id="affirm">You are doing enough. Your love and presence matter more than you know.</p>
   </div>
 </div>
 
 <script>
-  var BASE='https://memorigems-web.vercel.app/';
+(function(){
+  /* ---------- icons ---------- */
+  var I={
+    heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg>',
+    leaf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 19c0-8 6-13 14-13 0 8-6 13-14 13z"/><path d="M5 19c2-4 5-6 9-7"/></svg>',
+    book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v18M12 8h4M12 12h4"/></svg>',
+    gem:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg>',
+    story:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 6S9 4 4 4v14c5 0 8 2 8 2s3-2 8-2V4c-5 0-8 2-8 2z"/><path d="M12 6v14"/></svg>',
+    search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>',
+    refresh:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v5h-5"/></svg>',
+    cont:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v5h-5"/></svg>',
+    voice:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18.5a3 3 0 0 1-3-3V6a3 3 0 0 1 6 0v9.5a3 3 0 0 1-3 3z"/><path d="M19 12v3a7 7 0 0 1-14 0v-3M12 21v-2.5"/></svg>',
+    chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>',
+    people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6M18.5 19a5.5 5.5 0 0 0-3-4.9"/></svg>',
+    chev:'<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>'
+  };
+
+  /* ---------- data ---------- */
+  var FEELS=['Overwhelmed','Sad','Hopeful','Frustrated','Grateful','Exhausted','Unsure'];
   var DATA={
     overwhelmed:{t:"Caregiving can feel heavy.",m:"You don't have to carry everything today.",o:['ground','reflect','gem','story']},
     sad:{t:"It's okay to feel the weight of this.",m:"Sadness is love with nowhere to go right now \u2014 be gentle with yourself.",o:['reflect','story','ground','gem']},
@@ -289,50 +226,205 @@
     exhausted:{t:"You've been giving so much.",m:"Rest isn't a luxury; it's part of caring well.",o:['ground','reflect','story','gem']},
     unsure:{t:"Not knowing is okay.",m:"You don't need it all figured out today \u2014 just one small step.",o:['reflect','story','ground','gem']}
   };
-  var ICONS={
-    reflect:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v18M12 8h4M12 12h4"/></svg>',
-    ground:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 19c0-8 6-13 14-13 0 8-6 13-14 13z"/><path d="M5 19c2-4 5-6 9-7"/></svg>',
-    gem:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg>',
-    story:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 6S9 4 4 4v14c5 0 8 2 8 2s3-2 8-2V4c-5 0-8 2-8 2z"/><path d="M12 6v14"/></svg>'
+  var ACT={
+    ground:{label:'Grounding Exercise', icon:I.leaf, t:'Grounding Exercise', body:"Let's ease the pressure for a moment. Wherever you are, let your shoulders drop. Breathe in slowly through your nose for four counts\u2026 hold for four\u2026 and out for six. Do that three times. You are allowed to pause. Nothing else needs your attention for these few breaths."},
+    gem:{label:'Create a Meaningful Gem', icon:I.gem, t:'Create a Meaningful Gem', body:"A Gem is a small moment of connection, kept \u2014 a voice note, a story, a photo, a song. You might record the way you say someone's name, or a memory you don't want to lose. In the full app, you'd tap record, add a touch, and choose who it's for."},
+    story:{label:'Read a Caregiver Story', icon:I.story, t:'A Caregiver Story', body:"\u201cSome days I felt like I was failing at all of it. Then my mother heard my voice and her whole face changed \u2014 she knew me, even when she couldn't find my name. That was enough. That was everything.\u201d You are not the only one who has felt this way."}
   };
-  var ACTIONS={
-    reflect:{label:'2-minute Reflection', url:'reflection.html'},
-    ground:{label:'Grounding Exercise', url:'grounding.html'},
-    gem:{label:'Create a Meaningful Gem', url:'choose-gem.html'},
-    story:{label:'Read a Caregiver Story', url:'caregiver-stories.html'}
+  var SEASONS={
+    noticing:{cls:'s-notice', icon:I.search, name:'The Noticing Season', sub:'Before or around diagnosis', blurb:'For caregivers noticing subtle changes and seeking understanding.', topics:[
+      {t:'What am I noticing?', d:"A gentle place to name the small changes you've been seeing, without rushing to conclusions."},
+      {t:'Preparing emotionally', d:"Ways to steady yourself for what may come \u2014 at your own pace, with no pressure to feel ready."},
+      {t:'Starting difficult conversations', d:"Gentle openings for the talks that feel hardest to begin."},
+      {t:'Difficult conversations with family', d:"Support for bringing family into the conversation with patience and care."},
+      {t:'Voice preservation prompts', d:"Simple prompts to capture a loved one's voice and stories while they're easy to reach."},
+      {t:'Memory change education', d:"Clear, compassionate explanations of how memory can change over time."}
+    ]},
+    holding:{cls:'s-hold', icon:I.heart, name:'The Holding Season', sub:'Active caregiving', blurb:'Support for caregivers actively navigating memory change.', topics:[
+      {t:'Different families, different paths', d:"Every family carries this differently \u2014 there is no single right way to do it."},
+      {t:'Weekly reflections', d:"A small weekly check-in to notice how you're really doing underneath it all."},
+      {t:'Communication guides', d:"Practical, kind ways to stay connected when words become harder."},
+      {t:'Family & care team support', d:"Help for sharing the load with the people around you."},
+      {t:'Stress & emotional support', d:"Gentle support for the weight you're carrying, day to day."},
+      {t:'Navigating care decisions & future planning', d:"Guidance for the choices ahead, taken one step at a time."},
+      {t:'Meaningful Gem creation prompts', d:"Prompts to turn everyday moments into Gems worth keeping."}
+    ]},
+    continuing:{cls:'s-cont', icon:I.cont, name:'The Continuing Season', sub:'After loss, transition, or placement', blurb:'Support for healing, remembrance, and continuing bonds.', topics:[
+      {t:'The relationship continues', d:"Love doesn't end \u2014 it changes shape. Ways to stay connected in this season."},
+      {t:'Reflection prompts', d:"Quiet prompts for moving gently through grief and remembrance."},
+      {t:'Remembrance activities', d:"Small, meaningful ways to honor and remember a person you love."},
+      {t:'Continuing bonds exercises', d:"Practices for carrying a bond forward, in a way that feels true to you."},
+      {t:'Preserving family stories', d:"Keep the stories that made your family who it is."},
+      {t:'Rediscovering personal identity', d:"Gentle support for finding yourself again, after."}
+    ]}
   };
-  var CHEV='<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>';
+  var RES={
+    reflect:{icon:I.book, t:'Guided Reflection Prompts', d:"Short, guided prompts for two quiet minutes with yourself. No right answers \u2014 just a gentle place to notice how you're doing."},
+    voice:{icon:I.voice, t:'Voice & Story Preservation', d:"Capture the voices and stories you don't want to lose. A few simple prompts make it easy to begin, even on a busy day."},
+    family:{icon:I.chat, t:'Family Conversation Guides', d:"Gentle scripts and starting points for the conversations that matter most \u2014 with the person you care for, and with the family around you."},
+    afterloss:{icon:I.heart, t:'After Loss Support', d:"Companionship and resources for the season after loss \u2014 grief, remembrance, and continuing bonds, held with care."},
+    community:{icon:I.people, t:'Community Circle', d:"Share, listen, and be uplifted by others walking a similar path. You are not alone in this."}
+  };
+  var RESLIST=['reflect','voice','family','afterloss','community'];
+  var PROMPTS={
+    Noticing:["What changes have you been noticing lately \u2014 and how have they made you feel?","When did you first sense something was different? What do you remember about that moment?","What do you most want to understand right now?"],
+    Holding:["What has been hardest this week \u2014 and what, if anything, helped?","Where did you find a small moment of connection recently?","What would \u2018enough\u2019 look like for you today?"],
+    Continuing:["What part of your relationship still feels present, even now?","What memory brought you comfort recently?","What would you want them to know today?"],
+    "Self-Care":["When did you last do something just for you? What was it?","What does rest look like for you right now?","What's one kind thing you could say to yourself today?"]
+  };
 
-  var feels=document.querySelectorAll('#feels .feel');
-  var body=document.getElementById('respBody');
+  /* ---------- state ---------- */
+  var stack=[{type:'tab',tab:'companion'}];
+  var feel='overwhelmed';
+  var rcat='Noticing', rpi=0;
 
-  function respond(key){
-    var d=DATA[key]; if(!d) return;
-    var steps=d.o.map(function(k,i){
-      var a=ACTIONS[k];
-      return '<a class="act'+(i===0?' lead':'')+'" href="'+BASE+a.url+'" target="_blank" rel="noopener">'
-        +'<span class="ai">'+ICONS[k]+'</span>'+a.label
-        +(i===0?'<span class="sg">Suggested</span>':CHEV)+'</a>';
-    }).join('');
-    body.innerHTML='<div class="resp"><div class="resp-card">'
-      +'<div class="greet"><span class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg></span><span>You are not alone.</span></div>'
-      +'<h3>'+d.t+'</h3><p class="msg">'+d.m+'</p>'
-      +'<div class="lbl">A few gentle next steps</div><div class="acts">'+steps+'</div></div></div>';
-    requestAnimationFrame(function(){
-      var r=body.querySelector('.resp'); if(r) r.classList.add('show');
-    });
+  var content=document.getElementById('content');
+  var tabs=document.getElementById('tabs');
+  var backBtn=document.getElementById('backBtn');
+  var backLabel=document.getElementById('backLabel');
+  var affirm=document.getElementById('affirm');
+
+  function cur(){return stack[stack.length-1];}
+  function parentTab(s){
+    if(s.type==='tab')return s.tab;
+    if(s.type==='seasonDetail'||s.type==='topicDetail')return 'season';
+    if(s.type==='resourceDetail')return 'resources';
+    return 'companion';
   }
 
-  feels.forEach(function(b){
-    b.addEventListener('click',function(){
-      feels.forEach(function(x){x.classList.remove('active');x.setAttribute('aria-pressed','false');});
-      b.classList.add('active'); b.setAttribute('aria-pressed','true');
-      respond(b.dataset.k);
+  /* ---------- builders ---------- */
+  function buildCompanion(){
+    var d=DATA[feel];
+    var chips=FEELS.map(function(f){var k=f.toLowerCase();return '<button class="feel'+(k===feel?' active':'')+'" data-act="feel:'+k+'" aria-pressed="'+(k===feel?'true':'false')+'">'+f+'</button>';}).join('');
+    var steps=d.o.map(function(k,i){
+      var a=ACT[k]||{label:'2-minute Reflection',icon:I.book};
+      var act=(k==='reflect')?'gotab:reflection':'action:'+k;
+      var lbl=(k==='reflect')?'2-minute Reflection':a.label;
+      var ic=(k==='reflect')?I.book:a.icon;
+      return '<button class="act'+(i===0?' lead':'')+'" data-act="'+act+'"><span class="ai">'+ic+'</span>'+lbl+(i===0?'<span class="sg">Suggested</span>':I.chev)+'</button>';
+    }).join('');
+    return '<h1 class="title">Caregiver Companion</h1>'
+      +'<p class="sub">Support through every stage of memory change. You don\u2019t have to navigate this journey alone.</p>'
+      +'<div class="hero"><span class="hi">'+I.heart+'</span><div><b>You are not alone.</b><p>Caregiving is a journey with many seasons. We\u2019re here to walk alongside you.</p></div></div>'
+      +'<div class="sect-h">How are you feeling today?</div><div class="sect-s">Your feelings matter. Start here.</div>'
+      +'<div class="feels">'+chips+'</div>'
+      +'<div class="resp"><div class="resp-card"><div class="greet"><span class="gi">'+I.heart+'</span><span>You are not alone.</span></div>'
+      +'<h3>'+d.t+'</h3><p class="msg">'+d.m+'</p><div class="lbl">A few gentle next steps</div><div class="acts">'+steps+'</div></div></div>';
+  }
+  function buildSeason(){
+    var cards=Object.keys(SEASONS).map(function(k){var s=SEASONS[k];
+      return '<button class="season '+s.cls+'" data-act="season:'+k+'"><span class="si">'+s.icon+'</span><span class="st"><b>'+s.name+'</b><span>'+s.sub+'</span></span><span class="go">Explore'+I.chev.replace('class="chev"','class="cv"')+'</span></button>';
+    }).join('');
+    return '<h1 class="title">Your caregiving season</h1><p class="sub">Caregiving looks different in every season. Take one at a time.</p><div style="height:14px"></div>'+cards;
+  }
+  function buildSeasonDetail(k){
+    var s=SEASONS[k];
+    var col=k==='noticing'?'#8A5A12':(k==='holding'?'var(--greend)':'var(--lav)');
+    var bg=k==='noticing'?'#F5E8CC':(k==='holding'?'var(--greenbg)':'var(--lavchip)');
+    var items=s.topics.map(function(tp,i){
+      return '<button class="titem" data-act="topic:'+k+':'+i+'"><span class="bullet" style="background:'+col+'"></span>'+tp.t+I.chev+'</button>';
+    }).join('');
+    return backRow('Your Season')
+      +'<div class="detail"><div class="d-ic" style="background:'+bg+';color:'+col+'">'+s.icon+'</div>'
+      +'<h2>'+s.name+'</h2><div class="d-sub" style="color:'+col+'">'+s.sub+'</div>'
+      +'<p class="d-body">'+s.blurb+'</p></div>'
+      +'<div class="sect-s">Explore this season</div><div class="tlist">'+items+'</div>';
+  }
+  function buildTopicDetail(k,i){
+    var s=SEASONS[k], tp=s.topics[i];
+    var col=k==='noticing'?'#8A5A12':(k==='holding'?'var(--greend)':'var(--lav)');
+    var bg=k==='noticing'?'#F5E8CC':(k==='holding'?'var(--greenbg)':'var(--lavchip)');
+    return backRow(s.name)
+      +'<div class="detail"><div class="d-ic" style="background:'+bg+';color:'+col+'">'+s.icon+'</div>'
+      +'<h2>'+tp.t+'</h2><p class="d-body">'+tp.d+'</p>'
+      +'<p class="d-note">This is a preview. In the full MemoriGems app, this opens a guided page with prompts and support.</p></div>';
+  }
+  function buildResources(){
+    var items=RESLIST.map(function(k){var r=RES[k];
+      return '<button class="titem" data-act="resource:'+k+'"><span class="ai" style="width:28px;height:28px;border-radius:8px;background:var(--greenbg);color:var(--greend);display:flex;align-items:center;justify-content:center;flex:none">'+r.icon+'</span>'+r.t+I.chev+'</button>';
+    }).join('');
+    return '<h1 class="title">Tools &amp; resources</h1><p class="sub">Gentle, practical support \u2014 at your own pace.</p><div style="height:14px"></div>'
+      +'<div class="tlist">'+items+'</div>'
+      +'<div class="community"><b>A Community That Understands</b><p>Share, listen, and be uplifted by others walking a similar path. You are not alone.</p><button data-act="resource:community">Explore Community Circle'+I.chev.replace('class="chev"','class="cv"')+'</button></div>';
+  }
+  function buildResourceDetail(k){
+    var r=RES[k];
+    return backRow('Resources')
+      +'<div class="detail"><div class="d-ic" style="background:var(--greenbg);color:var(--greend)">'+r.icon+'</div>'
+      +'<h2>'+r.t+'</h2><p class="d-body">'+r.d+'</p>'
+      +'<p class="d-note">This is a preview. In the full MemoriGems app, this opens the complete resource.</p></div>';
+  }
+  function buildActionDetail(k){
+    var a=ACT[k];
+    return backRow('Companion')
+      +'<div class="detail"><div class="d-ic" style="background:var(--lavchip);color:var(--lav)">'+a.icon+'</div>'
+      +'<h2>'+a.t+'</h2><p class="d-body">'+a.body+'</p></div>';
+  }
+  function buildReflection(){
+    var cats=Object.keys(PROMPTS).map(function(c){return '<button class="rcat'+(c===rcat?' on':'')+'" data-act="rcat:'+c+'">'+c+'</button>';}).join('');
+    var q=PROMPTS[rcat][rpi%PROMPTS[rcat].length];
+    return '<h1 class="title">A quiet reflection</h1><p class="sub">Take two minutes. There\u2019s no right answer.</p>'
+      +'<div class="sect-h" style="font-size:18px;margin-top:18px">What would you like to reflect on?</div>'
+      +'<div class="rcats">'+cats+'</div>'
+      +'<div class="rprompt"><div class="q">\u201c'+q+'\u201d</div><button class="ranother" data-act="ranother">'+I.refresh+'Show me another</button></div>'
+      +'<p class="rnote">In the full app, your reflections save privately on your device \u2014 only you can see them.</p>';
+  }
+  function backRow(label){
+    return '<button class="detail-back" data-act="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Back to '+label+'</button>';
+  }
+
+  function build(s){
+    if(s.type==='tab'){
+      if(s.tab==='companion')return buildCompanion();
+      if(s.tab==='season')return buildSeason();
+      if(s.tab==='reflection')return buildReflection();
+      if(s.tab==='resources')return buildResources();
+    }
+    if(s.type==='seasonDetail')return buildSeasonDetail(s.key);
+    if(s.type==='topicDetail')return buildTopicDetail(s.key,s.i);
+    if(s.type==='resourceDetail')return buildResourceDetail(s.key);
+    if(s.type==='actionDetail')return buildActionDetail(s.key);
+    return '';
+  }
+
+  /* ---------- render / nav ---------- */
+  function render(){
+    var s=cur(), pt=parentTab(s);
+    Array.prototype.forEach.call(tabs.querySelectorAll('.tab'),function(t){
+      t.setAttribute('aria-selected', t.dataset.tab===pt?'true':'false');
     });
+    content.innerHTML=build(s);
+    affirm.style.display=(s.type==='tab'&&(s.tab==='companion'||s.tab==='season'))?'block':'none';
+    backLabel.textContent = stack.length>1 ? 'Back' : 'Exit';
+  }
+  function goTab(tab){ stack=[{type:'tab',tab:tab}]; feel=feel; render(); }
+  function push(s){ stack.push(s); render(); }
+  function back(){
+    if(stack.length>1){ stack.pop(); render(); }
+    else { try{ window.top.location.href='/experience'; }catch(e){ location.href='/experience'; } }
+  }
+
+  tabs.addEventListener('click',function(e){
+    var t=e.target.closest('.tab'); if(!t)return; goTab(t.dataset.tab);
+  });
+  backBtn.addEventListener('click',back);
+
+  content.addEventListener('click',function(e){
+    var el=e.target.closest('[data-act]'); if(!el)return;
+    var p=el.getAttribute('data-act').split(':'), cmd=p[0];
+    if(cmd==='feel'){ feel=p[1]; render(); }
+    else if(cmd==='season'){ push({type:'seasonDetail',key:p[1]}); }
+    else if(cmd==='topic'){ push({type:'topicDetail',key:p[1],i:+p[2]}); }
+    else if(cmd==='resource'){ push({type:'resourceDetail',key:p[1]}); }
+    else if(cmd==='action'){ push({type:'actionDetail',key:p[1]}); }
+    else if(cmd==='gotab'){ goTab(p[1]); }
+    else if(cmd==='rcat'){ rcat=p[1]; rpi=0; render(); }
+    else if(cmd==='ranother'){ rpi=(rpi+1)%PROMPTS[rcat].length; render(); }
+    else if(cmd==='back'){ back(); }
   });
 
-  // open already showing a response, like the live page
-  respond('overwhelmed');
+  render();
+})();
 </script>
 </body>
 </html>
