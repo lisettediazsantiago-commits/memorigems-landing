@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>Support Companion · Preview · MemoriGems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  :root{
+    --cream:#F7F4ED;--ink:#2C2C2A;--mut:#6B6A64;--line:#E4DECF;
+    --plum:#6B3F86;--plum-d:#5A3576;--plum-t:#EFE7F4;--plum2:#473059;
+    --green:#2E8B6F;--green-t:#E6F0EA;
+    --gold:#C79A3E;--gold-d:#9A6E1C;--gold-t:#F6ECD9;--wm:#B6892F;
+    --rose:#C77A7A;--rose-d:#A8474A;--rose-t:#F6E7E7;
+    --teal:#2F8C8C;--teal-d:#1F6E6E;--teal-t:#E2F0F0;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  }
+  body{font-family:var(--sans);background:var(--cream);color:var(--ink);min-height:100vh;padding:18px 16px 24px;line-height:1.5;}
+  body.no-scroll{overflow:hidden;}
+  .page{max-width:430px;margin:0 auto;}
+  .serif{font-family:var(--serif);font-weight:500;}
+  svg{display:block;} a{text-decoration:none;color:inherit;}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+  .iconbtn{background:none;border:none;cursor:pointer;color:var(--ink);padding:4px;display:inline-flex;}
+  .iconbtn svg{width:24px;height:24px;}
+  .wm{font-family:var(--serif);font-weight:600;font-size:1.2rem;} .wm .g{color:var(--wm);}
+  .listenbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:58px;height:58px;border-radius:50%;border:1px solid var(--plum);background:var(--plum-t);cursor:pointer;color:var(--plum-d);font-family:inherit;}
+  .listenbtn svg{width:25px;height:25px;} .listenbtn span{font-size:.55rem;color:var(--mut);}
+
+  .hero{margin-bottom:1rem;}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:1.6rem;line-height:1.15;}
+  .hero p{font-size:.86rem;color:var(--mut);margin-top:4px;line-height:1.5;}
+
+  .door{display:flex;align-items:center;gap:14px;border-radius:18px;padding:16px;margin-bottom:12px;color:#fff;cursor:pointer;}
+  .door .ic{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;flex:none;}
+  .door .ic svg{width:25px;height:25px;}
+  .door .t{display:block;font-family:var(--serif);font-weight:600;font-size:1.06rem;}
+  .door .s{display:block;font-size:.78rem;opacity:.93;margin-top:4px;line-height:1.4;}
+  .door .chev{opacity:.9;} .door .chev svg{width:20px;height:20px;}
+  .d-plum{background:var(--plum-d);} .d-teal{background:var(--teal-d);} .d-gold{background:var(--gold-d);} .d-rose{background:var(--rose-d);} .d-plum2{background:var(--plum2);}
+
+  .linkrow{display:flex;align-items:center;gap:11px;border:1px dashed var(--line);border-radius:14px;padding:13px;margin-top:6px;color:var(--plum-d);font-size:.8rem;line-height:1.4;}
+  .linkrow svg{width:18px;height:18px;flex:none;}
+  .state{text-align:center;color:var(--mut);padding:70px 20px;} .state a{color:var(--plum);}
+
+  /* ---------- Listen mode ---------- */
+  #listen{position:fixed;inset:0;z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;background:var(--plum-d);}
+  #listen.show{display:flex;}
+  .lcard{flex:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.6vh;padding:0 14vw;text-align:center;background:none;border:none;color:#fff;cursor:pointer;font-family:inherit;}
+  .lic svg{width:clamp(64px,20vw,104px);height:auto;stroke-width:1.6;}
+  .llabel{font-family:var(--serif);font-weight:600;font-size:clamp(1.6rem,8vw,2.7rem);line-height:1.12;}
+  .lhint{font-size:clamp(1.05rem,4.6vw,1.35rem);color:rgba(255,255,255,.95);display:flex;align-items:center;gap:9px;}
+  .lhint svg{width:1.2em;height:1.2em;}
+  .lread{font-size:clamp(1.15rem,5vw,1.5rem);line-height:1.6;color:#fff;max-height:46vh;overflow-y:auto;padding:4px 2px;display:none;}
+  .larr{position:fixed;top:0;bottom:0;width:17vw;max-width:96px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:rgba(255,255,255,.92);cursor:pointer;z-index:52;}
+  .larr svg{width:42px;height:42px;} .larr.left{left:0;} .larr.right{right:0;}
+  .lprog{position:fixed;top:18px;left:0;right:0;text-align:center;font-size:.95rem;color:rgba(255,255,255,.85);letter-spacing:.04em;}
+  .lcards{position:fixed;top:14px;right:14px;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:999px;padding:9px 14px;font-family:inherit;font-size:.9rem;cursor:pointer;z-index:53;}
+  .lcards svg{width:17px;height:17px;}
+  .lback{position:fixed;top:14px;left:14px;display:none;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:999px;padding:9px 14px;font-family:inherit;font-size:.9rem;cursor:pointer;z-index:53;}
+  .lback svg{width:17px;height:17px;}
+  .lrepeat{position:fixed;left:50%;transform:translateX(-50%);bottom:5vh;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.95);color:var(--ink);border:none;border-radius:999px;padding:14px 24px;font-family:inherit;font-size:clamp(1rem,4.2vw,1.2rem);font-weight:500;cursor:pointer;z-index:52;}
+  .lrepeat svg{width:22px;height:22px;}
+  .unlock{position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vh;background:rgba(40,24,55,.6);color:#fff;text-align:center;padding:0 12vw;cursor:pointer;}
+  .unlock .big{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,10vw,3rem);}
+  .unlock .sub{font-size:clamp(1.05rem,4.6vw,1.4rem);color:rgba(255,255,255,.92);}
+  .unlock svg{width:64px;height:64px;color:#fff;}
+  .pvbanner{background:var(--plum-t);border:1px solid #E5D9EE;color:var(--plum-d);font-size:.8rem;text-align:center;padding:9px 14px;border-radius:12px;margin-bottom:14px;}
+  .pvbanner b{font-weight:600;}
+  .pvcta-wrap{max-width:430px;margin:26px auto 0;}
+  .pvcta{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;text-align:center;}
+  .pvcta h3{font-family:var(--serif);font-weight:600;font-size:1.35rem;color:var(--plum-d);margin-bottom:6px;}
+  .pvcta p{font-size:.82rem;color:var(--mut);margin-bottom:14px;line-height:1.5;}
+  .pvcta .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .pvcta a{display:inline-block;border-radius:999px;padding:11px 22px;font-size:.85rem;font-weight:600;}
+  .pvcta .primary{background:var(--plum-d);color:#fff;}
+  .pvcta .ghost{background:#fff;color:var(--plum-d);border:1px solid #D9C7E6;}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <a class="iconbtn" id="backLink" href="index.html" aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </a>
+    <div class="wm">Memori<span class="g">Gems</span></div>
+    <button class="listenbtn" id="listenToggle" aria-label="Listen mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="5" height="6" rx="1.5"/><rect x="17" y="14" width="5" height="6" rx="1.5"/></svg>
+      <span>Listen</span>
+    </button>
+  </div>
+  <div class="pvbanner">You're viewing a <b>public preview</b> of the space MemoriGems creates for the person living with memory change.</div>
+  <div id="content"><div class="state">Loading…</div></div>
+</div>
+
+<div id="listen" aria-hidden="true"></div>
+
+<div class="pvcta-wrap"><div class="pvcta">
+  <h3>This is the recipient's side</h3>
+  <p>A care partner records voice Gems and tends to their own wellbeing in the Caregiver Companion. This is the calm, audio-first space their loved one lives in.</p>
+  <div class="row">
+    <a class="primary" href="index.html">Explore MemoriGems</a>
+    <a class="ghost" href="caregiver-preview.html">See the caregiver's space</a>
+  </div>
+</div></div>
+
+<script type="module">
+  let fb=null, useFirebase=false;
+  // Public preview — no authentication, no redirects.
+
+  const LS_KEY = "memorigems_keepers";
+  const esc = s => String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+
+  const SVG = {
+    mood:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M9 15c.8.7 1.9 1 3 1s2.2-.3 3-1"/></svg>',
+    bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 1 4 10.5c-.6.6-1 1.3-1 2.1H9c0-.8-.4-1.5-1-2.1A6 6 0 0 1 12 3z"/></svg>',
+    sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4V2M5 8 3.5 6.5M19 8l1.5-1.5M3 14h2M19 14h2M7 14a5 5 0 0 1 10 0M2 18h20"/></svg>',
+    walk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M7 21l3-6 1-4 3 2 2 3M9 11 7 9l4-1 3 2"/></svg>',
+    mic2:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>',
+    heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+    chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',
+    volume:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>',
+    mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>',
+    grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+    chevL:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+    chevR:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>'
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const q = id ? `?id=${encodeURIComponent(id)}` : "";
+  const content = document.getElementById("content");
+  const listenEl = document.getElementById("listen");
+  const RECORD = `my-record.html${q}`;
+
+  const DOORS = [
+    { key:"feeling", t:"How I'm feeling today", cls:"d-plum", bg:"var(--plum-d)", icon:SVG.mood,
+      sub:"Check in, and find a little comfort.",
+      intro:"How are you feeling right now? Swipe to a feeling, then tap to hear something kind.",
+      mode:"pick",
+      items:[
+        { title:"Calm",        say:"It's good to feel calm. Stay here a moment and enjoy it." },
+        { title:"Connected",   say:"Feeling connected is a gift. The people who love you are close, even when they're not in the room." },
+        { title:"Proud",       say:"You have every reason to feel proud. You are doing more than you know." },
+        { title:"Hopeful",     say:"Hope matters. Tomorrow is still yours, and so is today." },
+        { title:"Frustrated",  say:"Many people feel frustrated when things are harder than they used to be. It makes sense, and you are not alone." },
+        { title:"Lonely",      say:"Feeling lonely is hard. The people who love you are only a voice away. Would you like to hear one of your Gems?" },
+        { title:"Worried",     say:"Worry is normal. Let's take one slow breath together. You are safe right now." },
+        { title:"Overwhelmed", say:"When everything feels like too much, we can slow down. One thing at a time. You don't have to carry it all at once." }
+      ] },
+    { key:"understand", t:"Understanding what's happening", cls:"d-teal", bg:"var(--teal-d)", icon:SVG.bulb,
+      sub:"Gentle answers to what you've been noticing.",
+      intro:"Gentle answers. Swipe to a question, then tap to hear the answer.",
+      mode:"qa",
+      items:[
+        { title:"Why do I forget things sometimes?", say:"Your brain is working differently than it used to. Not broken, just different. Some things take more effort to hold onto now, and that is not your fault. The people and feelings that matter most stay with you." },
+        { title:"Why do words slip away sometimes?", say:"Sometimes a word hides for a moment, then comes back. It happens to everyone, and a little more often now. Take your time. The people who love you are happy to wait." },
+        { title:"Why do busy places feel harder?", say:"When there is a lot of noise and movement, your mind has more to sort through. It is okay to step somewhere quieter, or to ask for things to slow down." },
+        { title:"Why do I get tired more easily?", say:"Paying attention takes more energy than it used to. Resting is not giving up. Rest helps you show up for the moments that matter." },
+        { title:"Why do I feel overwhelmed?", say:"When everything arrives at once, it can feel like too much. That is your mind asking for one thing at a time. Slowing down is allowed." }
+      ] },
+    { key:"stillyou", t:"You are still you", cls:"d-gold", bg:"var(--gold-d)", icon:SVG.sun,
+      sub:"Encouragement, hope, and others who understand.",
+      intro:"You are still you. Swipe to hear a few reminders, made just for you.",
+      mode:"read",
+      items:[
+        { title:"My life is not over. I am still me." },
+        { title:"You are still the person your family loves." },
+        { title:"Memory may change. Who you are does not." },
+        { title:"Small moments of connection matter, and you make them every day." },
+        { title:"Many people live full, meaningful lives with memory changes. So can you." },
+        { title:"You are not alone. Others walk this road and still find joy." }
+      ] },
+    { key:"living", t:"Living my life", cls:"d-rose", bg:"var(--rose-d)", icon:SVG.walk,
+      sub:"What I'm still doing, and ways to give.",
+      intro:"Things you're still doing, and ways to give today. Swipe, and tap a way to give to record it.",
+      mode:"living",
+      items:[
+        { title:"You are still living your life.", say:"This week you have stayed connected, shared, and shown up. That matters more than you know." },
+        { title:"Share a memory", say:"Share a memory." },
+        { title:"Teach a recipe", say:"Teach one of your favorite recipes." },
+        { title:"Encourage someone", say:"Say something kind to someone you love." },
+        { title:"Tell a family story", say:"Tell a story your family should always remember." }
+      ] },
+    { key:"voice", t:"My voice and my rights", cls:"d-plum2", bg:"var(--plum2)", icon:SVG.mic2,
+      sub:"Speaking up, staying included, being understood.",
+      intro:"Your voice matters. Swipe to hear what is true about you, and what your family should know.",
+      mode:"read",
+      items:[
+        { title:"My preferences matter." },
+        { title:"My voice matters, and I deserve to be heard." },
+        { title:"I deserve to be included in decisions about my life." },
+        { title:"I am more than my diagnosis." },
+        { title:"Please talk with me, not around me." },
+        { title:"Sometimes I need a little extra time, and that's okay." },
+        { title:"I still want to be included, and I still enjoy being helpful." }
+      ] }
+  ];
+
+  async function loadKeepers(){ if (useFirebase){ try { return await fb.getKeepers(); } catch(e){ return []; } } try { return JSON.parse(localStorage.getItem(LS_KEY)||"[]"); } catch(e){ return []; } }
+  async function getSettings(){ if(!useFirebase||!fb.getUserSettings) return null; try { return await fb.getUserSettings(); } catch(e){ return null; } }
+
+  let firstName = "you";
+  init();
+  async function init(){
+    const settings = await getSettings();
+    const isSelf = !!(settings && settings.role==="gem_keeper" && settings.selfKeeperId && (!id || settings.selfKeeperId===id));
+    if (id){
+      const keepers = await loadKeepers();
+      const k = keepers.find(x=>x.id===id);
+      if (k){ const a=(k.profile&&k.profile.about)||{}; const n=(a.preferredName||k.name||"").trim(); if(n) firstName=n.split(" ")[0]; }
+    }
+    document.getElementById("backLink").href = "index.html";
+    renderCards();
+    buildListen();
+    const stored = localStorage.getItem("mg_supportview");
+    setView((stored || (isSelf ? "listen" : "cards")) === "listen" ? "listen" : "cards", true);
+  }
+  document.getElementById("listenToggle").addEventListener("click", ()=> setView("listen"));
+
+  function renderCards(){
+    const doors = DOORS.map((d,i)=>`
+      <div class="door ${d.cls}" data-i="${i}">
+        <span class="ic">${d.icon}</span>
+        <span style="flex:1"><span class="t">${esc(d.t)}</span><span class="s">${esc(d.sub)}</span></span>
+        <span class="chev">${SVG.chev}</span>
+      </div>`).join("");
+    content.innerHTML = `
+      <div class="hero"><h1>You are still you.</h1><p>A place that's just for you &mdash; to feel seen, heard, and at home in your own life.</p></div>
+      ${doors}
+      <div class="linkrow">${SVG.heart}<div>Your story, your favorites, and messages to your family live in <b>About&nbsp;Me</b>, inside MemoriGems.</div></div>`;
+    content.querySelectorAll(".door").forEach(el=>{
+      el.addEventListener("click", ()=>{ const i=+el.dataset.i; setView("listen"); openDoor(i); });
+    });
+  }
+
+  // ---------- Listen mode ----------
+  let di=-1, ii=0, level=1, audioUnlocked=false, moved=false, sx=0;
+  function speak(text){ try{ if(!audioUnlocked||!window.speechSynthesis) return; window.speechSynthesis.cancel(); String(text).split(/\n+/).forEach(p=>{ if(!p.trim()) return; const u=new SpeechSynthesisUtterance(p.trim()); u.rate=0.92; window.speechSynthesis.speak(u); }); }catch(e){} }
+  function speakSeq(arr){ try{ if(!audioUnlocked||!window.speechSynthesis) return; window.speechSynthesis.cancel(); arr.forEach(t=>{ if(!t) return; const u=new SpeechSynthesisUtterance(t); u.rate=0.92; window.speechSynthesis.speak(u); }); }catch(e){} }
+
+  function buildListen(){
+    listenEl.innerHTML = `
+      <div class="lprog" id="lprog"></div>
+      <button class="lback" id="lback">${SVG.chevL}<span>Back</span></button>
+      <button class="lcards" id="lcards">${SVG.grid}<span>Cards</span></button>
+      <button class="larr left" id="lprev" aria-label="Previous">${SVG.chevL}</button>
+      <button class="lcard" id="lcard">
+        <span class="lic" id="lic"></span>
+        <span class="llabel" id="llabel"></span>
+        <span class="lhint" id="lhint"></span>
+        <div class="lread" id="lread"></div>
+      </button>
+      <button class="larr right" id="lnext" aria-label="Next">${SVG.chevR}</button>
+      <button class="lrepeat" id="lrepeat">${SVG.volume} Hear again</button>
+      <div class="unlock" id="unlock"><div>${SVG.volume}</div><div class="big">Tap to begin</div><div class="sub">Swipe to hear each one. Tap to choose.</div></div>`;
+    paintDoor(0, true);
+
+    document.getElementById("lprev").addEventListener("click",(e)=>{ e.stopPropagation(); prev(); });
+    document.getElementById("lnext").addEventListener("click",(e)=>{ e.stopPropagation(); next(); });
+    document.getElementById("lrepeat").addEventListener("click",(e)=>{ e.stopPropagation(); repeat(); });
+    document.getElementById("lcards").addEventListener("click",(e)=>{ e.stopPropagation(); setView("cards"); });
+    document.getElementById("lback").addEventListener("click",(e)=>{ e.stopPropagation(); toDoors(); });
+    document.getElementById("lcard").addEventListener("click",()=>{ if(moved){ moved=false; return; } tapCard(); });
+
+    listenEl.addEventListener("touchstart",(e)=>{ sx=e.touches[0].clientX; moved=false; },{passive:true});
+    listenEl.addEventListener("touchmove",(e)=>{ if(Math.abs(e.touches[0].clientX-sx)>10) moved=true; },{passive:true});
+    listenEl.addEventListener("touchend",(e)=>{ const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>45){ moved=true; dx<0?next():prev(); } });
+
+    const unlock=document.getElementById("unlock");
+    unlock.addEventListener("click",()=>{ audioUnlocked=true; unlock.style.display="none";
+      if (level===2){ enterDoorAudio(); return; }
+      speakSeq([`Just for you, ${firstName}.`, "Five places to feel like yourself. Swipe to hear them, and tap to open one.", DOORS[di>=0?di:(di=0,0)].t + "."]);
+      if (di<0) di=0; paintDoor(di, true);
+    });
+  }
+
+  // Level 1: doors
+  function paintDoor(i, silent){
+    level=1; di=(i+DOORS.length)%DOORS.length;
+    const d=DOORS[di];
+    listenEl.style.background = d.bg;
+    document.getElementById("lic").innerHTML = d.icon;
+    document.getElementById("llabel").textContent = d.t;
+    document.getElementById("lhint").style.display="";
+    document.getElementById("lhint").innerHTML = `${SVG.chev} Tap to open`;
+    document.getElementById("lread").style.display="none";
+    document.getElementById("lprog").textContent = `${di+1} of ${DOORS.length}`;
+    document.getElementById("lback").style.display="none";
+    listenEl.setAttribute("aria-label", d.t);
+    if(!silent) speak(d.t + ".");
+  }
+
+  // Level 2: items within a door
+  function openDoor(i){ di=i; ii=0; if(audioUnlocked) enterDoor(); else paintItemVisual(); }
+  function enterDoor(){ paintItemVisual(); enterDoorAudio(); }
+  function enterDoorAudio(){ const d=DOORS[di]; speakSeq([d.intro, itemAnn(d.items[ii])]); }
+
+  function paintItemVisual(){
+    level=2;
+    const d=DOORS[di], it=d.items[ii];
+    listenEl.style.background = d.bg;
+    document.getElementById("lic").innerHTML = (d.mode==="living" && it.go) ? SVG.mic : d.icon;
+    document.getElementById("llabel").textContent = it.title;
+    const hint=document.getElementById("lhint");
+    if (it.go){ hint.style.display=""; hint.innerHTML = `${SVG.mic} Tap to record`; }
+    else if (d.mode==="qa"){ hint.style.display=""; hint.innerHTML = `${SVG.volume} Tap to hear the answer`; }
+    else if (d.mode==="pick"){ hint.style.display=""; hint.innerHTML = `${SVG.volume} Tap to hear more`; }
+    else { hint.style.display="none"; }
+    document.getElementById("lread").style.display="none";
+    document.getElementById("lprog").textContent = `${ii+1} of ${d.items.length}`;
+    document.getElementById("lback").style.display="flex";
+    listenEl.setAttribute("aria-label", it.title);
+  }
+  function itemAnn(it){ return it.title + (it.title.match(/[.!?]$/) ? "" : "."); }
+
+  function tapCard(){
+    if (level===1){ openDoor(di); return; }
+    const d=DOORS[di], it=d.items[ii];
+    if (it.go){ window.location.href = it.go; return; }
+    if (it.say) speak(it.say); else speak(itemAnn(it));
+  }
+  function repeat(){
+    if (level===1){ speak(DOORS[di].t + "."); return; }
+    const it=DOORS[di].items[ii];
+    if (DOORS[di].mode==="read" || !it.say) speak(itemAnn(it)); else speak(it.say);
+  }
+  function toDoors(){ paintDoor(di); if(audioUnlocked) speak(DOORS[di].t + "."); }
+  function next(){ if(level===2){ ii=(ii+1)%DOORS[di].items.length; paintItemVisual(); if(audioUnlocked) speak(itemAnn(DOORS[di].items[ii])); } else paintDoor(di+1); }
+  function prev(){ if(level===2){ ii=(ii-1+DOORS[di].items.length)%DOORS[di].items.length; paintItemVisual(); if(audioUnlocked) speak(itemAnn(DOORS[di].items[ii])); } else paintDoor(di-1); }
+
+  function setView(v, silent){
+    localStorage.setItem("mg_supportview", v);
+    if (v==="listen"){ listenEl.classList.add("show"); listenEl.setAttribute("aria-hidden","false"); document.body.classList.add("no-scroll"); }
+    else { listenEl.classList.remove("show"); listenEl.setAttribute("aria-hidden","true"); document.body.classList.remove("no-scroll");
+      try{ if(window.speechSynthesis) window.speechSynthesis.cancel(); }catch(e){} }
+  }
+
+  document.addEventListener("keydown",(e)=>{
+    if(!listenEl.classList.contains("show")) return;
+    if(e.key==="ArrowRight") next();
+    else if(e.key==="ArrowLeft") prev();
+    else if(e.key==="Enter") tapCard();
+    else if(e.key==="Escape"){ if(level===2) toDoors(); else setView("cards"); }
+  });
+</script>
+</body>
+</html>
