@@ -6,17 +6,19 @@
 <title>Support Companion · Demo · MemoriGems</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Cinzel:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Cinzel:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 <style>
-  :root{ --warm:#F7F1E4; --gold-deep:#8C6E32; --ink:#2A2317; --ink-soft:#524634; }
+  :root{ --warm:#F7F1E4; }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html,body{ background:var(--warm); }
   .stage{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
            padding:34px 16px 40px; background:var(--warm); font-family:'Inter',-apple-system,system-ui,sans-serif; }
-  .cap{ max-width:560px; margin:0 auto 26px; text-align:center; }
-  .cap-eyebrow{ font-family:'Cinzel',serif; font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--gold-deep); margin-bottom:12px; }
-  .cap-title{ font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; color:var(--ink); line-height:1.15; margin-bottom:10px; }
-  .cap-sum{ font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--ink-soft); line-height:1.55; }
+  .cap{ max-width:600px; margin:0 auto 28px; text-align:center; padding:0 14px; }
+  .cap-eyebrow{ font-family:'Cinzel',serif; font-size:11px; font-weight:500; letter-spacing:5px; text-transform:uppercase; color:#8C6E32; margin-bottom:18px; }
+  .cap-title{ font-family:'Cormorant Garamond',serif; font-size:clamp(30px,4vw,40px); font-weight:500; color:#2A2317; line-height:1.12; letter-spacing:-.3px; }
+  .cap-title em{ font-style:italic; font-weight:500; color:#8C6E32; }
+  .cap-divider{ width:56px; height:1px; background:#C9A66C; margin:20px auto 18px; }
+  .cap-sum{ font-family:'Cormorant Garamond',serif; font-size:clamp(17px,1.8vw,20px); color:#524634; line-height:1.6; max-width:560px; margin:0 auto; }
   .phone{ width:352px; max-width:90vw; background:#1b1d1c; border-radius:46px; padding:11px;
           box-shadow:0 34px 70px rgba(42,35,23,.20); position:relative; }
   .phone::before{ content:""; position:absolute; top:18px; left:50%; transform:translateX(-50%);
@@ -26,7 +28,6 @@
   @media (max-width:430px){
     .phone{ width:100%; border-radius:40px; }
     .screen{ height:620px; border-radius:30px; }
-    .cap-title{ font-size:25px; }
   }
 </style>
 </head>
@@ -34,12 +35,13 @@
   <div class="stage">
     <div class="cap">
       <div class="cap-eyebrow">On Their Phone</div>
-      <h2 class="cap-title">The Support Companion</h2>
+      <h2 class="cap-title">The Support <em>Companion</em></h2>
+      <div class="cap-divider"></div>
       <p class="cap-sum">The home base for the person you care for &mdash; warm, simple, and built around the Gems and the people who love them.</p>
     </div>
     <div class="phone">
       <div class="screen">
-        <iframe title="Support Companion — interactive demo" loading="eager" srcdoc="<!DOCTYPE html>
+        <iframe title="The Support Companion — interactive demo" loading="eager" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;UTF-8&quot; />
