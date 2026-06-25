@@ -12,23 +12,20 @@
   *{ box-sizing:border-box; margin:0; padding:0; }
   html,body{ background:var(--warm); }
   .stage{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
-           padding:34px 16px 40px; background:var(--warm); font-family:'Inter',-apple-system,system-ui,sans-serif; }
-  .cap{ max-width:600px; margin:0 auto 28px; text-align:center; padding:0 14px; }
-  .cap-eyebrow{ font-family:'Cinzel',serif; font-size:11px; font-weight:500; letter-spacing:5px; text-transform:uppercase; color:#8C6E32; margin-bottom:18px; }
-  .cap-title{ font-family:'Cormorant Garamond',serif; font-size:clamp(30px,4vw,40px); font-weight:500; color:#2A2317; line-height:1.12; letter-spacing:-.3px; }
+           padding:40px 16px 40px; background:var(--warm); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  .cap{ max-width:760px; margin:0 auto 30px; text-align:center; padding:0 24px; }
+  .cap-eyebrow{ font-family:'Cinzel',serif; font-size:11px; font-weight:500; letter-spacing:6px; text-transform:uppercase; color:#8C6E32; margin-bottom:20px; }
+  .cap-title{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(32px,5vw,52px); line-height:1.14; letter-spacing:-.3px; color:#2A2317; margin-bottom:22px; }
   .cap-title em{ font-style:italic; font-weight:500; color:#8C6E32; }
-  .cap-divider{ width:56px; height:1px; background:#C9A66C; margin:20px auto 18px; }
-  .cap-sum{ font-family:'Cormorant Garamond',serif; font-size:clamp(17px,1.8vw,20px); color:#524634; line-height:1.6; max-width:560px; margin:0 auto; }
+  .cap-divider{ width:56px; height:0.5px; background:#B89248; margin:0 auto 28px; }
+  .cap-sum{ font-family:'Cormorant Garamond',serif; font-size:clamp(18px,2vw,21px); color:#524634; line-height:1.6; max-width:600px; margin:0 auto; }
   .phone{ width:352px; max-width:90vw; background:#1b1d1c; border-radius:46px; padding:11px;
           box-shadow:0 34px 70px rgba(42,35,23,.20); position:relative; }
   .phone::before{ content:""; position:absolute; top:18px; left:50%; transform:translateX(-50%);
                   width:46px; height:5px; border-radius:5px; background:rgba(255,255,255,.16); z-index:2; pointer-events:none; }
   .screen{ position:relative; background:#EFEAE0; border-radius:36px; height:690px; overflow:hidden; }
   .screen iframe{ width:100%; height:100%; border:0; display:block; background:#EFEAE0; }
-  @media (max-width:430px){
-    .phone{ width:100%; border-radius:40px; }
-    .screen{ height:620px; border-radius:30px; }
-  }
+  @media (max-width:430px){ .phone{ width:100%; border-radius:40px; } .screen{ height:620px; border-radius:30px; } }
 </style>
 </head>
 <body>
@@ -39,9 +36,8 @@
       <div class="cap-divider"></div>
       <p class="cap-sum">The home base for the person you care for &mdash; warm, simple, and built around the Gems and the people who love them.</p>
     </div>
-    <div class="phone">
-      <div class="screen">
-        <iframe title="The Support Companion — interactive demo" loading="eager" srcdoc="<!DOCTYPE html>
+    <div class="phone"><div class="screen">
+      <iframe title="The Support Companion — interactive demo" loading="eager" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;UTF-8&quot; />
@@ -93,13 +89,14 @@
   .div .gem svg{width:18px;height:18px}
 
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .gcard{border-radius:20px;padding:22px 18px 18px;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease);min-height:188px;display:flex;flex-direction:column}
+  .gcard{border-radius:20px;padding:24px 20px 20px;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease);min-height:172px;display:flex;flex-direction:column}
   .gcard:hover{transform:translateY(-4px);box-shadow:0 18px 40px -26px rgba(51,48,42,.5)}
+  .gcard:active{transform:scale(.975);box-shadow:0 6px 16px -12px rgba(51,48,42,.4)}
   .gcard:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-  .gcard .ic{width:58px;height:58px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-  .gcard .ic svg{width:27px;height:27px}
-  .gcard h2{font-family:var(--serif);font-size:23px;font-weight:600;line-height:1.1;margin-bottom:6px}
-  .gcard p{font-size:12.5px;color:var(--muted);line-height:1.45;flex:1}
+  .gcard .ic{width:70px;height:70px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .gcard .ic svg{width:33px;height:33px}
+  .gcard h2{font-family:var(--serif);font-size:27px;font-weight:600;line-height:1.12;margin-bottom:8px}
+  .gcard p{font-size:14.5px;color:var(--muted);line-height:1.5}
   .gcard .arrow{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;margin-top:14px}
   .gcard .arrow svg{width:19px;height:19px}
 
@@ -152,28 +149,24 @@
       <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M6 3h12l4 6-10 13L2 9l4-6z&quot;/></svg></span>
       <h2>Create / Send a Gem</h2>
       <p>Share a message, memory, or a little love.</p>
-      <span class=&quot;arrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
     </button>
 
     <button class=&quot;gcard gems&quot; data-demo>
       <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;14&quot; rx=&quot;2&quot;/><path d=&quot;M3 7l9 6 9-6&quot;/></svg></span>
       <h2>My Gems</h2>
       <p>View and listen to the Gems you&amp;rsquo;ve received.</p>
-      <span class=&quot;arrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
     </button>
 
     <button class=&quot;gcard people&quot; data-demo>
       <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;9&quot; cy=&quot;9&quot; r=&quot;3&quot;/><circle cx=&quot;17&quot; cy=&quot;10&quot; r=&quot;2.4&quot;/><path d=&quot;M3 19a6 6 0 0 1 12 0M15 18a5 5 0 0 1 6 0&quot;/></svg></span>
       <h2>My People</h2>
       <p>See and connect with the people who send you Gems.</p>
-      <span class=&quot;arrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
     </button>
 
     <button class=&quot;gcard about&quot; data-demo>
       <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z&quot;/></svg></span>
       <h2>About Me</h2>
       <p>Share a little about you &amp;mdash; your story, photos, and more.</p>
-      <span class=&quot;arrow&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
     </button>
   </div>
 
@@ -195,8 +188,7 @@
 </body>
 </html>
 "></iframe>
-      </div>
-    </div>
+    </div></div>
   </div>
 </body>
 </html>
