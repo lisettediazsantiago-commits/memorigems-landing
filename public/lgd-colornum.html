@@ -113,6 +113,15 @@
   .astamp.active{border-color:var(--coral);background:#FBEDE4;}
   .astamp svg{width:25px;height:25px;}
 
+  /* wide two-column studio for the color screen (mirror Color a Page) */
+  .app.wide{max-width:1120px;}
+  #screen-color .card{background:transparent;box-shadow:none;border-radius:0;margin-top:0;padding:6px 4px 26px;min-height:auto;}
+  #screen-color h1{margin-bottom:4px;}
+  .studio2{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:start;margin-top:14px;}
+  .studio2 .apanel{margin-top:0;}
+  .stage2{display:flex;flex-direction:column;gap:12px;min-width:0;}
+  @media (max-width:860px){ .studio2{grid-template-columns:1fr;} .app.wide{max-width:440px;} }
+
   /* ---- studio chrome (mirror Color a Page) ---- */
   .lg-bg{position:fixed;top:0;right:0;bottom:0;left:0;z-index:-1;background:#FAF7F0 url('lg-bg.jpg') center center/cover no-repeat;}
   #screen-bank .banner{display:none;}
@@ -178,7 +187,8 @@
       <div class="companion" id="color-comp"></div>
     </div>
     <div class="card">
-      <h1>Color something<br>from your heart!</h1>
+      <h1>Color something from your heart!</h1>
+      <div class="studio2">
       <div class="apanel">
         <h2 class="apanel-t"><span class="adot"></span>My Art Tools</h2>
         <div class="agroup">
@@ -215,10 +225,13 @@
           </div>
         </div>
       </div>
-      <div class="canvaswrap" style="margin-top:14px"><canvas id="canvas"></canvas></div>
-      <div class="bottombar" style="margin-top:14px">
-        <button class="barbtn" onclick="startOver()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/></svg>Start over</button>
-        <button class="barbtn" onclick="goNext()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>Next</button>
+      <div class="stage2">
+        <div class="canvaswrap"><canvas id="canvas"></canvas></div>
+        <div class="bottombar">
+          <button class="barbtn" onclick="startOver()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/></svg>Start over</button>
+          <button class="barbtn" onclick="goNext()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>Next</button>
+        </div>
+      </div>
       </div>
     </div>
   </section>
@@ -289,6 +302,7 @@ var ORDER=['bunny','gemgarden','garden','tree','flower','gems'];
 function setScreen(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById('screen-'+id).classList.add('active');
+  document.getElementById('app').classList.toggle('wide', id==='color');
   window.scrollTo(0,0);
   if(id==='bank') renderBank();
 }
