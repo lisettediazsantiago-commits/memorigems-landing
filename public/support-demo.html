@@ -12,9 +12,8 @@
   *{ box-sizing:border-box; margin:0; padding:0; }
   html,body{ background:var(--warm); }
   .stage{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
-           padding:40px 16px 40px; background:var(--warm); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+           padding:44px 16px 40px; background:var(--warm); font-family:'Inter',-apple-system,system-ui,sans-serif; }
   .cap{ max-width:760px; margin:0 auto 30px; text-align:center; padding:0 24px; }
-  .cap-eyebrow{ font-family:'Cinzel',serif; font-size:11px; font-weight:500; letter-spacing:6px; text-transform:uppercase; color:#8C6E32; margin-bottom:20px; }
   .cap-title{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(32px,5vw,52px); line-height:1.14; letter-spacing:-.3px; color:#2A2317; margin-bottom:22px; }
   .cap-title em{ font-style:italic; font-weight:500; color:#8C6E32; }
   .cap-divider{ width:56px; height:0.5px; background:#B89248; margin:0 auto 28px; }
@@ -31,13 +30,12 @@
 <body>
   <div class="stage">
     <div class="cap">
-      <div class="cap-eyebrow">On Their Phone</div>
       <h2 class="cap-title">The Support <em>Companion</em></h2>
       <div class="cap-divider"></div>
       <p class="cap-sum">The home base for the person you care for &mdash; warm, simple, and built around the Gems and the people who love them.</p>
     </div>
     <div class="phone"><div class="screen">
-      <iframe title="The Support Companion — interactive demo" loading="eager" srcdoc="<!DOCTYPE html>
+      <iframe title="Support Companion — interactive demo" loading="eager" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;UTF-8&quot; />
@@ -109,10 +107,9 @@
 
   @media(max-width:380px){ .grid{grid-template-columns:1fr} }
   @media(prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
-  .democap{ max-width:520px; margin:0 auto; text-align:center; padding:30px 22px 4px; }
-  .democap-eyebrow{ font-family:var(--display); font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--golddeep); margin-bottom:12px; }
-  .democap-title{ font-family:var(--serif); font-size:27px; font-weight:600; color:var(--ink); line-height:1.15; margin-bottom:10px; }
-  .democap-sum{ font-family:var(--serif); font-size:17px; color:var(--muted); line-height:1.55; }
+
+
+
 </style>
 </head>
 <body>
