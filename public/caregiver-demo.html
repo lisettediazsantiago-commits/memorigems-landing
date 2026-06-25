@@ -12,23 +12,20 @@
   *{ box-sizing:border-box; margin:0; padding:0; }
   html,body{ background:var(--warm); }
   .stage{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
-           padding:34px 16px 40px; background:var(--warm); font-family:'Inter',-apple-system,system-ui,sans-serif; }
-  .cap{ max-width:600px; margin:0 auto 28px; text-align:center; padding:0 14px; }
-  .cap-eyebrow{ font-family:'Cinzel',serif; font-size:11px; font-weight:500; letter-spacing:5px; text-transform:uppercase; color:#8C6E32; margin-bottom:18px; }
-  .cap-title{ font-family:'Cormorant Garamond',serif; font-size:clamp(30px,4vw,40px); font-weight:500; color:#2A2317; line-height:1.12; letter-spacing:-.3px; }
+           padding:40px 16px 40px; background:var(--warm); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  .cap{ max-width:760px; margin:0 auto 30px; text-align:center; padding:0 24px; }
+  .cap-eyebrow{ font-family:'Cinzel',serif; font-size:11px; font-weight:500; letter-spacing:6px; text-transform:uppercase; color:#8C6E32; margin-bottom:20px; }
+  .cap-title{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(32px,5vw,52px); line-height:1.14; letter-spacing:-.3px; color:#2A2317; margin-bottom:22px; }
   .cap-title em{ font-style:italic; font-weight:500; color:#8C6E32; }
-  .cap-divider{ width:56px; height:1px; background:#C9A66C; margin:20px auto 18px; }
-  .cap-sum{ font-family:'Cormorant Garamond',serif; font-size:clamp(17px,1.8vw,20px); color:#524634; line-height:1.6; max-width:560px; margin:0 auto; }
+  .cap-divider{ width:56px; height:0.5px; background:#B89248; margin:0 auto 28px; }
+  .cap-sum{ font-family:'Cormorant Garamond',serif; font-size:clamp(18px,2vw,21px); color:#524634; line-height:1.6; max-width:600px; margin:0 auto; }
   .phone{ width:352px; max-width:90vw; background:#1b1d1c; border-radius:46px; padding:11px;
           box-shadow:0 34px 70px rgba(42,35,23,.20); position:relative; }
   .phone::before{ content:""; position:absolute; top:18px; left:50%; transform:translateX(-50%);
                   width:46px; height:5px; border-radius:5px; background:rgba(255,255,255,.16); z-index:2; pointer-events:none; }
   .screen{ position:relative; background:#EFEAE0; border-radius:36px; height:690px; overflow:hidden; }
   .screen iframe{ width:100%; height:100%; border:0; display:block; background:#EFEAE0; }
-  @media (max-width:430px){
-    .phone{ width:100%; border-radius:40px; }
-    .screen{ height:620px; border-radius:30px; }
-  }
+  @media (max-width:430px){ .phone{ width:100%; border-radius:40px; } .screen{ height:620px; border-radius:30px; } }
 </style>
 </head>
 <body>
@@ -39,9 +36,8 @@
       <div class="cap-divider"></div>
       <p class="cap-sum">A private space for the person doing the caring &mdash; somewhere to feel grounded, take two minutes, and remember they&rsquo;re not carrying it alone.</p>
     </div>
-    <div class="phone">
-      <div class="screen">
-        <iframe title="The Caregiver Companion — interactive demo" loading="eager" srcdoc="<!DOCTYPE html>
+    <div class="phone"><div class="screen">
+      <iframe title="The Caregiver Companion — interactive demo" loading="eager" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
   <meta charset=&quot;UTF-8&quot; />
@@ -250,6 +246,7 @@
     .gem-idea { display:flex; gap:13px; align-items:flex-start; width:100%; text-align:left; background:var(--panel);
                 border:1px solid var(--line); border-radius:14px; padding:15px 16px; margin-bottom:11px; cursor:pointer; transition:.15s; }
     .gem-idea:hover { border-color:#D8C8E8; }
+    .gem-idea:active, .res:active, .act:active, .story-head:active { transform: scale(.985); }
     .gem-idea.sel { border:1.5px solid #9D7CC4; background:#EFE6F7; }
     .gem-idea .gi-ic { width:38px; height:38px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center;
                        background:var(--lavchip); color:var(--lav); }
@@ -646,8 +643,7 @@
 </body>
 </html>
 "></iframe>
-      </div>
-    </div>
+    </div></div>
   </div>
 </body>
 </html>
