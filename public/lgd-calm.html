@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calm Corner · LittleGems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    :root {
+      --bg: #FAF7F0; --ink: #2C2C2A; --muted: #5E7C88;
+      --sky: #4E97A6; --sky-deep: #356C7C;
+      --gem: #4E97A6; --glow-rgb: 78,151,166; --bubble: #E6EFF1; --bubble-bd: #BFD8DF;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); min-height: 100vh; padding: 18px 18px 36px; line-height: 1.5; }
+    .lg-bg { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; background: #FAF7F0 url('lg-bg.jpg') center center / cover no-repeat; }
+    .page { max-width: 460px; margin: 0 auto; text-align: center; }
+    svg { display: block; } a { text-decoration: none; color: inherit; }
+
+    .bar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .back { display: inline-flex; align-items: center; gap: 6px; color: var(--sky-deep); font-size: 14px; font-weight: 600; }
+    .back svg { width: 18px; height: 18px; }
+    .gems-won { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 0.5px solid rgba(0,0,0,.07); border-radius: 100px; padding: 6px 12px; font-size: 12.5px; font-weight: 700; color: var(--sky-deep); }
+    .gems-won svg { width: 14px; height: 14px; color: var(--gem); }
+
+    h1 { font-family: var(--serif); font-size: 34px; font-weight: 600; color: var(--sky-deep); margin-top: 10px; }
+    .sub { font-size: 14.5px; color: var(--muted); margin-top: 4px; }
+
+    .chooser { margin-top: 16px; }
+    .chooser .lbl { font-size: 12.5px; font-weight: 700; letter-spacing: .3px; color: var(--muted); margin-bottom: 9px; }
+    .opts { display: flex; justify-content: center; gap: 12px; }
+    .opt { width: 54px; height: 54px; border-radius: 16px; border: 2px solid transparent; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: transform .12s, border-color .15s, box-shadow .15s; }
+    .opt:active { transform: scale(.94); }
+    .opt svg { width: 30px; height: 30px; }
+    .opt.sel { border-color: currentColor; box-shadow: 0 6px 16px -10px rgba(0,0,0,.4); }
+
+    .stage { height: 300px; display: flex; align-items: center; justify-content: center; position: relative; margin: 12px 0 4px; }
+    .glow { position: absolute; width: 270px; height: 270px; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle, rgba(var(--glow-rgb), .52) 0%, rgba(var(--glow-rgb), .18) 48%, rgba(var(--glow-rgb), 0) 72%);
+      filter: blur(8px); opacity: .4; transition: transform .1s linear, opacity .1s linear; }
+    .bubble { position: absolute; width: 190px; height: 190px; border-radius: 50%; background: var(--bubble); border: 2px solid var(--bubble-bd); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: transform .1s linear, background .25s, border-color .25s; }
+    .bubble .gem { width: 66px; height: 66px; color: var(--gem); }
+    .bubble .gem svg { width: 100%; height: 100%; }
+    .bubble .phase { font-size: 17px; font-weight: 700; color: var(--sky-deep); margin-top: 8px; }
+
+    .dots { display: flex; justify-content: center; gap: 9px; margin: 6px 0 18px; }
+    .dots .d { width: 16px; height: 16px; opacity: .35; color: var(--gem); transition: opacity .3s, transform .3s; }
+    .dots .d svg { width: 100%; height: 100%; }
+    .dots .d.on { opacity: 1; transform: scale(1.15); }
+
+    .go { display: block; width: 100%; padding: 16px; border: none; border-radius: 16px; background: var(--sky); color: #fff; font-family: var(--sans); font-size: 16px; font-weight: 700; cursor: pointer; transition: background .15s, transform .1s; }
+    .go:hover { background: var(--sky-deep); } .go:active { transform: scale(.98); }
+
+    .win { display: none; margin-top: 16px; }
+    .win.show { display: block; }
+    .win .wg { width: 64px; height: 64px; margin: 0 auto 8px; color: var(--gem); }
+    .win .wg svg { width: 100%; height: 100%; }
+    .win h2 { font-family: var(--serif); font-size: 26px; font-weight: 600; color: var(--sky-deep); }
+    .win p { font-size: 14px; color: var(--muted); margin-top: 3px; }
+  </style>
+</head>
+<body>
+  <div class="lg-bg" aria-hidden="true"></div>
+  <div class="page" id="page">
+    <div class="bar">
+      <a class="back" href="littlegems-demo.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Back</a>
+      <span class="gems-won"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg><span id="wonCount">0</span> calm gems</span>
+    </div>
+
+    <h1>Calm Corner</h1>
+    <div class="sub">Breathe slowly, and help your gem feel calm.</div>
+
+    <div class="chooser">
+      <div class="lbl">Pick your gem</div>
+      <div class="opts" id="opts"></div>
+    </div>
+
+    <div class="stage">
+      <div class="glow" id="glow"></div>
+      <div class="bubble" id="bubble">
+        <span class="gem"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span>
+        <span class="phase" id="phase">Ready</span>
+      </div>
+    </div>
+
+    <div class="dots" id="dots">
+      <span class="d"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span>
+      <span class="d"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span>
+      <span class="d"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span>
+    </div>
+
+    <button class="go" id="go">Start breathing</button>
+
+    <div class="win" id="win">
+      <div class="wg"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></div>
+      <h2>You did it!</h2>
+      <p>Your gem feels calm. You earned a calm gem.</p>
+    </div>
+  </div>
+
+  <script type="module">
+    try { /* demo build — no login */ }
+    catch (e) { /* preview / standalone */ }
+
+    const _mem = {};
+    const store = {
+      get(k){ try { return localStorage.getItem(k); } catch(e){ return (k in _mem)?_mem[k]:null; } },
+      set(k,v){ try { localStorage.setItem(k,v); } catch(e){ _mem[k]=v; } }
+    };
+    const WONKEY = 'lg_calm_gems', COLORKEY = 'lg_calm_gem_color';
+    const wonEl = document.getElementById('wonCount');
+    let won = parseInt(store.get(WONKEY) || '0', 10); if (isNaN(won)) won = 0;
+    wonEl.textContent = won;
+
+    const page = document.getElementById('page');
+    const bubble = document.getElementById('bubble'), glow = document.getElementById('glow'),
+          phase = document.getElementById('phase'), go = document.getElementById('go'),
+          win = document.getElementById('win'), dots = document.querySelectorAll('#dots .d'),
+          opts = document.getElementById('opts');
+
+    const GEM_PATH = 'M6 3h12l4 6-10 13L2 9l4-6z';
+    const COLORS = ['#E07A52', '#4E97A6', '#E0A93C', '#8E6BB0'];
+
+    function hexRgb(h) { h = h.replace('#',''); return [parseInt(h.substr(0,2),16), parseInt(h.substr(2,2),16), parseInt(h.substr(4,2),16)]; }
+    function tint(ch, a) { return Math.round(ch * a + 255 * (1 - a)); }
+
+    function applyColor(c) {
+      const rgb = hexRgb(c);
+      page.style.setProperty('--gem', c);
+      page.style.setProperty('--glow-rgb', rgb.join(','));
+      page.style.setProperty('--bubble', 'rgb(' + tint(rgb[0],0.16) + ',' + tint(rgb[1],0.16) + ',' + tint(rgb[2],0.16) + ')');
+      page.style.setProperty('--bubble-bd', 'rgb(' + tint(rgb[0],0.42) + ',' + tint(rgb[1],0.42) + ',' + tint(rgb[2],0.42) + ')');
+      store.set(COLORKEY, c);
+      opts.querySelectorAll('.opt').forEach(function(b){ b.classList.toggle('sel', b.dataset.c === c); });
+    }
+    let chosen = store.get(COLORKEY);
+    if (COLORS.indexOf(chosen) === -1) chosen = '#4E97A6';
+    opts.innerHTML = COLORS.map(function(c){
+      return '<button class="opt" data-c="' + c + '" aria-label="Choose this gem" style="color:' + c + '">' +
+             '<svg viewBox="0 0 24 24" fill="' + c + '"><path d="' + GEM_PATH + '"/></svg></button>';
+    }).join('');
+    opts.querySelectorAll('.opt').forEach(function(b){ b.addEventListener('click', function(){ applyColor(b.dataset.c); }); });
+    applyColor(chosen);
+
+    const IN = 4000, HOLD = 2000, OUT = 4000, ROUND = IN + HOLD + OUT, ROUNDS = 3, TOTAL = ROUND * ROUNDS;
+    let running = false, start = 0, raf = null;
+    function setScale(s) {
+      bubble.style.transform = 'scale(' + s.toFixed(3) + ')';
+      const k = (s - 0.6) / 0.4;
+      glow.style.transform = 'scale(' + s.toFixed(3) + ')';
+      glow.style.opacity = (0.3 + k * 0.45).toFixed(3);
+    }
+    function reset() {
+      running = false; if (raf) cancelAnimationFrame(raf);
+      setScale(0.6); phase.textContent = 'Ready'; go.textContent = 'Start breathing';
+      win.classList.remove('show'); dots.forEach(function(d){ d.classList.remove('on'); });
+    }
+    function tick(now) {
+      const el = now - start;
+      if (el >= TOTAL) { finish(); return; }
+      const roundN = Math.floor(el / ROUND);
+      const inR = el % ROUND;
+      let s, label;
+      if (inR < IN) { s = 0.6 + 0.4 * (inR / IN); label = 'Breathe in…'; }
+      else if (inR < IN + HOLD) { s = 1; label = 'Hold…'; }
+      else { s = 1 - 0.4 * ((inR - IN - HOLD) / OUT); label = 'Breathe out…'; }
+      setScale(s); phase.textContent = label;
+      dots.forEach(function(d, i){ d.classList.toggle('on', i <= roundN); });
+      raf = requestAnimationFrame(tick);
+    }
+    function finish() {
+      running = false; if (raf) cancelAnimationFrame(raf);
+      setScale(0.6); phase.textContent = 'All done';
+      dots.forEach(function(d){ d.classList.add('on'); });
+      won += 1; store.set(WONKEY, String(won)); wonEl.textContent = won;
+      go.textContent = 'Breathe again';
+      win.classList.add('show');
+    }
+    go.addEventListener('click', function () {
+      if (running) { reset(); return; }
+      running = true; win.classList.remove('show');
+      dots.forEach(function(d){ d.classList.remove('on'); });
+      go.textContent = 'Stop';
+      start = performance.now(); raf = requestAnimationFrame(tick);
+    });
+    reset();
+  </script>
+</body>
+</html>
