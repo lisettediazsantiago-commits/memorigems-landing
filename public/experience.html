@@ -65,7 +65,7 @@
 
   /* tabs */
   .stage{max-width:1180px;margin:0 auto;padding:46px 32px 96px}
-  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:34px}
+  .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:34px}
   .tab{text-align:left;background:var(--beige-paper);border:.5px solid var(--line);border-radius:16px;padding:22px 24px;cursor:pointer;font-family:var(--serif);transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;position:relative}
   .tab:hover{transform:translateY(-3px);box-shadow:0 16px 36px -24px rgba(42,35,23,.4)}
   .tab[aria-selected="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 16px 36px -26px rgba(42,35,23,.4)}
@@ -158,6 +158,11 @@
       <span class="t-name">Support Companion</span>
       <span class="t-desc">A warm home base for the people who receive your Gems.</span>
     </button>
+    <button class="tab" role="tab" id="tab-littlegems" aria-controls="screen" aria-selected="false" data-key="littlegems" tabindex="-1" style="--accent:#E07A52">
+      <span class="dot" aria-hidden="true">&#10022;</span>
+      <span class="t-name">LittleGems</span>
+      <span class="t-desc">A playful corner where children color, breathe, and make their own gems.</span>
+    </button>
   </div>
 
   <div class="embed" id="screen" role="tabpanel" aria-labelledby="tab-create">
@@ -192,7 +197,8 @@
     var EXP={
       create:{src:'/demo', title:'Create a Gem \u2014 interactive demo'},
       care:{src:'/caregiver-demo', title:'Care Companion \u2014 interactive demo'},
-      support:{src:'/support-demo', title:'Support Companion \u2014 interactive demo'}
+      support:{src:'/support-demo', title:'Support Companion \u2014 interactive demo'},
+      littlegems:{src:'https://memorigems-web.vercel.app/littlegems-home.html', title:'LittleGems \u2014 a playful corner for kids', h:760}
     };
     var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab'));
     var frame=document.getElementById('frame');
@@ -237,7 +243,7 @@
       var cfg=EXP[key];
       if(!cfg)return;
       loading.classList.remove('hide');
-      frame.style.height='420px';
+      frame.style.height=(cfg.h?cfg.h:420)+'px';
       frame.title=cfg.title;
       frame.src=cfg.src;
       openEl.href=cfg.src;
