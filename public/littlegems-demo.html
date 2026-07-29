@@ -1,19 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LittleGems · Demo · MemoriGems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{ --warm:#F7F1E4; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ background:var(--warm); }
+  .stage{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+          padding:44px 16px 40px; background:var(--warm); font-family:'Inter',-apple-system,system-ui,sans-serif; }
+  .cap{ max-width:760px; margin:0 auto 30px; text-align:center; padding:0 24px; }
+  .cap-title{ font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(32px,5vw,52px);
+              line-height:1.14; letter-spacing:-.3px; color:#2A2317; margin-bottom:22px; }
+  .cap-title em{ font-style:italic; font-weight:500; color:#C2613B; }
+  .cap-divider{ width:56px; height:0.5px; background:#E07A52; margin:0 auto 28px; }
+  .cap-sum{ font-family:'Cormorant Garamond',serif; font-size:clamp(18px,2vw,21px); color:#524634;
+            line-height:1.6; max-width:600px; margin:0 auto; }
+  /* Same frame as the Create a Gem, Care Companion and Support Companion demos. */
+  .phone{ width:352px; max-width:90vw; background:#1b1d1c; border-radius:46px; padding:11px;
+          box-shadow:0 34px 70px rgba(42,35,23,.20); position:relative; }
+  .screen{ position:relative; background:#FAF7F0; border-radius:36px; height:690px; overflow:hidden; }
+  .screen iframe{ width:100%; height:100%; border:0; display:block; }
+  @media (max-width:420px){
+    .phone{ width:100%; border-radius:40px; }
+    .screen{ height:620px; border-radius:30px; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="cap">
+      <h2 class="cap-title">The children&rsquo;s <em>corner</em></h2>
+      <div class="cap-divider"></div>
+      <p class="cap-sum">A quiet place for the youngest people in a family &mdash; color, play, breathe, and make a gem of their own.</p>
+    </div>
+    <div class="phone"><div class="screen">
+      <iframe title="LittleGems &mdash; interactive demo" loading="eager" srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+  <meta charset=&quot;UTF-8&quot; />
+  <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; />
   <title>LittleGems</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+  <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+  <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+  <link href=&quot;https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     :root {
       --bg: #FAF7F0; --ink: #2C2C2A; --muted: #7A756C;
       --coral: #E07A52; --coral-deep: #C2613B; --coral-av: #FBE6DA;
       --serif: 'Cormorant Garamond', Georgia, serif;
-      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --sans: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, sans-serif;
     }
     body { font-family: var(--sans); background: var(--bg); color: var(--ink); min-height: 100vh; padding: 20px 18px 36px; line-height: 1.5; }
     .lg-bg { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; background: #FAF7F0 url('lg-bg.jpg') center center / cover no-repeat; }
@@ -55,51 +96,51 @@
   </style>
 </head>
 <body>
-  <div class="lg-bg" aria-hidden="true"></div>
-  <div class="page">
-    <div class="bar">
-      <div class="logo"><span class="gd"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span><b>LittleGems</b></div>
+  <div class=&quot;lg-bg&quot; aria-hidden=&quot;true&quot;></div>
+  <div class=&quot;page&quot;>
+    <div class=&quot;bar&quot;>
+      <div class=&quot;logo&quot;><span class=&quot;gd&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;><path d=&quot;M6 3h12l4 6-10 13L2 9l4-6z&quot;/></svg></span><b>LittleGems</b></div>
       
     </div>
 
-    <div class="hello"><h1>Hi, friend!</h1><p>What would you like to make today?</p></div>
+    <div class=&quot;hello&quot;><h1>Hi, friend!</h1><p>What would you like to make today?</p></div>
 
-    <div class="grid">
-      <a class="tile make" href="https://memorigems-web.vercel.app/lg-make.html" target="_blank" rel="noopener">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9l4-6z"/></svg></span>
-        <div><div class="t">Make a Gem</div><div class="s">Draw or say something for someone you love</div></div>
+    <div class=&quot;grid&quot;>
+      <a class=&quot;tile make&quot; href=&quot;https://memorigems-web.vercel.app/lg-make.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>
+        <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M6 3h12l4 6-10 13L2 9l4-6z&quot;/></svg></span>
+        <div><div class=&quot;t&quot;>Make a Gem</div><div class=&quot;s&quot;>Draw or say something for someone you love</div></div>
       </a>
 
-      <a class="tile calm" href="lgd-calm.html">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 6-13 14-13 0 8-6 13-14 13z"/><path d="M5 19c2-4 5-6 9-7"/></svg></span>
-        <div class="t">Calm Corner</div><div class="s">Breathe with a gem</div>
+      <a class=&quot;tile calm&quot; href=&quot;lgd-calm.html&quot;>
+        <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 19c0-8 6-13 14-13 0 8-6 13-14 13z&quot;/><path d=&quot;M5 19c2-4 5-6 9-7&quot;/></svg></span>
+        <div class=&quot;t&quot;>Calm Corner</div><div class=&quot;s&quot;>Breathe with a gem</div>
       </a>
 
-      <a class="tile match" href="lgd-match.html">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
-        <div class="t">Memory Match</div><div class="s">Find the matching gems</div>
+      <a class=&quot;tile match&quot; href=&quot;lgd-match.html&quot;>
+        <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1.5&quot;/><rect x=&quot;14&quot; y=&quot;3&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1.5&quot;/><rect x=&quot;3&quot; y=&quot;14&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1.5&quot;/><rect x=&quot;14&quot; y=&quot;14&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1.5&quot;/></svg></span>
+        <div class=&quot;t&quot;>Memory Match</div><div class=&quot;s&quot;>Find the matching gems</div>
       </a>
 
-      <a class="tile mine" href="lgd-mine.html">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z"/></svg></span>
-        <div class="t">My Gems</div><div class="s">Gems you made &amp; got</div>
+      <a class=&quot;tile mine&quot; href=&quot;lgd-mine.html&quot;>
+        <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z&quot;/></svg></span>
+        <div class=&quot;t&quot;>My Gems</div><div class=&quot;s&quot;>Gems you made &amp;amp; got</div>
       </a>
 
-      <a class="tile color" href="lgd-color.html">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m14 6 4 4"/></svg></span>
-        <div class="t">Color a Page</div><div class="s">Color your gems online</div>
+      <a class=&quot;tile color&quot; href=&quot;lgd-color.html&quot;>
+        <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M4 20h4L19 9l-4-4L4 16z&quot;/><path d=&quot;m14 6 4 4&quot;/></svg></span>
+        <div class=&quot;t&quot;>Color a Page</div><div class=&quot;s&quot;>Color your gems online</div>
       </a>
 
-      <a class="tile cbn" href="lgd-colornum.html">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.8-.9 1.8-1.9 0-1.2 1-2 2.2-2H17a4 4 0 0 0 4-4c0-5-4-8-9-8z"/><circle cx="7.5" cy="11.5" r="1"/><circle cx="9.8" cy="7.6" r="1"/><circle cx="14.5" cy="7.6" r="1"/></svg></span>
-        <div class="t">Color by Number</div><div class="s">Bunny, garden, tree &amp; more</div>
+      <a class=&quot;tile cbn&quot; href=&quot;lgd-colornum.html&quot;>
+        <span class=&quot;ic&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 3a9 9 0 0 0 0 18c1.1 0 1.8-.9 1.8-1.9 0-1.2 1-2 2.2-2H17a4 4 0 0 0 4-4c0-5-4-8-9-8z&quot;/><circle cx=&quot;7.5&quot; cy=&quot;11.5&quot; r=&quot;1&quot;/><circle cx=&quot;9.8&quot; cy=&quot;7.6&quot; r=&quot;1&quot;/><circle cx=&quot;14.5&quot; cy=&quot;7.6&quot; r=&quot;1&quot;/></svg></span>
+        <div class=&quot;t&quot;>Color by Number</div><div class=&quot;s&quot;>Bunny, garden, tree &amp;amp; more</div>
       </a>
     </div>
   </div>
 
-  <div class="toast" id="toast">Coming soon!</div>
+  <div class=&quot;toast&quot; id=&quot;toast&quot;>Coming soon!</div>
 
-  <script type="module">
+  <script type=&quot;module&quot;>
     try { /* demo build — no login */ }
     catch (e) { /* preview / standalone */ }
 
@@ -114,5 +155,10 @@
       });
     });
   </script>
+</body>
+</html>
+"></iframe>
+    </div></div>
+  </div>
 </body>
 </html>

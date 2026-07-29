@@ -29,7 +29,9 @@
     --green: #2E8B6F; --green-deep: #1F6B50; --green-soft: #9DD4B7; --green-gem: #1E6A4E;
     --green-pill-bg: #DCEFE6; --green-pill-tx: #3C8A6E;
     --purple-soft: #C2A6D6; --purple-gem: #5A3E79; --purple-pill-bg: #ECE2F3; --purple-pill-tx: #6A4C8A;
-    --tan-soft: #E6B98E; --tan-gem: #8A4B23; --tan-pill-bg: #F6E7D6; --tan-pill-tx: #A85F2E;
+    --tan-soft: #E6B98E;
+  --blue-soft: #BCCDF0; --blue-gem: #3E5A96; --blue-pill-bg: #E4EBF8; --blue-pill-tx: #4A66A2;
+  --rose-soft: #E3C5C0; --rose-gem: #9A5548; --rose-pill-bg: #F5EAE8; --rose-pill-tx: #9A5548; --tan-gem: #8A4B23; --tan-pill-bg: #F6E7D6; --tan-pill-tx: #A85F2E;
     --rec-red: #C0524A;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -87,7 +89,30 @@
   .name-input::placeholder { color: #B4AE9E; }
   .name-input:focus { border-color: var(--green); }
 
-  .cat-row { display: flex; justify-content: space-between; gap: 8px; margin-top: 34px; }
+  .cat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 34px; }
+  .pv-or { display:flex; align-items:center; gap:10px; margin:22px 0 14px; color:var(--app-soft); font-size:12px; }
+  .pv-or::before, .pv-or::after { content:''; flex:1 1 auto; height:1px; background:rgba(0,0,0,.09); }
+  .pv-card { width:100%; display:flex; align-items:center; gap:13px; text-align:left; cursor:pointer;
+             background:#fff; border:1px solid #EAD9D5; border-radius:15px; padding:14px 16px; font-family:var(--sans); }
+  .pv-card:active { transform:scale(0.99); }
+  .pv-card .disc { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+  .pv-card .disc svg { width:21px; height:21px; }
+  .pv-t { font-size:14.5px; font-weight:700; color:var(--app-ink); }
+  .pv-s { font-size:11.5px; color:var(--app-soft); margin-top:2px; line-height:1.35; }
+  /* Upload is shown because it is a real path in the app — for a voice that cannot be
+     recorded again — but there is nothing to upload to in a demo, so it stays inert. */
+  .vopt { width:100%; display:flex; align-items:center; gap:12px; text-align:left;
+          background:#fff; border:1px solid #EAD9D5; border-radius:15px; padding:14px 16px; margin-bottom:10px; font-family:var(--sans); }
+  .vopt.pick { cursor:pointer; border-width:1.5px; border-color:#D9AEA6; }
+  .vopt.off { opacity:.62; cursor:default; }
+  .vopt .vi { width:36px; height:36px; border-radius:10px; background:var(--rose-pill-bg); color:var(--rose-gem);
+              display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+  .vopt .vi svg { width:18px; height:18px; }
+  .vopt-t { font-size:14px; font-weight:600; color:var(--app-ink); }
+  .vopt-s { font-size:11.5px; color:var(--app-soft); margin-top:2px; line-height:1.4; }
+  .vopt-tag { font-size:10.5px; color:var(--app-soft); margin-left:auto; flex:0 0 auto; }
+  .ways { text-align:left; }
+  .ways li { font-size:13px; color:var(--app-ink); line-height:1.5; margin:0 0 7px 18px; }
   .cat { flex: 1 1 0; min-width: 0; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; font-family: var(--sans); padding: 2px; border-radius: 16px; transition: transform .12s; }
   .cat:active { transform: scale(0.97); }
   .cat .disc { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
@@ -97,6 +122,8 @@
   .disc.comfort { background: var(--green-soft); color: var(--green-gem); }
   .disc.routine { background: var(--purple-soft); color: var(--purple-gem); }
   .disc.moment  { background: var(--tan-soft);  color: var(--tan-gem); }
+  .disc.music   { background: var(--blue-soft);  color: var(--blue-gem); }
+  .disc.voice   { background: var(--rose-soft);  color: var(--rose-gem); }
 
   .disc-lg { width: 96px; height: 96px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 14px auto 16px; }
   .disc-lg svg { width: 44px; height: 44px; }
@@ -315,7 +342,14 @@
   const CATS = {
     comfort:{ name:'Comfort', tag:'Comfort', sub:'Reassurance, in your voice', cs:'Reassurance &amp; love', desc:'A few warm words to remind them they are safe, loved, and not alone.', cta:'Record your gem', msgs:['safe','love','notalone','matter'] },
     routine:{ name:'Routine', tag:'Routine', sub:'A gentle everyday anchor',  cs:'Everyday anchors', desc:'A familiar voice to guide an everyday moment — calm, kind, unhurried.', cta:'Record your reminder', msgs:['breakfast','dressed','teeth','bed'] },
-    moment:{  name:'Moment',  tag:'Moment',  sub:'Capture a moment, your own way', cs:'Stories &amp; milestones', desc:"This one's all yours. Say whatever's on your heart — a memory, a thought, a hello — however you'd like to say it.", cta:'Record your moment', msgs:['thinking'] }
+    moment:{  name:'Moment',  tag:'Moment',  sub:'Capture a moment, your own way', cs:'Stories &amp; milestones', desc:"This one's all yours. Say whatever's on your heart — a memory, a thought, a hello — however you'd like to say it.", cta:'Record your moment', msgs:['thinking'] },
+    // Music and Voice carry no msgs: there are no pre-recorded samples for them, so
+    // instead of a "pick what to say" list they show the app's own guidance and let
+    // the visitor record their own. `ways` drives that block.
+    music:{   name:'Music',   tag:'Music',   sub:'Capture a favorite song', cs:'Their favorite song', desc:'A song they love can hold memory, comfort, and joy. Record at least 30 seconds — them singing or humming, the two of you together, or the song playing as they listen.', cta:'Record a favorite song', msgs:[],
+              waysH:'A few ways to capture it', ways:['Sing or hum it together','Play the song and record along','Talk about what the song means to them'] },
+    voice:{   name:'Their Voice', tag:'Their Voice', sub:'Keep the sound of someone you love', cs:'Their own stories', desc:'Preserve their words and their voice — a story in their own words, or a recording you already have.', cta:'Record their story', msgs:[],
+              options:true }
   };
 
   const bodyA = document.getElementById('bodyA');
@@ -399,11 +433,13 @@
           '<div class="name-q">Who&rsquo;s this Gem for? <span>(optional — or choose at the end)</span></div>' +
           '<input class="name-input" id="nameInp" placeholder="Type a name…" value="'+escapeHtml(st.recipient||'')+'">' +
         '</div>' +
-        '<div class="cat-row">' + catBtn('comfort') + catBtn('routine') + catBtn('moment') + '</div>' +
+        '<div class="cat-row">' + catBtn('comfort') + catBtn('routine') + catBtn('moment') + catBtn('music') + '</div>' +
+        '<div class="pv-or">or</div>' +
+        '<button class="pv-card cat" data-c="voice"><span class="disc voice">'+ic('mic')+'</span><span><span class="pv-t">Preserve their voice</span><span class="pv-s">Record their story or upload a recording</span></span></button>' +
       '</div>';
     document.getElementById('nameInp').addEventListener('input', e => { st.recipient = e.target.value; });
     [...bodyA.querySelectorAll('.cat')].forEach(el => el.onclick = () => {
-      st.cat = el.getAttribute('data-c'); st.msg = CATS[st.cat].msgs[0]; st.recorded=false; st.recording=false; st.photo=false; discardUserPhoto(); st.words=undefined;
+      st.cat = el.getAttribute('data-c'); st.msg = (CATS[st.cat].msgs || [])[0]; st.recorded=false; st.recording=false; st.photo=false; discardUserPhoto(); st.words=undefined;
       st.step='intro'; renderA();
     });
   }
@@ -411,7 +447,27 @@
 
   function aIntro(){
     const x = CATS[st.cat];
-    let prompts = x.msgs.map(m => '<button class="prompt'+(m===st.msg?' sel':'')+'" data-m="'+m+'"><span class="tick">'+(m===st.msg?ic('checkSm'):'')+'</span>'+MSG[m].words+'</button>').join('');
+    let prompts = (x.msgs || []).map(m => '<button class="prompt'+(m===st.msg?' sel':'')+'" data-m="'+m+'"><span class="tick">'+(m===st.msg?ic('checkSm'):'')+'</span>'+MSG[m].words+'</button>').join('');
+    // Comfort, Routine and Moment offer sample lines to pick from. Music and Their Voice
+    // have none, so they show what the app shows instead: how to capture it, or the two
+    // paths for preserving a voice.
+    let hint;
+    if (x.ways) {
+      hint = '<div class="hint-box '+st.cat+'" style="text-align:left"><div class="hint-h">'+x.waysH+'</div>'
+           + '<ul class="ways">' + x.ways.map(w => '<li>'+w+'</li>').join('') + '</ul></div>';
+    } else if (x.options) {
+      hint = '<div style="text-align:left">'
+           + '<button class="vopt pick" id="voiceRec"><span class="vi">'+ic('mic')+'</span>'
+           +   '<span><span class="vopt-t">Record their story</span>'
+           +   '<span class="vopt-s">Ask a gentle question and capture their answer</span></span></button>'
+           + '<div class="vopt off"><span class="vi">'+ic('book')+'</span>'
+           +   '<span><span class="vopt-t">Upload a recording you have</span>'
+           +   '<span class="vopt-s">A saved voicemail, a message they left, an old recording</span></span>'
+           +   '<span class="vopt-tag">in the app</span></div>'
+           + '</div>';
+    } else {
+      hint = '<div class="hint-box '+st.cat+'" style="text-align:left"><div class="hint-h">Pick what to say</div>'+prompts+'</div>';
+    }
     bodyA.innerHTML =
       '<div class="appbar"><button class="iconbtn" id="bk">'+ic('back')+'</button><button class="lib-pill">'+ic('book')+'Your library</button></div>' +
       '<div class="pad h-center">' +
@@ -419,11 +475,13 @@
         '<div class="scrn-h">'+x.name+'</div>' +
         '<div class="scrn-sub">'+x.sub+'</div>' +
         '<p class="blurb">'+x.desc+'</p>' +
-        '<div class="hint-box '+st.cat+'" style="text-align:left"><div class="hint-h">Pick what to say</div>'+prompts+'</div>' +
+        hint +
         '<button class="cta '+st.cat+'" id="toRec">'+ic('mic')+x.cta+'</button>' +
       '</div>';
     document.getElementById('bk').onclick = () => { stopAll(); st.step='pick'; renderA(); };
     [...bodyA.querySelectorAll('.prompt')].forEach(el => el.onclick = () => { st.msg = el.getAttribute('data-m'); st.words=undefined; aIntro(); });
+    var vrec = document.getElementById('voiceRec');
+    if (vrec) vrec.onclick = () => { st.step='record'; renderA(); };
     document.getElementById('toRec').onclick = () => { st.recorded=false; st.recording=false; st.step='record'; renderA(); };
   }
 

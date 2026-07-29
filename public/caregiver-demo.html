@@ -131,19 +131,23 @@
     .act .sg { margin-left: auto; font-size: 10.5px; color: var(--lav); background: var(--lavchip); border-radius: 100px; padding: 3px 10px; font-weight: 600; }
 
     .sec-h { font-family: var(--serif); font-size: 28px; font-weight: 600; margin-top: 36px; }
-    .seasons-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
+    .seasons-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
     .smini { display: flex; flex-direction: column; gap: 10px; border-radius: 16px; padding: 18px; border: 1px solid var(--line2); }
     .smini.noticing { background: var(--greentint); border-color: #E2EDE3; }
     .smini.holding { background: var(--ambertint); border-color: #F0E6D3; }
     .smini.continuing { background: var(--lavtint); border-color: #EADFF2; }
+    .nearing { background: #FBF3F6; border-color: #F0DDE4; }
     .smini .sc { width: 44px; height: 44px; border-radius: 13px; display: flex; align-items: center; justify-content: center; }
     .smini .sc svg { width: 23px; height: 23px; }
     .noticing .sc { background: #DCEDE0; color: var(--greend); } .holding .sc { background: var(--amberchip); color: var(--amberico); } .continuing .sc { background: var(--lavchip); color: var(--lav); }
+    .nearing .sc { background: #F3DFE6; color: #993556; }
     .smini .snm { font-family: var(--serif); font-size: 19px; font-weight: 600; line-height: 1.1; }
     .smini .ssub { font-size: 12px; font-weight: 600; margin-top: 2px; }
     .noticing .ssub { color: var(--greent); } .holding .ssub { color: var(--amber); } .continuing .ssub { color: var(--lav); }
+    .nearing .ssub { color: #993556; }
     .smini .go { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; margin-top: 2px; }
     .noticing .go { color: var(--greend); } .holding .go { color: var(--amber); } .continuing .go { color: var(--lav); }
+    .nearing .go { color: #993556; }
     .smini .go svg { width: 15px; height: 15px; }
 
     .resgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
@@ -211,6 +215,56 @@
                   font-family:var(--sans); font-size:14.5px; font-weight:600; cursor:pointer; margin-top:8px; }
     .av-primary:hover { background:#4A2F6B; }
     .av-note { font-size:12.5px; color:var(--faint); text-align:center; margin-top:14px; line-height:1.5; }
+
+    /* ----- Nearing season view ----- */
+    .nseason { background:#FBF3F6; border:1px solid #F0DDE4; border-radius:18px; padding:20px 18px 8px; }
+    .nhead { display:flex; align-items:center; gap:13px; margin-bottom:10px; }
+    .nico { width:46px; height:46px; border-radius:13px; background:#F3DFE6; color:#993556;
+            display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+    .nico svg { width:24px; height:24px; }
+    .nnm { font-family:var(--serif); font-size:23px; font-weight:600; line-height:1.15; }
+    .nsub { font-size:12.5px; font-weight:600; color:#993556; margin-top:2px; }
+    .nlead { font-size:14px; color:var(--muted); line-height:1.6; margin:0 0 6px; }
+    .ntopic { display:flex; align-items:center; gap:11px; padding:15px 2px; text-decoration:none;
+              color:var(--ink); border-top:1px solid #F0DDE4; }
+    .ntopic .dot { width:7px; height:7px; border-radius:50%; background:#993556; flex:0 0 auto; }
+    .ntopic .tl { flex:1 1 auto; font-size:15px; }
+    .ntopic svg { width:17px; height:17px; color:#C9A8B6; flex:0 0 auto; }
+    .ntopic.live .tl { font-weight:600; color:#993556; }
+    .ntopic.live svg { color:#993556; }
+    .ntopic.quiet { cursor:default; }
+    .ntopic.quiet .tl { color:#8C7F86; }
+
+    /* ----- Voice preservation view ----- */
+    .vcrumb { font-size:13px; color:var(--faint); margin-bottom:14px; }
+    .vhead { display:flex; align-items:flex-start; gap:13px; margin-bottom:14px; }
+    .vico { width:46px; height:46px; border-radius:13px; background:#D9EBE2; color:#0F6E56;
+            display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+    .vico svg { width:23px; height:23px; }
+    .vh { font-family:var(--serif); font-size:26px; font-weight:600; line-height:1.12; margin:0; }
+    .vsub { font-size:13px; font-weight:600; color:#0F6E56; margin-top:3px; }
+    .vlead { font-size:14.5px; color:var(--muted); line-height:1.65; margin:0 0 26px; }
+    .vband { font-size:11.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+             margin:26px 0 12px; display:flex; align-items:center; gap:8px; }
+    .vband::before { content:''; width:7px; height:7px; border-radius:50%; background:currentColor; }
+    .vband.green { color:#0F6E56; }
+    .vband.plum { color:#5B3E7F; }
+    .vcard { background:#fff; border:1px solid var(--line2); border-radius:16px; padding:17px 18px; margin-bottom:12px; }
+    .vch { font-family:var(--serif); font-size:19px; font-weight:600; margin-bottom:7px; }
+    .vcard p { font-size:14px; color:var(--muted); line-height:1.62; margin:0 0 12px; }
+    .vchip { display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600;
+             color:#0F6E56; background:#E6F2EC; border-radius:100px; padding:7px 13px; }
+    .vchip svg { width:14px; height:14px; }
+    .vrefl { display:flex; align-items:center; gap:11px; background:#F3EEF9; border-radius:14px;
+             padding:15px 16px; margin-bottom:10px; font-size:14.5px; color:#3F2E56; }
+    .vrefl svg { width:17px; height:17px; color:#5B3E7F; flex:0 0 auto; }
+    .vlink { font-size:14px; font-weight:600; color:#5B3E7F; margin-top:4px; }
+    .vpintro { font-size:14px; color:var(--muted); line-height:1.62; margin:0 0 16px; }
+    .vpgrid { display:grid; grid-template-columns:repeat(2,1fr); gap:11px; }
+    .vprompt { background:#fff; border:1px solid var(--line2); border-radius:14px; padding:14px 15px; }
+    .vpk { font-size:10.5px; font-weight:700; letter-spacing:.07em; color:#0F6E56; margin-bottom:6px; }
+    .vpq { font-size:14px; font-weight:600; line-height:1.4; }
+    @media (max-width:560px){ .vpgrid { grid-template-columns:1fr; } }
 
     /* breathing */
     .breath { display:flex; flex-direction:column; align-items:center; padding:14px 0 6px; }
@@ -355,9 +409,16 @@
           <div><div class=&quot;snm&quot;>The Holding Season</div><div class=&quot;ssub&quot;>Active caregiving</div></div>
           <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
         </a>
+        <!-- The one live season. data-view routes it to the in-frame view below rather
+             than season.html, which cannot be reached from inside this iframe. -->
+        <a class=&quot;smini nearing&quot; href=&quot;#&quot; data-view=&quot;nearing&quot;>
+          <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 19h18M6.5 19a5.5 5.5 0 0 1 11 0M12 4v2.5M5.6 7.1l1.7 1.7M18.4 7.1l-1.7 1.7&quot;/></svg></span>
+          <div><div class=&quot;snm&quot;>The Nearing Season</div><div class=&quot;ssub&quot;>Being with them as time grows short</div></div>
+          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+        </a>
         <a class=&quot;smini continuing&quot; href=&quot;season.html#continuing&quot;>
           <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 13c5 1 8-2 9-5 3 6-1 11-6 11-2 0-3-2-3-3zM12 8c2-3 5-4 8-3&quot;/></svg></span>
-          <div><div class=&quot;snm&quot;>The Continuing Season</div><div class=&quot;ssub&quot;>After loss or transition</div></div>
+          <div><div class=&quot;snm&quot;>The Continuing Season</div><div class=&quot;ssub&quot;>After loss</div></div>
           <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
         </a>
       </div>
@@ -393,6 +454,69 @@
   </div>
 
   <!-- ===== in-app action views ===== -->
+
+  <!-- ===== The Nearing Season — the one season this demo opens ===== -->
+  <section class=&quot;actview&quot; id=&quot;av-nearing&quot; aria-hidden=&quot;true&quot; aria-label=&quot;The Nearing Season&quot;>
+    <div class=&quot;av-head&quot;><button class=&quot;av-back&quot; aria-label=&quot;Back&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M19 12H5M12 19l-7-7 7-7&quot;/></svg></button><span class=&quot;av-title&quot;>The Nearing Season</span></div>
+    <div class=&quot;av-body&quot;>
+      <div class=&quot;nseason&quot;>
+        <div class=&quot;nhead&quot;>
+          <span class=&quot;nico&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 19h18M6.5 19a5.5 5.5 0 0 1 11 0M12 4v2.5M5.6 7.1l1.7 1.7M18.4 7.1l-1.7 1.7&quot;/></svg></span>
+          <div><div class=&quot;nnm&quot;>The Nearing Season</div><div class=&quot;nsub&quot;>Being with them as time grows short</div></div>
+        </div>
+        <p class=&quot;nlead&quot;>For families preparing, deciding, and staying close &amp;mdash; including after a move into memory care.</p>
+        <a class=&quot;ntopic quiet&quot; href=&quot;#&quot;><span class=&quot;dot&quot;></span><span class=&quot;tl&quot;>Legal essentials</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 18l6-6-6-6&quot;/></svg></a>
+        <a class=&quot;ntopic quiet&quot; href=&quot;#&quot;><span class=&quot;dot&quot;></span><span class=&quot;tl&quot;>Palliative care and hospice</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 18l6-6-6-6&quot;/></svg></a>
+        <a class=&quot;ntopic quiet&quot; href=&quot;#&quot;><span class=&quot;dot&quot;></span><span class=&quot;tl&quot;>Grieving before the goodbye</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 18l6-6-6-6&quot;/></svg></a>
+        <a class=&quot;ntopic quiet&quot; href=&quot;#&quot;><span class=&quot;dot&quot;></span><span class=&quot;tl&quot;>When home becomes somewhere else</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 18l6-6-6-6&quot;/></svg></a>
+        <a class=&quot;ntopic quiet&quot; href=&quot;#&quot;><span class=&quot;dot&quot;></span><span class=&quot;tl&quot;>Navigating care decisions &amp;amp; future planning</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 18l6-6-6-6&quot;/></svg></a>
+        <a class=&quot;ntopic quiet&quot; href=&quot;#&quot;><span class=&quot;dot&quot;></span><span class=&quot;tl&quot;>Stress &amp;amp; emotional support</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 18l6-6-6-6&quot;/></svg></a>
+        <a class=&quot;ntopic live&quot; href=&quot;#&quot; data-view=&quot;voice&quot;><span class=&quot;dot&quot;></span><span class=&quot;tl&quot;>Preserving their voice while there is time</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 18l6-6-6-6&quot;/></svg></a>
+        <a class=&quot;ntopic quiet&quot; href=&quot;#&quot;><span class=&quot;dot&quot;></span><span class=&quot;tl&quot;>Difficult conversations with family</span><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 18l6-6-6-6&quot;/></svg></a>
+      </div>
+      <p class=&quot;av-note&quot;>In this preview, Preserving their voice opens. The other seven are here to show the shape of the season.</p>
+    </div>
+  </section>
+
+  <!-- ===== Voice preservation prompts — reached from the Nearing season ===== -->
+  <section class=&quot;actview&quot; id=&quot;av-voice&quot; aria-hidden=&quot;true&quot; aria-label=&quot;Voice preservation prompts&quot;>
+    <div class=&quot;av-head&quot;><button class=&quot;av-back&quot; aria-label=&quot;Back&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M19 12H5M12 19l-7-7 7-7&quot;/></svg></button><span class=&quot;av-title&quot;>Voice preservation prompts</span></div>
+    <div class=&quot;av-body&quot;>
+      <div class=&quot;vcrumb&quot;>The Nearing Season</div>
+      <div class=&quot;vhead&quot;>
+        <span class=&quot;vico&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;6&quot; height=&quot;11&quot; rx=&quot;3&quot;/><path d=&quot;M5 11a7 7 0 0 0 14 0M12 18v3.5&quot;/></svg></span>
+        <div><h3 class=&quot;vh&quot;>Voice preservation prompts</h3><div class=&quot;vsub&quot;>Capture stories, voices, and identity</div></div>
+      </div>
+      <p class=&quot;vlead&quot;>A familiar voice and a well-told story carry something a photo can&amp;rsquo;t. This is about preserving them now &amp;mdash; gently, and while it&amp;rsquo;s easy &amp;mdash; so the person&amp;rsquo;s identity and your connection have a way to continue.</p>
+
+      <div class=&quot;vband green&quot;>Learn</div>
+        <div class=&quot;vcard&quot;><div class=&quot;vch&quot;>Why voice and stories matter</div><p>Long-term memories and life stories often stay accessible even as recent memory fades. Research on reminiscence and life-story work finds that revisiting them can lift mood, support thinking, and improve overall wellbeing for people living with mild to moderate dementia.</p><span class=&quot;vchip&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/><path d=&quot;M8.5 12.5l2.5 2.5 4.5-5&quot;/></svg>Reminiscence research review</span></div>
+        <div class=&quot;vcard&quot;><div class=&quot;vch&quot;>Storytelling protects a sense of self</div><p>Dementia can blur a person&amp;rsquo;s sense of &amp;ldquo;who I am.&amp;rdquo; Sharing personal history helps them reconnect with their own identity &amp;mdash; and being listened to is its own message: that their voice still has value, even as memory changes.</p><span class=&quot;vchip&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/><path d=&quot;M8.5 12.5l2.5 2.5 4.5-5&quot;/></svg>Reminiscence research review</span></div>
+        <div class=&quot;vcard&quot;><div class=&quot;vch&quot;>It strengthens relationships, too</div><p>This isn&amp;rsquo;t only for the person you love. Life-story work has been shown to improve the relationship between a person with dementia and their family or carers, and to ease some of the strain caregivers feel along the way.</p><span class=&quot;vchip&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/><path d=&quot;M8.5 12.5l2.5 2.5 4.5-5&quot;/></svg>Reminiscence research review</span></div>
+        <div class=&quot;vcard&quot;><div class=&quot;vch&quot;>Everyday moments count</div><p>You don&amp;rsquo;t need a milestone. Favorite songs, a family recipe, a small daily ritual &amp;mdash; these are worth keeping. Familiar, positive memories tend to land best, so lead with what brings comfort and let the harder stories wait.</p><span class=&quot;vchip&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/><path d=&quot;M8.5 12.5l2.5 2.5 4.5-5&quot;/></svg>Reminiscence research review</span></div>
+
+      <div class=&quot;vband plum&quot;>Reflect</div>
+        <div class=&quot;vrefl&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z&quot;/></svg><span>If I could preserve one story today, what would it be?</span></div>
+        <div class=&quot;vrefl&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z&quot;/></svg><span>What would I regret not recording?</span></div>
+        <div class=&quot;vrefl&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z&quot;/></svg><span>What makes this person uniquely themselves?</span></div>
+      <div class=&quot;vlink&quot;>Write these in Reflection &amp;amp; Self-Care &amp;rarr;</div>
+
+      <div class=&quot;vband green&quot;>Preserve</div>
+      <p class=&quot;vpintro&quot;>These prompts are for your loved one to answer aloud &amp;mdash; record their reply so their voice and stories are preserved. Pick a prompt to get started, or use it as a jumping-off point in their own words. There&amp;rsquo;s no wrong answer &amp;mdash; the voice matters more than the details.</p>
+      <div class=&quot;vpgrid&quot;>
+          <div class=&quot;vprompt&quot;><div class=&quot;vpk&quot;>CHILDHOOD</div><div class=&quot;vpq&quot;>What did a perfect day look like when you were young?</div></div>
+          <div class=&quot;vprompt&quot;><div class=&quot;vpk&quot;>RELATIONSHIPS</div><div class=&quot;vpq&quot;>How did you meet the people who mattered most?</div></div>
+          <div class=&quot;vprompt&quot;><div class=&quot;vpk&quot;>FAMILY TRADITIONS</div><div class=&quot;vpq&quot;>Which tradition do you most hope we keep?</div></div>
+          <div class=&quot;vprompt&quot;><div class=&quot;vpk&quot;>HUMOR</div><div class=&quot;vpq&quot;>What&amp;rsquo;s a story that still makes you laugh?</div></div>
+          <div class=&quot;vprompt&quot;><div class=&quot;vpk&quot;>VALUES</div><div class=&quot;vpq&quot;>What principle have you always tried to live by?</div></div>
+          <div class=&quot;vprompt&quot;><div class=&quot;vpk&quot;>LIFE LESSONS</div><div class=&quot;vpq&quot;>What&amp;rsquo;s the best advice you ever received?</div></div>
+          <div class=&quot;vprompt&quot;><div class=&quot;vpk&quot;>EVERYDAY STORIES</div><div class=&quot;vpq&quot;>Tell me about an ordinary day you&amp;rsquo;d love to relive.</div></div>
+          <div class=&quot;vprompt&quot;><div class=&quot;vpk&quot;>FOR THE FUTURE</div><div class=&quot;vpq&quot;>What do you hope your great-grandchildren know about you?</div></div>
+      </div>
+
+      <p class=&quot;av-note&quot;>This is a look at the page as it appears in MemoriGems. Recording happens in the app.</p>
+    </div>
+  </section>
 
   <section class=&quot;actview&quot; id=&quot;av-ground&quot; aria-hidden=&quot;true&quot; aria-label=&quot;Grounding Exercise&quot;>
     <div class=&quot;av-head&quot;><button class=&quot;av-back&quot; aria-label=&quot;Back&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M19 12H5M12 19l-7-7 7-7&quot;/></svg></button><span class=&quot;av-title&quot;>Grounding Exercise</span></div>
@@ -549,9 +673,13 @@
 
     /* ---------- in-app action views ---------- */
     var activeView = null;
+    // Views can now nest: the Nearing season opens the voice page. Without a stack,
+    // openView closed whatever was showing, so Back from the voice page skipped the
+    // season entirely and dropped you on the hub.
+    var viewStack = [];
     function openView(key){
       var v = document.getElementById('av-' + key); if (!v) return;
-      if (activeView &amp;&amp; activeView !== v) activeView.classList.remove('open');
+      if (activeView &amp;&amp; activeView !== v) { viewStack.push(activeView); activeView.classList.remove('open'); }
       body.classList.remove('nav-open');
       v.classList.add('open'); v.setAttribute('aria-hidden','false');
       document.documentElement.style.overflow = 'hidden';
@@ -562,9 +690,15 @@
     function closeView(){
       if (!activeView) return;
       activeView.classList.remove('open'); activeView.setAttribute('aria-hidden','true');
-      document.documentElement.style.overflow = '';
       if (activeView.id === 'av-ground') stopBreath();
       if (activeView.id === 'av-reflect') stopReflTimer();
+      var back = viewStack.pop();
+      if (back) {
+        back.classList.add('open'); back.setAttribute('aria-hidden','false');
+        activeView = back;
+        return;   // still inside a view, so the page stays locked
+      }
+      document.documentElement.style.overflow = '';
       activeView = null;
     }
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeView(); });
