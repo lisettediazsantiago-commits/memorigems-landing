@@ -189,5 +189,20 @@
     });
     reset();
   </script>
+<script>
+/* Back inside the demo phone.
+   The LittleGems home screen is the demo iframe's srcdoc, which has no URL of its own,
+   so there is nothing for Back to link TO. Following the href would load the whole
+   demo page — caption, phone frame and all — inside the phone: the screen-inside-a-screen.
+   Framed, step the frame's own history instead. Standalone, the href still works. */
+(function(){
+  var framed = false;
+  try { framed = window.self !== window.top; } catch (e) { framed = true; }
+  if (!framed || window.history.length <= 1) return;
+  document.querySelectorAll("a.back, a.lg-back").forEach(function(a){
+    a.addEventListener("click", function(e){ e.preventDefault(); window.history.back(); });
+  });
+})();
+</script>
 </body>
 </html>
