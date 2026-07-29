@@ -155,6 +155,15 @@
     .noticing .go { color: var(--greend); } .holding .go { color: var(--amber); } .continuing .go { color: var(--lav); }
     .nearing .go { color: #993556; }
     .smini .go svg { width: 15px; height: 15px; }
+    /* Three of the four seasons do not open in this preview. They stay legible and keep
+       their own colour — the season itself is real, only the preview is limited — but they
+       drop the Explore promise, mute down, and stop reacting to the pointer. */
+    .smini.quiet { opacity: .58; filter: saturate(.55); cursor: default; }
+    .smini.quiet .go.soon { font-weight: 500; color: #8A837B; letter-spacing: .01em; }
+    .smini.nearing { box-shadow: 0 0 0 1.5px #E4B9C9 inset; }
+    .sflag { display: inline-block; vertical-align: 2px; margin-left: 9px; font-family: var(--sans);
+             font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+             color: #fff; background: #993556; border-radius: 100px; padding: 3px 8px; }
 
     .resgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
     .res { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; cursor: pointer; transition: .15s; }
@@ -405,27 +414,27 @@
 
       <h2 class=&quot;sec-h&quot; id=&quot;season&quot;>Your caregiving season</h2>
       <div class=&quot;seasons-row&quot;>
-        <a class=&quot;smini noticing&quot; href=&quot;season.html#noticing&quot;>
+        <a class=&quot;smini noticing quiet&quot; href=&quot;season.html#noticing&quot;>
           <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 21v-7M12 14c0-3-2-5-5-5 0 3 2 5 5 5zM12 12c0-3 2-6 6-6 0 3-2 6-6 6z&quot;/></svg></span>
           <div><div class=&quot;snm&quot;>The Noticing Season</div><div class=&quot;ssub&quot;>Before or around diagnosis</div></div>
-          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+          <span class=&quot;go soon&quot;>In the app</span>
         </a>
-        <a class=&quot;smini holding&quot; href=&quot;season.html#holding&quot;>
+        <a class=&quot;smini holding quiet&quot; href=&quot;season.html#holding&quot;>
           <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 12l5-5 4 4 4-4 5 5M7 11l3-3 4 4 3-3&quot;/></svg></span>
           <div><div class=&quot;snm&quot;>The Holding Season</div><div class=&quot;ssub&quot;>Active caregiving</div></div>
-          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+          <span class=&quot;go soon&quot;>In the app</span>
         </a>
         <!-- The one live season. data-view routes it to the in-frame view below rather
              than season.html, which cannot be reached from inside this iframe. -->
         <a class=&quot;smini nearing&quot; href=&quot;#&quot; data-view=&quot;nearing&quot;>
           <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 19h18M6.5 19a5.5 5.5 0 0 1 11 0M12 4v2.5M5.6 7.1l1.7 1.7M18.4 7.1l-1.7 1.7&quot;/></svg></span>
-          <div><div class=&quot;snm&quot;>The Nearing Season</div><div class=&quot;ssub&quot;>Being with them as time grows short</div></div>
+          <div><div class=&quot;snm&quot;>The Nearing Season<span class=&quot;sflag&quot;>Start here</span></div><div class=&quot;ssub&quot;>Being with them as time grows short</div></div>
           <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
         </a>
-        <a class=&quot;smini continuing&quot; href=&quot;season.html#continuing&quot;>
+        <a class=&quot;smini continuing quiet&quot; href=&quot;season.html#continuing&quot;>
           <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 13c5 1 8-2 9-5 3 6-1 11-6 11-2 0-3-2-3-3zM12 8c2-3 5-4 8-3&quot;/></svg></span>
           <div><div class=&quot;snm&quot;>The Continuing Season</div><div class=&quot;ssub&quot;>After loss</div></div>
-          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+          <span class=&quot;go soon&quot;>In the app</span>
         </a>
       </div>
 
@@ -468,27 +477,27 @@
     <div class=&quot;av-body&quot;>
       <p class=&quot;av-intro&quot;>Caregiving moves through seasons. Each one gathers the guidance that fits where you are right now.</p>
       <div class=&quot;seasons-row&quot;>
-<a class=&quot;smini noticing&quot; href=&quot;season.html#noticing&quot;>
+<a class=&quot;smini noticing quiet&quot; href=&quot;season.html#noticing&quot;>
           <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 21v-7M12 14c0-3-2-5-5-5 0 3 2 5 5 5zM12 12c0-3 2-6 6-6 0 3-2 6-6 6z&quot;/></svg></span>
           <div><div class=&quot;snm&quot;>The Noticing Season</div><div class=&quot;ssub&quot;>Before or around diagnosis</div></div>
-          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+          <span class=&quot;go soon&quot;>In the app</span>
         </a>
-        <a class=&quot;smini holding&quot; href=&quot;season.html#holding&quot;>
+        <a class=&quot;smini holding quiet&quot; href=&quot;season.html#holding&quot;>
           <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 12l5-5 4 4 4-4 5 5M7 11l3-3 4 4 3-3&quot;/></svg></span>
           <div><div class=&quot;snm&quot;>The Holding Season</div><div class=&quot;ssub&quot;>Active caregiving</div></div>
-          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+          <span class=&quot;go soon&quot;>In the app</span>
         </a>
         <!-- The one live season. data-view routes it to the in-frame view below rather
              than season.html, which cannot be reached from inside this iframe. -->
         <a class=&quot;smini nearing&quot; href=&quot;#&quot; data-view=&quot;nearing&quot;>
           <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 19h18M6.5 19a5.5 5.5 0 0 1 11 0M12 4v2.5M5.6 7.1l1.7 1.7M18.4 7.1l-1.7 1.7&quot;/></svg></span>
-          <div><div class=&quot;snm&quot;>The Nearing Season</div><div class=&quot;ssub&quot;>Being with them as time grows short</div></div>
+          <div><div class=&quot;snm&quot;>The Nearing Season<span class=&quot;sflag&quot;>Start here</span></div><div class=&quot;ssub&quot;>Being with them as time grows short</div></div>
           <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
         </a>
-        <a class=&quot;smini continuing&quot; href=&quot;season.html#continuing&quot;>
+        <a class=&quot;smini continuing quiet&quot; href=&quot;season.html#continuing&quot;>
           <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 13c5 1 8-2 9-5 3 6-1 11-6 11-2 0-3-2-3-3zM12 8c2-3 5-4 8-3&quot;/></svg></span>
           <div><div class=&quot;snm&quot;>The Continuing Season</div><div class=&quot;ssub&quot;>After loss</div></div>
-          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+          <span class=&quot;go soon&quot;>In the app</span>
         </a>
       </div>
       <p class=&quot;av-note&quot;>In this preview, The Nearing Season opens.</p>
