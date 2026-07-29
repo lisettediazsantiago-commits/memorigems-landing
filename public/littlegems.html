@@ -193,6 +193,12 @@
   .footer-links a { color: var(--ink-soft); text-decoration: none; transition: color 0.3s ease; }
   .footer-links a:hover { color: var(--gold); }
   .footer-copy { width: 100%; text-align: center; margin-top: 40px; font-size: 12px; color: var(--ink-faint); font-style: italic; }
+.copy-toast { position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 14px); z-index: 9999;
+              background: var(--ink); color: var(--beige-cream); font-family: var(--sans); font-size: 13.5px;
+              letter-spacing: .01em; padding: 12px 20px; border-radius: 999px; max-width: calc(100vw - 32px);
+              text-align: center; opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease; }
+.copy-toast.show { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) { .copy-toast { transition: none; } }
   .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
   @media (max-width: 768px) {
@@ -503,5 +509,66 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+<script>
+/* Contact links.
+   A bare mailto: opens nothing at all in a browser with no default mail app — common on
+   desktop Chrome and for anyone living in webmail — so the link looks broken even when it
+   is correct. The default is NOT prevented: if a mail client exists it still opens. What
+   is added is a guarantee that SOMETHING happens either way — the address lands on the
+   clipboard and a small confirmation says so. */
+(function(){
+  var links = document.querySelectorAll('a[href^="mailto:"]');
+  if (!links.length) return;
+
+  var toast;
+  function say(msg){
+    if (!toast){
+      toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      toast.setAttribute('role','status');
+      toast.setAttribute('aria-live','polite');
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(say._t);
+    say._t = setTimeout(function(){ toast.classList.remove('show'); }, 3200);
+  }
+
+  function copy(text){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function(res, rej){
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly','');
+        ta.style.position = 'fixed';
+        ta.style.top = '-1000px';
+        document.body.appendChild(ta);
+        ta.select();
+        var okay = document.execCommand('copy');
+        document.body.removeChild(ta);
+        okay ? res() : rej();
+      } catch (e){ rej(e); }
+    });
+  }
+
+  Array.prototype.forEach.call(links, function(a){
+    var addr = (a.getAttribute('href') || '').replace(/^mailto:/,'').split('?')[0];
+    if (!addr) return;
+    if (!a.getAttribute('title')) a.setAttribute('title','Email ' + addr);
+    a.addEventListener('click', function(){
+      copy(addr).then(function(){
+        say('Address copied \u2014 ' + addr);
+      }).catch(function(){
+        say('Email ' + addr);
+      });
+    });
+  });
+})();
+</script>
 </body>
+
 </html>
