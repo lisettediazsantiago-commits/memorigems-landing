@@ -95,7 +95,7 @@
   .pv-or::before, .pv-or::after { content:''; flex:1 1 auto; height:1px; background:rgba(0,0,0,.09); }
   .pv-card { width:100%; display:flex; align-items:center; gap:13px; text-align:left; cursor:pointer;
              background:#F6EEEC; border:1px solid #EAD9D5; border-radius:16px; padding:15px 16px; font-family:var(--sans); }
-  .pv-card > span:last-child { display:flex; flex-direction:column; min-width:0; }
+  .pv-tx, .vopt-tx { display:flex; flex-direction:column; min-width:0; }
   .pv-card:active { transform:scale(0.99); }
   .pv-card .disc { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
   .pv-card .disc svg { width:21px; height:21px; }
@@ -115,6 +115,17 @@
   .vopt-tag { font-size:10.5px; color:var(--app-soft); margin-left:auto; flex:0 0 auto; }
   .ways { text-align:left; }
   .ways li { font-size:13px; color:var(--app-ink); line-height:1.5; margin:0 0 7px 18px; }
+  .vp-wrap { text-align:left; margin-bottom:16px; }
+  .vp-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:9px; }
+  .vp-h { font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rose-gem); }
+  .vp-more { display:inline-flex; align-items:center; gap:5px; background:none; border:none; cursor:pointer;
+             font-family:var(--sans); font-size:11.5px; font-weight:600; color:var(--rose-gem); padding:2px; }
+  .vp-more svg { width:13px; height:13px; }
+  .vp { display:flex; flex-direction:column; width:100%; text-align:left; cursor:pointer; font-family:var(--sans);
+        background:#fff; border:1px solid #EAD9D5; border-radius:12px; padding:10px 12px; margin-bottom:7px; }
+  .vp.sel { border-color:#D9AEA6; border-width:1.5px; background:var(--rose-pill-bg); }
+  .vp-k { font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--rose-gem); margin-bottom:3px; }
+  .vp-q { font-size:12.5px; font-weight:600; line-height:1.35; color:var(--app-ink); }
   .cat { flex: 1 1 0; min-width: 0; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; font-family: var(--sans); padding: 2px; border-radius: 16px; transition: transform .12s; }
   .cat:active { transform: scale(0.97); }
   .cat .disc { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
@@ -320,6 +331,7 @@
   const ICON = {
     diamond: '<path d="M12 21 4.5 9 7 4.5h10L19.5 9z" fill="currentColor" stroke="none"/>',
     back: '<path d="M15 6l-6 6 6 6"/>',
+    refresh: '<path d="M20 11a8 8 0 1 0-1.6 5.4"/><path d="M20 5v6h-6"/>',
     book: '<path d="M5 4h13v16H7a2 2 0 0 1-2-2z"/><path d="M9 4v15"/>',
     mic: '<path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
     play: '<path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/>',
@@ -339,8 +351,20 @@
   const MSG = {
     safe:{words:'You are safe.'}, love:{words:"I'm sending you love."}, notalone:{words:'You are not alone.'}, matter:{words:'You matter so much.'},
     breakfast:{words:"It's time for breakfast."}, dressed:{words:'Time to get dressed.'}, teeth:{words:"Let's brush your teeth."}, bed:{words:"Let's get ready for bed."},
-    thinking:{words:'Just thinking about you.'}
+    thinking:{words:'Just thinking about you.'},
+    // The eight voice-preservation prompts from the Nearing season. Same wording as
+    // the Companion, so the two demos ask the same questions.
+    vp_child:{kind:'Childhood', words:'What did a perfect day look like when you were young?'},
+    vp_rel:{kind:'Relationships', words:'How did you meet the people who mattered most?'},
+    vp_trad:{kind:'Family traditions', words:'Which tradition do you most hope we keep?'},
+    vp_humor:{kind:'Humor', words:"What's a story that still makes you laugh?"},
+    vp_values:{kind:'Values', words:'What principle have you always tried to live by?'},
+    vp_lesson:{kind:'Life lessons', words:"What's the best advice you ever received?"},
+    vp_day:{kind:'Everyday stories', words:"Tell me about an ordinary day you'd love to relive."},
+    vp_future:{kind:'For the future', words:'What do you hope your great-grandchildren know about you?'}
   };
+  const VOICE_PROMPTS = ['vp_child','vp_rel','vp_trad','vp_humor','vp_values','vp_lesson','vp_day','vp_future'];
+  const VP_SHOW = 3;
   const CATS = {
     comfort:{ name:'Comfort', tag:'Comfort', sub:'Reassurance, in your voice', cs:'Reassurance &amp; love', desc:'A few warm words to remind them they are safe, loved, and not alone.', cta:'Record your gem', msgs:['safe','love','notalone','matter'] },
     routine:{ name:'Routine', tag:'Routine', sub:'A gentle everyday anchor',  cs:'Everyday anchors', desc:'A familiar voice to guide an everyday moment — calm, kind, unhurried.', cta:'Record your reminder', msgs:['breakfast','dressed','teeth','bed'] },
@@ -361,6 +385,10 @@
   let st = {};
 
   function fmt(s){ s=Math.max(0,Math.round(s||0)); return (Math.floor(s/60))+':'+(s%60<10?'0':'')+(s%60); }
+  // Every Gem used to have a sample line. Music and Their Voice do not, so this
+  // returns '' instead of throwing on MSG[undefined].words — which is what stopped
+  // the recording screen rendering for both of them.
+  function msgWords(key){ return (key && MSG[key]) ? MSG[key].words : ''; }
   function durLabel(key){ const d = st.durations && st.durations[key]; return d ? fmt(d) : '0:03'; }
   function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
   function stopAll(){ try{ previewA.pause(); playerB.pause(); }catch(e){} bodyB.querySelectorAll('audio').forEach(a=>{try{a.pause();}catch(e){}}); }
@@ -458,12 +486,28 @@
       hint = '<div class="hint-box '+st.cat+'" style="text-align:left"><div class="hint-h">'+x.waysH+'</div>'
            + '<ul class="ways">' + x.ways.map(w => '<li>'+w+'</li>').join('') + '</ul></div>';
     } else if (x.options) {
-      hint = '<div style="text-align:left">'
+      // Deal VP_SHOW prompts starting at st.vpAt and wrap around, so "Show others"
+      // always changes the set and walks the whole eight rather than shuffling and
+      // repeating. Tapping one sets st.msg, which is what carries the question onto
+      // the recording screen — the same mechanism Comfort's sample lines use.
+      var at = st.vpAt || 0;
+      var deal = [];
+      for (var vi = 0; vi < VP_SHOW; vi++) deal.push(VOICE_PROMPTS[(at + vi) % VOICE_PROMPTS.length]);
+      hint = '<div class="vp-wrap">'
+           + '<div class="vp-head"><span class="vp-h">A gentle question to ask</span>'
+           +   '<button class="vp-more" id="vpMore">' + ic('refresh') + 'Show others</button></div>'
+           + deal.map(function(k){
+               return '<button class="vp' + (k === st.msg ? ' sel' : '') + '" data-m="' + k + '">'
+                    + '<span class="vp-k">' + MSG[k].kind + '</span>'
+                    + '<span class="vp-q">' + escapeHtml(MSG[k].words) + '</span></button>';
+             }).join('')
+           + '</div>'
+           + '<div style="text-align:left">'
            + '<button class="vopt pick" id="voiceRec"><span class="vi">'+ic('mic')+'</span>'
-           +   '<span><span class="vopt-t">Record their story</span>'
+           +   '<span class="vopt-tx"><span class="vopt-t">Record their story</span>'
            +   '<span class="vopt-s">Ask a gentle question and capture their answer</span></span></button>'
            + '<div class="vopt off"><span class="vi">'+ic('book')+'</span>'
-           +   '<span><span class="vopt-t">Upload a recording you have</span>'
+           +   '<span class="vopt-tx"><span class="vopt-t">Upload a recording you have</span>'
            +   '<span class="vopt-s">A saved voicemail, a message they left, an old recording</span></span>'
            +   '<span class="vopt-tag">in the app</span></div>'
            + '</div>';
@@ -484,6 +528,11 @@
     [...bodyA.querySelectorAll('.prompt')].forEach(el => el.onclick = () => { st.msg = el.getAttribute('data-m'); st.words=undefined; aIntro(); });
     var vrec = document.getElementById('voiceRec');
     if (vrec) vrec.onclick = () => { st.step='record'; renderA(); };
+    var vmore = document.getElementById('vpMore');
+    if (vmore) vmore.onclick = () => { st.vpAt = ((st.vpAt || 0) + VP_SHOW) % VOICE_PROMPTS.length; aIntro(); };
+    [...bodyA.querySelectorAll('.vp')].forEach(el => el.onclick = () => {
+      st.msg = el.getAttribute('data-m'); st.words = undefined; aIntro();
+    });
     document.getElementById('toRec').onclick = () => { st.recorded=false; st.recording=false; st.step='record'; renderA(); };
   }
 
@@ -497,7 +546,7 @@
         '<button class="rec-mic" id="mic" aria-label="Record">'+ic('mic')+'</button>' +
         '<div class="rec-time" id="recTime">0:00</div>' +
         '<div class="rec-cap" id="recCap">Tap to record · up to 60 seconds</div>' +
-        '<div class="try-box">'+ic('sparkle')+'<span>Try: &ldquo;'+MSG[st.msg].words+'&rdquo;</span></div>' +
+        (msgWords(st.msg) ? '<div class="try-box">'+ic('sparkle')+'<span>Try: &ldquo;'+msgWords(st.msg)+'&rdquo;</span></div>' : '') +
         '<div class="privacy">'+ic('lock')+'<span>Your voice stays on your device — never uploaded or saved.</span></div>' +
       '</div>';
     const mic=document.getElementById('mic'), t=document.getElementById('recTime'), cap=document.getElementById('recCap');
@@ -515,7 +564,7 @@
           '<div class="rv-mid"><div class="rv-times"><span id="rvCur">0:00</span><span id="rvDur">'+(st.userAudio?'0:00':durLabel(st.msg))+'</span></div><div class="rv-bar"><div class="rv-fill" id="rvFill"></div></div></div>' +
         '</div>' +
         '<div class="field-l">The words</div>' +
-        '<textarea class="words-ta" id="wordsTa">'+escapeHtml(st.words!==undefined?st.words:MSG[st.msg].words)+'</textarea>' +
+        '<textarea class="words-ta" id="wordsTa">'+escapeHtml(st.words!==undefined?st.words:msgWords(st.msg))+'</textarea>' +
         '<p class="help-t">These show with your recording so loved ones can read along while they listen. Edit anything — or clear the box if you&rsquo;d rather no words appear.</p>' +
         '<div class="field-l">Name this recording (optional)</div>' +
         '<input class="name-input" id="titleInp" placeholder="e.g., A note for a hard day" style="margin-bottom:18px" value="'+escapeHtml(st.title||'')+'">' +
@@ -565,7 +614,7 @@
 
   function sendGem(){
     stopAll();
-    st.wordsFinal = (st.words!==undefined) ? st.words : MSG[st.msg].words;
+    st.wordsFinal = (st.words!==undefined) ? st.words : msgWords(st.msg);
     st.step='sent'; renderA();
     bodyB.innerHTML = '<div class="center-msg"><span class="big-ic">'+ic('bell')+'</span><div class="t">Delivering…</div></div>';
     const right=document.querySelector('.lane:last-child .phone');
@@ -603,7 +652,7 @@
     document.getElementById('openWrap').onclick = bPlay;
   }
   function bPlay(){
-    const words = (st.wordsFinal!==undefined?st.wordsFinal:MSG[st.msg].words);
+    const words = (st.wordsFinal!==undefined?st.wordsFinal:msgWords(st.msg));
     st.revealed = false;
     bodyB.innerHTML = rcvHeader() +
       '<div class="pad h-center">' +
