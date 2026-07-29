@@ -92,6 +92,12 @@
     .nav a:hover { background: #F4F1EA; }
     .nav a.active { background: var(--greenbg); color: var(--greend); }
     .nav a.active svg { color: var(--greend); }
+    .nav a.quiet { cursor: default; }
+    .nav a.quiet:hover { background: none; }
+    .nav a.quiet, .nav a.quiet svg { color: #97918A; }
+    .nav-tag { margin-left: auto; font-size: 10.5px; font-weight: 500; color: #A49D95; flex: none; }
+    .nav-tag.here { color: var(--greend); }
+    .nav-go { margin-left: auto; width: 16px !important; height: 16px !important; flex: none; }
     .help { margin-top: auto; background: var(--greentint); border: 1px solid #E0EBE0; border-radius: 16px; padding: 16px; }
     .help .ht { display: flex; align-items: center; gap: 9px; font-size: 14.5px; font-weight: 600; color: var(--greend); margin-bottom: 7px; }
     .help .ht svg { width: 19px; height: 19px; }
@@ -349,12 +355,12 @@
         <span class=&quot;pn&quot;>Adult Profile</span>
       </div>
       <nav class=&quot;nav&quot;>
-        <a href=&quot;#top&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 11l9-8 9 8M5 10v10h14V10&quot;/></svg>Overview</a>
-        <a href=&quot;#season&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 21v-7M12 14c0-3-2-5-5-5 0 3 2 5 5 5zM12 12c0-3 2-6 6-6 0 3-2 6-6 6z&quot;/></svg>Your Caregiving Season</a>
-        <a href=&quot;#top&quot; class=&quot;active&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z&quot;/></svg>Caregiver Companion</a>
-        <a href=&quot;#support&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 21v-8M12 13c-1-3-4-4-6-3 0 3 3 5 6 3zM12 11c1-3 4-4 6-3 0 3-3 5-6 3z&quot;/></svg>Reflection &amp;amp; Self-Care</a>
-        <a href=&quot;#resources&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 6S9 4 4 4v14c5 0 8 2 8 2s3-2 8-2V4c-5 0-8 2-8 2z&quot;/><path d=&quot;M12 6v14&quot;/></svg>Resources</a>
-        <a href=&quot;#&quot; data-soon><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/><path d=&quot;M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 8 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H2a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 3.3 8a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H8a1.7 1.7 0 0 0 1-1.5V2a2 2 0 1 1 4 0v.1A1.7 1.7 0 0 0 16 3.3a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V8a1.7 1.7 0 0 0 1.5 1H22a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z&quot;/></svg>Settings</a>
+        <a href=&quot;#&quot; class=&quot;quiet&quot; data-soon><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 11l9-8 9 8M5 10v10h14V10&quot;/></svg>Overview<span class=&quot;nav-tag&quot;>In the app</span></a>
+        <a href=&quot;#&quot; data-view=&quot;seasons&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 21v-7M12 14c0-3-2-5-5-5 0 3 2 5 5 5zM12 12c0-3 2-6 6-6 0 3-2 6-6 6z&quot;/></svg>Your Caregiving Season<svg class=&quot;nav-go&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 18l6-6-6-6&quot;/></svg></a>
+        <a href=&quot;#&quot; class=&quot;active&quot; data-here><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 20S4 14 4 8.5A3.5 3.5 0 0 1 12 6a3.5 3.5 0 0 1 8 2.5C20 14 12 20 12 20z&quot;/></svg>Caregiver Companion<span class=&quot;nav-tag here&quot;>You are here</span></a>
+        <a href=&quot;#&quot; data-view=&quot;reflect&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 21v-8M12 13c-1-3-4-4-6-3 0 3 3 5 6 3zM12 11c1-3 4-4 6-3 0 3-3 5-6 3z&quot;/></svg>Reflection &amp;amp; Self-Care<svg class=&quot;nav-go&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M9 18l6-6-6-6&quot;/></svg></a>
+        <a href=&quot;#&quot; class=&quot;quiet&quot; data-soon><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 6S9 4 4 4v14c5 0 8 2 8 2s3-2 8-2V4c-5 0-8 2-8 2z&quot;/><path d=&quot;M12 6v14&quot;/></svg>Resources<span class=&quot;nav-tag&quot;>In the app</span></a>
+        <a href=&quot;#&quot; class=&quot;quiet&quot; data-soon><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/><path d=&quot;M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 8 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H2a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 3.3 8a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H8a1.7 1.7 0 0 0 1-1.5V2a2 2 0 1 1 4 0v.1A1.7 1.7 0 0 0 16 3.3a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V8a1.7 1.7 0 0 0 1.5 1H22a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z&quot;/></svg>Settings<span class=&quot;nav-tag&quot;>In the app</span></a>
       </nav>
       <div class=&quot;help&quot;>
         <div class=&quot;ht&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/><path d=&quot;M9.6 9.2a2.5 2.5 0 0 1 4 1.5c0 1.6-2 2-2 3.4M12 17h.01&quot;/></svg>Need help?</div>
@@ -456,6 +462,39 @@
   <!-- ===== in-app action views ===== -->
 
   <!-- ===== The Nearing Season — the one season this demo opens ===== -->
+  <!-- ===== Your Caregiving Season — opened from the menu ===== -->
+  <section class=&quot;actview&quot; id=&quot;av-seasons&quot; aria-hidden=&quot;true&quot; aria-label=&quot;Your Caregiving Season&quot;>
+    <div class=&quot;av-head&quot;><button class=&quot;av-back&quot; aria-label=&quot;Back&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M19 12H5M12 19l-7-7 7-7&quot;/></svg></button><span class=&quot;av-title&quot;>Your Caregiving Season</span></div>
+    <div class=&quot;av-body&quot;>
+      <p class=&quot;av-intro&quot;>Caregiving moves through seasons. Each one gathers the guidance that fits where you are right now.</p>
+      <div class=&quot;seasons-row&quot;>
+<a class=&quot;smini noticing&quot; href=&quot;season.html#noticing&quot;>
+          <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 21v-7M12 14c0-3-2-5-5-5 0 3 2 5 5 5zM12 12c0-3 2-6 6-6 0 3-2 6-6 6z&quot;/></svg></span>
+          <div><div class=&quot;snm&quot;>The Noticing Season</div><div class=&quot;ssub&quot;>Before or around diagnosis</div></div>
+          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+        </a>
+        <a class=&quot;smini holding&quot; href=&quot;season.html#holding&quot;>
+          <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 12l5-5 4 4 4-4 5 5M7 11l3-3 4 4 3-3&quot;/></svg></span>
+          <div><div class=&quot;snm&quot;>The Holding Season</div><div class=&quot;ssub&quot;>Active caregiving</div></div>
+          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+        </a>
+        <!-- The one live season. data-view routes it to the in-frame view below rather
+             than season.html, which cannot be reached from inside this iframe. -->
+        <a class=&quot;smini nearing&quot; href=&quot;#&quot; data-view=&quot;nearing&quot;>
+          <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 19h18M6.5 19a5.5 5.5 0 0 1 11 0M12 4v2.5M5.6 7.1l1.7 1.7M18.4 7.1l-1.7 1.7&quot;/></svg></span>
+          <div><div class=&quot;snm&quot;>The Nearing Season</div><div class=&quot;ssub&quot;>Being with them as time grows short</div></div>
+          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+        </a>
+        <a class=&quot;smini continuing&quot; href=&quot;season.html#continuing&quot;>
+          <span class=&quot;sc&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 13c5 1 8-2 9-5 3 6-1 11-6 11-2 0-3-2-3-3zM12 8c2-3 5-4 8-3&quot;/></svg></span>
+          <div><div class=&quot;snm&quot;>The Continuing Season</div><div class=&quot;ssub&quot;>After loss</div></div>
+          <span class=&quot;go&quot;>Explore <svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/></svg></span>
+        </a>
+      </div>
+      <p class=&quot;av-note&quot;>In this preview, The Nearing Season opens.</p>
+    </div>
+  </section>
+
   <section class=&quot;actview&quot; id=&quot;av-nearing&quot; aria-hidden=&quot;true&quot; aria-label=&quot;The Nearing Season&quot;>
     <div class=&quot;av-head&quot;><button class=&quot;av-back&quot; aria-label=&quot;Back&quot;><svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M19 12H5M12 19l-7-7 7-7&quot;/></svg></button><span class=&quot;av-title&quot;>The Nearing Season</span></div>
     <div class=&quot;av-body&quot;>
@@ -627,7 +666,19 @@
       var a = e.target.closest('a[href]');
       if (!a) return;
       var href = a.getAttribute('href') || '';
-      if (href.endsWith('.html') || href.includes('.html#') || href === '#') { e.preventDefault(); }
+      // ⚠️ NO in-page anchor may be left to the browser. This document lives in an iframe
+      // srcdoc, so its base URL is the PARENT page — '#season' resolves to
+      // caregiver-demo.html#season, a DIFFERENT document, and the browser LOADS the whole
+      // demo page inside its own phone frame rather than scrolling. That is the screen
+      // inside a screen. So scroll to the target ourselves and never navigate.
+      if (href.charAt(0) === '#') {
+        e.preventDefault();
+        body.classList.remove('nav-open');
+        var target = href.length > 1 ? document.getElementById(href.slice(1)) : null;
+        if (target &amp;&amp; target.scrollIntoView) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      if (href.endsWith('.html') || href.includes('.html#')) { e.preventDefault(); }
     }, true);
 
     const DATA = {
