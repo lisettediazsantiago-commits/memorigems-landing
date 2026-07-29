@@ -70,8 +70,12 @@
   .tab:hover{transform:translateY(-3px);box-shadow:0 16px 36px -24px rgba(42,35,23,.4)}
   .tab[aria-selected="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 16px 36px -26px rgba(42,35,23,.4)}
   .tab .dot{width:30px;height:30px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;margin-bottom:14px}
-  .tab .t-name{font-size:22px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:4px}
-  .tab .t-desc{font-family:var(--sans);font-size:12.5px;font-weight:300;color:var(--ink-faint);line-height:1.5}
+  /* t-name and t-desc are spans: without display:block the margin below the name
+     is ignored and the two run together on one line. t-tx keeps them stacked when
+     .tab becomes a flex row on narrow screens. */
+  .tab .t-tx{display:block;min-width:0}
+  .tab .t-name{display:block;font-size:22px;font-weight:500;color:var(--ink);line-height:1.25;margin-bottom:7px}
+  .tab .t-desc{display:block;font-family:var(--sans);font-size:12.5px;font-weight:300;color:var(--ink-faint);line-height:1.55}
   .tab:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
   /* frameless embed — iframe auto-sizes to its content, so the page is the only scroll */
@@ -98,7 +102,9 @@
     .mobile-menu{display:block}
     .tabs{grid-template-columns:1fr;gap:10px}
     .tab{display:flex;align-items:center;gap:16px;padding:16px 18px}
-    .tab .dot{margin-bottom:0}
+    .tab .dot{margin-bottom:0;flex:0 0 auto}
+    .tab .t-tx{flex:1 1 auto}
+    .tab .t-name{font-size:19px;margin-bottom:4px}
     .stage{padding:34px 18px 70px}
     .intro{padding:54px 22px 4px}
   }
@@ -145,23 +151,31 @@
   <div class="tabs" role="tablist" aria-label="Choose an experience">
     <button class="tab" role="tab" id="tab-create" aria-controls="screen" aria-selected="true" data-key="create" style="--accent:var(--purple)">
       <span class="dot" aria-hidden="true">&#9670;</span>
-      <span class="t-name">Create a Gem</span>
-      <span class="t-desc">Record a moment and watch it land on someone&rsquo;s phone.</span>
+      <span class="t-tx">
+        <span class="t-name">Create a Gem</span>
+        <span class="t-desc">Record a moment and watch it land on someone&rsquo;s phone.</span>
+      </span>
     </button>
     <button class="tab" role="tab" id="tab-care" aria-controls="screen" aria-selected="false" data-key="care" tabindex="-1" style="--accent:var(--sage-deep)">
       <span class="dot" aria-hidden="true">&#9825;</span>
-      <span class="t-name">Care Companion</span>
-      <span class="t-desc">Gentle, season-aware support for the person doing the caring.</span>
+      <span class="t-tx">
+        <span class="t-name">Care Companion</span>
+        <span class="t-desc">Gentle, season-aware support for the person doing the caring.</span>
+      </span>
     </button>
     <button class="tab" role="tab" id="tab-support" aria-controls="screen" aria-selected="false" data-key="support" tabindex="-1" style="--accent:var(--rose)">
       <span class="dot" aria-hidden="true">&#9993;</span>
-      <span class="t-name">Support Companion</span>
-      <span class="t-desc">A warm home base for the people who receive your Gems.</span>
+      <span class="t-tx">
+        <span class="t-name">Support Companion</span>
+        <span class="t-desc">A warm home base for the people who receive your Gems.</span>
+      </span>
     </button>
     <button class="tab" role="tab" id="tab-littlegems" aria-controls="screen" aria-selected="false" data-key="littlegems" tabindex="-1" style="--accent:#E07A52">
       <span class="dot" aria-hidden="true">&#10022;</span>
-      <span class="t-name">LittleGems</span>
-      <span class="t-desc">Step into the children&rsquo;s corner &mdash; color, play, breathe, and make a gem.</span>
+      <span class="t-tx">
+        <span class="t-name">LittleGems</span>
+        <span class="t-desc">Step into the children&rsquo;s corner &mdash; color, play, breathe, and make a gem.</span>
+      </span>
     </button>
   </div>
 
