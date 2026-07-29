@@ -126,6 +126,14 @@
   .vp.sel { border-color:#D9AEA6; border-width:1.5px; background:var(--rose-pill-bg); }
   .vp-k { font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--rose-gem); margin-bottom:3px; }
   .vp-q { font-size:12.5px; font-weight:600; line-height:1.35; color:var(--app-ink); }
+  /* The question the visitor chose, carried onto the record and review screens.
+     Deliberately NOT .try-box: that box means "words to say", this means "question to ask". */
+  .qcard { text-align:left; background:var(--rose-pill-bg); border:1.5px solid #D9AEA6; border-radius:12px; padding:11px 13px; margin:18px 0 4px; }
+  .qcard-h { font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--rose-gem); margin-bottom:4px; }
+  .qcard-q { font-size:13px; font-weight:600; line-height:1.4; color:var(--app-ink); }
+  .qcard-c { display:inline-flex; align-items:center; gap:5px; background:none; border:none; cursor:pointer;
+             font-family:var(--sans); font-size:11px; font-weight:600; color:var(--rose-gem); padding:7px 0 0; }
+  .qcard-c svg { width:12px; height:12px; }
   .cat { flex: 1 1 0; min-width: 0; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; font-family: var(--sans); padding: 2px; border-radius: 16px; transition: transform .12s; }
   .cat:active { transform: scale(0.97); }
   .cat .disc { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
@@ -389,6 +397,16 @@
   // returns '' instead of throwing on MSG[undefined].words — which is what stopped
   // the recording screen rendering for both of them.
   function msgWords(key){ return (key && MSG[key]) ? MSG[key].words : ''; }
+  // A voice-preservation prompt is a QUESTION TO ASK, not words to say. Only these
+  // carry a `kind`, so that is the test used everywhere the two must behave differently.
+  function isQ(key){ return !!(key && MSG[key] && MSG[key].kind); }
+  function qCard(withChange){
+    if (!isQ(st.msg)) return '';
+    return '<div class="qcard"><div class="qcard-h">The question you chose &middot; ' + MSG[st.msg].kind + '</div>'
+         + '<div class="qcard-q">&ldquo;' + escapeHtml(MSG[st.msg].words) + '&rdquo;</div>'
+         + (withChange ? '<button class="qcard-c" id="qChange">' + ic('refresh') + 'Choose a different question</button>' : '')
+         + '</div>';
+  }
   function durLabel(key){ const d = st.durations && st.durations[key]; return d ? fmt(d) : '0:03'; }
   function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
   function stopAll(){ try{ previewA.pause(); playerB.pause(); }catch(e){} bodyB.querySelectorAll('audio').forEach(a=>{try{a.pause();}catch(e){}}); }
@@ -530,8 +548,11 @@
     if (vrec) vrec.onclick = () => { st.step='record'; renderA(); };
     var vmore = document.getElementById('vpMore');
     if (vmore) vmore.onclick = () => { st.vpAt = ((st.vpAt || 0) + VP_SHOW) % VOICE_PROMPTS.length; aIntro(); };
+    // Tapping a question IS the choice — it goes straight to recording and the question
+    // travels with it, so nobody has to remember which one they picked.
     [...bodyA.querySelectorAll('.vp')].forEach(el => el.onclick = () => {
-      st.msg = el.getAttribute('data-m'); st.words = undefined; aIntro();
+      st.msg = el.getAttribute('data-m'); st.words = undefined;
+      st.recorded = false; st.recording = false; st.step = 'record'; renderA();
     });
     document.getElementById('toRec').onclick = () => { st.recorded=false; st.recording=false; st.step='record'; renderA(); };
   }
@@ -543,14 +564,17 @@
         '<div class="disc-lg '+st.cat+'">'+ic('diamond')+'</div>' +
         '<div class="scrn-h">Your voice is the gift</div>' +
         '<div class="scrn-sub" style="max-width:240px;margin:6px auto 0">Speak from the heart. You can review and re-record before sending.</div>' +
+        qCard(true) +
         '<button class="rec-mic" id="mic" aria-label="Record">'+ic('mic')+'</button>' +
         '<div class="rec-time" id="recTime">0:00</div>' +
         '<div class="rec-cap" id="recCap">Tap to record · up to 60 seconds</div>' +
-        (msgWords(st.msg) ? '<div class="try-box">'+ic('sparkle')+'<span>Try: &ldquo;'+msgWords(st.msg)+'&rdquo;</span></div>' : '') +
+        (!isQ(st.msg) && msgWords(st.msg) ? '<div class="try-box">'+ic('sparkle')+'<span>Try: &ldquo;'+msgWords(st.msg)+'&rdquo;</span></div>' : '') +
         '<div class="privacy">'+ic('lock')+'<span>Your voice stays on your device — never uploaded or saved.</span></div>' +
       '</div>';
     const mic=document.getElementById('mic'), t=document.getElementById('recTime'), cap=document.getElementById('recCap');
     document.getElementById('bk').onclick = () => { cancelRecording(); st.step='intro'; renderA(); };
+    var qch = document.getElementById('qChange');
+    if (qch) qch.onclick = () => { cancelRecording(); st.step='intro'; renderA(); };
     mic.onclick = () => { if(!st.recording){ beginRecording(mic,t,cap); } else { finishRecording(); } };
   }
 
@@ -563,8 +587,11 @@
           '<button class="rv-play" id="rvPlay">'+ic('play')+'</button>' +
           '<div class="rv-mid"><div class="rv-times"><span id="rvCur">0:00</span><span id="rvDur">'+(st.userAudio?'0:00':durLabel(st.msg))+'</span></div><div class="rv-bar"><div class="rv-fill" id="rvFill"></div></div></div>' +
         '</div>' +
+        qCard(false) +
         '<div class="field-l">The words</div>' +
-        '<textarea class="words-ta" id="wordsTa">'+escapeHtml(st.words!==undefined?st.words:msgWords(st.msg))+'</textarea>' +
+        // A chosen question is what was ASKED, not what was said, so it must not prefill
+        // the caption — otherwise their story arrives labelled with the interview question.
+        '<textarea class="words-ta" id="wordsTa">'+escapeHtml(st.words!==undefined?st.words:(isQ(st.msg)?'':msgWords(st.msg)))+'</textarea>' +
         '<p class="help-t">These show with your recording so loved ones can read along while they listen. Edit anything — or clear the box if you&rsquo;d rather no words appear.</p>' +
         '<div class="field-l">Name this recording (optional)</div>' +
         '<input class="name-input" id="titleInp" placeholder="e.g., A note for a hard day" style="margin-bottom:18px" value="'+escapeHtml(st.title||'')+'">' +
