@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Record — MemoriGems</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #F2F0E9; color: #2C2C2A;
+      min-height: 100vh; padding: 24px 20px;
+    }
+    .page-wrapper { max-width: 400px; margin: 0 auto; }
+    .top-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; padding: 0 4px;
+    }
+    .back-button, .help-button {
+      background: none; border: none; cursor: pointer;
+      color: #5F5E5A; padding: 4px;
+      text-decoration: none; display: inline-flex; align-items: center;
+    }
+    .top-bar-title { font-size: 13px; color: #5F5E5A; }
+    .top-bar-actions { display: inline-flex; align-items: center; gap: 2px; }
+    .help-sheet {
+      background-color: #FFFFFF; border: 0.5px solid #E8E6DD; border-radius: 16px;
+      padding: 18px 20px 14px; margin: -8px 0 20px;
+    }
+    .help-line { font-size: 13.5px; color: #5F5E5A; line-height: 1.55; margin: 0 0 10px; }
+    .help-line strong { color: #2C2C2A; font-weight: 500; }
+    .help-close {
+      background: none; border: none; cursor: pointer; padding: 6px 0 0;
+      font-size: 13px; color: #0F6E56; font-family: inherit;
+    }
+
+    .gem-header { text-align: center; margin-bottom: 8px; }
+    .gem-circle {
+      width: 72px; height: 72px; border-radius: 50%;
+      background-color: #9FE1CB; margin: 0 auto 12px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+    .gem-icon { width: 36px; height: 36px; color: #0F6E56; transition: color 0.2s ease; }
+    .header-title { font-size: 18px; font-weight: 500; color: #2C2C2A; margin-bottom: 4px; }
+    .header-subtitle { font-size: 13px; color: #5F5E5A; line-height: 1.5; padding: 0 24px; }
+
+    .preset-phrase-card {
+      background-color: #FFFFFF; border-radius: 16px;
+      padding: 24px 20px; margin: 28px 0 8px;
+      text-align: center; border: 0.5px solid #C7EBDD;
+      transition: border-color 0.2s ease;
+    }
+    .preset-phrase-label {
+      font-size: 11px; color: #888780;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .preset-phrase-text { font-size: 20px; color: #2C2C2A; line-height: 1.4; font-weight: 500; }
+
+    .record-button-wrapper { display: flex; justify-content: center; margin: 32px 0 24px; }
+    .record-button {
+      width: 100px; height: 100px; border-radius: 50%;
+      background-color: #C75B5B; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    .record-button:hover { transform: scale(1.03); }
+    .record-button.recording { background-color: #A04848; }
+    .record-icon { width: 40px; height: 40px; color: #FFFFFF; }
+
+    .timer-section { text-align: center; margin-bottom: 32px; }
+    .timer-row { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .timer-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background-color: #C75B5B; opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .timer-dot.active { opacity: 1; animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+    }
+    .timer-text {
+      font-size: 22px; font-weight: 500;
+      color: #2C2C2A; font-variant-numeric: tabular-nums;
+    }
+    .timer-limit { font-size: 12px; color: #888780; }
+    .mus-prog { max-width: 240px; margin: 12px auto 0; height: 6px; background: #E4E0D5; border-radius: 100px; overflow: hidden; }
+    .mus-prog-fill { height: 100%; width: 0; background: #3E5A96; border-radius: 100px; transition: width .25s ease; }
+
+    .control-row {
+      display: flex; justify-content: space-evenly;
+      align-items: center; margin-bottom: 32px;
+    }
+    .control-button {
+      background: none; border: none; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px; font-family: inherit; padding: 0;
+    }
+    .control-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      background-color: #F1EFE8; border: 0.5px solid #D3D1C7;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .control-circle.stop {
+      width: 80px; height: 80px;
+      background-color: #1D9E75; border: none;
+    }
+    .control-icon { width: 22px; height: 22px; color: #5F5E5A; }
+    .control-circle.stop .control-icon { width: 28px; height: 28px; color: #FFFFFF; }
+    .control-label { font-size: 11px; color: #5F5E5A; }
+    .control-button.stop .control-label { color: #0F6E56; font-weight: 500; }
+
+    .suggestion-pill {
+      background-color: #E1F5EE; border-radius: 12px;
+      padding: 12px 14px;
+      display: flex; align-items: center; gap: 6px; justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+    .suggestion-pill .sparkle { width: 14px; height: 14px; color: #0F6E56; flex-shrink: 0; transition: color 0.2s ease; }
+    .suggestion-text { font-size: 12px; color: #0F6E56; line-height: 1.5; text-align: center; transition: color 0.2s ease; }
+
+    .hidden { display: none; }
+  </style>
+  <script src="text-size.js"></script>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <div class="top-bar">
+      <a href="comfort.html" class="back-button" id="backBtn" aria-label="Go back">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <span class="top-bar-title" id="recordingForLabel">New recording</span>
+      <span class="top-bar-actions">
+        <!-- Home is deliberately NOT the same as the back arrow. Back means "the
+             page I came from"; home means "out of this entirely". Before this,
+             both were the back arrow and neither reached home. -->
+        <a href="home.html" class="help-button" id="homeBtn" aria-label="Go home">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10.5 12 3l9 7.5"/>
+            <path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/>
+          </svg>
+        </a>
+        <!-- This button existed with no id and no handler — it had never done
+             anything. It opens a panel rather than navigating to help.html,
+             because help.html's own back link is hardcoded to home.html, so
+             going there mid-recording would throw the recording away. -->
+        <button class="help-button" id="helpBtn" aria-label="Help" aria-expanded="false" aria-controls="helpSheet">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </button>
+      </span>
+    </div>
+
+    <div class="help-sheet hidden" id="helpSheet" role="dialog" aria-label="About recording">
+      <p class="help-line"><strong>You can start over.</strong> Nothing is saved until you choose to save it.</p>
+      <p class="help-line"><strong>Up to 60 seconds.</strong> Shorter is usually better — a few sentences is plenty.</p>
+      <p class="help-line"><strong>You'll hear it first.</strong> After you stop, you can listen, re-record, or delete it.</p>
+      <button class="help-close" id="helpClose">Close</button>
+    </div>
+
+    <div class="gem-header">
+      <div class="gem-circle" id="gemCircle">
+        <svg class="gem-icon" id="gemIcon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 3h12l4 6-10 13L2 9l4-6z" />
+        </svg>
+      </div>
+      <div class="header-title" id="headerTitle">Your voice is the gift</div>
+      <div class="header-subtitle" id="headerSubtitle">Speak from the heart. You can review and re-record before saving.</div>
+    </div>
+
+    <div class="preset-phrase-card hidden" id="presetCard">
+      <div class="preset-phrase-label">Speak this phrase</div>
+      <div class="preset-phrase-text" id="presetPhraseText"></div>
+    </div>
+
+    <div class="record-button-wrapper">
+      <button class="record-button" id="recordBtn" aria-label="Start recording">
+        <svg class="record-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/>
+          <path d="M19 11a7 7 0 0 1-14 0M12 18v3M8 21h8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="timer-section">
+      <div class="timer-row">
+        <div class="timer-dot" id="timerDot"></div>
+        <span class="timer-text" id="timerText">0:00</span>
+      </div>
+      <div class="timer-limit" id="timerLimit">Up to 60 seconds</div>
+      <div class="mus-prog hidden" id="musProg"><div class="mus-prog-fill" id="musProgFill"></div></div>
+    </div>
+
+    <div class="control-row hidden" id="controlRow">
+      <button class="control-button" id="cancelBtn">
+        <div class="control-circle">
+          <svg class="control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </div>
+        <span class="control-label">Discard</span>
+      </button>
+      <button class="control-button stop" id="stopBtn">
+        <div class="control-circle stop">
+          <svg class="control-icon" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="6" width="12" height="12" rx="2"/>
+          </svg>
+        </div>
+        <span class="control-label">Stop</span>
+      </button>
+      <button class="control-button" id="pauseBtn">
+        <div class="control-circle">
+          <svg class="control-icon" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="4" width="4" height="16"/>
+            <rect x="14" y="4" width="4" height="16"/>
+          </svg>
+        </div>
+        <span class="control-label">Pause</span>
+      </button>
+    </div>
+
+    <div class="suggestion-pill" id="suggestionPill">
+      <svg class="sparkle" id="suggestionSparkle" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0l2.4 7.6L22 10l-7.6 2.4L12 20l-2.4-7.6L2 10l7.6-2.4z"/>
+      </svg>
+      <span class="suggestion-text" id="suggestionText">Try: "It's me. I'm here. You are loved."</span>
+    </div>
+  </div>
+
+  <script type="module">
+    import { requireAuth, getKeepers } from "./firebase-config.js";
+    await requireAuth();
+
+    // ---- Gem theme system ----
+    // To add a new gem in the future, just add an entry here.
+    const GEM_THEMES = {
+      Comfort: {
+        circleBg: '#9FE1CB',
+        iconColor: '#0F6E56',
+        cardBorder: '#C7EBDD',
+        suggestionBg: '#E1F5EE',
+        suggestionText: '#0F6E56',
+        backLink: 'comfort.html',
+        suggestionDefault: 'Try: "It\'s me. I\'m here. You are loved."'
+      },
+      Routine: {
+        circleBg: '#C9B5D9',
+        iconColor: '#5B3E7F',
+        cardBorder: '#DCCCE8',
+        suggestionBg: '#E8DEF0',
+        suggestionText: '#5B3E7F',
+        backLink: 'routine.html',
+        suggestionDefault: 'Try: "It\'s a beautiful morning — time to start your day."'
+      },
+      Moment: {
+        circleBg: '#EFC196',
+        iconColor: '#9C5226',
+        cardBorder: '#F4D8BD',
+        suggestionBg: '#FAEEDF',
+        suggestionText: '#9C5226',
+        backLink: 'moment.html',
+        suggestionDefault: 'Try: "I was just thinking about you, and I wanted to share this."'
+      },
+      Music: {
+        circleBg: '#BCCDF0',
+        iconColor: '#3E5A96',
+        cardBorder: '#D3DEF2',
+        suggestionBg: '#EEF2FB',
+        suggestionText: '#3E5A96',
+        backLink: 'music.html',
+        suggestionDefault: 'Hum or sing the first lines together — their voice is what matters.'
+      },
+      Voice: {
+        circleBg: '#E3C5C0',
+        iconColor: '#9A5548',
+        cardBorder: '#EAD9D5',
+        suggestionBg: '#F6EEEC',
+        suggestionText: '#9A5548',
+        backLink: 'their-voice.html',
+        suggestionDefault: 'Ask a gentle question and let them answer in their own words.'
+      }
+    };
+
+    function applyGemTheme(gemName) {
+      const theme = GEM_THEMES[gemName] || GEM_THEMES.Comfort;
+      document.getElementById('gemCircle').style.backgroundColor = theme.circleBg;
+      document.getElementById('gemIcon').style.color = theme.iconColor;
+      var _gi = document.getElementById('gemIcon');
+      if (gemName === 'Music') {
+        _gi.setAttribute('fill', 'none'); _gi.setAttribute('stroke', 'currentColor');
+        _gi.setAttribute('stroke-width', '1.8'); _gi.setAttribute('stroke-linecap', 'round'); _gi.setAttribute('stroke-linejoin', 'round');
+        _gi.innerHTML = '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>';
+      } else if (gemName === 'Voice') {
+        _gi.setAttribute('fill', 'none'); _gi.setAttribute('stroke', 'currentColor');
+        _gi.setAttribute('stroke-width', '1.8'); _gi.setAttribute('stroke-linecap', 'round'); _gi.setAttribute('stroke-linejoin', 'round');
+        _gi.innerHTML = '<path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3"/>';
+      } else {
+        _gi.setAttribute('fill', 'currentColor'); _gi.removeAttribute('stroke');
+        _gi.innerHTML = '<path d="M6 3h12l4 6-10 13L2 9l4-6z"/>';
+      }
+      document.getElementById('presetCard').style.borderColor = theme.cardBorder;
+      document.getElementById('suggestionPill').style.backgroundColor = theme.suggestionBg;
+      document.getElementById('suggestionSparkle').style.color = theme.suggestionText;
+      document.getElementById('suggestionText').style.color = theme.suggestionText;
+      // The back arrow is NOT set here. It used to be, and it silently undid the
+      // ?back= / referrer logic further down, because this runs afterwards. The
+      // arrow has exactly one owner now — setBackArrow() below. theme.backLink
+      // is still the right destination when nothing else is known, so it is
+      // passed in as that function's last fallback.
+      document.getElementById('suggestionText').textContent = theme.suggestionDefault;
+    }
+    // -------------------------
+
+    // The header stays generic — a recipient is chosen per gem at the share
+    // step, not assumed from a single name saved during onboarding.
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // ---- Go back to wherever they actually came from ----
+    // The back arrow was hardcoded to comfort.html, so a family who tapped
+    // Record inside a Caregiver Companion page was thrown out to a different
+    // part of the app. Prefer an explicit ?back=, fall back to the referring
+    // page, then to this gem's own landing page, and only ever accept a plain
+    // same-site page name so a crafted link cannot point the arrow elsewhere.
+    //
+    // THIS IS THE ONLY PLACE THAT SETS THE BACK ARROW. If you add a step that
+    // touches #backBtn, call it BEFORE this one or it will silently win —
+    // applyGemTheme used to set the arrow and quietly undid everything here.
+    function setBackArrow(themeFallback) {
+      var SAFE = /^[A-Za-z0-9._-]+\.html(?:[?#].*)?$/;
+      var dest = urlParams.get('back') || '';
+      var explicit = SAFE.test(dest) && dest.indexOf('record.html') !== 0;
+      if (!explicit) {
+        dest = '';
+        try {
+          var r = document.referrer;
+          if (r && new URL(r).origin === location.origin) {
+            var last = new URL(r).pathname.split('/').pop();
+            if (SAFE.test(last) && last !== 'record.html') dest = last + new URL(r).search;
+          }
+        } catch (e) {}
+      }
+      var b = document.getElementById('backBtn');
+      // With no ?back= and no usable referrer (a refresh, or a link opened
+      // cold), the gem's own landing page is the closest right answer.
+      if (b) b.setAttribute('href', dest || themeFallback || 'comfort.html');
+      // Carry it through the rest of the flow — review and the saved screen both
+      // read this, so finishing a recording returns to the page that started it.
+      // Only a page we actually came FROM goes in here; the theme fallback is a
+      // guess about where to go next, not a record of where she was.
+      try {
+        if (dest) sessionStorage.setItem('memorigems_return', dest);
+        else sessionStorage.removeItem('memorigems_return');
+      } catch (e) {}
+    }
+    const presetPhrase = urlParams.get('phrase');
+    const gemName = urlParams.get('gem');
+    if (gemName) sessionStorage.setItem('memorigems_gem', gemName);
+
+    // Apply theme based on gem
+    applyGemTheme(gemName || 'Comfort');
+    // After the theme, so the arrow is the last word on itself.
+    setBackArrow((GEM_THEMES[gemName] || GEM_THEMES.Comfort).backLink);
+    if ((gemName || '') === 'Music') {
+      var _lim = document.getElementById('timerLimit'); if (_lim) _lim.textContent = 'Aim for 30+ seconds';
+      var _mp = document.getElementById('musProg'); if (_mp) _mp.classList.remove('hidden');
+    }
+
+    if (presetPhrase) {
+      document.getElementById('presetCard').classList.remove('hidden');
+      document.getElementById('presetPhraseText').textContent = '"' + presetPhrase + '"';
+      document.getElementById('headerSubtitle').textContent = "Take your time. When you're ready, tap to record.";
+      document.getElementById('suggestionPill').classList.add('hidden');
+      sessionStorage.setItem('memorigems_preset_phrase', presetPhrase);
+    } else {
+      sessionStorage.removeItem('memorigems_preset_phrase');
+      personalizePrompts(gemName || 'Comfort');
+    }
+
+    // ---- Profile-guided prompts ----
+    // If a Gem Keeper was chosen up front, draw warm, specific ideas from their
+    // profile (favorites, comfort topics, people, milestones) instead of a generic line.
+    async function personalizePrompts(gemName) {
+      let keeper = null;
+      try {
+        const stored = JSON.parse(sessionStorage.getItem('memorigems_gem_keeper') || 'null');
+        if (!stored || !stored.id) return;
+        const keepers = await getKeepers();
+        keeper = (Array.isArray(keepers) ? keepers : []).find(k => k.id === stored.id);
+      } catch (e) { return; }
+      if (!keeper) return;
+
+      const prompts = buildPrompts(keeper, gemName);
+      if (!prompts.length) return;
+
+      const pill = document.getElementById('suggestionPill');
+      const textEl = document.getElementById('suggestionText');
+      if (pill.classList.contains('hidden')) return;
+      let idx = 0, timer = null;
+      const show = () => { textEl.textContent = prompts[idx % prompts.length]; };
+      const restart = () => { clearInterval(timer); if (prompts.length > 1) timer = setInterval(() => { idx++; show(); }, 8000); };
+      show(); restart();
+      if (prompts.length > 1) {
+        pill.style.cursor = 'pointer';
+        pill.title = 'Tap for another idea';
+        pill.addEventListener('click', () => { idx++; show(); restart(); });
+      }
+    }
+
+    function buildPrompts(keeper, gemName) {
+      const p = keeper.profile || {};
+      const about = p.about || {};
+      const name = about.preferredName || (keeper.name || '').trim().split(' ')[0] || 'them';
+      const fav = p.favorites || {};
+      const comfort = p.comfort || {};
+      const pick = arr => (Array.isArray(arr) && arr.length) ? arr[Math.floor(Math.random() * arr.length)] : null;
+      const out = [];
+
+      const music = pick(fav.music);       if (music)    out.push(`${name} loves ${music} — maybe hum a few bars or mention it.`);
+      const food = pick(fav.foods);        if (food)     out.push(`Share a memory about ${food} — one of ${name}'s favorites.`);
+      const activity = pick(fav.activities); if (activity) out.push(`Talk about ${activity} together.`);
+      const place = pick(fav.places);      if (place)    out.push(`Bring up ${place} — somewhere ${name} loves.`);
+      const topic = pick(comfort.topics);  if (topic)    out.push(`${name} loves talking about ${topic}.`);
+      const smile = pick(comfort.smile);   if (smile)    out.push(`Mention ${smile} — it tends to make ${name} smile.`);
+
+      const people = Array.isArray(p.importantPeople) ? p.importantPeople : [];
+      if (people.length) {
+        const person = people[Math.floor(Math.random() * people.length)];
+        if (person && person.name) out.push(`Pass along some love from ${person.name}.`);
+      }
+      const milestone = pick((p.lifeStory || {}).milestones);
+      if (milestone) out.push(`Ask ${name} about ${milestone}.`);
+
+      const unique = [...new Set(out)].slice(0, 5);
+
+      if (!unique.length) {
+        const generic = {
+          Comfort: `Tell ${name}: "It's me. I'm here. You are loved."`,
+          Routine: `Gently walk ${name} through the moment, in your own words.`,
+          Moment: `Just let ${name} know you were thinking of them.`
+        };
+        unique.push(generic[gemName] || generic.Comfort);
+        unique.push(`Add ${name}'s favorites to their profile for more ideas.`);
+      }
+      return unique;
+    }
+
+    const recordBtn = document.getElementById('recordBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const controlRow = document.getElementById('controlRow');
+    const timerText = document.getElementById('timerText');
+    const timerDot = document.getElementById('timerDot');
+
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let recordingMimeType = '';
+    let startTime = null;
+    let timerInterval = null;
+    let isPaused = false;
+    let pausedTime = 0;
+    const MAX_SECONDS = (gemName === 'Music') ? 90 : (gemName === 'Voice') ? 180 : 60;
+
+    // ---- Live transcript capture (best-effort) ----
+    // Uses the browser's Web Speech API to transcribe the spoken words while the
+    // recording runs, so review.html can show an editable transcript. This is a
+    // companion to the audio, never a replacement: if SpeechRecognition is
+    // unavailable (e.g. Firefox) or errors, capture is simply skipped and the
+    // recording itself is unaffected. A more accurate server-side transcription
+    // (Cloud Speech-to-Text) can replace this later without touching this file's
+    // recording logic — the transcript just lands in the same sessionStorage key.
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    let transcriptFinal = '';
+    let recognitionActive = false;
+
+    function startRecognition() {
+      transcriptFinal = '';
+      if (!SpeechRecognition) return; // unsupported browser — skip silently
+      try {
+        recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = navigator.language || 'en-US';
+        recognition.onresult = (event) => {
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            const res = event.results[i];
+            if (res.isFinal) transcriptFinal += res[0].transcript;
+          }
+        };
+        recognition.onerror = () => { /* best-effort; never blocks recording */ };
+        recognition.onend = () => {
+          // The engine ends itself periodically (and on silence). If we're still
+          // actively recording, restart it so we keep catching words.
+          if (recognitionActive) {
+            try { recognition.start(); } catch (e) { /* already running */ }
+          }
+        };
+        recognitionActive = true;
+        recognition.start();
+      } catch (e) {
+        recognition = null;
+        recognitionActive = false;
+      }
+    }
+
+    function pauseRecognition() {
+      recognitionActive = false;
+      if (recognition) { try { recognition.stop(); } catch (e) {} }
+    }
+
+    function resumeRecognition() {
+      if (!recognition) return;
+      recognitionActive = true;
+      try { recognition.start(); } catch (e) { /* already running */ }
+    }
+
+    function stopRecognition() {
+      recognitionActive = false;
+      if (recognition) { try { recognition.stop(); } catch (e) {} }
+    }
+
+    // Pick the best audio format the browser supports.
+    function pickSupportedMimeType() {
+      const candidates = [
+        'audio/mp4;codecs=mp4a.40.2',
+        'audio/mp4',
+        'audio/aac',
+        'audio/webm;codecs=opus',
+        'audio/webm'
+      ];
+      for (const type of candidates) {
+        if (typeof MediaRecorder !== 'undefined' &&
+            MediaRecorder.isTypeSupported &&
+            MediaRecorder.isTypeSupported(type)) {
+          return type;
+        }
+      }
+      return '';
+    }
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+
+    function updateTimer() {
+      if (isPaused) return;
+      const elapsed = Math.floor((Date.now() - startTime + pausedTime) / 1000);
+      timerText.textContent = formatTime(elapsed);
+      if ((gemName || '') === 'Music') {
+        var _f = document.getElementById('musProgFill'); if (_f) _f.style.width = Math.min(elapsed / 30, 1) * 100 + '%';
+        var _l = document.getElementById('timerLimit'); if (_l) _l.textContent = elapsed < 30 ? 'Keep going — aim for 30+ seconds' : 'Nice — save whenever you\'re ready';
+      }
+      if (elapsed >= MAX_SECONDS) stopRecording();
+    }
+
+    async function startRecording() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+        const mimeType = pickSupportedMimeType();
+        const options = mimeType ? { mimeType } : {};
+        mediaRecorder = new MediaRecorder(stream, options);
+        recordingMimeType = mediaRecorder.mimeType || mimeType || 'audio/webm';
+
+        audioChunks = [];
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) audioChunks.push(event.data);
+        };
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: recordingMimeType });
+          const reader = new FileReader();
+          reader.onload = () => {
+            sessionStorage.setItem('memorigems_recording', reader.result);
+            sessionStorage.setItem('memorigems_recording_duration', timerText.textContent);
+            sessionStorage.setItem('memorigems_recording_mime', recordingMimeType);
+            // Carry the captured transcript (may be empty) to the review step.
+            sessionStorage.setItem('memorigems_transcript', (transcriptFinal || '').trim());
+            window.location.href = 'review.html';
+          };
+          reader.readAsDataURL(audioBlob);
+          stream.getTracks().forEach(track => track.stop());
+        };
+        mediaRecorder.start();
+        startTime = Date.now();
+        pausedTime = 0;
+        isPaused = false;
+        startRecognition();
+        timerDot.classList.add('active');
+        recordBtn.classList.add('recording');
+        recordBtn.style.display = 'none';
+        controlRow.classList.remove('hidden');
+        timerInterval = setInterval(updateTimer, 250);
+      } catch (err) {
+        alert('Could not access your microphone. Please allow microphone access and try again.');
+        console.error(err);
+      }
+    }
+
+    function stopRecording() {
+      if (timerInterval) clearInterval(timerInterval);
+      stopRecognition();
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+      timerDot.classList.remove('active');
+    }
+
+    function cancelRecording() {
+      if (timerInterval) clearInterval(timerInterval);
+      stopRecognition();
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.onstop = () => {
+          mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        };
+        mediaRecorder.stop();
+      }
+      sessionStorage.removeItem('memorigems_preset_phrase');
+      sessionStorage.removeItem('memorigems_gem');
+      sessionStorage.removeItem('memorigems_transcript');
+      // Was hardcoded to choose-gem.html, which dropped a family at the Gem
+      // picker instead of the page they were reading. setBackArrow has already
+      // resolved the right destination (?back=, then referrer, then this Gem's
+      // own page), so reuse it rather than deciding a second time and differently.
+      var b = document.getElementById('backBtn');
+      var dest = (b && b.getAttribute('href')) || 'home.html';
+      sessionStorage.removeItem('memorigems_return');
+      window.location.href = dest;
+    }
+
+    function togglePause() {
+      if (!mediaRecorder) return;
+      if (isPaused) {
+        mediaRecorder.resume();
+        resumeRecognition();
+        startTime = Date.now();
+        isPaused = false;
+        timerDot.classList.add('active');
+        pauseBtn.querySelector('.control-label').textContent = 'Pause';
+      } else {
+        mediaRecorder.pause();
+        pauseRecognition();
+        pausedTime += Date.now() - startTime;
+        isPaused = true;
+        timerDot.classList.remove('active');
+        pauseBtn.querySelector('.control-label').textContent = 'Resume';
+      }
+    }
+
+    recordBtn.addEventListener('click', startRecording);
+    stopBtn.addEventListener('click', stopRecording);
+    cancelBtn.addEventListener('click', cancelRecording);
+
+    (function () {
+      var hb = document.getElementById('helpBtn');
+      var hs = document.getElementById('helpSheet');
+      var hc = document.getElementById('helpClose');
+      if (!hb || !hs) return;
+      function setOpen(open) {
+        hs.classList.toggle('hidden', !open);
+        hb.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open && hs.scrollIntoView) hs.scrollIntoView({ block: 'nearest' });
+      }
+      hb.addEventListener('click', function () { setOpen(hs.classList.contains('hidden')); });
+      if (hc) hc.addEventListener('click', function () { setOpen(false); hb.focus(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !hs.classList.contains('hidden')) { setOpen(false); hb.focus(); }
+      });
+    })();
+    pauseBtn.addEventListener('click', togglePause);
+  </script>
+</body>
+</html>
