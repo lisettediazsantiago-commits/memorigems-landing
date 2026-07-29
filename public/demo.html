@@ -89,11 +89,13 @@
   .name-input::placeholder { color: #B4AE9E; }
   .name-input:focus { border-color: var(--green); }
 
-  .cat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 34px; }
+  .cat-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+             max-width: 320px; margin: 30px auto 0; }
   .pv-or { display:flex; align-items:center; gap:10px; margin:22px 0 14px; color:var(--app-soft); font-size:12px; }
   .pv-or::before, .pv-or::after { content:''; flex:1 1 auto; height:1px; background:rgba(0,0,0,.09); }
   .pv-card { width:100%; display:flex; align-items:center; gap:13px; text-align:left; cursor:pointer;
-             background:#fff; border:1px solid #EAD9D5; border-radius:15px; padding:14px 16px; font-family:var(--sans); }
+             background:#F6EEEC; border:1px solid #EAD9D5; border-radius:16px; padding:15px 16px; font-family:var(--sans); }
+  .pv-card > span:last-child { display:flex; flex-direction:column; min-width:0; }
   .pv-card:active { transform:scale(0.99); }
   .pv-card .disc { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
   .pv-card .disc svg { width:21px; height:21px; }
@@ -435,10 +437,10 @@
         '</div>' +
         '<div class="cat-row">' + catBtn('comfort') + catBtn('routine') + catBtn('moment') + catBtn('music') + '</div>' +
         '<div class="pv-or">or</div>' +
-        '<button class="pv-card cat" data-c="voice"><span class="disc voice">'+ic('mic')+'</span><span><span class="pv-t">Preserve their voice</span><span class="pv-s">Record their story or upload a recording</span></span></button>' +
+        '<button class="pv-card" data-c="voice"><span class="disc voice">'+ic('mic')+'</span><span><span class="pv-t">Preserve their voice</span><span class="pv-s">Record their story or upload a recording</span></span></button>' +
       '</div>';
     document.getElementById('nameInp').addEventListener('input', e => { st.recipient = e.target.value; });
-    [...bodyA.querySelectorAll('.cat')].forEach(el => el.onclick = () => {
+    [...bodyA.querySelectorAll('.cat, .pv-card')].forEach(el => el.onclick = () => {
       st.cat = el.getAttribute('data-c'); st.msg = (CATS[st.cat].msgs || [])[0]; st.recorded=false; st.recording=false; st.photo=false; discardUserPhoto(); st.words=undefined;
       st.step='intro'; renderA();
     });
