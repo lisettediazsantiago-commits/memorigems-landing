@@ -12,8 +12,8 @@
     --ink:#5b4a39; --muted:#a08c74; --sky:#CFE7F5;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-  html,body{margin:0;padding:0;background:transparent;font-family:'Nunito',sans-serif;color:var(--ink);}
-  .app{max-width:440px;margin:0 auto;min-height:100vh;background:transparent;position:relative;overflow:hidden;}
+  html,body{margin:0;padding:0;background:#efe6d6;font-family:'Nunito',sans-serif;color:var(--ink);}
+  .app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--cream);position:relative;overflow:hidden;}
   .screen{display:none;}
   .screen.active{display:block;}
 
@@ -81,84 +81,14 @@
   /* done */
   .done-wrap{text-align:center;padding-top:8px;}
   .done-gem{width:120px;margin:6px auto 4px;display:block;}
-
-  /* ---- My Art Tools panel (mirror Color a Page studio) ---- */
-  .apanel{background:#FFFDF9;border:1px solid rgba(184,146,72,.25);border-radius:16px;padding:16px;box-shadow:0 12px 30px -22px rgba(140,110,50,.4);margin-top:10px;text-align:left;}
-  .apanel-t{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:21px;margin:0 0 14px;color:var(--ink);display:flex;align-items:center;gap:9px;}
-  .adot{width:8px;height:8px;border-radius:50%;background:var(--coral);}
-  .agroup{margin-bottom:16px;}.agroup:last-child{margin-bottom:0;}
-  .albl{font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#8C6E32;margin-bottom:9px;}
-  .atools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-  .atool{border:1px solid rgba(184,146,72,.3);background:#fff;border-radius:13px;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:.2s;font-family:'Nunito',sans-serif;font-weight:700;font-size:11px;color:#524634;}
-  .atool svg{width:23px;height:23px;}
-  .atool:hover{border-color:var(--coral);}
-  .atool.active{background:var(--coral);color:#fff;border-color:var(--coral);box-shadow:0 8px 16px -9px rgba(181,85,46,.8);}
-  .atool.active svg *{stroke:#fff !important;}
-  .aswatches{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;}
-  .aswatch{aspect-ratio:1;border-radius:50%;cursor:pointer;border:3px solid #fff;box-shadow:0 0 0 1.5px rgba(184,146,72,.4);transition:.15s;}
-  .aswatch:hover{transform:scale(1.12);}
-  .aswatch.active{box-shadow:0 0 0 3px var(--coral-deep);transform:scale(1.12);}
-  .aswatch.white{border:3px solid #e6dccb;}
-  .acustom{display:flex;align-items:center;gap:10px;margin-top:12px;}
-  .acustom label{font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;color:#524634;}
-  .acustom input[type=color]{width:44px;height:30px;border:1px solid rgba(184,146,72,.4);border-radius:8px;background:#fff;cursor:pointer;padding:2px;}
-  .asizes{display:flex;gap:10px;}
-  .asize-btn{flex:1;border:1px solid rgba(184,146,72,.3);background:#fff;border-radius:12px;height:46px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
-  .asize-btn:hover{border-color:var(--coral);}
-  .asize-btn.active{border-color:var(--coral);background:#FBEDE4;}
-  .asize-dot{background:var(--coral-deep);border-radius:50%;}
-  .astamps{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
-  .astamp{border:1px solid rgba(184,146,72,.3);background:#fff;border-radius:12px;height:48px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
-  .astamp:hover{border-color:var(--coral);}
-  .astamp.active{border-color:var(--coral);background:#FBEDE4;}
-  .astamp svg{width:25px;height:25px;}
-
-  /* ---- studio chrome (mirror Color a Page) ---- */
-  .lg-bg{position:fixed;top:0;right:0;bottom:0;left:0;z-index:-1;background:#FAF7F0 url('lg-bg.jpg') center center/cover no-repeat;}
-  #screen-bank .banner{display:none;}
-  .companion{display:none;}
-  #screen-bank .card{margin-top:0;border-radius:18px;min-height:auto;background:rgba(253,248,241,.92);box-shadow:0 14px 36px -26px rgba(120,90,40,.5);}
-  .lg-nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px 12px 0;justify-content:center;}
-  .lg-back{display:inline-flex;align-items:center;justify-content:center;gap:7px;width:100%;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;text-decoration:none;color:#524634;background:#FFFDF9;border:1px solid rgba(184,146,72,.35);border-radius:100px;padding:9px 16px;box-shadow:0 8px 20px -16px rgba(140,110,50,.5);}
-  .lg-back svg{width:15px;height:15px;}
-  .lg-jumps{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;width:100%;}
-  .jump-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Nunito',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:9px 13px;border-radius:100px;border:1px solid var(--coral);color:var(--coral-deep);background:rgba(255,255,255,.7);text-decoration:none;cursor:pointer;transition:transform .15s,background .2s;}
-  .jump-btn svg{width:13px;height:13px;}
-  .jump-btn:active{transform:scale(.97);}
-  .jump-btn.j-color{background:var(--coral);border-color:var(--coral);color:#fff;}
-  .jump-btn.j-print{border-color:#B89248;color:#8C6E32;}
-  .jump-btn.j-match{border-color:var(--coral);color:var(--coral-deep);}
-  .jump-btn.j-choices{border-color:#6BA876;color:#3F7A4A;}
-  .jump-btn.j-calm{border-color:#4E97A6;color:#2E6B78;}
-  header.site{text-align:center;margin:14px 0 4px;}
-  header.site .eyebrow{font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:600;letter-spacing:4px;color:var(--coral-deep);}
-  header.site .brand{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:38px;letter-spacing:-1px;color:#524634;line-height:1;margin:6px 0 2px;}
-  header.site .brand .gems{color:var(--coral);font-weight:700;}
-  header.site .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:#6b5a47;margin:4px 0 0;}
 </style>
   <script src="text-size.js"></script>
 </head>
 <body>
-<div class="lg-bg" aria-hidden="true"></div>
 <div class="app" id="app">
 
   <!-- BANK -->
   <section class="screen active" id="screen-bank">
-    <nav class="lg-nav" aria-label="LittleGems activities">
-      <a class="lg-back" href="littlegems-home.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Back to LittleGems</a>
-      <div class="lg-jumps">
-        <a class="jump-btn j-color" href="lg-color.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c2-1 3-3 4-5l9-9 3 3-9 9c-2 1-4 2-7 2z"/><path d="M14 5l5 5"/></svg>Color online</a>
-        <a class="jump-btn j-print" href="https://www.mymemorigems.com/littlegems#printables"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-2 6H8z"/><path d="M8 9l-2 12h12l-2-12"/></svg>Coloring sheets</a>
-        <a class="jump-btn j-match" href="lg-match.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Match game</a>
-        <a class="jump-btn j-choices" href="https://www.mymemorigems.com/littlegems#game-choices"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>Kindness game</a>
-        <a class="jump-btn j-calm" href="lg-calm.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>Calming game</a>
-      </div>
-    </nav>
-    <header class="site">
-      <div class="eyebrow">A LITTLE GEM YOU CAN COLOR</div>
-      <div class="brand"><span>Little</span><span class="gems">Gems</span></div>
-      <p class="tagline">Color it on the screen — then keep it forever.</p>
-    </header>
     <div class="banner">
       <button class="backbtn" onclick="toWhatToMake()" aria-label="Back"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
       <div class="bubble"><svg width="20" height="18" viewBox="0 0 24 22"><path d="M12 21C-4 11 4 1 12 6 20 1 28 11 12 21Z" fill="#ED6A7C"/></svg></div>
@@ -167,6 +97,12 @@
     <div class="card">
       <h1>Pick something to color!</h1>
       <p class="sub">Choose a picture to make into a gem.</p>
+      <div class="friendrow">
+        <span>Your friend:</span>
+        <button class="friendbtn" data-c="bunny" onclick="setCompanion('bunny')" aria-label="Pick this colour"></button>
+        <button class="friendbtn" data-c="cat" onclick="setCompanion('cat')" aria-label="Pick this colour"></button>
+        <button class="friendbtn" data-c="turtle" onclick="setCompanion('turtle')" aria-label="Pick this colour"></button>
+      </div>
       <div class="bankgrid" id="bankgrid"></div>
     </div>
   </section>
@@ -180,44 +116,18 @@
     </div>
     <div class="card">
       <h1>Color something<br>from your heart!</h1>
-      <div class="apanel">
-        <h2 class="apanel-t"><span class="adot"></span>My Art Tools</h2>
-        <div class="agroup">
-          <div class="albl">Tools</div>
-          <div class="atools" id="atools">
-            <button class="atool active" data-tool="brush"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21c2-1 3-3 4-5l9-9 3 3-9 9c-2 1-4 2-7 2z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 5l5 5" stroke="#524634" stroke-width="1.6"/></svg>Brush</button>
-            <button class="atool" data-tool="crayon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 21l-3 1 1-3 11-11 2 2L7 21z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 6l4 4" stroke="#524634" stroke-width="1.6"/></svg>Crayon</button>
-            <button class="atool" data-tool="fill"><svg viewBox="0 0 24 24" fill="none"><path d="M5 11l6-6 7 7-6 6a2 2 0 0 1-3 0l-4-4a2 2 0 0 1 0-3z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M19 15c1 1.5 1.5 2.5 1.5 3a1.5 1.5 0 1 1-3 0c0-.5.5-1.5 1.5-3z" stroke="#524634" stroke-width="1.6"/></svg>Fill</button>
-            <button class="atool" data-tool="stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M5 9l3-4h8l3 4-7 9z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/></svg>Stamp</button>
-            <button class="atool" data-tool="eraser"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16l7-7 6 6-4 4H7l-3-3z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M11 9l5 5" stroke="#524634" stroke-width="1.6"/></svg>Eraser</button>
-            <button class="atool" data-tool="undo" id="aundo"><svg viewBox="0 0 24 24" fill="none"><path d="M9 7L4 11l5 4" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 11h9a6 6 0 0 1 0 12H9" stroke="#524634" stroke-width="1.6" stroke-linecap="round"/></svg>Undo</button>
-          </div>
-        </div>
-        <div class="agroup">
-          <div class="albl">Colors</div>
-          <div class="aswatches" id="aswatches"></div>
-          <div class="acustom"><label for="acustom">Any color:</label><input type="color" id="acustom" value="#E07A52" /></div>
-        </div>
-        <div class="agroup">
-          <div class="albl">Brush Size</div>
-          <div class="asizes" id="asizes">
-            <button class="asize-btn" data-size="0.012" aria-label="Thin brush"><span class="asize-dot" style="width:8px;height:8px;"></span></button>
-            <button class="asize-btn active" data-size="0.020" aria-label="Medium brush"><span class="asize-dot" style="width:15px;height:15px;"></span></button>
-            <button class="asize-btn" data-size="0.034" aria-label="Thick brush"><span class="asize-dot" style="width:26px;height:26px;"></span></button>
-          </div>
-        </div>
-        <div class="agroup" id="astampgroup" style="display:none;">
-          <div class="albl">Pick a Stamp</div>
-          <div class="astamps" id="astamps">
-            <button class="astamp active" data-stamp="gem" aria-label="Gem stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M5 9l3-4h8l3 4-7 9z" stroke="#B5552E" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 9h14" stroke="#B5552E" stroke-width="1.1"/></svg></button>
-            <button class="astamp" data-stamp="heart" aria-label="Heart stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" stroke="#E07A52" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
-            <button class="astamp" data-stamp="star" aria-label="Star stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.3 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19l1-5.8L3.5 9.1l5.9-.8z" stroke="#D6A94E" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
-            <button class="astamp" data-stamp="sparkle" aria-label="Sparkle stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c.5 4 1.5 5.5 6 6-4.5.5-5.5 2-6 6-.5-4-1.5-5.5-6-6 4.5-.5 5.5-2 6-6z" stroke="#4E97A6" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
-          </div>
-        </div>
+      <div class="colrow" style="margin-top:10px">
+        <div class="legend" id="legend"></div>
+        <div class="canvaswrap"><canvas id="canvas"></canvas></div>
       </div>
-      <div class="canvaswrap" style="margin-top:14px"><canvas id="canvas"></canvas></div>
-      <div class="bottombar" style="margin-top:14px">
+      <div class="tools">
+        <button class="tool sel" id="tool-fill" onclick="setTool('fill')" aria-label="Fill" title="Fill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 11l-8-8-8.5 8.5a1.5 1.5 0 0 0 0 2.1L8 19a1.5 1.5 0 0 0 2.1 0L19 11Z"/><path d="M5 13h14"/><path d="M21 16s2 2.5 2 4a2 2 0 1 1-4 0c0-1.5 2-4 2-4Z"/></svg></button>
+        <button class="tool" id="tool-brush" onclick="setTool('brush')" aria-label="Brush" title="Brush"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 14.5 18 6a2.1 2.1 0 0 1 3 3l-8.5 8.5"/><path d="M9.5 14.5a3.5 3.5 0 0 1 0 5C8 21 5 21 3 21c0-2 0-5 1.5-6.5a3.5 3.5 0 0 1 5 0Z"/></svg></button>
+        <button class="tool" id="tool-eraser" onclick="setTool('eraser')" aria-label="Eraser" title="Eraser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15l6 6h8"/><path d="M9 11l8 8"/><rect x="3.5" y="8.5" width="10" height="8" rx="1.5" transform="rotate(-45 8.5 12.5)"/></svg></button>
+        <button class="tool" id="tool-undo" onclick="undo()" aria-label="Undo" title="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-1"/></svg></button>
+      </div>
+      <div class="palette" id="palette"></div>
+      <div class="bottombar">
         <button class="barbtn" onclick="startOver()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/></svg>Start over</button>
         <button class="barbtn" onclick="goNext()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>Next</button>
       </div>
@@ -293,7 +203,7 @@ function setScreen(id){
   window.scrollTo(0,0);
   if(id==='bank') renderBank();
 }
-function toWhatToMake(){ window.location.href='littlegems-home.html'; }
+function toWhatToMake(){alert('In the full app this returns to the "What shall we make?" screen.');}
 
 /* ---------- bank ---------- */
 function renderBank(){
@@ -309,14 +219,16 @@ function renderBank(){
 /* ---------- coloring engine ---------- */
 var canvas=document.getElementById('canvas'), ctx=canvas.getContext('2d',{willReadFrequently:true});
 var baseCanvas=document.createElement('canvas'), bctx=baseCanvas.getContext('2d');
-var curSheet=null, curColor=null, curTool='brush', curStamp='gem', curSizeFrac=0.020, edited=false;
+var curSheet=null, curColor=null, curTool='fill', edited=false;
 var undoStack=[];
 var LINE=110; // luminance below this = outline (barrier)
 
 function openSheet(id){
   curSheet=id; edited=false; undoStack=[];
   var s=SHEETS[id];
-  setTool('brush'); selectColor(curColor||'#E07A52');
+  buildLegend(s); buildPalette(s); setTool('fill');
+  // default selected colour = first
+  selectColor(s.colors[0][2]);
   setScreen('color');
   var img=new Image();
   img.onload=function(){
@@ -330,34 +242,35 @@ function openSheet(id){
   img.src=s.img;
 }
 
-var PALETTE=['#E07A52','#F4A38A','#FDEDE4','#D6A94E','#F2D58A','#6BA876','#3F7A4A','#4E97A6','#2E6B78','#9B7BB8','#B5552E','#8C6E32','#8D5524','#C68642','#E0AC69','#F1C27D','#FFDBAC','#2A2317','#8A8070','#FFFFFF'];
-function buildPalette(){
-  var P=document.getElementById('aswatches'); P.innerHTML='';
-  PALETTE.forEach(function(hex){
-    var sw=document.createElement('div'); sw.className='aswatch'+(hex==='#FFFFFF'?' white':''); sw.dataset.hex=hex;
-    sw.title=hex; sw.style.background=hex;
+function buildLegend(s){
+  var L=document.getElementById('legend'); L.innerHTML='';
+  s.colors.forEach(function(c){
+    var b=document.createElement('button'); b.className='lrow'; b.dataset.hex=c[2];
+    b.onclick=function(){selectColor(c[2]); setTool('fill');};
+    b.innerHTML='<span class="lnum">'+c[0]+'</span><span class="lname">'+c[1]+'</span><span class="lswatch" style="background:'+c[2]+'"></span>';
+    L.appendChild(b);
+  });
+}
+var THEME_PALETTE=[['#FFFFFF','White'],['#F4A3C0','Rose'],['#E8804E','Coral'],['#E5504A','Poppy'],['#F6C945','Sunshine'],['#A7D672','Spring'],['#5FB35B','Leaf'],['#79C9B0','Mint'],['#6FB2E8','Sky'],['#9B6FC9','Amethyst'],['#C3A6E8','Lavender'],['#D9B382','Honey'],['#9A6B43','Soil'],['#5B4A39','Ink']];
+function buildPalette(s){
+  var P=document.getElementById('palette'); P.innerHTML='';
+  THEME_PALETTE.forEach(function(c){
+    var hex=c[0];
+    var sw=document.createElement('div'); sw.className='swatch'+(hex==='#FFFFFF'?' white':''); sw.dataset.hex=hex;
+    sw.title=c[1]; sw.style.background=hex; sw.style.setProperty('--sel',hex);
     sw.onclick=function(){selectColor(hex);};
     P.appendChild(sw);
   });
 }
 function selectColor(hex){
   curColor=hex;
-  document.querySelectorAll('.aswatch').forEach(function(s){s.classList.toggle('active',s.dataset.hex.toUpperCase()===hex.toUpperCase());});
-  var cc=document.getElementById('acustom'); if(cc && /^#[0-9a-fA-F]{6}$/.test(hex)) cc.value=hex;
+  document.querySelectorAll('.swatch').forEach(function(s){s.classList.toggle('sel',s.dataset.hex===hex);});
+  document.querySelectorAll('.lrow').forEach(function(r){r.classList.toggle('sel',r.dataset.hex===hex);});
 }
 function setTool(t){
-  if(t==='undo'){ undo(); return; }
   curTool=t;
-  document.querySelectorAll('.atool').forEach(function(b){b.classList.toggle('active',b.dataset.tool===t);});
-  var sg=document.getElementById('astampgroup'); if(sg) sg.style.display=(t==='stamp')?'block':'none';
-  canvas.style.cursor=(t==='fill')?'pointer':'crosshair';
+  ['fill','brush','eraser'].forEach(function(x){document.getElementById('tool-'+x).classList.toggle('sel',x===t);});
 }
-/* tool / size / stamp / custom-colour wiring */
-document.querySelectorAll('#atools .atool').forEach(function(b){ b.addEventListener('click',function(){setTool(b.dataset.tool);}); });
-document.querySelectorAll('#asizes .asize-btn').forEach(function(b){ b.addEventListener('click',function(){ curSizeFrac=parseFloat(b.dataset.size); document.querySelectorAll('#asizes .asize-btn').forEach(function(x){x.classList.toggle('active',x===b);}); }); });
-document.querySelectorAll('#astamps .astamp').forEach(function(b){ b.addEventListener('click',function(){ curStamp=b.dataset.stamp; document.querySelectorAll('#astamps .astamp').forEach(function(x){x.classList.toggle('active',x===b);}); }); });
-(function(){ var cc=document.getElementById('acustom'); if(cc) cc.addEventListener('input',function(){ selectColor(cc.value); }); })();
-buildPalette();
 
 function pushUndo(){
   try{undoStack.push(ctx.getImageData(0,0,canvas.width,canvas.height));}catch(e){}
@@ -411,14 +324,11 @@ function floodFill(x,y,hex){
 
 /* brush / eraser stroke */
 var drawing=false,last=null;
-function strokeR(){return Math.max(3, canvas.width*curSizeFrac);}
+function strokeR(){return Math.max(6, canvas.width*0.016);}
 function paintTo(p){
   ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineWidth=strokeR()*2;
-  if(curTool==='brush'||curTool==='crayon'){
-    ctx.save();
-    ctx.globalAlpha=(curTool==='crayon')?0.5:1;
+  if(curTool==='brush'){
     ctx.strokeStyle=curColor; ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke();
-    ctx.restore();
   } else { // eraser: restore original art under a round stroke
     ctx.save(); ctx.beginPath();
     var steps=Math.max(1,Math.hypot(p.x-last.x,p.y-last.y)/3);
@@ -427,24 +337,9 @@ function paintTo(p){
   }
   last=p;
 }
-var STAMP_PATHS={
-  gem:'M5 9l3-4h8l3 4-7 9z',
-  heart:'M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z',
-  star:'M12 3l2.6 5.3 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19l1-5.8L3.5 9.1l5.9-.8z',
-  sparkle:'M12 3c.5 4 1.5 5.5 6 6-4.5.5-5.5 2-6 6-.5-4-1.5-5.5-6-6 4.5-.5 5.5-2 6-6z'
-};
-function drawStamp(x,y){
-  var sz=Math.max(28, strokeR()*3.4), scale=sz/24;
-  ctx.save(); ctx.translate(x-sz/2,y-sz/2); ctx.scale(scale,scale);
-  var path=new Path2D(STAMP_PATHS[curStamp]||STAMP_PATHS.gem);
-  ctx.fillStyle=curColor; ctx.fill(path);
-  ctx.lineWidth=1.4; ctx.strokeStyle='rgba(0,0,0,.35)'; ctx.stroke(path);
-  ctx.restore();
-}
 canvas.addEventListener('pointerdown',function(e){
   e.preventDefault(); var p=evtPos(e);
   if(curTool==='fill'){ pushUndo(); if(floodFill(p.x,p.y,curColor)) markEdited(); }
-  else if(curTool==='stamp'){ pushUndo(); drawStamp(p.x,p.y); markEdited(); }
   else { pushUndo(); drawing=true; last=p; paintTo(p); }
 });
 canvas.addEventListener('pointermove',function(e){ if(!drawing) return; e.preventDefault(); paintTo(evtPos(e)); });
