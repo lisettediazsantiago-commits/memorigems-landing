@@ -168,6 +168,22 @@
       margin-top: 8px;
     }
 
+    .founders-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .founders-two .founder-card { margin-top: 0; }
+
+    .founder-name { text-align: left; }
+    .founder-role { text-align: left; }
+
+    @media (max-width: 560px) {
+      .founders-two { grid-template-columns: 1fr; }
+    }
+
     .founder-photo {
       display: block;
       width: 112px;
@@ -307,12 +323,18 @@
     </div>
 
     <div class="section">
-      <div class="section-title">Built by</div>
-      <div class="founder-card">
-        <img src="lisette-headshot.jpg" alt="Lisette Diaz-Santiago, founder of MemoriGems" class="founder-photo" />
-        <div class="founder-name">Lisette Diaz-Santiago</div>
-        <div class="founder-role">Founder, HuLux Innovations</div>
-        <p class="founder-bio">Healthcare leader, educator, and founder with 10+ years of experience advancing patient experience and human-centered care. MemoriGems brings together her work in healthcare, learning &amp; development, and the lived perspective of caregiving — designed to support emotional connection when memory becomes uncertain. Invited presenter at the 2026 Alzheimer's Association International Conference on voice-based approaches to dementia care.</p>
+      <div class="section-title">Built by two people who've sat in those rooms</div>
+      <div class="founders-two">
+        <div class="founder-card">
+          <div class="founder-name">Lisette Diaz-Santiago</div>
+          <div class="founder-role">Co-Founder of MemoriGems · CEO of HuLux Innovations</div>
+          <p class="founder-bio">More than 14 years across healthcare, education, leadership, patient experience and human-centered innovation — informed by the lived experience of supporting her grandfather through progressive dementia. Leads vision, design direction and the company's voice. Presented at the 2026 Alzheimer's Association International Conference on voice-based approaches to dementia care.</p>
+        </div>
+        <div class="founder-card">
+          <div class="founder-name">Edwina Castone</div>
+          <div class="founder-role">Co-Founder of MemoriGems</div>
+          <p class="founder-bio">Brings expertise in learning, family engagement, relationship-centered support and communication — helping people navigate meaningful life experiences through connection and belonging. Has shaped MemoriGems from concept to reality, since before it had a name.</p>
+        </div>
       </div>
     </div>
 
