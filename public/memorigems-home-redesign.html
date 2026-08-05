@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MemoriGems — Because connection is more than memory.</title>
+<meta name="description" content="MemoriGems is a voice-first connection platform. We help families stay recognized to the people they love — through voice, stories, and everyday moments.">
+<link rel="canonical" href="https://www.mymemorigems.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MemoriGems">
+<meta property="og:title" content="MemoriGems — Voice-first connection for the people you love">
+<meta property="og:description" content="A voice-first connection platform helping families stay recognized — through voice, stories, and the moments that matter.">
+<meta property="og:url" content="https://www.mymemorigems.com/">
+<meta property="og:image" content="https://www.mymemorigems.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MemoriGems — When memories change, connection shouldn't.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MemoriGems — Voice-first connection for the people you love">
+<meta name="twitter:description" content="A voice-first connection platform helping families stay recognized through voice, stories, and meaningful moments.">
+<meta name="twitter:image" content="https://www.mymemorigems.com/og-image.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Source+Sans+3:ital,wght@0,300..700;1,400&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   MemoriGems — homepage redesign prototype
+   Palette sampled from the amber gem photograph itself:
+   the gem's body reads #B44800–#C04800, its lit core #EF8502.
+
+   CONTRAST, measured against the cream (#FBF6EE):
+     --ink    14.8:1   --ink-2  8.4:1   --ember  8.4:1
+     white on --amber  4.9:1   cream on --dark  13.7:1
+   Amber NEVER carries small text. It fills, glows and rules;
+   --ember carries any amber-coloured word.
+   ============================================================ */
+
+:root{
+  --cream:      #FBF6EE;
+  --cream-2:    #F5E9D7;
+  --paper:      #FFFCF7;
+  --amber:      #B85208;   /* fills, buttons, rules */
+  --amber-glow: #EF8502;   /* gradients and light only — never text */
+  --ember:      #7A3405;   /* amber as a WORD */
+  --ink:        #2B2018;
+  --ink-2:      #56463A;
+  --dark:       #33251A;
+  --dark-warm:  #E8C79A;
+
+  /* MemoriGems' OWN colours, for the phone screen. Deliberately NOT amber:
+     recolouring the UI to match the page would show a product that doesn't exist. */
+  --app-cream:      #F2F0E9;
+  --app-green:      #1D9E75;
+  --app-green-deep: #0F6E56;
+  --app-ink:        #243027;
+  --app-ink-2:      #5C6B60;
+  --app-chip:       #E9EDE8;
+  /* the five Gem colours + controls, sampled from her own screenshots Aug 3 2026 */
+  --gem-comfort:#9FE1CB; --gem-comfort-d:#0F6E56;
+  --gem-routine:#C9B5D9; --gem-routine-d:#5B3E7F;
+  --gem-moment: #EFC196; --gem-moment-d: #9C5226;
+  --gem-music:  #BCCDF0; --gem-music-d:  #3E5A96;
+  --gem-voice:  #E3C5C0; --gem-voice-d:  #9A5548;
+  --app-phrase: #C7EBDD; --app-rec:      #C75B5B;
+  --app-stop:   #1D9E75; --app-line:     #D3D1C7;
+
+  /* Swap this one line back to 'Cormorant Garamond', serif to return
+     to the current brand face. Fraunces is used here because the
+     aging-eye pass found Cormorant's hairlines disappear below 34px. */
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Source Sans 3', system-ui, -apple-system, sans-serif;
+
+  --r-lg: 28px;
+  --r-md: 20px;
+  --r-sm: 14px;
+  --shadow-soft: 0 2px 6px rgba(58,40,24,.04), 0 14px 40px rgba(58,40,24,.07);
+  --shadow-lift: 0 4px 10px rgba(58,40,24,.06), 0 22px 60px rgba(58,40,24,.11);
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:20px;
+  line-height:1.65;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+img{ max-width:100%; display:block; }
+
+h1,h2,h3{
+  font-family:var(--display);
+  font-weight:500;
+  line-height:1.12;
+  letter-spacing:-.012em;
+  margin:0;
+  color:var(--ink);
+}
+h1{ font-size:clamp(40px,5.6vw,72px); }
+h2{ font-size:clamp(32px,4vw,52px); }
+h3{ font-size:clamp(23px,2.1vw,28px); line-height:1.24; }
+em{ font-style:italic; color:var(--ember); }
+p{ margin:0 0 1.1em; }
+p:last-child{ margin-bottom:0; }
+
+a{ color:var(--ember); }
+
+:focus-visible{
+  outline:3px solid var(--ember);
+  outline-offset:3px;
+  border-radius:6px;
+}
+
+.skip{
+  position:absolute; left:-9999px; top:0;
+  background:var(--paper); color:var(--ink);
+  padding:14px 20px; border-radius:0 0 var(--r-sm) 0; z-index:200;
+}
+.skip:focus{ left:0; }
+
+/* ---------- layout scaffolding ------------------------------ */
+.wrap{ width:min(1180px, calc(100% - 48px)); margin-inline:auto; }
+.wrap-narrow{ width:min(760px, calc(100% - 48px)); margin-inline:auto; }
+
+.sec{ padding:clamp(72px,9vw,124px) 0; position:relative; }
+.sec-tight{ padding:clamp(56px,6vw,84px) 0; }
+.band{ background:var(--cream-2); }
+
+/* eyebrow — lowercase on purpose. The live site's 11px uppercase
+   letter-spaced labels were the single worst legibility offender. */
+.eyebrow{
+  display:flex; align-items:center; gap:10px;
+  font-size:17px; font-weight:600; color:var(--ember);
+  margin:0 0 18px;
+}
+.eyebrow svg{ flex:0 0 auto; }
+/* ---------- her gem, used everywhere the page needs a gem mark -------------
+   Defined once as a data URI so it costs ~7 KB no matter how many appear.
+   NOT used inside the phone screens: the Comfort / Routine / Moment / Music
+   icons and the share-bar gem there are the APP's own icons in the app's own
+   colours, and swapping them would misrepresent the product. -------------- */
+.gemi{
+  display:inline-block; flex:0 0 auto; vertical-align:-.14em;
+  background:url(data:image/webp;base64,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) center/contain no-repeat;
+}
+.gemi-13{ width:15px; height:14px; }
+.gemi-12{ width:14px; height:13px; }
+.gemi-38{ width:38px; height:36px; }
+.gemi-44{ width:44px; height:42px; }
+.gemi-52{ width:34px; height:32px; }
+
+
+.sec-intro{ max-width:640px; }
+.sec-intro-wide{ max-width:680px; }
+.sec-intro .lede{ margin-top:16px; }
+
+.lede{
+  font-size:clamp(20px,2vw,23px);
+  color:var(--ink-2);
+  line-height:1.6;
+  max-width:60ch;
+}
+
+/* ---------- buttons ----------------------------------------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-family:var(--body); font-size:18px; font-weight:600;
+  padding:17px 30px; border-radius:100px;
+  text-decoration:none; border:2px solid transparent; cursor:pointer;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background-color .35s var(--ease);
+}
+.btn-primary{
+  background:var(--amber); color:#fff;
+  box-shadow:0 6px 20px rgba(184,82,8,.26);
+}
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 30px rgba(184,82,8,.32); }
+/* Currently unused — the hero's "Watch How It Works" button came out once the
+   four-phone flow section made the point better. Kept so a second CTA is one line
+   of markup away rather than a restyle. */
+.btn-ghost{
+  background:transparent; color:var(--ember); border-color:rgba(184,82,8,.42);
+}
+.btn-ghost:hover{ transform:translateY(-2px); background:rgba(184,82,8,.06); }
+.btn-onDark{
+  background:var(--dark-warm); color:var(--dark);
+}
+.btn-onDark:hover{ transform:translateY(-2px); }
+.btn-row{ display:flex; flex-wrap:wrap; gap:16px; margin-top:34px; }
+
+/* ---------- header ------------------------------------------ */
+.hdr{
+  position:sticky; top:0; z-index:100;
+  background:rgba(251,246,238,.86);
+  backdrop-filter:saturate(140%) blur(14px);
+  -webkit-backdrop-filter:saturate(140%) blur(14px);
+  transition:box-shadow .4s var(--ease);
+}
+.hdr.is-stuck{ box-shadow:0 1px 0 rgba(122,52,5,.09), 0 10px 30px rgba(58,40,24,.05); }
+.hdr-in{ display:flex; align-items:center; gap:28px; padding:16px 0; }
+.brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+/* In the header the brand is two lines (name + tagline), so centring the gem on the
+   whole block drops it below the title. Align to the top instead and lift it by half
+   the difference between the gem (42px) and the title's line box (28px) so it centres
+   on the WORD. Scoped to .hdr — the footer brand is one line and still centres.
+   .hdr .brand is (0,2,0) and beats .brand at (0,1,0). */
+.hdr .brand{ align-items:flex-start; }
+.hdr .brand .gemi{ margin-top:-7px; }
+.brand-name{
+  font-family:var(--display); font-size:28px; font-weight:600;
+  color:var(--ink); line-height:1;
+}
+.brand-tag{
+  display:block; font-family:var(--body); font-size:15px;
+  font-weight:400; color:var(--ink-2); margin-top:4px; line-height:1.3;
+}
+.nav{ margin-left:auto; display:flex; align-items:center; gap:20px; }
+.nav a:not(.btn){
+  font-size:16px; color:var(--ink-2); text-decoration:none; font-weight:500;
+  transition:color .3s var(--ease);
+}
+.nav a:not(.btn):hover{ color:var(--ember); }
+.nav .btn{ font-size:15px; padding:11px 22px; }
+.nav-toggle{
+  display:none; margin-left:auto; background:none; border:0; cursor:pointer;
+  padding:12px; color:var(--ink); border-radius:12px;
+}
+
+/* ---------- hero -------------------------------------------- */
+.hero{
+  position:relative;
+  background:
+    radial-gradient(900px 520px at 88% 8%, rgba(239,133,2,.13), transparent 62%),
+    linear-gradient(180deg, var(--cream) 0%, #F8EEE0 100%);
+  padding-top:clamp(48px,5vw,72px);
+  overflow:hidden;
+}
+.hero-grid{
+  display:grid; grid-template-columns:1.02fr .98fr; gap:clamp(32px,4vw,64px);
+  align-items:center;
+}
+.hero-copy{ padding-bottom:clamp(60px,7vw,110px); }
+.hero h1{ margin-bottom:24px; }
+.hero .lede{ font-size:clamp(20px,1.7vw,23px); }
+.hero-photo{
+  position:relative; border-radius:var(--r-lg) 0 0 var(--r-lg);
+  overflow:hidden; align-self:stretch;
+  min-height:min(74vh, 620px);
+  margin-right:calc(50% - 50vw);
+  box-shadow:var(--shadow-soft);
+}
+.hero-photo img{
+  width:100%; height:100%; object-fit:cover; object-position:60% 40%;
+  position:absolute; inset:0;
+}
+.hero-photo::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(100deg, rgba(248,238,224,.62) 0%, rgba(248,238,224,.12) 34%, transparent 60%);
+}
+.wave{ display:block; width:100%; height:auto; margin-top:-1px; }
+
+/* ---------- the two voice lines ----------------------------- */
+.insight{ background:var(--cream); padding:clamp(64px,7vw,104px) 0; }
+.insight-in{
+  display:grid; grid-template-columns:1fr 1fr; gap:clamp(26px,4vw,62px);
+  align-items:start;
+}
+.ins{ margin:0; }
+.ins-photo{
+  border-radius:var(--r-lg); overflow:hidden; aspect-ratio:4/3;
+  box-shadow:var(--shadow-soft);
+}
+.ins-photo img{
+  width:100%; height:100%; object-fit:cover;
+  transform:scale(1.02); transition:transform 7s var(--ease);
+}
+.ins:hover .ins-photo img{ transform:scale(1.07); }
+.ins figcaption{
+  font-family:var(--display); font-size:clamp(22px,2.3vw,30px);
+  line-height:1.3; color:var(--ink); text-align:center;
+  margin-top:24px; text-wrap:balance;
+}
+.ins-voice figcaption{ color:var(--ember); }
+.wavebars{ width:clamp(84px,9vw,124px); height:auto; display:block; margin:16px auto 0; }
+
+/* ---------- the story --------------------------------------- */
+.story{ position:relative; }
+.story-frame{
+  position:relative; border-radius:var(--r-lg); overflow:hidden;
+  min-height:min(78vh,660px); display:flex; align-items:flex-end;
+  box-shadow:var(--shadow-soft);
+}
+.story-frame img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:38% 42%;
+  transform:scale(1.04); transition:transform 9s var(--ease);
+}
+.story-frame:hover img{ transform:scale(1.09); }
+/* The scrim runs ACROSS, not up — the words sit in the left column, and the old
+   bottom-up gradient darkened everywhere except where the text actually was
+   (white measured 1.13:1 on the previous photograph). It holds 78% ink under the
+   text column and clears before her face. Measured on THIS photograph: white
+   8.78:1, warm-cream 6.4:1 — both AAA, and 10 points lighter than the first
+   pass, which was blacking out half the image to buy contrast nobody needed.
+   NOTE ON THE PHOTOGRAPH: the left half is AI-EXTENDED. The woman and the garden
+   are a real frame; the empty space the text sits on was generated to widen it.
+   Nothing about her was altered. Flagged because every other photograph on this
+   page is unmodified. */
+.story-frame::after{
+  content:''; position:absolute; inset:0;
+  background:
+    linear-gradient(96deg,
+      rgba(43,32,24,.80) 0%,
+      rgba(43,32,24,.78) 38%,
+      rgba(43,32,24,.50) 56%,
+      rgba(43,32,24,.13) 74%,
+      rgba(43,32,24,0)   88%),
+    linear-gradient(2deg, rgba(43,32,24,.52) 6%, rgba(43,32,24,.14) 40%, rgba(43,32,24,0) 68%);
+}
+.story-text{
+  position:relative; z-index:2; padding:clamp(32px,5vw,64px);
+  max-width:30ch;
+  text-shadow:0 2px 22px rgba(22,14,8,.55);
+}
+.story-text p{
+  font-family:var(--display); font-size:clamp(25px,2.8vw,38px); font-weight:600;
+  line-height:1.28; color:#FFFDF9; margin:0 0 .5em;
+}
+.story-text p.turn{ color:#F3D9B2; }
+.story-text p.becomes{
+  font-family:var(--body); font-size:19px; font-weight:700;
+  color:#FFFDF9; margin-top:22px; line-height:1.5;
+  text-shadow:0 1px 14px rgba(22,14,8,.6);
+}
+
+/* ---------- what is a gem (signature) ----------------------- */
+.gem-grid{
+  display:grid; grid-template-columns:.92fr 1.08fr; gap:clamp(36px,5vw,80px);
+  align-items:center;
+}
+.gem-stage{ position:relative; display:flex; justify-content:center; }
+.gem-photo{
+  border-radius:var(--r-lg); box-shadow:var(--shadow-lift); overflow:hidden;
+}
+.gem-photo img{ width:100%; }
+.threads{ list-style:none; margin:30px 0 0; padding:0; display:grid; gap:14px; }
+.thread{
+  display:flex; align-items:flex-start; gap:16px;
+  background:var(--paper); border-radius:var(--r-md);
+  padding:20px 24px; box-shadow:var(--shadow-soft);
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.thread:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lift); }
+.thread-icon{
+  flex:0 0 auto; width:46px; height:46px; border-radius:50%;
+  background:linear-gradient(150deg,#FBE6CB,#F3CE9E);
+  display:grid; place-items:center; color:var(--ember);
+}
+.thread b{ display:block; font-size:19px; font-weight:600; color:var(--ink); }
+.thread span{ font-size:18px; color:var(--ink-2); line-height:1.5; }
+.gem-sum{
+  margin-top:22px; font-family:var(--display);
+  font-size:clamp(21px,1.9vw,25px); color:var(--ember); line-height:1.35;
+}
+
+/* ---------- how it works ------------------------------------ */
+.steps{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(20px,2.6vw,36px);
+  margin-top:56px;
+}
+.step{ text-align:center; }
+.step-art{
+  width:100%; max-width:186px; margin:0 auto 22px; display:block;
+}
+.step h3{ font-size:23px; margin-bottom:8px; }
+.step-opt{
+  display:inline-block; margin:0 0 9px; padding:4px 13px; border-radius:100px;
+  background:rgba(184,82,8,.1); color:var(--ember);
+  font-size:15px; font-weight:600;
+}
+.step p{ font-size:18px; color:var(--ink-2); line-height:1.55; }
+
+/* ---------- built for every kind of connection --------------- */
+.cards-3{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,2.4vw,32px);
+  margin-top:52px;
+}
+.card{
+  background:var(--paper); border-radius:var(--r-lg); overflow:hidden;
+  box-shadow:var(--shadow-soft); display:flex; flex-direction:column;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lift); }
+.card-photo{ aspect-ratio:4/3; overflow:hidden; }
+.card-photo img{
+  width:100%; height:100%; object-fit:cover;
+  transform:scale(1.02); transition:transform 6s var(--ease);
+}
+.card:hover .card-photo img{ transform:scale(1.08); }
+.card-body{ padding:30px 30px 34px; display:flex; flex-direction:column; flex:1; }
+.card-body p{ font-size:18px; color:var(--ink-2); margin:10px 0 22px; }
+.card-link{
+  margin-top:auto; font-weight:600; font-size:18px; color:var(--ember);
+  text-decoration:none; display:inline-flex; align-items:center; gap:9px;
+}
+.card-link svg{ transition:transform .35s var(--ease); }
+.card-link:hover svg{ transform:translateX(5px); }
+
+/* ---------- the companions ---------------------------------- */
+.companions{
+  display:flex; flex-wrap:wrap; justify-content:center;
+  gap:clamp(18px,2.2vw,28px); margin-top:44px;
+}
+.companions > .comp{ flex:0 1 calc(33.333% - clamp(12px,1.5vw,19px)); }
+.comp{
+  background:var(--paper); border-radius:var(--r-lg); padding:34px 32px 30px;
+  box-shadow:var(--shadow-soft); text-decoration:none; color:inherit;
+  display:flex; flex-direction:column;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.comp:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lift); }
+.comp-art{ margin-bottom:20px; }
+.comp h3{ font-size:24px; margin-bottom:8px; }
+.comp p{ font-size:18px; color:var(--ink-2); margin:0 0 20px; }
+.comp .card-link{ font-size:17px; }
+
+/* ---------- Caregiver Companion, lifted out of the grid ---------- */
+.cg-band{
+  background:var(--cream-2); border-radius:var(--r-lg);
+  padding:clamp(30px,4vw,54px); margin-top:44px;
+}
+.cg-grid{
+  display:grid; grid-template-columns:1fr auto; gap:clamp(30px,4vw,58px);
+  align-items:center;
+}
+.cg-quote{
+  font-family:var(--display); font-size:clamp(21px,2vw,25px);
+  color:var(--ember); line-height:1.34; margin:20px 0 0; max-width:34ch;
+}
+.cg-chips{ display:flex; flex-wrap:wrap; gap:8px; margin:26px 0 0; }
+.cg-chip{
+  background:var(--paper); color:var(--ember); border-radius:100px;
+  padding:8px 16px; font-size:16px; font-weight:600;
+  box-shadow:0 1px 2px rgba(58,40,24,.05);
+}
+.cg-band .card-link{ margin-top:28px; }
+
+/* ---------- LittleGems: the printables, as paper ---------------------------
+   The only non-screen visual on the page. Six phones already say "software";
+   nothing else says a child can sit at a table with a crayon. The three sheets
+   are her real printables, embedded as data URIs (~23 KB total) rather than
+   files — line art turns to mush as JPEG and this way there is nothing extra
+   for her to upload. Layout is MIRRORED against the Caregiver band above so the
+   two do not read as one long stripe. */
+.cg-mirror .cg-grid{ grid-template-columns:auto 1fr; }
+.sheets{ position:relative; width:330px; height:470px; flex:0 0 auto; }
+.sheet{
+  position:absolute; margin:0; border-radius:6px; overflow:hidden; background:#fff;
+  box-shadow:0 10px 30px rgba(58,40,24,.16), 0 1px 3px rgba(58,40,24,.10);
+  transition:transform .5s var(--ease);
+}
+.sheet img{ display:block; width:100%; }
+.sheet-1{ width:250px; left:0;   top:26px; transform:rotate(-6deg); }
+.sheet-2{ width:250px; left:40px; top:8px;  transform:rotate(1.5deg); }
+.sheet-3{ width:250px; left:78px; top:34px; transform:rotate(7deg); }
+.sheets:hover .sheet-1{ transform:rotate(-8.5deg) translateY(-4px); }
+.sheets:hover .sheet-3{ transform:rotate(9.5deg) translateY(-4px); }
+
+/* ---------- Gem Keepers Circle -------------------------------------------
+   Option 1: the circle card exactly as keeper-circle.html renders it, minus a
+   phone frame. Role text is verbatim from that file's ROLE_DESC; the avatar
+   colours are its AV array. The Steward line is the ONLY invented one — the
+   app defines no description for that role.
+   No CTA on purpose: there is no public page about circles, and a "Learn more"
+   that lands on the signup form is the pattern this page is trying to avoid.
+   The roles list IS the explanation. */
+.circ-roles{ list-style:none; margin:26px 0 0; padding:0; display:grid; gap:2px; max-width:52ch; }
+.rr{ display:flex; gap:14px; padding:13px 0; border-bottom:1px solid rgba(122,52,5,.11); }
+.rr:last-child{ border-bottom:0; }
+.rr-dot{ flex:0 0 auto; width:14px; height:14px; border-radius:50%; margin-top:7px; }
+.rr b{ display:block; font-size:18px; font-weight:600; color:var(--ink); }
+.rr i{ display:block; font-style:normal; font-size:17px; color:var(--ink-2); line-height:1.45; }
+
+.ccard{
+  width:364px; background:var(--paper); border-radius:24px; padding:26px 24px;
+  box-shadow:var(--shadow-soft); flex:0 0 auto;
+}
+.cc-h{ font-family:var(--display); font-size:25px; font-weight:500; margin:0 0 4px; }
+.cc-s{ font-size:16px; color:var(--ink-2); margin:0 0 18px; }
+.cc-av{ display:flex; margin:0 0 18px; }
+.av{
+  width:38px; height:38px; border-radius:50%; color:#fff; font-weight:700;
+  font-size:16px; display:grid; place-items:center; flex:0 0 auto;
+}
+.cc-av .av{ margin-right:-11px; box-shadow:0 0 0 3px var(--paper); }
+.cc-list{ border-top:1px solid rgba(122,52,5,.11); }
+.mrow{ display:flex; align-items:center; gap:12px; padding:13px 0; border-bottom:1px solid rgba(122,52,5,.11); }
+.mrow:last-child{ border-bottom:0; }
+.mtx b{ display:block; font-size:17px; font-weight:600; }
+.mtx i{ font-style:normal; font-size:14px; color:var(--ink-2); }
+.mrow em{
+  margin-left:auto; font-style:normal; font-size:13.5px; font-weight:600;
+  color:var(--ember); background:#F6EADB; border-radius:100px;
+  padding:4px 11px; white-space:nowrap;
+}
+@media (prefers-reduced-motion: reduce){ .sheets:hover .sheet{ transform:none; } }
+
+.dev-md{ width:300px; border-radius:40px; padding:10px; }
+.dev-md .dev-glass{ border-radius:32px; }
+.dev-md .dev-island{ top:7px; width:68px; height:19px; }
+
+.cg{
+  position:relative; height:502px; overflow:hidden; padding:36px 15px 0;
+  background:var(--app-cream); color:var(--app-ink);
+  font-size:14.4px; line-height:1.4;
+}
+.cg::after{
+  content:''; position:absolute; left:0; right:0; bottom:0; height:47px;
+  background:linear-gradient(to bottom,rgba(242,240,233,0),var(--app-cream));
+}
+.cg-h{ font-size:20px; font-weight:700; text-align:center; margin:4px 0 3px; }
+.cg-sub{ font-size:14px; color:var(--app-ink-2); text-align:center; margin-bottom:14px; }
+.cg-lab{ font-size:13.3px; font-weight:700; color:var(--app-ink-2); margin:0 0 8px; }
+.cg-card{
+  background:#fff; border-radius:13px; padding:11px 14px; margin-bottom:7px;
+  box-shadow:0 1px 3px rgba(36,48,39,.06); display:flex; align-items:center; gap:10px;
+}
+.cg-dot{ flex:0 0 auto; width:9px; height:9px; border-radius:50%; background:var(--app-green); }
+.cg-card b{ display:block; font-size:15px; font-weight:600; }
+.cg-card i{ font-style:normal; font-size:12.8px; color:var(--app-ink-2); }
+.cg-card em{ margin-left:auto; font-style:normal; font-size:12.2px; color:var(--app-green-deep); font-weight:600; }
+.cg-tools{ display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:14px; }
+.cg-tool{ background:#E6F1EC; border-radius:11px; padding:10px 11px; font-size:13.3px; line-height:1.3; color:#1C3B31; }
+
+/* ---------- accessibility ----------------------------------- */
+.acc-grid{
+  display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(36px,5vw,72px);
+  align-items:center;
+}
+.acc-photo{
+  border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-lift);
+}
+.acc-list{
+  list-style:none; margin:32px 0 0; padding:0;
+  display:grid; grid-template-columns:repeat(2,1fr); gap:14px 22px;
+}
+.acc-list li{
+  display:flex; align-items:flex-start; gap:12px;
+  font-size:18px; color:var(--ink-2); line-height:1.45;
+}
+.acc-list svg{ flex:0 0 auto; margin-top:5px; }
+.acc-close{
+  margin-top:34px; font-family:var(--display);
+  font-size:clamp(23px,2.2vw,30px); color:var(--ember); line-height:1.3;
+}
+
+/* ---------- care teams (the one dark band) ------------------- */
+.care{ background:var(--dark); color:#FDF8F1; }
+.care h2{ color:#FDF8F1; }
+.care .eyebrow{ color:var(--dark-warm); }
+.care .lede{ color:rgba(253,248,241,.8); }
+.roles{
+  display:flex; flex-wrap:wrap; gap:12px; margin-top:38px;
+}
+.role{
+  border:1.5px solid rgba(232,199,154,.4); border-radius:100px;
+  padding:12px 24px; font-size:18px; color:var(--dark-warm);
+  transition:background-color .35s var(--ease), transform .35s var(--ease);
+}
+.role:hover{ background:rgba(232,199,154,.11); transform:translateY(-2px); }
+.care-quote{
+  margin-top:46px; padding-top:38px;
+  border-top:1px solid rgba(232,199,154,.22);
+  font-family:var(--display); font-size:clamp(24px,2.6vw,34px);
+  line-height:1.34; color:#FDF8F1; max-width:24ch;
+}
+
+.care-grid{
+  display:grid; grid-template-columns:1fr auto; gap:clamp(36px,5vw,64px);
+  align-items:center;
+}
+.care-fig{ margin:0; display:flex; flex-direction:column; align-items:center; gap:16px; }
+.care-fig figcaption{
+  font-size:16px; color:rgba(232,199,154,.72); text-align:center; max-width:32ch;
+}
+
+/* the device */
+.dev{
+  width:360px; background:#1A1512; border-radius:48px; padding:11px;
+  box-shadow:0 30px 70px rgba(0,0,0,.45), 0 0 0 1.5px rgba(232,199,154,.16);
+}
+.dev-glass{
+  border-radius:38px; overflow:hidden; position:relative; background:var(--app-cream);
+}
+.dev-island{
+  position:absolute; top:9px; left:50%; transform:translateX(-50%);
+  width:90px; height:25px; border-radius:100px; background:#1A1512; z-index:3;
+}
+
+/* ---------- the four real screens, rebuilt ------------------ */
+.flow-sec{ padding-top:0; }
+.flow-grid{
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:clamp(18px,2.2vw,28px); margin-top:56px; align-items:start;
+}
+.flow-item{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+.flow-cap{ text-align:center; }
+.flow-cap b{
+  display:block; font-family:var(--display); font-size:21px;
+  font-weight:500; color:var(--ink); line-height:1.24; margin-bottom:5px;
+}
+.flow-cap span{ font-size:16.5px; color:var(--ink-2); line-height:1.45; }
+
+.dev-sm{
+  width:100%; max-width:282px; background:#1A1512; border-radius:38px; padding:9px;
+  box-shadow:0 14px 34px rgba(58,40,24,.20), 0 0 0 1.2px rgba(43,32,24,.14);
+}
+.dev-sm .dev-glass{ border-radius:30px; }
+.dev-sm .dev-island{ top:7px; width:64px; height:18px; }
+
+/* the app itself */
+.fl{
+  position:relative; height:472px; overflow:hidden; padding:34px 14px 0;
+  background:var(--app-cream); color:#2C2C2A;
+  font-family:var(--body); font-size:13.5px; line-height:1.4; text-align:center;
+}
+.fl::after{
+  content:''; position:absolute; left:0; right:0; bottom:0; height:44px;
+  background:linear-gradient(to bottom,rgba(242,240,233,0),var(--app-cream));
+}
+.fl-h{ font-size:19px; font-weight:700; letter-spacing:-.01em; margin:6px 0 3px; }
+.fl-sub{ font-size:13px; color:#5F5E5A; margin-bottom:14px; }
+.fl-q{ font-size:12.5px; font-weight:600; margin-bottom:6px; }
+.fl-q i{ font-style:normal; font-weight:400; color:#888780; }
+.fl-input{
+  background:#fff; border:1px solid var(--app-line); border-radius:11px;
+  padding:9px 12px; text-align:left; font-size:13.5px; color:#2C2C2A; margin-bottom:18px;
+}
+.fl-gems{ display:grid; grid-template-columns:1fr 1fr; gap:16px 10px; }
+.fl-gem span{
+  width:56px; height:56px; border-radius:50%; margin:0 auto 7px;
+  display:grid; place-items:center;
+}
+.fl-gem b{ display:block; font-size:14px; font-weight:600; }
+.fl-gem i{ display:block; font-style:normal; font-size:12px; color:#5F5E5A; line-height:1.3; }
+.fl-or{
+  display:flex; align-items:center; gap:9px; margin:16px 0 10px;
+  font-size:12px; color:#888780;
+}
+.fl-or::before,.fl-or::after{ content:''; flex:1; height:1px; background:var(--app-line); }
+.fl-voice{
+  display:flex; align-items:center; gap:10px; text-align:left;
+  background:#F7EDEB; border-radius:13px; padding:11px 12px;
+}
+.fl-voice span{
+  flex:0 0 auto; width:34px; height:34px; border-radius:50%;
+  background:var(--gem-voice); display:grid; place-items:center; color:var(--gem-voice-d);
+}
+.fl-voice b{ display:block; font-size:13.5px; font-weight:700; }
+.fl-voice i{ font-style:normal; font-size:12px; color:#5F5E5A; }
+
+.fl-pill{
+  display:inline-flex; align-items:center; gap:6px;
+  border:1px solid #A8D9C6; border-radius:100px; padding:6px 14px;
+  color:var(--gem-comfort-d); font-size:12.5px; font-weight:600; margin-bottom:14px;
+}
+.fl-cards{ display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+.fl-card{
+  background:var(--app-phrase); border-radius:11px;
+  padding:20px 8px; font-size:13px; line-height:1.3;
+}
+.fl-ideas{ display:flex; gap:7px; margin-top:11px; }
+.fl-ideas span{
+  flex:1; background:#fff; border:1px solid var(--app-line); border-radius:100px;
+  padding:9px 12px; font-size:12.5px; color:#888780; text-align:left;
+}
+.fl-ideas b{
+  background:var(--gem-comfort-d); color:#fff; border-radius:100px;
+  padding:9px 16px; font-size:12.5px; font-weight:700;
+}
+.fl-own{
+  background:var(--app-phrase); border-radius:13px;
+  margin-top:11px; padding:16px 10px; font-size:13.5px;
+}
+
+.fl-speak{
+  background:#fff; border:1px solid #DCE9E3; border-radius:13px;
+  padding:12px 10px; margin:16px 0 22px;
+}
+.fl-speak i{
+  display:block; font-style:normal; font-size:10.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:#888780; margin-bottom:5px;
+}
+.fl-speak b{ display:block; font-size:17px; font-weight:700; }
+.fl-mic{
+  width:74px; height:74px; border-radius:50%; background:var(--app-rec);
+  display:grid; place-items:center; margin:0 auto 12px; color:#fff;
+}
+.fl-time{ font-size:19px; font-weight:600; }
+.fl-time i{ display:block; font-style:normal; font-size:12px; color:#888780; font-weight:400; }
+
+.fl-mono{
+  width:66px; height:66px; border-radius:50%; margin:24px auto 12px;
+  display:grid; place-items:center;
+  background:linear-gradient(150deg,#D9EBE1,#B9DCCB); color:var(--gem-comfort-d);
+  font-family:var(--display); font-size:25px; font-weight:600;
+}
+.fl-sent{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:26px; font-weight:600; margin-bottom:7px;
+}
+.fl-note{ font-size:12.5px; color:#888780; font-style:italic; margin:12px 0 16px; }
+.fl-done{
+  background:var(--gem-comfort-d); color:#fff; border-radius:11px;
+  padding:13px; font-size:15px; font-weight:700;
+}
+
+/* the screen — MemoriGems' own interface, at its own scale */
+.mg{ padding-top:40px; font-size:15px; line-height:1.45; color:var(--app-ink); }
+.mg-bar{
+  display:flex; align-items:center; gap:8px; background:#fff;
+  padding:13px 15px; border-bottom:1px solid #E4E2DA;
+  font-size:13px; color:var(--app-ink-2);
+}
+.mg-bar b{ color:var(--app-ink); font-weight:600; }
+.mg-lock{ margin-left:auto; display:flex; align-items:center; gap:5px; color:var(--app-green-deep); }
+.mg-body{ padding:18px 15px 0; }
+.mg-head{ text-align:center; margin-bottom:16px; }
+.mg-mono{
+  width:76px; height:76px; border-radius:50%; margin:0 auto 9px;
+  display:grid; place-items:center;
+  background:linear-gradient(150deg,#D9EBE1,#B9DCCB); color:var(--app-green-deep);
+  font-family:var(--display); font-size:30px; font-weight:600;
+}
+.mg-name{ font-size:24px; font-weight:600; letter-spacing:-.01em; }
+.mg-sub{ font-size:13px; color:var(--app-ink-2); margin-top:2px; }
+.mg-card{
+  background:#fff; border-radius:14px; padding:4px 14px 10px;
+  box-shadow:0 1px 3px rgba(36,48,39,.06);
+}
+.mg-top{
+  display:flex; align-items:center; padding:11px 0 9px;
+  font-size:13px; color:var(--app-ink-2); border-bottom:1px solid #EDEBE3;
+}
+.mg-top span{ margin-left:auto; }
+.mg-row{ display:flex; gap:11px; padding:11px 0; border-bottom:1px solid #EDEBE3; }
+.mg-row:last-of-type{ border-bottom:0; }
+.mg-ic{
+  flex:0 0 auto; width:30px; height:30px; border-radius:50%;
+  background:#E2F0E9; display:grid; place-items:center;
+  color:var(--app-green-deep); margin-top:1px;
+}
+.mg-rl{ font-size:14px; color:var(--app-ink-2); margin-bottom:5px; display:block; }
+.mg-chips{ display:flex; flex-wrap:wrap; gap:5px; }
+.mg-chip{ background:var(--app-chip); border-radius:100px; padding:3px 10px; font-size:14.5px; }
+.mg-gentle{
+  background:#FBEBD6; border-radius:12px; padding:11px 13px;
+  display:flex; gap:10px; margin:12px 0 4px;
+}
+.mg-gentle .mg-ic{ background:#F3C58B; color:#8A5A12; }
+.mg-gentle .mg-rl{ color:#8A5A12; }
+.mg-gt{ font-size:15px; color:#4A3A22; line-height:1.42; display:block; }
+.mg-fade{ height:36px; background:linear-gradient(to bottom,rgba(242,240,233,0),var(--app-cream)); }
+
+/* ---------- family stories ---------------------------------- */
+.quotes{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,2.4vw,34px);
+  margin-top:54px;
+}
+.quote{
+  background:var(--paper); border-radius:var(--r-lg); overflow:hidden;
+  box-shadow:var(--shadow-soft); display:flex; flex-direction:column;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.quote:hover{ transform:translateY(-5px); box-shadow:var(--shadow-lift); }
+.quote-photo{ aspect-ratio:3/2; overflow:hidden; }
+.quote-photo img{ width:100%; height:100%; object-fit:cover; }
+.quote-body{ padding:28px 30px 30px; }
+.qlabel{
+  display:flex; align-items:center; gap:9px;
+  font-size:17px; font-weight:600; color:var(--ember); margin:0 0 10px;
+}
+.qline{
+  margin:0; font-family:var(--display);
+  font-size:clamp(21px,1.75vw,25px); line-height:1.34; color:var(--ink);
+}
+
+/* ---------- research ---------------------------------------- */
+.trust{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:clamp(18px,2.2vw,28px); margin-top:48px;
+}
+.trust-item{
+  padding:28px 26px; border-radius:var(--r-md);
+  background:rgba(255,252,247,.7);
+  transition:background-color .4s var(--ease);
+}
+.trust-item:hover{ background:var(--paper); }
+.trust-item b{ display:block; font-size:19px; font-weight:600; margin:14px 0 6px; }
+.trust-item span{ font-size:17px; color:var(--ink-2); line-height:1.5; }
+
+/* ---------- FAQ ------------------------------------------------------------
+   Native <details>/<summary>: keyboard, screen readers and Ctrl-F all work with
+   no JavaScript, and a closed answer is still findable on the page. Same pattern
+   as the aging-eye accordion prototype. */
+.faqs{ margin-top:38px; max-width:820px; }
+.faq{ border-bottom:1px solid rgba(122,52,5,.16); }
+.faq:first-of-type{ border-top:1px solid rgba(122,52,5,.16); }
+.faq summary{
+  list-style:none; cursor:pointer; display:flex; align-items:flex-start; gap:18px;
+  padding:22px 4px; font-family:var(--display); font-size:clamp(21px,1.9vw,25px);
+  font-weight:500; line-height:1.3; color:var(--ink);
+}
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary:hover{ color:var(--ember); }
+.faq-q{ flex:1; }
+.faq-x{ flex:0 0 auto; position:relative; width:20px; height:20px; margin-top:7px; }
+.faq-x::before,.faq-x::after{
+  content:''; position:absolute; background:var(--amber); border-radius:2px;
+  transition:transform .3s var(--ease);
+}
+.faq-x::before{ left:0; top:9px; width:20px; height:2.5px; }
+.faq-x::after{ left:9px; top:0; width:2.5px; height:20px; }
+.faq[open] .faq-x::after{ transform:scaleY(0); }
+.faq-a{ padding:0 60px 26px 4px; }
+.faq-a p{ font-size:18.5px; color:var(--ink-2); line-height:1.62; max-width:62ch; }
+.help-box{
+  background:var(--cream-2); border-radius:24px; padding:32px 34px;
+  margin-top:40px; max-width:820px;
+}
+.help-box b{ font-family:var(--display); font-size:23px; font-weight:500; display:block; margin-bottom:6px; }
+.help-box p{ font-size:18px; color:var(--ink-2); }
+.help-box a{ color:var(--ember); font-weight:600; }
+
+/* ---------- closing ----------------------------------------- */
+.close-sec{ position:relative; overflow:hidden; }
+.close-photo{
+  position:absolute; inset:0;
+}
+.close-photo img{ width:100%; height:100%; object-fit:cover; object-position:50% 32%; }
+.close-photo::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(251,246,238,.94) 0%, rgba(251,246,238,.9) 46%, rgba(251,246,238,.97) 100%);
+}
+.close-in{ position:relative; z-index:2; text-align:center; }
+.close-lines{
+  font-family:var(--display); font-size:clamp(30px,4vw,50px);
+  line-height:1.24; margin:0 auto;
+}
+.close-lines span{ display:block; }
+.close-lines span:nth-child(2){ color:var(--ember); }
+.close-sec .btn-row{ justify-content:center; margin-top:40px; }
+
+/* ---------- join form --------------------------------------- */
+.join-card{
+  margin:44px auto 0; max-width:620px; background:var(--paper);
+  border-radius:var(--r-lg); padding:34px 34px 30px;
+  box-shadow:var(--shadow-soft); text-align:left;
+}
+.join-card h3{ margin-bottom:6px; }
+.join-card p{ font-size:18px; color:var(--ink-2); }
+.join-row{ display:grid; gap:12px; margin-top:20px; }
+.vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.join-row select{
+  width:100%; font-family:var(--body); font-size:18px;
+  padding:16px 20px; border-radius:100px;
+  border:1.5px solid rgba(122,52,5,.22); background:var(--cream); color:var(--ink);
+}
+.join-row input{
+  width:100%; min-width:0;
+  font-family:var(--body); font-size:18px; /* 16px floor keeps iOS from zooming */
+  padding:16px 20px; border-radius:100px;
+  border:1.5px solid rgba(122,52,5,.22); background:var(--cream);
+  color:var(--ink);
+}
+.join-row input::placeholder{ color:#8A7B6C; }
+.join-note{ font-size:16px; color:var(--ink-2); margin-top:16px; }
+
+/* ---------- footer ------------------------------------------ */
+.ftr{ background:var(--cream-2); padding:clamp(56px,6vw,84px) 0 40px; }
+.ftr-grid{
+  display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:clamp(28px,4vw,52px);
+}
+.ftr h4{
+  font-family:var(--body); font-size:17px; font-weight:600;
+  color:var(--ink); margin:0 0 14px;
+}
+.ftr ul{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+.ftr a{
+  font-size:17px; color:var(--ink-2); text-decoration:none;
+  transition:color .3s var(--ease);
+}
+.ftr a:hover{ color:var(--ember); }
+.ftr-about p{ font-size:17px; color:var(--ink-2); margin-top:16px; max-width:34ch; }
+.ftr-base{
+  margin-top:48px; padding-top:26px;
+  border-top:1px solid rgba(122,52,5,.14);
+  display:flex; flex-wrap:wrap; gap:16px 28px; align-items:center;
+  font-size:16px; color:var(--ink-2);
+}
+.ftr-base .sp{ margin-left:auto; }
+.socials{ display:flex; gap:14px; }
+.socials a{ color:var(--ink-2); display:grid; place-items:center; }
+.socials a:hover{ color:var(--ember); }
+
+/* ---------- reveal on scroll -------------------------------- */
+.rv{ opacity:0; transform:translateY(22px); }
+.rv-on{
+  opacity:1; transform:none;
+  transition:opacity 1.05s var(--ease), transform 1.05s var(--ease);
+}
+
+/* ---------- responsive -------------------------------------- */
+@media (max-width:1000px){
+  .hero-grid{ grid-template-columns:1fr; }
+  .hero-photo{
+    margin-right:calc(50% - 50vw); margin-left:calc(50% - 50vw);
+    border-radius:0; min-height:56vh; order:2;
+  }
+  .hero-copy{ order:1; padding-bottom:44px; }
+  .gem-grid,.acc-grid,.care-grid{ grid-template-columns:1fr; }
+  .care-fig{ margin-top:8px; }
+  .steps{ grid-template-columns:repeat(2,1fr); row-gap:48px; }
+  .cards-3,.quotes{ grid-template-columns:repeat(2,1fr); }
+  .companions > .comp{ flex-basis:calc(50% - 14px); }
+  .sheets{ transform:scale(.9); margin:-24px 0; }
+  .cg-grid,.cg-mirror .cg-grid{ grid-template-columns:1fr; justify-items:center; }
+  .cg-mirror .sheets{ order:2; }
+  .ccard{ width:min(364px,100%); }
+  .flow-grid{ grid-template-columns:repeat(2,1fr); row-gap:44px; }
+  .ftr-grid{ grid-template-columns:1fr 1fr; }
+  .insight-in{ gap:34px; }
+}
+@media (max-width:1180px){
+  .nav{ display:none; }
+  .nav.is-open{
+    display:flex; position:absolute; left:0; right:0; top:100%;
+    flex-direction:column; align-items:flex-start; gap:4px;
+    background:var(--paper); padding:20px 24px 26px;
+    box-shadow:var(--shadow-lift); border-radius:0 0 var(--r-md) var(--r-md);
+  }
+  .nav.is-open a:not(.btn){ padding:12px 0; font-size:19px; }
+  .nav.is-open .btn{ margin-top:10px; }
+  .nav-toggle{ display:block; }
+  .hdr-in{ position:relative; }
+}
+@media (max-width:680px){
+  body{ font-size:19px; }
+  .wrap,.wrap-narrow{ width:calc(100% - 36px); }
+  .steps,.cards-3,.quotes,.flow-grid,.insight-in{ grid-template-columns:1fr; }
+  .companions > .comp{ flex-basis:100%; }
+  .dev-md{ width:min(300px,86vw); }
+  .flow-item{ max-width:340px; margin-inline:auto; }
+  .acc-list{ grid-template-columns:1fr; }
+  .ftr-grid{ grid-template-columns:1fr; }
+  .ftr-base .sp{ margin-left:0; }
+  .btn{ width:100%; }
+  .btn-row{ flex-direction:column; }
+  .story-frame{ min-height:70vh; }
+  .story-frame::after{
+    background:linear-gradient(0deg,
+      rgba(43,32,24,.92) 0%, rgba(43,32,24,.86) 52%,
+      rgba(43,32,24,.44) 76%, rgba(43,32,24,.08) 100%);
+  }
+  .story-text{ max-width:none; }
+  .dev{ width:min(360px,86vw); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .rv{ opacity:1; transform:none; }
+}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to the main content</a>
+
+
+<!-- ============ HEADER ============ -->
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="#top">
+      <span class="gemi gemi-44" aria-hidden="true"></span>
+      <span>
+        <span class="brand-name">MemoriGems</span>
+        <span class="brand-tag">Because connection is<br>more than memory.</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Open the menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M3 6h18M3 12h18M3 18h18"/>
+      </svg>
+    </button>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#how">How It Works</a>
+      <a href="#families">For Families</a>
+      <a href="#care">For Care Teams</a>
+      <a href="/about">About Us</a>
+      <a class="btn btn-primary" href="#join">Join the Founding Families Pilot</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<a id="top"></a>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy rv">
+      <h1>Because connection is more than <em>memory</em>.</h1>
+      <p class="lede">MemoriGems helps families preserve the voices, stories, and everyday moments that continue bringing people together—even as memory changes.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#join">Join the Founding Families Pilot</a>
+      </div>
+    </div>
+    <div class="hero-photo rv">
+      <img src="redesign-img/hero-grandfather-baby.jpg"
+           alt="A grandfather holding his grandchild, the two of them looking closely at one another.">
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 92" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 46C240 6 420 82 720 60S1200 0 1440 34V92H0z" fill="#FBF6EE"/>
+  </svg>
+</section>
+
+<!-- ============ THE TWO LINES ABOUT VOICE ============ -->
+<!-- Deliberate compositional contrast: the left photograph has no living person in
+     it — printed pictures lying still — because the line is about what a photo can
+     only ASK. The right one is a whole face in the middle of feeling something.
+     Both photos in this band are ungraded and sit at R-B +47 and +25, inside the
+     set. NOTHING on this page is colour-corrected any more. The one remaining cool
+     image is for-communities.jpg at -18 (dark suits, grey stone) — it lives in a
+     card rather than a full-bleed band, so it is far less exposed, but it is the
+     one photo that still reads slightly borrowed. -->
+<section class="insight" id="voice">
+  <div class="wrap insight-in">
+    <figure class="ins rv">
+      <div class="ins-photo">
+        <img src="redesign-img/insight-photos.jpg"
+             alt="Printed photographs spread across a linen cloth beside an open album, taped down, with dried flowers among them.">
+      </div>
+      <figcaption>Photos ask the brain to remember.</figcaption>
+    </figure>
+
+    <figure class="ins ins-voice rv">
+      <div class="ins-photo">
+        <img src="redesign-img/insight-voice.jpg"
+             alt="A man laughing with delight, the phone held to his ear, mid-conversation at home.">
+      </div>
+      <figcaption>Voice helps the brain feel.</figcaption>
+      <svg class="wavebars" viewBox="0 0 150 60" aria-hidden="true">
+        <g fill="#B85208" opacity=".62">
+          <rect x="2"   y="26" width="5" height="8"  rx="2.5"/>
+          <rect x="14"  y="19" width="5" height="22" rx="2.5"/>
+          <rect x="26"  y="9"  width="5" height="42" rx="2.5"/>
+          <rect x="38"  y="22" width="5" height="16" rx="2.5"/>
+          <rect x="50"  y="3"  width="5" height="54" rx="2.5"/>
+          <rect x="62"  y="15" width="5" height="30" rx="2.5"/>
+          <rect x="74"  y="24" width="5" height="12" rx="2.5"/>
+          <rect x="86"  y="7"  width="5" height="46" rx="2.5"/>
+          <rect x="98"  y="18" width="5" height="24" rx="2.5"/>
+          <rect x="110" y="12" width="5" height="36" rx="2.5"/>
+          <rect x="122" y="23" width="5" height="14" rx="2.5"/>
+          <rect x="134" y="27" width="5" height="6"  rx="2.5"/>
+        </g>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ THE STORY ============ -->
+<section class="sec sec-tight story" id="story">
+  <div class="wrap">
+    <div class="story-frame rv">
+      <img src="redesign-img/story-listening.jpg"
+           alt="An older woman in a garden, hand at her chin, laughing at something playing on her phone.">
+      <div class="story-text">
+        <p>Yesterday she couldn't remember breakfast.</p>
+        <p class="turn">Today she smiled after hearing her granddaughter say, &ldquo;Hi Nana.&rdquo;</p>
+        <p class="becomes">That moment became a Gem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT IS A GEM ============ -->
+<section class="sec band" id="gem">
+  <a id="idea"></a>
+  <div class="wrap gem-grid">
+    <div class="gem-stage rv">
+      <div class="gem-photo">
+        <img src="redesign-img/gem-in-hand.jpg"
+             alt="An open hand holding a glowing amber gem at sunset.">
+      </div>
+    </div>
+    <div class="rv">
+      <p class="eyebrow">
+        <span class="gemi gemi-13" aria-hidden="true"></span>
+        What is a Gem?
+      </p>
+      <h2>A voice, and whatever helps it land.</h2>
+      <ul class="threads">
+        <li class="thread">
+          <span class="thread-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/>
+            </svg>
+          </span>
+          <span><b>A voice recording</b><span>First, and the only part that isn't optional. It's what a photograph can't carry.</span></span>
+        </li>
+        <li class="thread">
+          <span class="thread-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.8"/><path d="M3.5 17.5 9 12.5l4 3.5 3-2.5 4.5 4"/>
+            </svg>
+          </span>
+          <span><b>A photo, if you have one</b><span>One picture that means something. Not an album — and not required.</span></span>
+        </li>
+        <li class="thread">
+          <span class="thread-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 4h14v16H5z"/><path d="M8.5 9h7M8.5 13h7M8.5 16.5h4"/>
+            </svg>
+          </span>
+          <span><b>A caption</b><span>A sentence or two. As much as you feel like saying.</span></span>
+        </li>
+      </ul>
+      <p class="gem-sum">Together they become one Gem — a small moment, kept. Not a biography. Not a timeline. Just the moment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="rv sec-intro">
+      <p class="eyebrow">
+        <span class="gemi gemi-13" aria-hidden="true"></span>
+        How it works
+      </p>
+      <h2>Four quiet steps.</h2>
+      <p class="lede">It takes a few minutes. There is nothing to learn first, and nothing you can get wrong.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step rv">
+        <svg class="step-art" viewBox="0 0 200 150" aria-hidden="true">
+          <circle cx="100" cy="76" r="52" fill="#FBE6CB"/>
+          <rect x="86" y="40" width="28" height="46" rx="14" fill="#B85208"/>
+          <path d="M72 76a28 28 0 0 0 56 0M100 104v16" stroke="#7A3405" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+          <path d="M40 62a34 34 0 0 0 0 28M28 54a48 48 0 0 0 0 44" stroke="#EF8502" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+          <path d="M160 62a34 34 0 0 1 0 28M172 54a48 48 0 0 1 0 44" stroke="#EF8502" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+        </svg>
+        <h3>Record your voice</h3>
+        
+        <p>Say it out loud, the way you'd say it to them. This part is the Gem.</p>
+      </div>
+      <div class="step rv">
+        <svg class="step-art" viewBox="0 0 200 150" aria-hidden="true">
+          <rect x="26" y="28" width="148" height="106" rx="16" fill="#FBE6CB"/>
+          <rect x="38" y="18" width="124" height="98" rx="14" fill="#FFFCF7"
+                stroke="#B85208" stroke-width="2.4" stroke-dasharray="9 7"/>
+          <circle cx="68" cy="48" r="9" fill="#F9A73E"/>
+          <path d="M44 100l30-28 22 20 18-15 28 27v6a6 6 0 0 1-6 6H50a6 6 0 0 1-6-6z" fill="#EF8502" opacity=".5"/>
+        </svg>
+        <h3>Add a photo</h3>
+        <span class="step-opt">Optional</span>
+        <p>One picture that fits the moment — or none at all, if the voice says enough.</p>
+      </div>
+      <div class="step rv">
+        <svg class="step-art" viewBox="0 0 200 150" aria-hidden="true">
+          <rect x="42" y="20" width="112" height="112" rx="16" fill="#FFFCF7" stroke="#B85208" stroke-width="2.4"/>
+          <path d="M60 52h76M60 72h76M60 92h48" stroke="#F3CE9E" stroke-width="7" stroke-linecap="round"/>
+          <path d="M118 108l40-40a11 11 0 0 1 16 16l-40 40-22 6z" fill="#EF8502"/>
+          <path d="M112 130l6-22 16 16z" fill="#B85208"/>
+        </svg>
+        <h3>Add a caption</h3>
+        
+        <p>A sentence is enough. It usually is.</p>
+      </div>
+      <div class="step rv">
+        <svg class="step-art" viewBox="0 0 200 150" aria-hidden="true">
+          <circle cx="104" cy="76" r="52" fill="#FBE6CB"/>
+          <path d="M10 62h22M4 90h28" stroke="#F3CE9E" stroke-width="6" stroke-linecap="round"/>
+          <rect x="56" y="46" width="96" height="62" rx="11" fill="#FFFCF7" stroke="#B85208" stroke-width="2.6"/>
+          <path d="M56 54l48 34 48-34" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <g transform="translate(94.6 86.6) scale(.4)">
+            <path d="M24 4 40 15v18L24 44 8 33V15z" fill="#EF8502"/>
+            <path d="M24 4 40 15 24 21 8 15z" fill="#FBB55C"/>
+          </g>
+        </svg>
+        <h3>Send it to someone you love</h3>
+        
+        <p>It arrives as a link, sealed with your voice. Nothing for them to install.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE FLOW, IN THE REAL INTERFACE ============ -->
+<!-- These four screens are rebuilt in HTML from Lisette's own screenshots of the
+     live app (Aug 3 2026). Every colour is sampled from those screenshots, not
+     invented. The recipient is Bill — the same fictional person as the care-team
+     snapshot. The original screenshot of this final screen named a real family
+     member and showed her photograph; neither appears here, and neither should
+     be reinstated. -->
+<section class="sec flow-sec" id="flow">
+  <div class="wrap">
+    <div class="rv sec-intro">
+      <p class="eyebrow">
+        <span class="gemi gemi-13" aria-hidden="true"></span>
+        The same four steps, on a real screen
+      </p>
+      <h2>Dana makes her father a Gem.</h2>
+      <p class="lede">Start to finish, nothing skipped. The hardest part is usually knowing what to say &mdash; so the app offers you something to say.</p>
+    </div>
+
+    <div class="flow-grid">
+      <div class="flow-item rv">
+        <div class="dev dev-sm">
+          <div class="dev-glass">
+            <div class="dev-island"></div>
+            <div class="fl">
+              <p class="fl-h">What kind of Gem?</p>
+              <p class="fl-sub">Tap a Gem to get started</p>
+              <p class="fl-q">Who&rsquo;s this Gem for? <i>(optional)</i></p>
+              <p class="fl-input">Bill</p>
+              <div class="fl-gems">
+                <p class="fl-gem"><span style="background:var(--gem-comfort)"><svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 40 15v18L24 44 8 33V15z" fill="#0F6E56"/></svg></span><b>Comfort</b><i>Reassurance &amp; love</i></p>
+                <p class="fl-gem"><span style="background:var(--gem-routine)"><svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 40 15v18L24 44 8 33V15z" fill="#5B3E7F"/></svg></span><b>Routine</b><i>Everyday anchors</i></p>
+                <p class="fl-gem"><span style="background:var(--gem-moment)"><svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 40 15v18L24 44 8 33V15z" fill="#9C5226"/></svg></span><b>Moment</b><i>Stories &amp; milestones</i></p>
+                <p class="fl-gem"><span style="background:var(--gem-music)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3E5A96" stroke-width="2" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.6"/><circle cx="16.5" cy="16" r="2.6"/></svg></span><b>Music</b><i>Their favorite song</i></p>
+              </div>
+              <p class="fl-or">or</p>
+              <p class="fl-voice"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></span><span style="width:auto;height:auto;background:none;display:block;flex:1"><b>Preserve their voice</b><i>Record their story or upload a recording</i></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#888780" stroke-width="2.2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></p>
+            </div>
+          </div>
+        </div>
+        <p class="flow-cap"><b>Pick a kind of Gem</b><span>Comfort, Routine, Moment, Music — or preserve their voice as it is.</span></p>
+      </div>
+      <div class="flow-item rv">
+        <div class="dev dev-sm">
+          <div class="dev-glass">
+            <div class="dev-island"></div>
+            <div class="fl">
+              <p class="fl-gem" style="margin:0 0 6px"><span style="background:var(--gem-comfort)"><svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 40 15v18L24 44 8 33V15z" fill="#0F6E56"/></svg></span></p>
+              <p class="fl-h" style="margin-top:0">Comfort</p>
+              <p class="fl-sub">Help someone feel safe and settled</p>
+              <p class="fl-sub" style="color:#8A5A52;margin-bottom:8px">Tap a phrase to record it in your own voice</p>
+              <p class="fl-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 5.5A9 9 0 1 0 21 12"/><path d="M21 3v4h-4"/></svg> New suggestions</p>
+              <div class="fl-cards">
+                <p class="fl-card">You are not alone</p>
+                <p class="fl-card">You are safe</p>
+                <p class="fl-card">I&rsquo;m sending you love</p>
+                <p class="fl-card">You matter so much</p>
+              </div>
+              <p class="fl-ideas"><span>&hellip;or type a word</span><b>Ideas</b></p>
+              <p class="fl-own">Record your own message</p>
+            </div>
+          </div>
+        </div>
+        <p class="flow-cap"><b>Don't know what to say?</b><span>Tap a phrase and say it in your own voice. Or type a word and ask for ideas.</span></p>
+      </div>
+      <div class="flow-item rv">
+        <div class="dev dev-sm">
+          <div class="dev-glass">
+            <div class="dev-island"></div>
+            <div class="fl">
+              <p class="fl-gem" style="margin:0 0 6px"><span style="background:var(--gem-comfort)"><svg width="24" height="24" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 40 15v18L24 44 8 33V15z" fill="#0F6E56"/></svg></span></p>
+              <p class="fl-h" style="margin-top:0">Your voice is the gift</p>
+              <p class="fl-sub">Take your time. When you&rsquo;re ready, tap to record.</p>
+              <p class="fl-speak"><i>Speak this phrase</i><b>&ldquo;You are safe&rdquo;</b></p>
+              <p class="fl-mic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></p>
+              <p class="fl-time">0:00<i>Up to 60 seconds</i></p>
+            </div>
+          </div>
+        </div>
+        <p class="flow-cap"><b>Record it</b><span>One take, up to a minute. Discard it and start again as often as you like.</span></p>
+      </div>
+      <div class="flow-item rv">
+        <div class="dev dev-sm">
+          <div class="dev-glass">
+            <div class="dev-island"></div>
+            <div class="fl">
+              <p class="fl-mono" aria-hidden="true">WH</p>
+              <p class="fl-sent">Sent to Bill</p>
+              <p class="fl-sub">It&rsquo;s in their Gems now. They&rsquo;ll see it the next time they open MemoriGems.</p>
+              <p class="fl-note">A copy is saved in your library.</p>
+              <p class="fl-done">Done</p>
+            </div>
+          </div>
+        </div>
+        <p class="flow-cap"><b>It's in his Gems</b><span>No app for Bill to install, and a copy stays in Dana’s library.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE CIRCLE ============ -->
+<!-- Placed straight after #flow on purpose: Dana has just made and sent a Gem to
+     her father, so "who else is in his circle?" is the reader's next question.
+     It also keeps the Companions section from carrying three bands at once. -->
+<section class="sec" id="circle">
+  <div class="wrap">
+  <!-- Gem Keepers Circle. Bill is the GEM KEEPER — the person who receives.
+       Dana, Ray, Marcus and Vi are GEM MAKERS. ⚠️ "Gem Maker" is a new term:
+       it appears nowhere in memorigems-web or memorigems-landing yet, so the
+       app should adopt it or this page teaches a word the product never says.
+       ⚠️ keeper-circle.html currently renders "The family keeping Gems for
+       [name]", which inverts the pair — fix that line in the app. -->
+  <div class="cg-band rv">
+    <div class="cg-grid">
+      <div>
+        <p class="eyebrow">
+          <span class="gemi gemi-13" aria-hidden="true"></span>
+          Gem Keepers Circle
+        </p>
+        <h3 style="font-size:clamp(25px,2.7vw,34px);line-height:1.18;">One Gem Keeper.<br>A circle of Gem Makers.</h3>
+        <p class="lede" style="margin-top:16px;">The <em>Gem Keeper</em> is the person who receives &mdash; the one living with memory change. The <em>Gem Makers</em> are everyone who records for them. You decide who is in the circle, and how far in each of them comes.</p>
+        <ul class="circ-roles">
+          <li class="rr"><span class="rr-dot" style="background:#5B8A72"></span>
+            <span><b>Steward</b><i>The account holder. Sets up the profile and decides who is in the circle.</i></span></li>
+          <li class="rr"><span class="rr-dot" style="background:#7B6FA8"></span>
+            <span><b>Co-steward</b><i>Everything you can do — invite others, manage sharing. A trusted second.</i></span></li>
+          <li class="rr"><span class="rr-dot" style="background:#8a6f42"></span>
+            <span><b>Contributor</b><i>Record and send Gems, add updates. Can't change sharing or the circle.</i></span></li>
+          <li class="rr"><span class="rr-dot" style="background:#B07A8A"></span>
+            <span><b>Viewer</b><i>Listen to Gems and see the profile. A gentle way in for distant family.</i></span></li>
+        </ul>
+      </div>
+
+      <div class="ccard">
+        <p class="cc-h">Bill&rsquo;s circle</p>
+        <p class="cc-s">The Gem Makers who record for Bill.</p>
+        <p class="cc-av"><span class="av" style="background:#5B8A72">D</span><span class="av" style="background:#7B6FA8">R</span><span class="av" style="background:#8a6f42">M</span><span class="av" style="background:#B07A8A">V</span></p>
+        <div class="cc-list">
+          <div class="mrow"><span class="av" style="background:#5B8A72">D</span>
+            <span class="mtx"><b>Dana</b><i>Set up Bill&rsquo;s profile</i></span>
+            <em>Steward</em></div>
+          <div class="mrow"><span class="av" style="background:#7B6FA8">R</span>
+            <span class="mtx"><b>Ray</b><i>Added by Dana</i></span>
+            <em>Co-steward</em></div>
+          <div class="mrow"><span class="av" style="background:#8a6f42">M</span>
+            <span class="mtx"><b>Marcus</b><i>Added by Dana</i></span>
+            <em>Contributor</em></div>
+          <div class="mrow"><span class="av" style="background:#B07A8A">V</span>
+            <span class="mtx"><b>Vi</b><i>Added by Dana</i></span>
+            <em>Viewer</em></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ============ BUILT FOR EVERY KIND OF CONNECTION ============ -->
+<section class="sec band" id="families">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow">
+        <span class="gemi gemi-13" aria-hidden="true"></span>
+        Who it's for
+      </p>
+      <h2>Built for every kind of connection.</h2>
+    </div>
+
+    <div class="cards-3">
+      <article class="card rv">
+        <div class="card-photo"><img src="redesign-img/for-families.jpg" alt="A family of four together on a porch swing."></div>
+        <div class="card-body">
+          <h3>Families</h3>
+          <p>Keep the stories that matter close, and keep them within reach of everyone who loves them.</p>
+          <a class="card-link" href="#flow">See a family make one
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="card rv">
+        <div class="card-photo"><img src="redesign-img/for-care-teams.jpg" alt="A care worker and an older woman laughing together over a phone screen."></div>
+        <div class="card-body">
+          <h3>Care Teams</h3>
+          <p>Meet someone as a person first — their voice, their people, what settles them on a hard afternoon.</p>
+          <a class="card-link" href="#care">For care teams
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="card rv">
+        <div class="card-photo"><img src="redesign-img/for-communities.jpg" alt="An older woman among a group of younger women, mid-conversation."></div>
+        <div class="card-body">
+          <h3>Communities</h3>
+          <p>Bring people together around shared stories — in a congregation, a centre, a neighbourhood.</p>
+
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE COMPANIONS ============ -->
+<section class="sec" id="companions">
+  <div class="wrap">
+    <div class="rv sec-intro">
+      <p class="eyebrow">
+        <span class="gemi gemi-13" aria-hidden="true"></span>
+        The Companions
+      </p>
+      <h2>Nobody walks this alone.</h2>
+      <p class="lede">MemoriGems isn't one screen. It's a small household of companions — each one sitting with a different person, on a different kind of day.</p>
+    </div>
+
+
+    <!-- The Caregiver Companion is lifted out of the six-card grid: it is the
+         largest of the Companions and the only one with a real page behind it.
+         Every word here — the seasons, the six tools, "You are doing enough" —
+         is lifted verbatim from public/caregiver-preview.html.
+         FOUR seasons, matching the app (memorigems-web/caregiver.html) and the
+         demo, which are the authoritative source. Subtitles are verbatim from the
+         app — note "After loss", not "After loss or transition".
+         ⚠️ public/caregiver-preview.html — the page THIS SECTION LINKS TO — still
+         lists only three and is missing Nearing entirely. Until that page is
+         updated, a visitor who clicks through sees one fewer season than the
+         homepage promised. That page is the one to fix, not this one. -->
+    <div class="cg-band rv">
+      <div class="cg-grid">
+        <div>
+          <p class="eyebrow">
+            <span class="gemi gemi-13" aria-hidden="true"></span>
+            Caregiver Companion
+          </p>
+          <h3 style="font-size:clamp(27px,3vw,38px);line-height:1.16;">Caregiving can feel heavy.</h3>
+          <p class="lede" style="margin-top:16px;">This half of MemoriGems is for the person doing the caring. It meets you in whichever season you are in, and it carries the things you would otherwise be hunting for at midnight.</p>
+          <p class="cg-quote">You are doing enough. Your love and presence matter more than you know.</p>
+          <div class="cg-chips">
+            <span class="cg-chip">Emotional Preparation Workbook</span>
+            <span class="cg-chip">Guided Reflection Prompts</span>
+            <span class="cg-chip">Voice &amp; Story Preservation</span>
+            <span class="cg-chip">Family Conversation Guides</span>
+            <span class="cg-chip">After Loss Support</span>
+            <span class="cg-chip">Community Circle</span>
+          </div>
+          <a class="card-link" href="/caregiver-preview">See the Caregiver Companion <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg></a>
+        </div>
+
+        <div class="dev dev-md">
+          <div class="dev-glass">
+            <div class="dev-island"></div>
+            <div class="cg">
+              <p class="cg-h">Caregiver Companion</p>
+              <p class="cg-sub">Caregiving can feel heavy.</p>
+              <p class="cg-lab">Your caregiving season</p>
+                <div class="cg-card">
+                  <span class="cg-dot"></span>
+                  <span><b>The Noticing Season</b><i>Before or around diagnosis</i></span>
+                  <em>Explore</em>
+                </div>
+                <div class="cg-card">
+                  <span class="cg-dot"></span>
+                  <span><b>The Holding Season</b><i>Active caregiving</i></span>
+                  <em>Explore</em>
+                </div>
+                <div class="cg-card">
+                  <span class="cg-dot"></span>
+                  <span><b>The Nearing Season</b><i>Being with them as time grows short</i></span>
+                  <em>Explore</em>
+                </div>
+                <div class="cg-card">
+                  <span class="cg-dot"></span>
+                  <span><b>The Continuing Season</b><i>After loss</i></span>
+                  <em>Explore</em>
+                </div>
+              <p class="cg-lab" style="margin-top:16px">Tools &amp; resources to support you</p>
+              <div class="cg-tools">
+                <span class="cg-tool">Emotional Preparation Workbook</span>
+                <span class="cg-tool">Guided Reflection Prompts</span>
+                <span class="cg-tool">Voice &amp; Story Preservation</span>
+                <span class="cg-tool">Family Conversation Guides</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Every word here is from public/littlegems.html: the headline, "Not
+         worksheets", the six printable names and the closing line. -->
+    <div class="cg-band cg-mirror rv">
+      <div class="cg-grid">
+        <div class="sheets">
+          <figure class="sheet sheet-1">
+            <img src="data:image/webp;base64,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" alt="LittleGems printable: Grandparent Gem">
+          </figure>
+          <figure class="sheet sheet-2">
+            <img src="data:image/webp;base64,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" alt="LittleGems printable: Today's Tiny Gem">
+          </figure>
+          <figure class="sheet sheet-3">
+            <img src="data:image/webp;base64,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" alt="LittleGems printable: A Memory I Want to Keep Forever">
+          </figure>
+        </div>
+        <div>
+          <p class="eyebrow">
+            <span class="gemi gemi-13" aria-hidden="true"></span>
+            LittleGems
+          </p>
+          <h3 style="font-size:clamp(25px,2.7vw,34px);line-height:1.18;">We built MemoriGems to preserve connection.<br>We built LittleGems to begin it.</h3>
+          <p class="lede" style="margin-top:16px;">Not worksheets &mdash; small, intentional invitations, each one building a single habit of connection. Free to print, or colour them online.</p>
+          <p class="cg-quote">Connection deserves preservation &mdash; and it begins long before memory matters.</p>
+          <div class="cg-chips"><span class="cg-chip">Someone Special to Me</span><span class="cg-chip">My Friendship Gem</span><span class="cg-chip">Grandparent Gem</span><span class="cg-chip">Today&rsquo;s Tiny Gem</span><span class="cg-chip">A Memory I Want to Keep Forever</span><span class="cg-chip">Feelings Gem</span></div>
+          <a class="card-link" href="/littlegems">See LittleGems <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="companions">
+      <a class="comp rv" href="/support-preview">
+        <span class="comp-art">
+          <svg width="52" height="52" viewBox="0 0 56 56" aria-hidden="true">
+            <circle cx="28" cy="28" r="26" fill="#FBE6CB"/>
+            <path d="M18 20h20a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H26l-8 6v-6a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4z" fill="#B85208"/>
+          </svg>
+        </span>
+        <h3>Support Companion</h3>
+        <p>Words in their own voice, for the days when explaining is too much.</p>
+        <span class="card-link">Learn more
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+
+      <div class="comp rv">
+        <span class="comp-art">
+          <svg width="52" height="52" viewBox="0 0 56 56" aria-hidden="true">
+            <circle cx="28" cy="28" r="26" fill="#FBE6CB"/>
+            <path d="M28 14a14 14 0 0 1 14 14c0 7-5 10-5 14H19c0-4-5-7-5-14a14 14 0 0 1 14-14z" fill="#B85208"/>
+            <path d="M22 44h12" stroke="#7A3405" stroke-width="3.4" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <h3>Comfort Companion</h3>
+        <p>A familiar voice on repeat, for the restless hour of the afternoon.</p>
+      </div>
+
+      <a class="comp rv" href="#accessibility">
+        <span class="comp-art">
+          <svg width="52" height="52" viewBox="0 0 56 56" aria-hidden="true">
+            <circle cx="28" cy="28" r="26" fill="#FBE6CB"/>
+            <circle cx="28" cy="16" r="4.6" fill="#B85208"/>
+            <path d="M14 23h28M28 23v10M28 33l-7 12M28 33l7 12" stroke="#B85208" stroke-width="4.2" stroke-linecap="round" fill="none"/>
+          </svg>
+        </span>
+        <h3>Accessibility</h3>
+        <p>Large type, spoken pages, one-tap listening — built in, not bolted on.</p>
+        <span class="card-link">Learn more
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACCESSIBILITY ============ -->
+<section class="sec band" id="accessibility">
+  <div class="wrap acc-grid">
+    <div class="rv">
+      <p class="eyebrow">
+        <span class="gemi gemi-13" aria-hidden="true"></span>
+        Accessibility
+      </p>
+      <h2>Everyone deserves connection.</h2>
+      <p class="lede">Not everyone reads small print, holds a steady hand, or has the same first language. So MemoriGems was built for the person who finds screens hardest — and it turns out that makes it easier for everybody.</p>
+      <ul class="acc-list">
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Large, adjustable text</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>A voice-first experience</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Pages that read themselves aloud</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Screen reader support</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Plain language throughout</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>English and Spanish</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>One thing on screen at a time</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Nothing that can be got wrong</li>
+      </ul>
+      <p class="acc-close">This isn't a compliance page. It's the whole point.</p>
+    </div>
+    <div class="acc-photo rv">
+      <img src="redesign-img/accessibility.jpg"
+           alt="An older woman sitting comfortably with her phone in a café, smiling at what she sees.">
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE TEAMS — the one dark band ============ -->
+<section class="sec care" id="care">
+  <div class="wrap care-grid">
+    <div class="rv sec-intro sec-intro-wide">
+      <p class="eyebrow">
+        <span class="gemi gemi-13" aria-hidden="true"></span>
+        For care teams
+      </p>
+      <h2>Meet the person before the patient.</h2>
+      <p class="lede">A chart says what happened to someone. A Gem says who they are — the name they answer to, the song that steadies them, the voice that calms a hard afternoon. Staff hear it in thirty seconds, on the first shift.</p>
+      <div class="roles">
+        <span class="role">Nurses</span>
+        <span class="role">Memory care</span>
+        <span class="role">Home care</span>
+        <span class="role">Hospitals</span>
+        <span class="role">Activity directors</span>
+      </div>
+      <p class="care-quote">Care gets easier when you know who you're caring for.</p>
+      <div class="btn-row">
+        <a class="btn btn-onDark" href="#join">Bring MemoriGems to your team</a>
+      </div>
+    </div>
+      <figure class="care-fig rv">
+        <div class="dev">
+          <div class="dev-glass">
+            <div class="dev-island"></div>
+            <div class="mg">
+              <div class="mg-bar">
+                <svg width="15" height="15" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 40 15v18L24 44 8 33V15z" fill="#1D9E75"/></svg>
+                <span><b>Shared by Bill's family</b> &middot; MemoriGems</span>
+                <span class="mg-lock">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="4" y="10.5" width="16" height="11" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>
+                  Private link
+                </span>
+              </div>
+              <div class="mg-body">
+                <div class="mg-head">
+                  <div class="mg-mono" aria-hidden="true">WH</div>
+                  <div class="mg-name">Bill</div>
+                  <div class="mg-sub">William H. &middot; answers to Bill, never William</div>
+                </div>
+                <div class="mg-card">
+                  <div class="mg-top">Connection snapshot <span>Updated Aug 1</span></div>
+            <div class="mg-row">
+              <span class="mg-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s7-4.6 7-10a7 7 0 1 0-14 0c0 5.4 7 10 7 10z"/></svg></span>
+              <span><span class="mg-rl">Calming cues</span><span class="mg-chips"><span class="mg-chip">Radio on low</span><span class="mg-chip">A warm blanket</span><span class="mg-chip">Sitting by a window</span></span></span>
+            </div>
+            <div class="mg-row">
+              <span class="mg-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/></svg></span>
+              <span><span class="mg-rl">Loves to talk about</span><span class="mg-chips"><span class="mg-chip">His years at sea</span><span class="mg-chip">Boats</span><span class="mg-chip">Ruth's garden</span></span></span>
+            </div>
+            <div class="mg-row">
+              <span class="mg-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.6"/><circle cx="16.5" cy="16" r="2.6"/></svg></span>
+              <span><span class="mg-rl">Brings a smile</span><span class="mg-chips"><span class="mg-chip">Big band</span><span class="mg-chip">His granddaughter's dog</span></span></span>
+            </div>
+            <div class="mg-row">
+              <span class="mg-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></span>
+              <span><span class="mg-rl">Recognized voices</span><span class="mg-chips"><span class="mg-chip">Dana</span><span class="mg-chip">Marcus</span></span></span>
+            </div>
+                  <div class="mg-gentle">
+                    <span class="mg-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 4.5 21 20H3z"/><path d="M12 10v4M12 17h.01"/></svg></span>
+                    <span><span class="mg-rl">Approach gently</span><span class="mg-gt">Ruth, his wife, died in 2019. He sometimes asks when she&rsquo;s coming home. He settles when someone asks what she&rsquo;d be planting.</span></span>
+                  </div>
+                </div>
+              </div>
+              <div class="mg-fade"></div>
+            </div>
+          </div>
+        </div>
+        <figcaption>An example snapshot. Bill is fictional &mdash; every real profile is written by a family.</figcaption>
+      </figure>
+  </div>
+</section>
+
+<!-- ============ BEHIND THE PHOTOGRAPH ============ -->
+<!-- This section replaced a testimonial block. There are no quotes here on
+     purpose: the founding-family beta has not run yet, so there is nobody to
+     quote. The headline sentence is Lisette's. The three captions are drafts —
+     her words should replace them whenever she has better ones. -->
+<section class="sec" id="stories">
+  <div class="wrap">
+    <div class="rv sec-intro">
+      <p class="eyebrow">
+        <span class="gemi gemi-13" aria-hidden="true"></span>
+        Behind the photograph
+      </p>
+      <h2>Every picture is already holding something.</h2>
+      <p class="lede">Behind each photo lies a story, a familiar voice, and someone waiting to feel something again.</p>
+    </div>
+
+    <div class="quotes">
+      <figure class="quote rv">
+        <div class="quote-photo"><img src="redesign-img/story-laugh.jpg" alt="A grandfather holding his granddaughter in a garden, the two of them laughing."></div>
+        <figcaption class="quote-body">
+          <p class="qlabel"><span class="gemi gemi-12" aria-hidden="true"></span>A story</p>
+          <p class="qline">Somebody was there when this happened. Somebody still remembers how it went.</p>
+        </figcaption>
+      </figure>
+      <figure class="quote rv">
+        <div class="quote-photo"><img src="redesign-img/story-voices.jpg" alt="An older woman standing with her adult son, both smiling at the camera."></div>
+        <figcaption class="quote-body">
+          <p class="qlabel"><span class="gemi gemi-12" aria-hidden="true"></span>A familiar voice</p>
+          <p class="qline">The one that still lands, on the days when the name does not.</p>
+        </figcaption>
+      </figure>
+      <figure class="quote rv">
+        <div class="quote-photo"><img src="redesign-img/story-treasure.jpg" alt="A grandmother in the sea with three grandchildren, all sitting in the shallows."></div>
+        <figcaption class="quote-body">
+          <p class="qlabel"><span class="gemi gemi-12" aria-hidden="true"></span>Someone waiting to listen</p>
+          <p class="qline">Not to be tested on it. Just to be back in it with you.</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH AND TRUST ============ -->
+<section class="sec band" id="research">
+  <div class="wrap">
+    <div class="rv sec-intro">
+      <p class="eyebrow">
+        <span class="gemi gemi-13" aria-hidden="true"></span>
+        Research &amp; trust
+      </p>
+      <h2>Built carefully, and shown its work.</h2>
+    </div>
+
+    <div class="trust">
+      <div class="trust-item rv">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13M8 8h8M8 12h8M8 16h5"/></svg>
+        <b>Presented at AAIC</b>
+        <span>The approach has been put in front of the dementia research community, not only families.</span>
+      </div>
+      <div class="trust-item rv">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 21a7 7 0 0 0 7-7c0-3-2-4-2-7H7c0 3-2 4-2 7a7 7 0 0 0 7 7z"/></svg>
+        <b>Evidence-informed</b>
+        <span>Every piece of guidance traces back to a published source, named where you can check it.</span>
+      </div>
+      <div class="trust-item rv">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-4 7-10V5.5L12 3 5 5.5V11c0 6 7 10 7 10z"/><path d="M9 11.5 11.2 14 15 9.5"/></svg>
+        <b>Privacy-first</b>
+        <span>Your family's recordings belong to your family. They aren't sold, mined or used to train anything.</span>
+      </div>
+      <div class="trust-item rv">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M5 21c0-4 3.1-6 7-6s7 2 7 6"/></svg>
+        <b>Human-centered design</b>
+        <span>Designed with families and care staff in the room, then rebuilt when they told us it was wrong.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<!-- Six of these are condensed from her Help page and are already public
+     promises there — notably "Are the recordings ours to keep" (a folder
+     prepared by hand at the end of the beta) and "What do you record"
+     (play data never leaves the family). Four are new.
+     911 and 988 stay on the Help page deliberately; the Alzheimer's
+     Association caregiver line is kept because exhaustion is a reason
+     someone lands on this page at all. -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="rv sec-intro">
+      <p class="eyebrow">
+        <span class="gemi gemi-13" aria-hidden="true"></span>
+        Questions families ask
+      </p>
+      <h2>The things worth knowing first.</h2>
+      <p class="lede">If what you need isn&rsquo;t here, write to us. A person reads it.</p>
+    </div>
+
+    <div class="faqs">
+      <details class="faq rv" open>
+        <summary><span class="faq-q">I don&rsquo;t know what to say.</span><span class="faq-x" aria-hidden="true"></span></summary>
+        <div class="faq-a"><p>Nobody does at first. Comfort and Routine Gems offer prompts &mdash; tap <b>New suggestions</b> for more, or type a word and tap <b>Ideas</b>. Thirty seconds is plenty. &ldquo;I was thinking about you&rdquo; is a whole Gem.</p></div>
+      </details>
+      <details class="faq rv">
+        <summary><span class="faq-q">Does the person receiving it need an app, or an account?</span><span class="faq-x" aria-hidden="true"></span></summary>
+        <div class="faq-a"><p>No. A Gem arrives as a link they can open on any phone or computer. On a tablet you set it up once with a code &mdash; no password, nothing for them to remember, nothing for them to install.</p></div>
+      </details>
+      <details class="faq rv">
+        <summary><span class="faq-q">Will it interrupt them?</span><span class="faq-x" aria-hidden="true"></span></summary>
+        <div class="faq-a"><p>Nothing buzzes at them. There is no alert and no email &mdash; a Gem waits until the next time they open MemoriGems. That is deliberate: a device that pings at someone with memory loss creates more confusion than it solves.</p></div>
+      </details>
+      <details class="faq rv">
+        <summary><span class="faq-q">What if they don&rsquo;t remember who I am?</span><span class="faq-x" aria-hidden="true"></span></summary>
+        <div class="faq-a"><p>That is often the moment MemoriGems is for. Names and faces can go before voices do &mdash; families tell us the sound of someone familiar lands when a photograph on its own does not. It does not fix anything. It gives you something to offer on a day when you have run out of things to say.</p></div>
+      </details>
+      <details class="faq rv">
+        <summary><span class="faq-q">Can they send anything back?</span><span class="faq-x" aria-hidden="true"></span></summary>
+        <div class="faq-a"><p>They can send a heart, and you will see it on their page. Hearts are deliberately the only thing &mdash; it is the one gesture that stays easy when a lot of other things get hard.</p></div>
+      </details>
+      <details class="faq rv">
+        <summary><span class="faq-q">Who else can see this?</span><span class="faq-x" aria-hidden="true"></span></summary>
+        <div class="faq-a"><p>Only the people in their circle, and anyone you have sent a Connection Snapshot link to. Both are listed on their page, and both can be changed or switched off at any time.</p></div>
+      </details>
+      <details class="faq rv">
+        <summary><span class="faq-q">What do you record about how it is used?</span><span class="faq-x" aria-hidden="true"></span></summary>
+        <div class="faq-a"><p>When a Gem is played and when a heart is sent &mdash; so you can see whether your Gems are landing. Nothing is recorded about what anyone says or does otherwise, and none of it is shared outside your family.</p></div>
+      </details>
+      <details class="faq rv">
+        <summary><span class="faq-q">Are the recordings ours to keep?</span><span class="faq-x" aria-hidden="true"></span></summary>
+        <div class="faq-a"><p>Yes. At the end of the beta we prepare a folder of everything &mdash; the audio and photos as real files, with a page that plays them on any computer, with no account and no internet. Yours, for as long as you keep it.</p></div>
+      </details>
+      <details class="faq rv">
+        <summary><span class="faq-q">Is this only for families facing dementia?</span><span class="faq-x" aria-hidden="true"></span></summary>
+        <div class="faq-a"><p>It was built for memory change, and that is where it is being tested first. But nothing in it is only for that &mdash; a voice worth keeping is a voice worth keeping, whether the distance is illness, miles, or time.</p></div>
+      </details>
+      <details class="faq rv">
+        <summary><span class="faq-q">What does it cost?</span><span class="faq-x" aria-hidden="true"></span></summary>
+        <div class="faq-a"><p>Nothing during the founding families pilot. What it costs afterwards has not been decided yet &mdash; and we would rather tell you that than put up a number we are not ready to stand behind. Founding families will hear it from us first.</p></div>
+      </details>
+    </div>
+
+    <div class="help-box rv">
+      <b>Talk to a person</b>
+      <p>Anything at all &mdash; something broken, something confusing, or a hard week. We&rsquo;d rather hear it than not. <a href="mailto:help@huluxinnovations.com">help@huluxinnovations.com</a>, read by the people who built this.</p>
+      <p style="margin-top:12px">If you&rsquo;re the one having a hard time, the Alzheimer&rsquo;s Association runs a free helpline 24 hours a day for families and caregivers &mdash; <a href="tel:18002723900">800&#8209;272&#8209;3900</a>. They are better at that than we are, and there&rsquo;s no wrong reason to call.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<section class="sec close-sec" id="join">
+  <div class="close-photo">
+    <img src="redesign-img/closing-family.jpg" alt="" aria-hidden="true">
+  </div>
+  <div class="wrap close-in">
+    <p class="close-lines rv">
+      <span>Every story matters.</span>
+      <span>Every voice matters.</span>
+      <span>Every Gem matters.</span>
+    </p>
+
+    <div class="join-card rv">
+      <h3>Join the founding families</h3>
+      <p>MemoriGems is opening to a small first group of families. Leave your email and we'll be in touch personally — no automated sequence, no sales call.</p>
+      <!-- REAL FORM, ported verbatim from the live index.html: the Formspree
+           endpoint, the field names, the "I'm joining as" select and the hidden
+           _subject are hers and must not be changed. Only the CSS classes differ. -->
+      <form class="join-row" id="emailForm" action="https://formspree.io/f/mjgzevob" method="POST">
+        <label class="vh" for="emailInput">Your email address</label>
+        <input id="emailInput" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+        <label class="vh" for="roleInput">I'm joining as</label>
+        <select id="roleInput" name="joining_as" aria-label="I'm joining as">
+          <option value="">I'm joining as… (optional)</option>
+          <option value="Family / loved one">A family member or loved one</option>
+          <option value="Caregiver / care partner">A caregiver or care partner</option>
+          <option value="Healthcare / research partner">A healthcare or research partner</option>
+          <option value="Investor">An investor</option>
+          <option value="Just curious">Just curious for now</option>
+        </select>
+        <input type="hidden" name="_subject" value="New MemoriGems founding-families signup">
+        <button class="btn btn-primary" type="submit">Join the Founding Families Pilot</button>
+      </form>
+      <p class="join-note" id="successMsg" style="display:none;">Thank you — your note is with us. We'll be in touch personally.</p>
+      <p class="join-note" id="joinNote">One email from a person, not a system. We won't share your address with anyone.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-grid">
+      <div class="ftr-about">
+        <a class="brand" href="#top">
+          <span class="gemi gemi-38" aria-hidden="true"></span>
+          <span class="brand-name" style="font-size:24px;">MemoriGems</span>
+        </a>
+        <p>Because connection is more than memory. A product of HuLux Innovations.</p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#families">Families</a></li>
+          <li><a href="#care">Care Teams</a></li>
+          <li><a href="#accessibility">Accessibility</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#faq">Questions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Companions</h4>
+        <ul>
+          <li><a href="/caregiver-preview">Caregiver Companion</a></li>
+          <li><a href="/support-preview">Support Companion</a></li>
+          <li><a href="/littlegems">LittleGems</a></li>
+          <li><a href="/experience">See it in action</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>MemoriGems</h4>
+        <ul>
+          <li><a href="/about">Our story</a></li>
+          <li><a href="#join">Founding families</a></li>
+          <li><a href="#circle">Gem Keepers Circle</a></li>
+          <li><a href="mailto:LisetteDiazSantiago@huluxinnovations.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ftr-base">
+      <span>&copy; <span id="yr">2026</span> MemoriGems&reg;, a product of HuLux Innovations LLC. All rights reserved.</span>
+      <span class="sp"></span>
+      <!-- Privacy and Terms were in the brief's footer, but neither privacy.html
+           nor terms.html exists in memorigems-landing/public — the live site has
+           no such links either. Left OUT rather than shipped as two 404s.
+           Paste these back the moment the pages exist:
+           <a href="/privacy">Privacy</a>
+           <a href="/terms">Terms</a>  -->
+      <span class="socials">
+        <a href="https://www.linkedin.com/" aria-label="MemoriGems on LinkedIn">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.07 1.4-2.07 2.86V21H9z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/" aria-label="MemoriGems on Facebook">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6c-.29-.04-1.27-.12-2.41-.12-2.39 0-4.03 1.46-4.03 4.14V9.9H7.5V13h2.76v8z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/" aria-label="MemoriGems on Instagram">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* year */
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  /* header shadow once scrolled */
+  var hdr = document.getElementById('hdr');
+  function onScroll(){
+    if (!hdr) return;
+    if (window.scrollY > 8) hdr.classList.add('is-stuck');
+    else hdr.classList.remove('is-stuck');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* mobile menu */
+  var toggle = document.getElementById('navToggle');
+  var nav = document.getElementById('nav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', function(){
+      var open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu');
+    });
+    nav.addEventListener('click', function(e){
+      if (e.target.closest('a')) {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  /* gentle reveal — everything stays visible if IntersectionObserver is absent */
+  var items = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!('IntersectionObserver' in window) || reduce) {
+    items.forEach(function(el){ el.classList.add('rv-on'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var group = Array.prototype.slice.call(
+          el.parentNode ? el.parentNode.querySelectorAll(':scope > .rv') : []
+        );
+        var i = group.indexOf(el);
+        el.style.transitionDelay = (i > 0 ? Math.min(i, 4) * 0.11 : 0) + 's';
+        el.classList.add('rv-on');
+        io.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function(el){ io.observe(el); });
+  }
+
+  /* Founding-families form. Same fetch-to-Formspree behaviour as the live site:
+     posts in the background, swaps the form for a thank-you, never leaves the page. */
+  var form = document.getElementById('emailForm');
+  if (form) {
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response){
+        if (response.ok) {
+          form.style.display = 'none';
+          var note = document.getElementById('joinNote');
+          if (note) note.style.display = 'none';
+          document.getElementById('successMsg').style.display = 'block';
+        } else {
+          response.json().then(function(data){
+            alert(data.error || 'Something went wrong. Please try again or email LisetteDiazSantiago@huluxinnovations.com.');
+          });
+        }
+      }).catch(function(){
+        alert('Something went wrong. Please try again or email LisetteDiazSantiago@huluxinnovations.com.');
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
