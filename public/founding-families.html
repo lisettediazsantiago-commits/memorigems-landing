@@ -993,10 +993,19 @@ a{ color:var(--ember); }
 /* the criteria / what-you-receive lists — one shape, two uses */
 .ff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,2.4vw,30px);margin-top:46px;}
 .ff-item{display:flex;gap:16px;align-items:flex-start;}
-.ff-mark{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:rgba(184,82,8,.1);
-         display:flex;align-items:center;justify-content:center;margin-top:2px;}
-.ff-item b{display:block;font-size:20px;font-weight:600;margin-bottom:5px;}
-.ff-item span{display:block;font-size:17.5px;color:var(--ink-2);line-height:1.55;}
+
+/* ⚠️ NEVER write `.ff-item span` here. It is (0,1,1) and silently outranks
+   `.ff-mark` (0,1,0) — which is exactly how the tick ended up top-aligned
+   inside its circle: the mark computed display:block instead of display:flex.
+   The text gets its own classes so no descendant selector can reach the mark. */
+.ff-mark{flex:0 0 auto;width:32px;height:32px;border-radius:50%;
+         background:var(--amber);color:var(--paper);
+         display:flex;align-items:center;justify-content:center;
+         line-height:0;margin-top:1px;}
+.ff-mark svg{display:block;}
+.ff-tx{flex:1 1 auto;min-width:0;}
+.ff-item b{display:block;font-size:20px;font-weight:600;margin-bottom:5px;line-height:1.35;}
+.ff-d{display:block;font-size:17.5px;color:var(--ink-2);line-height:1.55;}
 
 /* what you'll do — numbered BECAUSE it is genuinely a sequence */
 .ff-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,2.6vw,38px);margin-top:52px;}
@@ -1016,10 +1025,21 @@ a{ color:var(--ember); }
 .ff-honest b{color:var(--ink);font-weight:600;}
 .ff-honest a{color:var(--ember);font-weight:600;}
 
-/* FAQ cluster headings — the list is long enough that it needs sorting */
-.ff-fgroup{font-family:var(--display);font-size:20px;font-weight:600;color:var(--ember);
-           margin:38px 0 14px;padding-bottom:10px;border-bottom:1.5px solid rgba(184,82,8,.2);}
-.ff-fgroup:first-child{margin-top:0;}
+/* FAQ cluster headings.
+   ⚠️ SIZE THESE AGAINST THE QUESTIONS, NOT IN ISOLATION. The inherited
+   `.faq summary` is clamp(21px,1.9vw,25px), so a flat 20px heading rendered
+   SMALLER than the items under it. Three levels here, in order:
+   h2 clamp(32-52) > group clamp(26-32) > question clamp(21-25).
+   Colour carries the level too: groups --ember, questions --ink.
+   The separating rule sits ABOVE the heading — a rule BELOW made the heading
+   read as one more row in the list. */
+.ff-fgroup{font-family:var(--display);font-size:clamp(26px,2.5vw,32px);
+           font-weight:600;line-height:1.2;color:var(--ember);
+           margin:46px 0 22px;padding:34px 0 0;
+           border-top:2px solid rgba(184,82,8,.22);border-bottom:0;}
+.ff-fgroup:first-child{margin-top:4px;padding-top:0;border-top:0;}
+/* each cluster's first question keeps the same hairline the very first one has */
+.ff-fgroup + .faq{border-top:1px solid rgba(122,52,5,.16);}
 
 /* the closing form section */
 .ff-apply{text-align:center;}
@@ -1128,28 +1148,28 @@ a{ color:var(--ember); }
     </div>
     <div class="ff-grid">
       <div class="ff-item rv">
-        <span class="ff-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
-        <span><b>You&rsquo;re 18 or older</b><span>And you&rsquo;re part of the family or the care circle of someone living with memory changes.</span></span>
+        <span class="ff-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5.5 5.5L19.5 6.5"/></svg></span>
+        <span class="ff-tx"><b>You&rsquo;re 18 or older</b><span class="ff-d">And you&rsquo;re part of the family or the care circle of someone living with memory changes.</span></span>
       </div>
       <div class="ff-item rv">
-        <span class="ff-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
-        <span><b>Distance doesn&rsquo;t matter</b><span>Down the hall or three states away. Some of what we most want to learn is how this works across a distance.</span></span>
+        <span class="ff-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5.5 5.5L19.5 6.5"/></svg></span>
+        <span class="ff-tx"><b>Distance doesn&rsquo;t matter</b><span class="ff-d">Down the hall or three states away. Some of what we most want to learn is how this works across a distance.</span></span>
       </div>
       <div class="ff-item rv">
-        <span class="ff-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
-        <span><b>A phone, tablet or computer</b><span>On both sides. Nothing to install &mdash; a Gem opens in a browser, and a tablet is set up once with a code.</span></span>
+        <span class="ff-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5.5 5.5L19.5 6.5"/></svg></span>
+        <span class="ff-tx"><b>A phone, tablet or computer</b><span class="ff-d">On both sides. Nothing to install &mdash; a Gem opens in a browser, and a tablet is set up once with a code.</span></span>
       </div>
       <div class="ff-item rv">
-        <span class="ff-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
-        <span><b>Earlier changes, or someone alongside them</b><span>MemoriGems fits best earlier on, or later with a person sitting beside them to open it.</span></span>
+        <span class="ff-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5.5 5.5L19.5 6.5"/></svg></span>
+        <span class="ff-tx"><b>Earlier changes, or someone alongside them</b><span class="ff-d">MemoriGems fits best earlier on, or later with a person sitting beside them to open it.</span></span>
       </div>
       <div class="ff-item rv">
-        <span class="ff-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
-        <span><b>English, for now</b><span>The app and everything around it is in English today.</span></span>
+        <span class="ff-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5.5 5.5L19.5 6.5"/></svg></span>
+        <span class="ff-tx"><b>English, for now</b><span class="ff-d">The app and everything around it is in English today.</span></span>
       </div>
       <div class="ff-item rv">
-        <span class="ff-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
-        <span><b>Mid&#8209;September to mid&#8209;November</b><span>About eight weeks. Every family starts together, so the group stays small enough for us to give each one real attention.</span></span>
+        <span class="ff-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5.5 5.5L19.5 6.5"/></svg></span>
+        <span class="ff-tx"><b>Mid&#8209;September to mid&#8209;November</b><span class="ff-d">About eight weeks. Every family starts together, so the group stays small enough for us to give each one real attention.</span></span>
       </div>
     </div>
   </div>
@@ -1204,20 +1224,20 @@ a{ color:var(--ember); }
     </div>
     <div class="ff-grid">
       <div class="ff-item rv">
-        <span class="ff-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
-        <span><b>Free for the whole pilot</b><span>Nothing to pay, and no card taken.</span></span>
+        <span class="ff-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5.5 5.5L19.5 6.5"/></svg></span>
+        <span class="ff-tx"><b>Free for the whole pilot</b><span class="ff-d">Nothing to pay, and no card taken.</span></span>
       </div>
       <div class="ff-item rv">
-        <span class="ff-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
-        <span><b>A founding rate you keep</b><span>When MemoriGems opens more widely, founding families hear from us first &mdash; and keep a discounted rate for as long as they use it.</span></span>
+        <span class="ff-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5.5 5.5L19.5 6.5"/></svg></span>
+        <span class="ff-tx"><b>A founding rate you keep</b><span class="ff-d">When MemoriGems opens more widely, founding families hear from us first &mdash; and keep a discounted rate for as long as they use it.</span></span>
       </div>
       <div class="ff-item rv">
-        <span class="ff-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
-        <span><b>A keepsake box</b><span>A thank-you card, a certificate, and a real gem &mdash; something that sits on a shelf rather than on a screen.</span></span>
+        <span class="ff-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5.5 5.5L19.5 6.5"/></svg></span>
+        <span class="ff-tx"><b>A keepsake box</b><span class="ff-d">A thank-you card, a certificate, and a real gem &mdash; something that sits on a shelf rather than on a screen.</span></span>
       </div>
       <div class="ff-item rv">
-        <span class="ff-mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B85208" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></span>
-        <span><b>Everything you made, in one place</b><span>At the end, every Gem, photo and recording your family made is gathered up and handed to you &mdash; yours to revisit and keep, with no app needed to open it.</span></span>
+        <span class="ff-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5.5 5.5L19.5 6.5"/></svg></span>
+        <span class="ff-tx"><b>Everything you made, in one place</b><span class="ff-d">At the end, every Gem, photo and recording your family made is gathered up and handed to you &mdash; yours to revisit and keep, with no app needed to open it.</span></span>
       </div>
     </div>
   </div>
