@@ -966,6 +966,15 @@ a{ color:var(--ember); }
   .btn{ width:100%; }
   .btn-row{ flex-direction:column; }
   .story-frame{ min-height:70vh; }
+  /* ⚠️ THE CROP, MEASURED — do not "tidy" this back to 38%.
+     The photo is 1536x1024 (1.5) and the mobile frame is roughly 0.60 wide-to-tall,
+     so cover scales to HEIGHT and throws away ~60% of the WIDTH. The desktop
+     object-position of 38% then centres that narrow window on 23-63% of the image,
+     and the woman lives at 50-74% with her face at 69.5% — she was landing outside
+     the frame entirely. 75% puts the window at roughly 45-87% on every phone from
+     a 320px SE to a 430px Pro Max, so she is fully in and centred.
+     Vertical is irrelevant here: at this aspect the height fills exactly, no Y crop. */
+  .story-frame img{ object-position:75% 50%; }
   .story-frame::after{
     background:linear-gradient(0deg,
       rgba(43,32,24,.92) 0%, rgba(43,32,24,.86) 52%,
