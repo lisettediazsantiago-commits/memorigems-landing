@@ -1012,7 +1012,7 @@ a{ color:var(--ember); }
       <a href="#families">For Families</a>
       <a href="#care">For Care Teams</a>
       <a href="/about">About Us</a>
-      <a class="btn btn-primary" href="#join">Join the Founding Families Pilot</a>
+      <a class="btn btn-primary" href="/founding-families">Join the Founding Families Pilot</a>
     </nav>
   </div>
 </header>
@@ -1027,7 +1027,7 @@ a{ color:var(--ember); }
       <h1>Because connection is more than <em>memory</em>.</h1>
       <p class="lede">MemoriGems helps families preserve the voices, stories, and everyday moments that continue bringing people together—even as memory changes.</p>
       <div class="btn-row">
-        <a class="btn btn-primary" href="#join">Join the Founding Families Pilot</a>
+        <a class="btn btn-primary" href="/founding-families">Join the Founding Families Pilot</a>
       </div>
     </div>
     <div class="hero-photo rv">
@@ -1625,7 +1625,7 @@ a{ color:var(--ember); }
       </div>
       <p class="care-quote">Care gets easier when you know who you're caring for.</p>
       <div class="btn-row">
-        <a class="btn btn-onDark" href="#join">Bring MemoriGems to your team</a>
+        <a class="btn btn-onDark" href="/founding-families">Bring MemoriGems to your team</a>
       </div>
     </div>
       <figure class="care-fig rv">
@@ -1840,29 +1840,13 @@ a{ color:var(--ember); }
       <span>Every Gem matters.</span>
     </p>
 
-    <div class="join-card rv">
-      <h3>Join the founding families</h3>
-      <p>MemoriGems is opening to a small first group of families. Leave your email and we'll be in touch personally — no automated sequence, no sales call.</p>
-      <!-- REAL FORM, ported verbatim from the live index.html: the Formspree
-           endpoint, the field names, the "I'm joining as" select and the hidden
-           _subject are hers and must not be changed. Only the CSS classes differ. -->
-      <form class="join-row" id="emailForm" action="https://formspree.io/f/mjgzevob" method="POST">
-        <label class="vh" for="emailInput">Your email address</label>
-        <input id="emailInput" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
-        <label class="vh" for="roleInput">I'm joining as</label>
-        <select id="roleInput" name="joining_as" aria-label="I'm joining as">
-          <option value="">I'm joining as… (optional)</option>
-          <option value="Family / loved one">A family member or loved one</option>
-          <option value="Caregiver / care partner">A caregiver or care partner</option>
-          <option value="Healthcare / research partner">A healthcare or research partner</option>
-          <option value="Investor">An investor</option>
-          <option value="Just curious">Just curious for now</option>
-        </select>
-        <input type="hidden" name="_subject" value="New MemoriGems founding-families signup">
-        <button class="btn btn-primary" type="submit">Join the Founding Families Pilot</button>
-      </form>
-      <p class="join-note" id="successMsg" style="display:none;">Thank you — your note is with us. We'll be in touch personally.</p>
-      <p class="join-note" id="joinNote">One email from a person, not a system. We won't share your address with anyone.</p>
+    <div class="join-card rv" style="text-align:center;">
+      <h3>The Founding Families Pilot</h3>
+      <p>MemoriGems is opening to a small first group of families &mdash; eight weeks from mid&amp;#8209;September, a founding rate you keep, and a real say in what this becomes.</p>
+      <div class="btn-row" style="justify-content:center;margin-top:26px;">
+        <a class="btn btn-primary" href="/founding-families">See what joining involves</a>
+      </div>
+      <p class="join-note" style="margin-top:20px;">What it asks of you, what you receive, and the honest limits &mdash; all on one page.</p>
     </div>
   </div>
 </section>
@@ -1905,7 +1889,7 @@ a{ color:var(--ember); }
         <h4>MemoriGems</h4>
         <ul>
           <li><a href="/about">Our story</a></li>
-          <li><a href="#join">Founding families</a></li>
+          <li><a href="/founding-families">Founding families</a></li>
           <li><a href="#circle">Gem Keepers Circle</a></li>
           <li><a href="mailto:LisetteDiazSantiago@huluxinnovations.com">Contact</a></li>
         </ul>
@@ -1994,8 +1978,9 @@ a{ color:var(--ember); }
     items.forEach(function(el){ io.observe(el); });
   }
 
-  /* Founding-families form. Same fetch-to-Formspree behaviour as the live site:
-     posts in the background, swaps the form for a thank-you, never leaves the page. */
+  /* Founding-families form. The form itself now lives on /founding-families —
+     this stays because it is guarded by `if (form)` and does nothing without it,
+     and because it is the exact handler that page needs if it is ever rebuilt here. */
   var form = document.getElementById('emailForm');
   if (form) {
     form.addEventListener('submit', function(e){
