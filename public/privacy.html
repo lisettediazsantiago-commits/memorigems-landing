@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy — MemoriGems</title>
+<meta name="description" content="What MemoriGems collects, who can see it, and what we will never do with your family's voices.">
+<link rel="canonical" href="https://www.mymemorigems.com/privacy">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MemoriGems">
+<meta property="og:title" content="Privacy — MemoriGems">
+<meta property="og:description" content="What MemoriGems collects, who can see it, and what we will never do with your family's voices.">
+<meta property="og:url" content="https://www.mymemorigems.com/privacy">
+<meta property="og:image" content="https://www.mymemorigems.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MemoriGems — When memories change, connection shouldn't.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy — MemoriGems">
+<meta name="twitter:description" content="What MemoriGems collects, who can see it, and what we will never do with your family's voices.">
+<meta name="twitter:image" content="https://www.mymemorigems.com/og-image.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Source+Sans+3:ital,wght@0,300..700;1,400&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   MemoriGems — homepage redesign prototype
+   Palette sampled from the amber gem photograph itself:
+   the gem's body reads #B44800–#C04800, its lit core #EF8502.
+
+   CONTRAST, measured against the cream (#FBF6EE):
+     --ink    14.8:1   --ink-2  8.4:1   --ember  8.4:1
+     white on --amber  4.9:1   cream on --dark  13.7:1
+   Amber NEVER carries small text. It fills, glows and rules;
+   --ember carries any amber-coloured word.
+   ============================================================ */
+
+:root{
+  --cream:      #FBF6EE;
+  --cream-2:    #F5E9D7;
+  --paper:      #FFFCF7;
+  --amber:      #B85208;   /* fills, buttons, rules */
+  --amber-glow: #EF8502;   /* gradients and light only — never text */
+  --ember:      #7A3405;   /* amber as a WORD */
+  --ink:        #2B2018;
+  --ink-2:      #56463A;
+  --dark:       #33251A;
+  --dark-warm:  #E8C79A;
+
+  /* MemoriGems' OWN colours, for the phone screen. Deliberately NOT amber:
+     recolouring the UI to match the page would show a product that doesn't exist. */
+  --app-cream:      #F2F0E9;
+  --app-green:      #1D9E75;
+  --app-green-deep: #0F6E56;
+  --app-ink:        #243027;
+  --app-ink-2:      #5C6B60;
+  --app-chip:       #E9EDE8;
+  /* the five Gem colours + controls, sampled from her own screenshots Aug 3 2026 */
+  --gem-comfort:#9FE1CB; --gem-comfort-d:#0F6E56;
+  --gem-routine:#C9B5D9; --gem-routine-d:#5B3E7F;
+  --gem-moment: #EFC196; --gem-moment-d: #9C5226;
+  --gem-music:  #BCCDF0; --gem-music-d:  #3E5A96;
+  --gem-voice:  #E3C5C0; --gem-voice-d:  #9A5548;
+  --app-phrase: #C7EBDD; --app-rec:      #C75B5B;
+  --app-stop:   #1D9E75; --app-line:     #D3D1C7;
+
+  /* Swap this one line back to 'Cormorant Garamond', serif to return
+     to the current brand face. Fraunces is used here because the
+     aging-eye pass found Cormorant's hairlines disappear below 34px. */
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Source Sans 3', system-ui, -apple-system, sans-serif;
+
+  --r-lg: 28px;
+  --r-md: 20px;
+  --r-sm: 14px;
+  --shadow-soft: 0 2px 6px rgba(58,40,24,.04), 0 14px 40px rgba(58,40,24,.07);
+  --shadow-lift: 0 4px 10px rgba(58,40,24,.06), 0 22px 60px rgba(58,40,24,.11);
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:20px;
+  line-height:1.65;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+img{ max-width:100%; display:block; }
+
+h1,h2,h3{
+  font-family:var(--display);
+  font-weight:500;
+  line-height:1.12;
+  letter-spacing:-.012em;
+  margin:0;
+  color:var(--ink);
+}
+h1{ font-size:clamp(40px,5.6vw,72px); }
+h2{ font-size:clamp(32px,4vw,52px); }
+h3{ font-size:clamp(23px,2.1vw,28px); line-height:1.24; }
+em{ font-style:italic; color:var(--ember); }
+p{ margin:0 0 1.1em; }
+p:last-child{ margin-bottom:0; }
+
+a{ color:var(--ember); }
+
+:focus-visible{
+  outline:3px solid var(--ember);
+  outline-offset:3px;
+  border-radius:6px;
+}
+
+.skip{
+  position:absolute; left:-9999px; top:0;
+  background:var(--paper); color:var(--ink);
+  padding:14px 20px; border-radius:0 0 var(--r-sm) 0; z-index:200;
+}
+.skip:focus{ left:0; }
+
+/* ---------- layout scaffolding ------------------------------ */
+.wrap{ width:min(1180px, calc(100% - 48px)); margin-inline:auto; }
+.wrap-narrow{ width:min(760px, calc(100% - 48px)); margin-inline:auto; }
+
+.sec{ padding:clamp(72px,9vw,124px) 0; position:relative; }
+.sec-tight{ padding:clamp(56px,6vw,84px) 0; }
+.band{ background:var(--cream-2); }
+
+/* eyebrow — lowercase on purpose. The live site's 11px uppercase
+   letter-spaced labels were the single worst legibility offender. */
+.eyebrow{
+  display:flex; align-items:center; gap:10px;
+  font-size:17px; font-weight:600; color:var(--ember);
+  margin:0 0 18px;
+}
+.eyebrow svg{ flex:0 0 auto; }
+/* ---------- her gem, used everywhere the page needs a gem mark -------------
+   Defined once as a data URI so it costs ~7 KB no matter how many appear.
+   NOT used inside the phone screens: the Comfort / Routine / Moment / Music
+   icons and the share-bar gem there are the APP's own icons in the app's own
+   colours, and swapping them would misrepresent the product. -------------- */
+.gemi{
+  display:inline-block; flex:0 0 auto; vertical-align:-.14em;
+  background:url(data:image/webp;base64,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) center/contain no-repeat;
+}
+.gemi-13{ width:15px; height:14px; }
+.gemi-12{ width:14px; height:13px; }
+.gemi-38{ width:38px; height:36px; }
+.gemi-44{ width:44px; height:42px; }
+.gemi-52{ width:34px; height:32px; }
+
+
+.sec-intro{ max-width:640px; }
+.sec-intro-wide{ max-width:680px; }
+.sec-intro .lede{ margin-top:16px; }
+
+.lede{
+  font-size:clamp(20px,2vw,23px);
+  color:var(--ink-2);
+  line-height:1.6;
+  max-width:60ch;
+}
+
+/* ---------- buttons ----------------------------------------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-family:var(--body); font-size:18px; font-weight:600;
+  padding:17px 30px; border-radius:100px;
+  text-decoration:none; border:2px solid transparent; cursor:pointer;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background-color .35s var(--ease);
+}
+.btn-primary{
+  background:var(--amber); color:#fff;
+  box-shadow:0 6px 20px rgba(184,82,8,.26);
+}
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 30px rgba(184,82,8,.32); }
+/* Currently unused — the hero's "Watch How It Works" button came out once the
+   four-phone flow section made the point better. Kept so a second CTA is one line
+   of markup away rather than a restyle. */
+.btn-ghost{
+  background:transparent; color:var(--ember); border-color:rgba(184,82,8,.42);
+}
+.btn-ghost:hover{ transform:translateY(-2px); background:rgba(184,82,8,.06); }
+.btn-onDark{
+  background:var(--dark-warm); color:var(--dark);
+}
+.btn-onDark:hover{ transform:translateY(-2px); }
+.btn-row{ display:flex; flex-wrap:wrap; gap:16px; margin-top:34px; }
+
+/* ---------- header ------------------------------------------ */
+.hdr{
+  position:sticky; top:0; z-index:100;
+  background:rgba(251,246,238,.86);
+  backdrop-filter:saturate(140%) blur(14px);
+  -webkit-backdrop-filter:saturate(140%) blur(14px);
+  transition:box-shadow .4s var(--ease);
+}
+.hdr.is-stuck{ box-shadow:0 1px 0 rgba(122,52,5,.09), 0 10px 30px rgba(58,40,24,.05); }
+.hdr-in{ display:flex; align-items:center; gap:28px; padding:16px 0; }
+.brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+/* In the header the brand is two lines (name + tagline), so centring the gem on the
+   whole block drops it below the title. Align to the top instead and lift it by half
+   the difference between the gem (42px) and the title's line box (28px) so it centres
+   on the WORD. Scoped to .hdr — the footer brand is one line and still centres.
+   .hdr .brand is (0,2,0) and beats .brand at (0,1,0). */
+.hdr .brand{ align-items:flex-start; }
+.hdr .brand .gemi{ margin-top:-7px; }
+.brand-name{
+  font-family:var(--display); font-size:28px; font-weight:600;
+  color:var(--ink); line-height:1;
+}
+.brand-tag{
+  display:block; font-family:var(--body); font-size:15px;
+  font-weight:400; color:var(--ink-2); margin-top:4px; line-height:1.3;
+}
+.nav{ margin-left:auto; display:flex; align-items:center; gap:20px; }
+.nav a:not(.btn){
+  font-size:16px; color:var(--ink-2); text-decoration:none; font-weight:500;
+  transition:color .3s var(--ease);
+}
+.nav a:not(.btn):hover{ color:var(--ember); }
+.nav .btn{ font-size:15px; padding:11px 22px; }
+.nav-toggle{
+  display:none; margin-left:auto; background:none; border:0; cursor:pointer;
+  padding:12px; color:var(--ink); border-radius:12px;
+}
+
+/* ---------- hero -------------------------------------------- */
+.hero{
+  position:relative;
+  background:
+    radial-gradient(900px 520px at 88% 8%, rgba(239,133,2,.13), transparent 62%),
+    linear-gradient(180deg, var(--cream) 0%, #F8EEE0 100%);
+  padding-top:clamp(48px,5vw,72px);
+  overflow:hidden;
+}
+.hero-grid{
+  display:grid; grid-template-columns:1.02fr .98fr; gap:clamp(32px,4vw,64px);
+  align-items:center;
+}
+.hero-copy{ padding-bottom:clamp(60px,7vw,110px); }
+.hero h1{ margin-bottom:24px; }
+.hero .lede{ font-size:clamp(20px,1.7vw,23px); }
+.hero-photo{
+  position:relative; border-radius:var(--r-lg) 0 0 var(--r-lg);
+  overflow:hidden; align-self:stretch;
+  min-height:min(74vh, 620px);
+  margin-right:calc(50% - 50vw);
+  box-shadow:var(--shadow-soft);
+}
+.hero-photo img{
+  width:100%; height:100%; object-fit:cover; object-position:60% 40%;
+  position:absolute; inset:0;
+}
+.hero-photo::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(100deg, rgba(248,238,224,.62) 0%, rgba(248,238,224,.12) 34%, transparent 60%);
+}
+.wave{ display:block; width:100%; height:auto; margin-top:-1px; }
+
+/* ---------- the two voice lines ----------------------------- */
+.insight{ background:var(--cream); padding:clamp(64px,7vw,104px) 0; }
+.insight-in{
+  display:grid; grid-template-columns:1fr 1fr; gap:clamp(26px,4vw,62px);
+  align-items:start;
+}
+.ins{ margin:0; }
+.ins-photo{
+  border-radius:var(--r-lg); overflow:hidden; aspect-ratio:4/3;
+  box-shadow:var(--shadow-soft);
+}
+.ins-photo img{
+  width:100%; height:100%; object-fit:cover;
+  transform:scale(1.02); transition:transform 7s var(--ease);
+}
+.ins:hover .ins-photo img{ transform:scale(1.07); }
+.ins figcaption{
+  font-family:var(--display); font-size:clamp(22px,2.3vw,30px);
+  line-height:1.3; color:var(--ink); text-align:center;
+  margin-top:24px; text-wrap:balance;
+}
+.ins-voice figcaption{ color:var(--ember); }
+.wavebars{ width:clamp(84px,9vw,124px); height:auto; display:block; margin:16px auto 0; }
+
+/* ---------- the story --------------------------------------- */
+.story{ position:relative; }
+.story-frame{
+  position:relative; border-radius:var(--r-lg); overflow:hidden;
+  min-height:min(78vh,660px); display:flex; align-items:flex-end;
+  box-shadow:var(--shadow-soft);
+}
+.story-frame img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:38% 42%;
+  transform:scale(1.04); transition:transform 9s var(--ease);
+}
+.story-frame:hover img{ transform:scale(1.09); }
+/* The scrim runs ACROSS, not up — the words sit in the left column, and the old
+   bottom-up gradient darkened everywhere except where the text actually was
+   (white measured 1.13:1 on the previous photograph). It holds 78% ink under the
+   text column and clears before her face. Measured on THIS photograph: white
+   8.78:1, warm-cream 6.4:1 — both AAA, and 10 points lighter than the first
+   pass, which was blacking out half the image to buy contrast nobody needed.
+   NOTE ON THE PHOTOGRAPH: the left half is AI-EXTENDED. The woman and the garden
+   are a real frame; the empty space the text sits on was generated to widen it.
+   Nothing about her was altered. Flagged because every other photograph on this
+   page is unmodified. */
+.story-frame::after{
+  content:''; position:absolute; inset:0;
+  background:
+    linear-gradient(96deg,
+      rgba(43,32,24,.80) 0%,
+      rgba(43,32,24,.78) 38%,
+      rgba(43,32,24,.50) 56%,
+      rgba(43,32,24,.13) 74%,
+      rgba(43,32,24,0)   88%),
+    linear-gradient(2deg, rgba(43,32,24,.52) 6%, rgba(43,32,24,.14) 40%, rgba(43,32,24,0) 68%);
+}
+.story-text{
+  position:relative; z-index:2; padding:clamp(32px,5vw,64px);
+  max-width:30ch;
+  text-shadow:0 2px 22px rgba(22,14,8,.55);
+}
+.story-text p{
+  font-family:var(--display); font-size:clamp(25px,2.8vw,38px); font-weight:600;
+  line-height:1.28; color:#FFFDF9; margin:0 0 .5em;
+}
+.story-text p.turn{ color:#F3D9B2; }
+.story-text p.becomes{
+  font-family:var(--body); font-size:19px; font-weight:700;
+  color:#FFFDF9; margin-top:22px; line-height:1.5;
+  text-shadow:0 1px 14px rgba(22,14,8,.6);
+}
+
+/* ---------- what is a gem (signature) ----------------------- */
+.gem-grid{
+  display:grid; grid-template-columns:.92fr 1.08fr; gap:clamp(36px,5vw,80px);
+  align-items:center;
+}
+.gem-stage{ position:relative; display:flex; justify-content:center; }
+.gem-photo{
+  border-radius:var(--r-lg); box-shadow:var(--shadow-lift); overflow:hidden;
+}
+.gem-photo img{ width:100%; }
+.threads{ list-style:none; margin:30px 0 0; padding:0; display:grid; gap:14px; }
+.thread{
+  display:flex; align-items:flex-start; gap:16px;
+  background:var(--paper); border-radius:var(--r-md);
+  padding:20px 24px; box-shadow:var(--shadow-soft);
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.thread:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lift); }
+.thread-icon{
+  flex:0 0 auto; width:46px; height:46px; border-radius:50%;
+  background:linear-gradient(150deg,#FBE6CB,#F3CE9E);
+  display:grid; place-items:center; color:var(--ember);
+}
+.thread b{ display:block; font-size:19px; font-weight:600; color:var(--ink); }
+.thread span{ font-size:18px; color:var(--ink-2); line-height:1.5; }
+.gem-sum{
+  margin-top:22px; font-family:var(--display);
+  font-size:clamp(21px,1.9vw,25px); color:var(--ember); line-height:1.35;
+}
+
+/* ---------- how it works ------------------------------------ */
+.steps{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(20px,2.6vw,36px);
+  margin-top:56px;
+}
+.step{ text-align:center; }
+.step-art{
+  width:100%; max-width:186px; margin:0 auto 22px; display:block;
+}
+.step h3{ font-size:23px; margin-bottom:8px; }
+.step-opt{
+  display:inline-block; margin:0 0 9px; padding:4px 13px; border-radius:100px;
+  background:rgba(184,82,8,.1); color:var(--ember);
+  font-size:15px; font-weight:600;
+}
+.step p{ font-size:18px; color:var(--ink-2); line-height:1.55; }
+
+/* ---------- built for every kind of connection --------------- */
+.cards-3{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,2.4vw,32px);
+  margin-top:52px;
+}
+.card{
+  background:var(--paper); border-radius:var(--r-lg); overflow:hidden;
+  box-shadow:var(--shadow-soft); display:flex; flex-direction:column;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lift); }
+.card-photo{ aspect-ratio:4/3; overflow:hidden; }
+.card-photo img{
+  width:100%; height:100%; object-fit:cover;
+  transform:scale(1.02); transition:transform 6s var(--ease);
+}
+.card:hover .card-photo img{ transform:scale(1.08); }
+.card-body{ padding:30px 30px 34px; display:flex; flex-direction:column; flex:1; }
+.card-body p{ font-size:18px; color:var(--ink-2); margin:10px 0 22px; }
+.card-link{
+  margin-top:auto; font-weight:600; font-size:18px; color:var(--ember);
+  text-decoration:none; display:inline-flex; align-items:center; gap:9px;
+}
+.card-link svg{ transition:transform .35s var(--ease); }
+.card-link:hover svg{ transform:translateX(5px); }
+
+/* ---------- the companions ---------------------------------- */
+.companions{
+  display:flex; flex-wrap:wrap; justify-content:center;
+  gap:clamp(18px,2.2vw,28px); margin-top:44px;
+}
+.companions > .comp{ flex:0 1 calc(33.333% - clamp(12px,1.5vw,19px)); }
+.comp{
+  background:var(--paper); border-radius:var(--r-lg); padding:34px 32px 30px;
+  box-shadow:var(--shadow-soft); text-decoration:none; color:inherit;
+  display:flex; flex-direction:column;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.comp:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lift); }
+.comp-art{ margin-bottom:20px; }
+.comp h3{ font-size:24px; margin-bottom:8px; }
+.comp p{ font-size:18px; color:var(--ink-2); margin:0 0 20px; }
+.comp .card-link{ font-size:17px; }
+
+/* ---------- Caregiver Companion, lifted out of the grid ---------- */
+.cg-band{
+  background:var(--cream-2); border-radius:var(--r-lg);
+  padding:clamp(30px,4vw,54px); margin-top:44px;
+}
+.cg-grid{
+  display:grid; grid-template-columns:1fr auto; gap:clamp(30px,4vw,58px);
+  align-items:center;
+}
+.cg-quote{
+  font-family:var(--display); font-size:clamp(21px,2vw,25px);
+  color:var(--ember); line-height:1.34; margin:20px 0 0; max-width:34ch;
+}
+.cg-chips{ display:flex; flex-wrap:wrap; gap:8px; margin:26px 0 0; }
+.cg-chip{
+  background:var(--paper); color:var(--ember); border-radius:100px;
+  padding:8px 16px; font-size:16px; font-weight:600;
+  box-shadow:0 1px 2px rgba(58,40,24,.05);
+}
+.cg-band .card-link{ margin-top:28px; }
+
+/* ---------- LittleGems: the printables, as paper ---------------------------
+   The only non-screen visual on the page. Six phones already say "software";
+   nothing else says a child can sit at a table with a crayon. The three sheets
+   are her real printables, embedded as data URIs (~23 KB total) rather than
+   files — line art turns to mush as JPEG and this way there is nothing extra
+   for her to upload. Layout is MIRRORED against the Caregiver band above so the
+   two do not read as one long stripe. */
+.cg-mirror .cg-grid{ grid-template-columns:auto 1fr; }
+.sheets{ position:relative; width:330px; height:470px; flex:0 0 auto; }
+.sheet{
+  position:absolute; margin:0; border-radius:6px; overflow:hidden; background:#fff;
+  box-shadow:0 10px 30px rgba(58,40,24,.16), 0 1px 3px rgba(58,40,24,.10);
+  transition:transform .5s var(--ease);
+}
+.sheet img{ display:block; width:100%; }
+.sheet-1{ width:250px; left:0;   top:26px; transform:rotate(-6deg); }
+.sheet-2{ width:250px; left:40px; top:8px;  transform:rotate(1.5deg); }
+.sheet-3{ width:250px; left:78px; top:34px; transform:rotate(7deg); }
+.sheets:hover .sheet-1{ transform:rotate(-8.5deg) translateY(-4px); }
+.sheets:hover .sheet-3{ transform:rotate(9.5deg) translateY(-4px); }
+
+/* ---------- Gem Keepers Circle -------------------------------------------
+   Option 1: the circle card exactly as keeper-circle.html renders it, minus a
+   phone frame. Role text is verbatim from that file's ROLE_DESC; the avatar
+   colours are its AV array. The Steward line is the ONLY invented one — the
+   app defines no description for that role.
+   No CTA on purpose: there is no public page about circles, and a "Learn more"
+   that lands on the signup form is the pattern this page is trying to avoid.
+   The roles list IS the explanation. */
+.circ-roles{ list-style:none; margin:26px 0 0; padding:0; display:grid; gap:2px; max-width:52ch; }
+.rr{ display:flex; gap:14px; padding:13px 0; border-bottom:1px solid rgba(122,52,5,.11); }
+.rr:last-child{ border-bottom:0; }
+.rr-dot{ flex:0 0 auto; width:14px; height:14px; border-radius:50%; margin-top:7px; }
+.rr b{ display:block; font-size:18px; font-weight:600; color:var(--ink); }
+.rr i{ display:block; font-style:normal; font-size:17px; color:var(--ink-2); line-height:1.45; }
+
+.ccard{
+  width:364px; background:var(--paper); border-radius:24px; padding:26px 24px;
+  box-shadow:var(--shadow-soft); flex:0 0 auto;
+}
+.cc-h{ font-family:var(--display); font-size:25px; font-weight:500; margin:0 0 4px; }
+.cc-s{ font-size:16px; color:var(--ink-2); margin:0 0 18px; }
+.cc-av{ display:flex; margin:0 0 18px; }
+.av{
+  width:38px; height:38px; border-radius:50%; color:#fff; font-weight:700;
+  font-size:16px; display:grid; place-items:center; flex:0 0 auto;
+}
+.cc-av .av{ margin-right:-11px; box-shadow:0 0 0 3px var(--paper); }
+.cc-list{ border-top:1px solid rgba(122,52,5,.11); }
+.mrow{ display:flex; align-items:center; gap:12px; padding:13px 0; border-bottom:1px solid rgba(122,52,5,.11); }
+.mrow:last-child{ border-bottom:0; }
+.mtx b{ display:block; font-size:17px; font-weight:600; }
+.mtx i{ font-style:normal; font-size:14px; color:var(--ink-2); }
+.mrow em{
+  margin-left:auto; font-style:normal; font-size:13.5px; font-weight:600;
+  color:var(--ember); background:#F6EADB; border-radius:100px;
+  padding:4px 11px; white-space:nowrap;
+}
+@media (prefers-reduced-motion: reduce){ .sheets:hover .sheet{ transform:none; } }
+
+.dev-md{ width:300px; border-radius:40px; padding:10px; }
+.dev-md .dev-glass{ border-radius:32px; }
+.dev-md .dev-island{ top:7px; width:68px; height:19px; }
+
+.cg{
+  position:relative; height:502px; overflow:hidden; padding:36px 15px 0;
+  background:var(--app-cream); color:var(--app-ink);
+  font-size:14.4px; line-height:1.4;
+}
+.cg::after{
+  content:''; position:absolute; left:0; right:0; bottom:0; height:47px;
+  background:linear-gradient(to bottom,rgba(242,240,233,0),var(--app-cream));
+}
+.cg-h{ font-size:20px; font-weight:700; text-align:center; margin:4px 0 3px; }
+.cg-sub{ font-size:14px; color:var(--app-ink-2); text-align:center; margin-bottom:14px; }
+.cg-lab{ font-size:13.3px; font-weight:700; color:var(--app-ink-2); margin:0 0 8px; }
+.cg-card{
+  background:#fff; border-radius:13px; padding:11px 14px; margin-bottom:7px;
+  box-shadow:0 1px 3px rgba(36,48,39,.06); display:flex; align-items:center; gap:10px;
+}
+.cg-dot{ flex:0 0 auto; width:9px; height:9px; border-radius:50%; background:var(--app-green); }
+.cg-card b{ display:block; font-size:15px; font-weight:600; }
+.cg-card i{ font-style:normal; font-size:12.8px; color:var(--app-ink-2); }
+.cg-card em{ margin-left:auto; font-style:normal; font-size:12.2px; color:var(--app-green-deep); font-weight:600; }
+.cg-tools{ display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:14px; }
+.cg-tool{ background:#E6F1EC; border-radius:11px; padding:10px 11px; font-size:13.3px; line-height:1.3; color:#1C3B31; }
+
+/* ---------- accessibility ----------------------------------- */
+.acc-grid{
+  display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(36px,5vw,72px);
+  align-items:center;
+}
+.acc-photo{
+  border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-lift);
+}
+.acc-list{
+  list-style:none; margin:32px 0 0; padding:0;
+  display:grid; grid-template-columns:repeat(2,1fr); gap:14px 22px;
+}
+.acc-list li{
+  display:flex; align-items:flex-start; gap:12px;
+  font-size:18px; color:var(--ink-2); line-height:1.45;
+}
+.acc-list svg{ flex:0 0 auto; margin-top:5px; }
+.acc-close{
+  margin-top:34px; font-family:var(--display);
+  font-size:clamp(23px,2.2vw,30px); color:var(--ember); line-height:1.3;
+}
+
+/* ---------- care teams (the one dark band) ------------------- */
+.care{ background:var(--dark); color:#FDF8F1; }
+.care h2{ color:#FDF8F1; }
+.care .eyebrow{ color:var(--dark-warm); }
+.care .lede{ color:rgba(253,248,241,.8); }
+.roles{
+  display:flex; flex-wrap:wrap; gap:12px; margin-top:38px;
+}
+.role{
+  border:1.5px solid rgba(232,199,154,.4); border-radius:100px;
+  padding:12px 24px; font-size:18px; color:var(--dark-warm);
+  transition:background-color .35s var(--ease), transform .35s var(--ease);
+}
+.role:hover{ background:rgba(232,199,154,.11); transform:translateY(-2px); }
+.care-quote{
+  margin-top:46px; padding-top:38px;
+  border-top:1px solid rgba(232,199,154,.22);
+  font-family:var(--display); font-size:clamp(24px,2.6vw,34px);
+  line-height:1.34; color:#FDF8F1; max-width:24ch;
+}
+
+.care-grid{
+  display:grid; grid-template-columns:1fr auto; gap:clamp(36px,5vw,64px);
+  align-items:center;
+}
+.care-fig{ margin:0; display:flex; flex-direction:column; align-items:center; gap:16px; }
+.care-fig figcaption{
+  font-size:16px; color:rgba(232,199,154,.72); text-align:center; max-width:32ch;
+}
+
+/* the device */
+.dev{
+  width:360px; background:#1A1512; border-radius:48px; padding:11px;
+  box-shadow:0 30px 70px rgba(0,0,0,.45), 0 0 0 1.5px rgba(232,199,154,.16);
+}
+.dev-glass{
+  border-radius:38px; overflow:hidden; position:relative; background:var(--app-cream);
+}
+.dev-island{
+  position:absolute; top:9px; left:50%; transform:translateX(-50%);
+  width:90px; height:25px; border-radius:100px; background:#1A1512; z-index:3;
+}
+
+/* ---------- the four real screens, rebuilt ------------------ */
+.flow-sec{ padding-top:0; }
+.flow-grid{
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:clamp(18px,2.2vw,28px); margin-top:56px; align-items:start;
+}
+.flow-item{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+.flow-cap{ text-align:center; }
+.flow-cap b{
+  display:block; font-family:var(--display); font-size:21px;
+  font-weight:500; color:var(--ink); line-height:1.24; margin-bottom:5px;
+}
+.flow-cap span{ font-size:16.5px; color:var(--ink-2); line-height:1.45; }
+
+.dev-sm{
+  width:100%; max-width:282px; background:#1A1512; border-radius:38px; padding:9px;
+  box-shadow:0 14px 34px rgba(58,40,24,.20), 0 0 0 1.2px rgba(43,32,24,.14);
+}
+.dev-sm .dev-glass{ border-radius:30px; }
+.dev-sm .dev-island{ top:7px; width:64px; height:18px; }
+
+/* the app itself */
+.fl{
+  position:relative; height:472px; overflow:hidden; padding:34px 14px 0;
+  background:var(--app-cream); color:#2C2C2A;
+  font-family:var(--body); font-size:13.5px; line-height:1.4; text-align:center;
+}
+.fl::after{
+  content:''; position:absolute; left:0; right:0; bottom:0; height:44px;
+  background:linear-gradient(to bottom,rgba(242,240,233,0),var(--app-cream));
+}
+.fl-h{ font-size:19px; font-weight:700; letter-spacing:-.01em; margin:6px 0 3px; }
+.fl-sub{ font-size:13px; color:#5F5E5A; margin-bottom:14px; }
+.fl-q{ font-size:12.5px; font-weight:600; margin-bottom:6px; }
+.fl-q i{ font-style:normal; font-weight:400; color:#888780; }
+.fl-input{
+  background:#fff; border:1px solid var(--app-line); border-radius:11px;
+  padding:9px 12px; text-align:left; font-size:13.5px; color:#2C2C2A; margin-bottom:18px;
+}
+.fl-gems{ display:grid; grid-template-columns:1fr 1fr; gap:16px 10px; }
+.fl-gem span{
+  width:56px; height:56px; border-radius:50%; margin:0 auto 7px;
+  display:grid; place-items:center;
+}
+.fl-gem b{ display:block; font-size:14px; font-weight:600; }
+.fl-gem i{ display:block; font-style:normal; font-size:12px; color:#5F5E5A; line-height:1.3; }
+.fl-or{
+  display:flex; align-items:center; gap:9px; margin:16px 0 10px;
+  font-size:12px; color:#888780;
+}
+.fl-or::before,.fl-or::after{ content:''; flex:1; height:1px; background:var(--app-line); }
+.fl-voice{
+  display:flex; align-items:center; gap:10px; text-align:left;
+  background:#F7EDEB; border-radius:13px; padding:11px 12px;
+}
+.fl-voice span{
+  flex:0 0 auto; width:34px; height:34px; border-radius:50%;
+  background:var(--gem-voice); display:grid; place-items:center; color:var(--gem-voice-d);
+}
+.fl-voice b{ display:block; font-size:13.5px; font-weight:700; }
+.fl-voice i{ font-style:normal; font-size:12px; color:#5F5E5A; }
+
+.fl-pill{
+  display:inline-flex; align-items:center; gap:6px;
+  border:1px solid #A8D9C6; border-radius:100px; padding:6px 14px;
+  color:var(--gem-comfort-d); font-size:12.5px; font-weight:600; margin-bottom:14px;
+}
+.fl-cards{ display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+.fl-card{
+  background:var(--app-phrase); border-radius:11px;
+  padding:20px 8px; font-size:13px; line-height:1.3;
+}
+.fl-ideas{ display:flex; gap:7px; margin-top:11px; }
+.fl-ideas span{
+  flex:1; background:#fff; border:1px solid var(--app-line); border-radius:100px;
+  padding:9px 12px; font-size:12.5px; color:#888780; text-align:left;
+}
+.fl-ideas b{
+  background:var(--gem-comfort-d); color:#fff; border-radius:100px;
+  padding:9px 16px; font-size:12.5px; font-weight:700;
+}
+.fl-own{
+  background:var(--app-phrase); border-radius:13px;
+  margin-top:11px; padding:16px 10px; font-size:13.5px;
+}
+
+.fl-speak{
+  background:#fff; border:1px solid #DCE9E3; border-radius:13px;
+  padding:12px 10px; margin:16px 0 22px;
+}
+.fl-speak i{
+  display:block; font-style:normal; font-size:10.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:#888780; margin-bottom:5px;
+}
+.fl-speak b{ display:block; font-size:17px; font-weight:700; }
+.fl-mic{
+  width:74px; height:74px; border-radius:50%; background:var(--app-rec);
+  display:grid; place-items:center; margin:0 auto 12px; color:#fff;
+}
+.fl-time{ font-size:19px; font-weight:600; }
+.fl-time i{ display:block; font-style:normal; font-size:12px; color:#888780; font-weight:400; }
+
+.fl-mono{
+  width:66px; height:66px; border-radius:50%; margin:24px auto 12px;
+  display:grid; place-items:center;
+  background:linear-gradient(150deg,#D9EBE1,#B9DCCB); color:var(--gem-comfort-d);
+  font-family:var(--display); font-size:25px; font-weight:600;
+}
+.fl-sent{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:26px; font-weight:600; margin-bottom:7px;
+}
+.fl-note{ font-size:12.5px; color:#888780; font-style:italic; margin:12px 0 16px; }
+.fl-done{
+  background:var(--gem-comfort-d); color:#fff; border-radius:11px;
+  padding:13px; font-size:15px; font-weight:700;
+}
+
+/* the screen — MemoriGems' own interface, at its own scale */
+.mg{ padding-top:40px; font-size:15px; line-height:1.45; color:var(--app-ink); }
+.mg-bar{
+  display:flex; align-items:center; gap:8px; background:#fff;
+  padding:13px 15px; border-bottom:1px solid #E4E2DA;
+  font-size:13px; color:var(--app-ink-2);
+}
+.mg-bar b{ color:var(--app-ink); font-weight:600; }
+.mg-lock{ margin-left:auto; display:flex; align-items:center; gap:5px; color:var(--app-green-deep); }
+.mg-body{ padding:18px 15px 0; }
+.mg-head{ text-align:center; margin-bottom:16px; }
+.mg-mono{
+  width:76px; height:76px; border-radius:50%; margin:0 auto 9px;
+  display:grid; place-items:center;
+  background:linear-gradient(150deg,#D9EBE1,#B9DCCB); color:var(--app-green-deep);
+  font-family:var(--display); font-size:30px; font-weight:600;
+}
+.mg-name{ font-size:24px; font-weight:600; letter-spacing:-.01em; }
+.mg-sub{ font-size:13px; color:var(--app-ink-2); margin-top:2px; }
+.mg-card{
+  background:#fff; border-radius:14px; padding:4px 14px 10px;
+  box-shadow:0 1px 3px rgba(36,48,39,.06);
+}
+.mg-top{
+  display:flex; align-items:center; padding:11px 0 9px;
+  font-size:13px; color:var(--app-ink-2); border-bottom:1px solid #EDEBE3;
+}
+.mg-top span{ margin-left:auto; }
+.mg-row{ display:flex; gap:11px; padding:11px 0; border-bottom:1px solid #EDEBE3; }
+.mg-row:last-of-type{ border-bottom:0; }
+.mg-ic{
+  flex:0 0 auto; width:30px; height:30px; border-radius:50%;
+  background:#E2F0E9; display:grid; place-items:center;
+  color:var(--app-green-deep); margin-top:1px;
+}
+.mg-rl{ font-size:14px; color:var(--app-ink-2); margin-bottom:5px; display:block; }
+.mg-chips{ display:flex; flex-wrap:wrap; gap:5px; }
+.mg-chip{ background:var(--app-chip); border-radius:100px; padding:3px 10px; font-size:14.5px; }
+.mg-gentle{
+  background:#FBEBD6; border-radius:12px; padding:11px 13px;
+  display:flex; gap:10px; margin:12px 0 4px;
+}
+.mg-gentle .mg-ic{ background:#F3C58B; color:#8A5A12; }
+.mg-gentle .mg-rl{ color:#8A5A12; }
+.mg-gt{ font-size:15px; color:#4A3A22; line-height:1.42; display:block; }
+.mg-fade{ height:36px; background:linear-gradient(to bottom,rgba(242,240,233,0),var(--app-cream)); }
+
+/* ---------- family stories ---------------------------------- */
+.quotes{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,2.4vw,34px);
+  margin-top:54px;
+}
+.quote{
+  background:var(--paper); border-radius:var(--r-lg); overflow:hidden;
+  box-shadow:var(--shadow-soft); display:flex; flex-direction:column;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.quote:hover{ transform:translateY(-5px); box-shadow:var(--shadow-lift); }
+.quote-photo{ aspect-ratio:3/2; overflow:hidden; }
+.quote-photo img{ width:100%; height:100%; object-fit:cover; }
+.quote-body{ padding:28px 30px 30px; }
+.qlabel{
+  display:flex; align-items:center; gap:9px;
+  font-size:17px; font-weight:600; color:var(--ember); margin:0 0 10px;
+}
+.qline{
+  margin:0; font-family:var(--display);
+  font-size:clamp(21px,1.75vw,25px); line-height:1.34; color:var(--ink);
+}
+
+/* ---------- research ---------------------------------------- */
+.trust{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:clamp(18px,2.2vw,28px); margin-top:48px;
+}
+.trust-item{
+  padding:28px 26px; border-radius:var(--r-md);
+  background:rgba(255,252,247,.7);
+  transition:background-color .4s var(--ease);
+}
+.trust-item:hover{ background:var(--paper); }
+.trust-item b{ display:block; font-size:19px; font-weight:600; margin:14px 0 6px; }
+.trust-item span{ font-size:17px; color:var(--ink-2); line-height:1.5; }
+
+/* ---------- FAQ ------------------------------------------------------------
+   Native <details>/<summary>: keyboard, screen readers and Ctrl-F all work with
+   no JavaScript, and a closed answer is still findable on the page. Same pattern
+   as the aging-eye accordion prototype. */
+.faqs{ margin-top:38px; max-width:820px; }
+.faq{ border-bottom:1px solid rgba(122,52,5,.16); }
+.faq:first-of-type{ border-top:1px solid rgba(122,52,5,.16); }
+.faq summary{
+  list-style:none; cursor:pointer; display:flex; align-items:flex-start; gap:18px;
+  padding:22px 4px; font-family:var(--display); font-size:clamp(21px,1.9vw,25px);
+  font-weight:500; line-height:1.3; color:var(--ink);
+}
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary:hover{ color:var(--ember); }
+.faq-q{ flex:1; }
+.faq-x{ flex:0 0 auto; position:relative; width:20px; height:20px; margin-top:7px; }
+.faq-x::before,.faq-x::after{
+  content:''; position:absolute; background:var(--amber); border-radius:2px;
+  transition:transform .3s var(--ease);
+}
+.faq-x::before{ left:0; top:9px; width:20px; height:2.5px; }
+.faq-x::after{ left:9px; top:0; width:2.5px; height:20px; }
+.faq[open] .faq-x::after{ transform:scaleY(0); }
+.faq-a{ padding:0 60px 26px 4px; }
+.faq-a p{ font-size:18.5px; color:var(--ink-2); line-height:1.62; max-width:62ch; }
+.help-box{
+  background:var(--cream-2); border-radius:24px; padding:32px 34px;
+  margin-top:40px; max-width:820px;
+}
+.help-box b{ font-family:var(--display); font-size:23px; font-weight:500; display:block; margin-bottom:6px; }
+.help-box p{ font-size:18px; color:var(--ink-2); }
+.help-box a{ color:var(--ember); font-weight:600; }
+
+/* ---------- closing ----------------------------------------- */
+.close-sec{ position:relative; overflow:hidden; }
+.close-photo{
+  position:absolute; inset:0;
+}
+.close-photo img{ width:100%; height:100%; object-fit:cover; object-position:50% 32%; }
+.close-photo::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(251,246,238,.94) 0%, rgba(251,246,238,.9) 46%, rgba(251,246,238,.97) 100%);
+}
+.close-in{ position:relative; z-index:2; text-align:center; }
+.close-lines{
+  font-family:var(--display); font-size:clamp(30px,4vw,50px);
+  line-height:1.24; margin:0 auto;
+}
+.close-lines span{ display:block; }
+.close-lines span:nth-child(2){ color:var(--ember); }
+.close-sec .btn-row{ justify-content:center; margin-top:40px; }
+
+/* ---------- join form --------------------------------------- */
+.join-card{
+  margin:44px auto 0; max-width:620px; background:var(--paper);
+  border-radius:var(--r-lg); padding:34px 34px 30px;
+  box-shadow:var(--shadow-soft); text-align:left;
+}
+.join-card h3{ margin-bottom:6px; }
+.join-card p{ font-size:18px; color:var(--ink-2); }
+.join-row{ display:grid; gap:12px; margin-top:20px; }
+.vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.join-row select{
+  width:100%; font-family:var(--body); font-size:18px;
+  padding:16px 20px; border-radius:100px;
+  border:1.5px solid rgba(122,52,5,.22); background:var(--cream); color:var(--ink);
+}
+.join-row input{
+  width:100%; min-width:0;
+  font-family:var(--body); font-size:18px; /* 16px floor keeps iOS from zooming */
+  padding:16px 20px; border-radius:100px;
+  border:1.5px solid rgba(122,52,5,.22); background:var(--cream);
+  color:var(--ink);
+}
+.join-row input::placeholder{ color:#8A7B6C; }
+.join-note{ font-size:16px; color:var(--ink-2); margin-top:16px; }
+
+/* ---------- footer ------------------------------------------ */
+.ftr{ background:var(--cream-2); padding:clamp(56px,6vw,84px) 0 40px; }
+.ftr-grid{
+  display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:clamp(28px,4vw,52px);
+}
+.ftr h4{
+  font-family:var(--body); font-size:17px; font-weight:600;
+  color:var(--ink); margin:0 0 14px;
+}
+.ftr ul{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+.ftr a{
+  font-size:17px; color:var(--ink-2); text-decoration:none;
+  transition:color .3s var(--ease);
+}
+.ftr a:hover{ color:var(--ember); }
+.ftr-about p{ font-size:17px; color:var(--ink-2); margin-top:16px; max-width:34ch; }
+.ftr-base{
+  margin-top:48px; padding-top:26px;
+  border-top:1px solid rgba(122,52,5,.14);
+  display:flex; flex-wrap:wrap; gap:16px 28px; align-items:center;
+  font-size:16px; color:var(--ink-2);
+}
+.ftr-base .sp{ margin-left:auto; }
+.socials{ display:flex; gap:14px; }
+.socials a{ color:var(--ink-2); display:grid; place-items:center; }
+.socials a:hover{ color:var(--ember); }
+
+/* ---------- reveal on scroll -------------------------------- */
+.rv{ opacity:0; transform:translateY(22px); }
+.rv-on{
+  opacity:1; transform:none;
+  transition:opacity 1.05s var(--ease), transform 1.05s var(--ease);
+}
+
+/* ---------- responsive -------------------------------------- */
+@media (max-width:1000px){
+  .hero-grid{ grid-template-columns:1fr; }
+  .hero-photo{
+    margin-right:calc(50% - 50vw); margin-left:calc(50% - 50vw);
+    border-radius:0; min-height:56vh; order:2;
+  }
+  .hero-copy{ order:1; padding-bottom:44px; }
+  .gem-grid,.acc-grid,.care-grid{ grid-template-columns:1fr; }
+  .care-fig{ margin-top:8px; }
+  .steps{ grid-template-columns:repeat(2,1fr); row-gap:48px; }
+  .cards-3,.quotes{ grid-template-columns:repeat(2,1fr); }
+  .companions > .comp{ flex-basis:calc(50% - 14px); }
+  .sheets{ transform:scale(.9); margin:-24px 0; }
+  .cg-grid,.cg-mirror .cg-grid{ grid-template-columns:1fr; justify-items:center; }
+  .cg-mirror .sheets{ order:2; }
+  .ccard{ width:min(364px,100%); }
+  .flow-grid{ grid-template-columns:repeat(2,1fr); row-gap:44px; }
+  .ftr-grid{ grid-template-columns:1fr 1fr; }
+  .insight-in{ gap:34px; }
+}
+@media (max-width:1180px){
+  .nav{ display:none; }
+  .nav.is-open{
+    display:flex; position:absolute; left:0; right:0; top:100%;
+    flex-direction:column; align-items:flex-start; gap:4px;
+    background:var(--paper); padding:20px 24px 26px;
+    box-shadow:var(--shadow-lift); border-radius:0 0 var(--r-md) var(--r-md);
+  }
+  .nav.is-open a:not(.btn){ padding:12px 0; font-size:19px; }
+  .nav.is-open .btn{ margin-top:10px; }
+  .nav-toggle{ display:block; }
+  .hdr-in{ position:relative; }
+}
+@media (max-width:680px){
+  body{ font-size:19px; }
+  .wrap,.wrap-narrow{ width:calc(100% - 36px); }
+  .steps,.cards-3,.quotes,.flow-grid,.insight-in{ grid-template-columns:1fr; }
+  .companions > .comp{ flex-basis:100%; }
+  .dev-md{ width:min(300px,86vw); }
+  .flow-item{ max-width:340px; margin-inline:auto; }
+  .acc-list{ grid-template-columns:1fr; }
+  .ftr-grid{ grid-template-columns:1fr; }
+  .ftr-base .sp{ margin-left:0; }
+  .btn{ width:100%; }
+  .btn-row{ flex-direction:column; }
+  .story-frame{ min-height:70vh; }
+  /* ⚠️ THE CROP, MEASURED — do not "tidy" this back to 38%.
+     The photo is 1536x1024 (1.5) and the mobile frame is roughly 0.60 wide-to-tall,
+     so cover scales to HEIGHT and throws away ~60% of the WIDTH. The desktop
+     object-position of 38% then centres that narrow window on 23-63% of the image,
+     and the woman lives at 50-74% with her face at 69.5% — she was landing outside
+     the frame entirely. 75% puts the window at roughly 45-87% on every phone from
+     a 320px SE to a 430px Pro Max, so she is fully in and centred.
+     Vertical is irrelevant here: at this aspect the height fills exactly, no Y crop. */
+  .story-frame img{ object-position:75% 50%; }
+  .story-frame::after{
+    background:linear-gradient(0deg,
+      rgba(43,32,24,.92) 0%, rgba(43,32,24,.86) 52%,
+      rgba(43,32,24,.44) 76%, rgba(43,32,24,.08) 100%);
+  }
+  .story-text{ max-width:none; }
+  .dev{ width:min(360px,86vw); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .rv{ opacity:1; transform:none; }
+}
+
+/* ============================================================
+   PRIVACY — a long reading page. Wider measure than the marketing
+   sections, generous spacing, and no decorative type: someone
+   reads this because they are deciding whether to trust us with
+   their mother's voice.
+   ============================================================ */
+.pv{max-width:760px;margin:0 auto;}
+.pv h2{font-family:var(--display);font-size:clamp(26px,2.5vw,32px);font-weight:600;
+       line-height:1.2;color:var(--ember);margin:52px 0 18px;padding-top:34px;
+       border-top:2px solid rgba(184,82,8,.22);}
+.pv h2:first-of-type{margin-top:12px;padding-top:0;border-top:0;}
+.pv h3{font-family:var(--body);font-size:19px;font-weight:700;margin:26px 0 8px;color:var(--ink);}
+.pv p{font-size:18.5px;line-height:1.68;color:var(--ink-2);margin-bottom:16px;}
+.pv p strong{color:var(--ink);font-weight:600;}
+.pv ul{margin:0 0 18px;padding-left:0;list-style:none;}
+.pv li{font-size:18px;line-height:1.6;color:var(--ink-2);margin-bottom:12px;
+       padding-left:26px;position:relative;}
+.pv li::before{content:'';position:absolute;left:4px;top:11px;width:7px;height:7px;
+               border-radius:50%;background:var(--amber);}
+.pv li strong{color:var(--ink);font-weight:600;}
+.pv a{color:var(--ember);font-weight:600;}
+.pv-lede{font-size:20px;line-height:1.6;color:var(--ink);margin-bottom:8px;}
+.pv-date{font-size:15.5px;color:var(--ink-2);margin-bottom:0;}
+.pv-box{background:var(--paper);border-radius:var(--r-lg);padding:clamp(26px,3vw,38px);
+        box-shadow:var(--shadow-soft);margin:26px 0 6px;}
+.pv-box p:last-child{margin-bottom:0;}
+.pv-flag{background:#FFF8E6;border-left:4px solid #C08A2E;padding:18px 22px;
+         border-radius:0 12px 12px 0;margin:26px 0;}
+.pv-flag p{font-size:17.5px;margin-bottom:10px;}
+.pv-flag p:last-child{margin-bottom:0;}
+.pv-never li::before{background:var(--ember);}
+.pv-back{display:inline-flex;align-items:center;gap:9px;margin-top:44px;
+         font-size:18px;font-weight:600;color:var(--ember);text-decoration:none;}
+
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to the main content</a>
+
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="/">
+      <span class="gemi gemi-44" aria-hidden="true"></span>
+      <span>
+        <span class="brand-name">MemoriGems</span>
+        <span class="brand-tag">Because connection is<br>more than memory.</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Open the menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M3 6h18M3 12h18M3 18h18"/>
+      </svg>
+    </button>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/#how">How It Works</a>
+      <a href="/#families">For Families</a>
+      <a href="/#care">For Care Teams</a>
+      <a href="/about">About Us</a>
+      <a class="btn btn-primary" href="/founding-families">Join the Founding Families Pilot</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<a id="top"></a>
+
+<section class="sec sec-tight">
+  <div class="wrap pv">
+
+    <p class="eyebrow"><span class="gemi gemi-13" aria-hidden="true"></span> Privacy</p>
+    <h1 style="font-size:clamp(34px,4vw,50px);margin-bottom:14px;">Your family&rsquo;s voices belong to your family.</h1>
+    <p class="pv-lede">This page explains exactly what MemoriGems collects, who can see it, and what we will never do with it. It is written to be read, not to protect us.</p>
+    <p class="pv-date">Last updated 6&nbsp;August&nbsp;2026 &middot; MemoriGems is made by HuLux Innovations LLC.</p>
+
+    <div class="pv-box">
+      <h3 style="margin-top:0;">The short version</h3>
+      <p>You record your voice. It is stored so the person you love can hear it. Only the people your family adds can reach it.</p>
+      <p><strong>There are no advertising or analytics trackers anywhere on this website or in the app.</strong> No Google Analytics, no Meta pixel, nothing following you between sites. We looked, because we wanted to be able to say it.</p>
+      <p>We do see how often the app is used &mdash; how many Gems were made, whether they were played. That is how we learn what to fix. We tell you that plainly rather than burying it.</p>
+    </div>
+
+    <h2>What we collect</h2>
+
+    <h3>What your family makes</h3>
+    <ul>
+      <li><strong>Voice recordings</strong> &mdash; the audio itself, stored so it can be played back.</li>
+      <li><strong>Photos</strong> you add to a Gem, and any <strong>caption or title</strong> you write.</li>
+      <li><strong>A Gem Keeper&rsquo;s profile</strong> &mdash; their name and preferred name, an optional photo, phone or email, and whatever you choose to write about who they are: what settles them, what they like to talk about, the people who matter to them.</li>
+      <li><strong>Your circle</strong> &mdash; the name, email and role of anyone you invite to send Gems with you.</li>
+    </ul>
+    <p>All of this is entered by you. We never add to it.</p>
+
+    <h3>Your account</h3>
+    <ul>
+      <li>Your <strong>email address and password</strong>, held by Google Firebase Authentication. We cannot see your password.</li>
+      <li>The name you give us at setup, and who you are recording for.</li>
+      <li>During the founding families pilot, the <strong>access code</strong> you used and when you redeemed it.</li>
+    </ul>
+
+    <h3>How the app is used</h3>
+    <ul>
+      <li><strong>When a Gem is played</strong>, whether it was a first listen or a replay, and which device or account played it.</li>
+      <li><strong>Hearts</strong> sent back, and who sent them.</li>
+      <li>When a Gem Keeper&rsquo;s device is set up, and when it was last used.</li>
+      <li>If you create a <strong>share link</strong> or a care&#8209;team snapshot, we record that it exists so you can turn it off again.</li>
+    </ul>
+    <p><strong>We do not record what is said in your recordings, or read your captions, in order to analyse them.</strong> Nothing listens to your Gems.</p>
+
+    <h3>Technical</h3>
+    <ul>
+      <li>Ordinary web server logs kept by our hosting provider, including IP addresses.</li>
+      <li>Google reCAPTCHA and Firebase App Check, which confirm requests come from the real app rather than a bot. This is abuse prevention, not tracking.</li>
+    </ul>
+
+    <h2>What we will never do</h2>
+    <ul class="pv-never">
+      <li><strong>We will never sell your data</strong>, or your family&rsquo;s recordings, to anyone. There is no version of MemoriGems where that happens.</li>
+      <li><strong>We will never use your recordings to train artificial intelligence.</strong> Not ours, not anyone else&rsquo;s.</li>
+      <li><strong>We will never share a recording outside the circle your family created</strong> &mdash; not with researchers, not with advertisers, not as a marketing example, unless you specifically ask us to and say so in writing.</li>
+      <li><strong>We will never show you advertising</strong>, and we do not let anyone track you across other websites.</li>
+    </ul>
+
+    <h2>What we never do with a voice</h2>
+    <p>A recording of someone&rsquo;s voice can be used for things that have nothing to do with remembering them. We want to be specific about which of those we do not do.</p>
+    <ul>
+      <li><strong>We do not make a voiceprint.</strong> Nothing in MemoriGems measures or models the sound of a person&rsquo;s voice.</li>
+      <li><strong>We do not use a voice to recognise or verify anyone.</strong> There is no voice sign-in, and no matching of one recording against another.</li>
+      <li><strong>We do not analyse voices</strong> for health, mood, or anything else.</li>
+      <li><strong>We do not use recordings to build or train any AI model</strong>, and we do not send them to any AI service.</li>
+    </ul>
+    <p>Recordings are stored so they can be played back to the person they were made for. That is the whole purpose, and it is the only thing they are used for.</p>
+
+    <h2>Who can see what</h2>
+    <ul>
+      <li><strong>The people in your circle.</strong> You decide who they are and you can remove them.</li>
+      <li><strong>The Gem Keeper</strong>, on their own device, or beside you on yours.</li>
+      <li><strong>Anyone holding a share link</strong> you created. Those links are long and unguessable, and you can switch one off at any time.</li>
+      <li><strong>A care team</strong>, only if your family deliberately creates a Connection Snapshot for them. That is never automatic, and it can be revoked.</li>
+      <li><strong>Us.</strong> Being honest: as the people who run the service, we can technically reach what is stored, the same way anyone running a database can. We look at counts &mdash; Gems made, Gems heard &mdash; to understand how the pilot is going. We do not sit and listen to families&rsquo; recordings, and we would only ever open one if you asked us to help with something specific.</li>
+    </ul>
+
+    <h2>Companies we rely on</h2>
+    <p>MemoriGems is small. These are the services it runs on, and the only outside companies your information reaches:</p>
+    <ul>
+      <li><strong>Google Firebase</strong> &mdash; accounts, the database, and file storage. Your recordings and photos live here.</li>
+      <li><strong>Vercel</strong> &mdash; hosting for the website and the app.</li>
+      <li><strong>Google Fonts</strong> &mdash; the typefaces on these pages, loaded from Google&rsquo;s servers.</li>
+      <li><strong>Formspree</strong> &mdash; delivers the form on this site when you write to us about the pilot.</li>
+      <li><strong>Pexels</strong> &mdash; only if you search for a stock photo inside the app. Your search words go to Pexels; nothing else does.</li>
+      <li><strong>Tally</strong> &mdash; the feedback and &ldquo;stay in the loop&rdquo; forms are Tally forms. They are links: nothing reaches Tally unless you tap one and type something. But what you write there is stored with Tally rather than inside MemoriGems, so if you want to tell us something private, please write to us directly instead.</li>
+      <li><strong>Anthropic</strong> &mdash; only if you tap &ldquo;Ideas&rdquo; for help thinking of something to say. The word you type is sent to generate suggestions. <strong>No recording, photo or caption is ever sent.</strong></li>
+    </ul>
+
+    <h2>Children</h2>
+    <p>The LittleGems printables on this site are free downloads. Nothing is collected, and no account is needed. MemoriGems accounts are for adults; if a child appears in a Gem, that is your family&rsquo;s choice and the Gem stays inside your circle like any other.</p>
+
+    <h2>How long we keep it</h2>
+    <p>The founding families pilot ends in mid-November 2026. <strong>One month after that &mdash; by mid-December 2026 &mdash; we delete everything that could identify you or the person you recorded for.</strong> That means the recordings, the photos, the words you wrote, the profile you filled in, who was in your circle, and your account itself.</p>
+    <p><strong>Before then, everything your family made is gathered up and handed to you</strong> &mdash; the audio and photos as real files, with a page that plays them on any computer, with no account and no internet. Yours to keep, whatever happens to us. We will make sure you have it, and check with you, well before anything is deleted.</p>
+    <p>What we keep afterwards is counts with no names attached &mdash; how many Gems were made, how often they were played &mdash; so we can understand whether MemoriGems helped. Nothing in it points back to you, your family, or the person you recorded for.</p>
+    <p>If you would rather we deleted everything sooner, write to us and we will, and we will tell you when it is done. If MemoriGems ever stopped operating before then, you would hear from us first, with time and a way to take everything with you.</p>
+
+    <h2>What you can ask for</h2>
+    <ul>
+      <li><strong>A copy of everything</strong> your family has made.</li>
+      <li><strong>Deletion</strong> &mdash; of one recording, or of everything.</li>
+      <li><strong>To correct</strong> anything we hold about you.</li>
+      <li><strong>To stop</strong>, at any point, without explaining yourself.</li>
+    </ul>
+    <p>Write to <a href="mailto:help@huluxinnovations.com">help@huluxinnovations.com</a> and a person will answer.</p>
+
+    <h2>Consent, when someone cannot give it themselves</h2>
+    <p>Many Gem Keepers are living with memory changes, and some cannot meaningfully agree to anything on this page. We think that deserves saying out loud rather than hiding behind a tick box.</p>
+    <p>The family member who sets up MemoriGems is making that decision on their behalf, the way families make many decisions in dementia care. We ask you to make it the way you would want it made for you: record what you would be glad to have said, and stop if it stops being welcome. If the person you love is distressed by something, take it away. Nothing here is worth that.</p>
+
+    <div class="pv-flag">
+      <p><strong>If you have questions about any of this before you join the pilot, ask us.</strong> We would rather answer them than have you agree to something you have not read.</p>
+      <p><a href="mailto:help@huluxinnovations.com">help@huluxinnovations.com</a></p>
+    </div>
+
+    <h2>Changes to this page</h2>
+    <p>If what we collect changes, this page changes with it, and the date at the top moves. During the pilot we will also tell you directly &mdash; there are few enough of you that an email is the honest way to do it.</p>
+
+    <p><a class="pv-back" href="/">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H6M12 19l-7-7 7-7"/></svg>
+      Back to MemoriGems</a></p>
+
+  </div>
+</section>
+</main>
+
+
+<!-- ============ FOOTER ============ -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-grid">
+      <div class="ftr-about">
+        <a class="brand" href="/">
+          <span class="gemi gemi-38" aria-hidden="true"></span>
+          <span class="brand-name" style="font-size:24px;">MemoriGems</span>
+        </a>
+        <p>Because connection is more than memory. A product of HuLux Innovations.</p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/#families">Families</a></li>
+          <li><a href="/#care">Care Teams</a></li>
+          <li><a href="/#accessibility">Accessibility</a></li>
+          <li><a href="/#research">Research</a></li>
+          <li><a href="/#faq">Questions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Companions</h4>
+        <ul>
+          <li><a href="/caregiver-preview">Caregiver Companion</a></li>
+          <li><a href="/support-preview">The Gem Keeper&rsquo;s Home</a></li>
+          <li><a href="/littlegems">LittleGems</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>MemoriGems</h4>
+        <ul>
+          <li><a href="/about">Our story</a></li>
+          <li><a href="/founding-families">Founding families</a></li>
+          <li><a href="/#circle">Gem Keepers Circle</a></li>
+          <li><a href="mailto:LisetteDiazSantiago@huluxinnovations.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ftr-base">
+      <span>&copy; <span id="yr">2026</span> MemoriGems&reg;, a product of HuLux Innovations LLC. All rights reserved.</span>
+      <span class="sp"></span>
+      <!-- Privacy and Terms were in the brief's footer, but neither privacy.html
+           nor terms.html exists in memorigems-landing/public — the live site has
+           no such links either. Left OUT rather than shipped as two 404s.
+           Paste these back the moment the pages exist:
+           <a href="/privacy">Privacy</a>
+           <a href="/terms">Terms</a>  -->
+      <span class="socials">
+        <a href="https://www.linkedin.com/" aria-label="MemoriGems on LinkedIn">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.07 1.4-2.07 2.86V21H9z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/" aria-label="MemoriGems on Facebook">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6c-.29-.04-1.27-.12-2.41-.12-2.39 0-4.03 1.46-4.03 4.14V9.9H7.5V13h2.76v8z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/" aria-label="MemoriGems on Instagram">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* year */
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  /* header shadow once scrolled */
+  var hdr = document.getElementById('hdr');
+  function onScroll(){
+    if (!hdr) return;
+    if (window.scrollY > 8) hdr.classList.add('is-stuck');
+    else hdr.classList.remove('is-stuck');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* mobile menu */
+  var toggle = document.getElementById('navToggle');
+  var nav = document.getElementById('nav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', function(){
+      var open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu');
+    });
+    nav.addEventListener('click', function(e){
+      if (e.target.closest('a')) {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  /* gentle reveal — everything stays visible if IntersectionObserver is absent */
+  var items = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!('IntersectionObserver' in window) || reduce) {
+    items.forEach(function(el){ el.classList.add('rv-on'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var group = Array.prototype.slice.call(
+          el.parentNode ? el.parentNode.querySelectorAll(':scope > .rv') : []
+        );
+        var i = group.indexOf(el);
+        el.style.transitionDelay = (i > 0 ? Math.min(i, 4) * 0.11 : 0) + 's';
+        el.classList.add('rv-on');
+        io.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function(el){ io.observe(el); });
+  }
+
+  /* Founding-families form. The form itself now lives on /founding-families —
+     this stays because it is guarded by `if (form)` and does nothing without it,
+     and because it is the exact handler that page needs if it is ever rebuilt here. */
+  var form = document.getElementById('emailForm');
+  if (form) {
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response){
+        if (response.ok) {
+          form.style.display = 'none';
+          var note = document.getElementById('joinNote');
+          if (note) note.style.display = 'none';
+          document.getElementById('successMsg').style.display = 'block';
+        } else {
+          response.json().then(function(data){
+            alert(data.error || 'Something went wrong. Please try again or email LisetteDiazSantiago@huluxinnovations.com.');
+          });
+        }
+      }).catch(function(){
+        alert('Something went wrong. Please try again or email LisetteDiazSantiago@huluxinnovations.com.');
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
