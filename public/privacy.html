@@ -144,20 +144,23 @@ a{ color:var(--ember); }
   margin:0 0 18px;
 }
 .eyebrow svg{ flex:0 0 auto; }
-/* ---------- her gem, used everywhere the page needs a gem mark -------------
+/* ---------- the MemoriGems diamond (logo G, "amber glow"), used everywhere the
+   page needs a gem mark. Small sizes (12/13) swap to a solid, heavier, simpler
+   diamond: a thin gradient line disappears at 14px. ------------------------
    Defined once as a data URI so it costs ~7 KB no matter how many appear.
    NOT used inside the phone screens: the Comfort / Routine / Moment / Music
    icons and the share-bar gem there are the APP's own icons in the app's own
    colours, and swapping them would misrepresent the product. -------------- */
 .gemi{
   display:inline-block; flex:0 0 auto; vertical-align:-.14em;
-  background:url(data:image/webp;base64,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) center/contain no-repeat;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='13 20 174 150'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='18' y1='25' x2='116' y2='165'%3E%3Cstop offset='0' stop-color='%23E3A24A'/%3E%3Cstop offset='1' stop-color='%23B85208'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M60 25H140L182 68L100 165L18 68Z M18 68H182 M60 25L74 68L100 25L126 68L140 25 M74 68L100 165L126 68' fill='none' stroke='url%28%23a%29' stroke-width='8' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 .gemi-13{ width:15px; height:14px; }
 .gemi-12{ width:14px; height:13px; }
 .gemi-38{ width:38px; height:36px; }
 .gemi-44{ width:44px; height:42px; }
 .gemi-52{ width:34px; height:32px; }
+.gemi-12,.gemi-13{ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='8 15 184 160'%3E%3Cpath d='M60 25H140L182 68L100 165L18 68Z M18 68H182 M74 68L100 165L126 68' fill='none' stroke='%23B85208' stroke-width='15' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"); }
 
 
 .sec-intro{ max-width:640px; }
@@ -214,11 +217,14 @@ a{ color:var(--ember); }
    on the WORD. Scoped to .hdr — the footer brand is one line and still centres.
    .hdr .brand is (0,2,0) and beats .brand at (0,1,0). */
 .hdr .brand{ align-items:flex-start; }
-.hdr .brand .gemi{ margin-top:-7px; }
+.hdr .brand .gemi{ margin-top:-3px; }
 .brand-name{
-  font-family:var(--display); font-size:28px; font-weight:600;
+  /* Logo face, not --display: the wordmark matches the logo kit. 36px keeps
+     Cormorant above the 34px floor where its hairlines start to disappear. */
+  font-family:'Cormorant Garamond', Georgia, serif; font-size:36px; font-weight:600;
   color:var(--ink); line-height:1;
 }
+.brand-name .gems{ color:var(--ember); }
 .brand-tag{
   display:block; font-family:var(--body); font-size:15px;
   font-weight:400; color:var(--ink-2); margin-top:4px; line-height:1.3;
@@ -1028,6 +1034,9 @@ a{ color:var(--ember); }
          font-size:18px;font-weight:600;color:var(--ember);text-decoration:none;}
 
 </style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 
 <body>
@@ -1039,7 +1048,7 @@ a{ color:var(--ember); }
     <a class="brand" href="/">
       <span class="gemi gemi-44" aria-hidden="true"></span>
       <span>
-        <span class="brand-name">MemoriGems</span>
+        <span class="brand-name">Memori<span class="gems">Gems</span></span>
         <span class="brand-tag">Because connection is<br>more than memory.</span>
       </span>
     </a>
@@ -1196,7 +1205,7 @@ a{ color:var(--ember); }
       <div class="ftr-about">
         <a class="brand" href="/">
           <span class="gemi gemi-38" aria-hidden="true"></span>
-          <span class="brand-name" style="font-size:24px;">MemoriGems</span>
+          <span class="brand-name" style="font-size:34px;">Memori<span class="gems">Gems</span></span>
         </a>
         <p>Because connection is more than memory. A product of HuLux Innovations.</p>
       </div>
