@@ -1,356 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — MemoriGems</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — MemoriGems</title>
+<meta name="description" content="An audio-first space for the voices that bring comfort, recognition, and connection — especially when memory becomes uncertain.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Source+Sans+3:ital,wght@0,300..700;1,400&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<style>
+/* Same tokens as index.html, so About reads as the same site. */
+:root{
+  --cream:#FBF6EE; --cream-2:#F5E9D7; --paper:#FFFCF7;
+  --amber:#B85208; --ember:#7A3405;
+  --ink:#2B2018; --ink-2:#56463A;
+  --display:'Fraunces', Georgia, serif;
+  --body:'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+  --shadow-soft:0 2px 6px rgba(58,40,24,.04), 0 14px 40px rgba(58,40,24,.07);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{ box-sizing:border-box; }
+body{
+  margin:0; background:var(--cream); color:var(--ink);
+  font-family:var(--body); font-size:20px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{ font-family:var(--display); font-weight:500; line-height:1.12; letter-spacing:-.012em; margin:0; color:var(--ink); }
+h1{ font-size:clamp(40px,5.6vw,64px); }
+h2{ font-size:clamp(30px,3.6vw,44px); }
+h3{ font-size:clamp(23px,2.1vw,27px); line-height:1.24; }
+p{ margin:0 0 1.1em; } p:last-child{ margin-bottom:0; }
+em{ font-style:italic; color:var(--ember); }
+a{ color:var(--ember); }
+:focus-visible{ outline:3px solid var(--ember); outline-offset:3px; border-radius:6px; }
+.skip{ position:absolute; left:-9999px; top:0; background:var(--paper); color:var(--ink); padding:14px 20px; z-index:200; }
+.skip:focus{ left:0; }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #F2F0E9;
-      color: #2C2C2A;
-      min-height: 100vh;
-      padding: 24px 20px 80px;
-    }
+.wrap{ width:min(1180px, calc(100% - 48px)); margin-inline:auto; }
+.narrow{ width:min(760px, calc(100% - 48px)); margin-inline:auto; }
 
-    .page-wrapper {
-      max-width: 480px;
-      margin: 0 auto;
-    }
+/* the MemoriGems diamond — identical to index.html */
+.gemi{ display:inline-block; flex:0 0 auto; vertical-align:-.14em; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='13 20 174 150'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='18' y1='25' x2='116' y2='165'%3E%3Cstop offset='0' stop-color='%23E3A24A'/%3E%3Cstop offset='1' stop-color='%23B85208'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M60 25H140L182 68L100 165L18 68Z M18 68H182 M60 25L74 68L100 25L126 68L140 25 M74 68L100 165L126 68' fill='none' stroke='url%28%23a%29' stroke-width='8' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat; }
+.gemi-13{ width:15px; height:14px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='8 15 184 160'%3E%3Cpath d='M60 25H140L182 68L100 165L18 68Z M18 68H182 M74 68L100 165L126 68' fill='none' stroke='%23B85208' stroke-width='15' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"); }
+.gemi-44{ width:44px; height:42px; }
+.gemi-38{ width:38px; height:36px; }
+.gemi-hero{ width:84px; height:72px; }
 
-    .top-bar {
-      display: flex;
-      align-items: center;
-      margin-bottom: 32px;
-      padding: 4px;
-    }
+/* header — same brand block as the homepage */
+.hdr{ position:sticky; top:0; z-index:50; background:rgba(251,246,238,.9);
+  -webkit-backdrop-filter:saturate(140%) blur(14px); backdrop-filter:saturate(140%) blur(14px);
+  box-shadow:0 1px 0 rgba(122,52,5,.09); }
+.hdr-in{ display:flex; align-items:center; gap:24px; padding:16px 0; }
+.brand{ display:flex; align-items:flex-start; gap:12px; text-decoration:none; color:var(--ink); }
+.brand .gemi{ margin-top:-3px; }
+.brand-name{ font-family:'Cormorant Garamond', Georgia, serif; font-size:36px; font-weight:600; color:var(--ink); line-height:1; }
+.brand-name .gems{ color:var(--ember); }
+.brand-tag{ display:block; font-size:15px; color:var(--ink-2); margin-top:4px; line-height:1.3; }
+.hdr-links{ margin-left:auto; display:flex; align-items:center; gap:22px; }
+.back{ display:inline-flex; align-items:center; gap:8px; font-size:17px; font-weight:600; color:var(--ink-2); text-decoration:none; padding:12px 8px; min-height:44px; }
+.back:hover{ color:var(--ember); }
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-family:var(--body); font-size:18px; font-weight:600; padding:17px 30px; border-radius:100px;
+  text-decoration:none; border:2px solid transparent;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease); }
+.btn-primary{ background:var(--amber); color:#fff; box-shadow:0 6px 20px rgba(184,82,8,.26); }
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 30px rgba(184,82,8,.32); }
+.hdr .btn{ font-size:15px; padding:11px 22px; }
 
-    .back-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #5F5E5A;
-      padding: 4px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-    }
+/* hero */
+.hero{ text-align:center; padding:clamp(56px,8vw,96px) 0 clamp(40px,5vw,64px); }
+.hero-mark{ width:132px; height:132px; border-radius:50%; margin:0 auto 28px;
+  background:var(--paper); box-shadow:var(--shadow-soft); display:grid; place-items:center; }
+.hero p{ font-size:22px; color:var(--ink-2); max-width:620px; margin:22px auto 0; }
 
-    .hero {
-      text-align: center;
-      margin-bottom: 40px;
-    }
+/* sections */
+.sec{ padding:0 0 clamp(48px,6vw,72px); }
+.eyebrow{ display:flex; align-items:center; gap:10px; font-size:19px; font-weight:600; color:var(--ember); margin:0 0 18px; }
+.sec h2{ margin-bottom:22px; }
 
-    .gem-circle {
-      width: 88px;
-      height: 88px;
-      border-radius: 50%;
-      background-color: #9FE1CB;
-      margin: 0 auto 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.seasons{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; margin:30px 0 26px; }
+.season{ background:var(--paper); border-radius:var(--r-md); box-shadow:var(--shadow-soft); padding:22px 24px; border-top:5px solid var(--amber); }
+.season.noticing{ border-top-color:#E3A24A; }
+.season.holding{ border-top-color:#B85208; }
+.season.nearing{ border-top-color:#A9655A; }
+.season.continuing{ border-top-color:#7A3405; }
+.season .sn{ font-family:var(--display); font-size:22px; font-weight:500; margin:0 0 2px; line-height:1.25; }
+.season .sw{ font-size:16px; font-weight:600; color:var(--ember); margin:0 0 8px; }
+.season .sd{ font-size:18px; color:var(--ink-2); line-height:1.55; }
 
-    .gem-icon {
-      width: 40px;
-      height: 40px;
-      color: #0F6E56;
-    }
+.ticks{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+.ticks li{ display:flex; align-items:flex-start; gap:14px; background:var(--paper); border-radius:var(--r-sm);
+  box-shadow:var(--shadow-soft); padding:16px 20px; font-size:19px; line-height:1.5; }
+.ticks .gemi{ margin-top:.42em; }
 
-    .hero-title {
-      font-size: 26px;
-      font-weight: 500;
-      color: #2C2C2A;
-      margin-bottom: 12px;
-      line-height: 1.3;
-    }
+.founders{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px; }
+.founder{ background:var(--paper); border-radius:var(--r-lg); box-shadow:var(--shadow-soft); padding:28px 28px 30px; }
+.founder h3{ margin-bottom:6px; }
+.founder .role{ font-size:16px; font-weight:600; color:var(--ember); margin-bottom:14px; line-height:1.4; }
+.founder p:last-child{ font-size:18px; color:var(--ink-2); line-height:1.6; }
 
-    .hero-subtitle {
-      font-size: 15px;
-      color: #5F5E5A;
-      line-height: 1.6;
-      padding: 0 8px;
-    }
+.close{ text-align:center; background:var(--cream-2); border-radius:var(--r-lg); padding:clamp(40px,6vw,64px) 28px; margin-bottom:clamp(56px,7vw,88px); }
+.close .btn{ margin-top:24px; }
 
-    .section {
-      margin-bottom: 32px;
-    }
+.ftr{ border-top:1px solid rgba(122,52,5,.12); padding:36px 0 48px; }
+.ftr-in{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+.ftr .brand{ align-items:center; }
+.ftr .brand .gemi{ margin-top:0; }
+.ftr small{ font-size:16px; color:var(--ink-2); }
 
-    .section-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: #0F6E56;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 12px;
-    }
-
-    .section-body {
-      font-size: 15px;
-      color: #2C2C2A;
-      line-height: 1.7;
-    }
-
-    .section-body p {
-      margin-bottom: 14px;
-    }
-
-    .principle-list {
-      list-style: none;
-      padding: 0;
-      margin: 12px 0 0;
-    }
-
-    .principle-list li {
-      padding: 10px 14px;
-      background-color: #FFFFFF;
-      border-radius: 10px;
-      margin-bottom: 8px;
-      font-size: 14px;
-      color: #2C2C2A;
-      line-height: 1.5;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .principle-list .bullet {
-      color: #1D9E75;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-
-    .season-cards {
-      margin: 4px 0 18px;
-    }
-
-    .season-card {
-      background-color: #FFFFFF;
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 10px;
-      border-left: 3px solid #D3D1C7;
-    }
-
-    .season-card.noticing { border-left-color: #1D9E75; }
-    .season-card.holding { border-left-color: #B5772A; }
-    .season-card.nearing { border-left-color: #B07A8A; }
-    .season-card.continuing { border-left-color: #5B3E7F; }
-
-    .season-card .sn {
-      font-size: 15px;
-      font-weight: 600;
-      color: #2C2C2A;
-    }
-
-    .season-card .sw {
-      font-size: 12px;
-      color: #888780;
-      margin: 2px 0 6px;
-    }
-
-    .season-card .sd {
-      font-size: 13.5px;
-      color: #5F5E5A;
-      line-height: 1.55;
-    }
-
-    .founder-card {
-      background-color: #FFFFFF;
-      border-radius: 14px;
-      padding: 20px;
-      margin-top: 8px;
-    }
-
-    .founders-two {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .founders-two .founder-card { margin-top: 0; }
-
-    .founder-name { text-align: left; }
-    .founder-role { text-align: left; }
-
-    @media (max-width: 560px) {
-      .founders-two { grid-template-columns: 1fr; }
-    }
-
-    .founder-photo {
-      display: block;
-      width: 112px;
-      height: 112px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 16px;
-      border: 3px solid #E1F5EE;
-    }
-
-    .founder-name {
-      font-size: 16px;
-      font-weight: 500;
-      color: #2C2C2A;
-      margin-bottom: 4px;
-      text-align: center;
-    }
-
-    .founder-role {
-      font-size: 13px;
-      color: #888780;
-      font-style: italic;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    .founder-bio {
-      font-size: 14px;
-      color: #5F5E5A;
-      line-height: 1.6;
-    }
-
-    .cta-section {
-      text-align: center;
-      margin-top: 40px;
-      padding-top: 32px;
-      border-top: 0.5px solid #D3D1C7;
-    }
-
-    .cta-text {
-      font-size: 14px;
-      color: #5F5E5A;
-      margin-bottom: 16px;
-    }
-
-    .cta-button {
-      display: inline-block;
-      background-color: #1D9E75;
-      color: #FFFFFF;
-      padding: 14px 32px;
-      border-radius: 16px;
-      font-size: 15px;
-      font-weight: 500;
-      text-decoration: none;
-      font-family: inherit;
-    }
-
-    .footer-note {
-      text-align: center;
-      font-size: 12px;
-      color: #888780;
-      margin-top: 32px;
-      font-style: italic;
-    }
-  </style>
+@media (max-width:760px){
+  .hdr .btn{ display:none; }
+  .seasons, .founders{ grid-template-columns:1fr; }
+}
+@media (max-width:460px){
+  .brand-tag{ display:none; }
+  .back span{ display:none; }
+}
+@media (prefers-reduced-motion: reduce){ .btn{ transition:none; } .btn:hover{ transform:none; } }
+</style>
 </head>
 <body>
-  <div class="page-wrapper">
+<a class="skip" href="#main">Skip to the main content</a>
 
-    <div class="top-bar">
-      <a href="index.html" class="back-button" aria-label="Go back">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="/">
+      <span class="gemi gemi-44" aria-hidden="true"></span>
+      <span>
+        <span class="brand-name">Memori<span class="gems">Gems</span></span>
+        <span class="brand-tag">Because connection is<br>more than memory.</span>
+      </span>
+    </a>
+    <nav class="hdr-links" aria-label="Site">
+      <a class="back" href="/" aria-label="Back to the home page">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Home</span>
       </a>
-    </div>
-
-    <div class="hero">
-      <div class="gem-circle">
-        <svg class="gem-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 3h12l4 6-10 13L2 9l4-6z" />
-        </svg>
-      </div>
-      <h1 class="hero-title">About MemoriGems</h1>
-      <p class="hero-subtitle">An audio-first space for the voices that bring comfort, recognition, and connection — especially when memory becomes uncertain.</p>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Why this exists</div>
-      <div class="section-body">
-        <p>For people living with memory loss, recognition often stays long after recall fades. A familiar voice can quiet anxiety, restore a sense of self, and bridge the distance memory creates.</p>
-        <p>MemoriGems is built around that truth — that voice is one of the most powerful tools we have for emotional connection, and that caregivers deserve a thoughtful way to leave their voice where it's needed most.</p>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">For the caregiver, too</div>
-      <div class="section-body">
-        <p>MemoriGems holds both people in the relationship — the person living with memory change, and the one walking beside them.</p>
-        <p>The Caregiver Companion is a quiet, judgment-free space for the care partner. It opens with a simple question — <em>how are you feeling today?</em> — and meets you there, offering a few gentle next steps instead of one more task list.</p>
-      </div>
-      <div class="season-cards">
-        <div class="season-card noticing">
-          <div class="sn">The Noticing Season</div>
-          <div class="sw">Before or around diagnosis</div>
-          <div class="sd">Making sense of early changes and preparing emotionally for what may lie ahead.</div>
-        </div>
-        <div class="season-card holding">
-          <div class="sn">The Holding Season</div>
-          <div class="sw">Active caregiving</div>
-          <div class="sd">Steadying everyday routines while tending to the caregiver's own wellbeing.</div>
-        </div>
-        <div class="season-card nearing">
-          <div class="sn">The Nearing Season</div>
-          <div class="sw">Being with them as time grows short</div>
-          <div class="sd">Presence over problem-solving, and the conversations worth having while there is time.</div>
-        </div>
-        <div class="season-card continuing">
-          <div class="sn">The Continuing Season</div>
-          <div class="sw">After loss</div>
-          <div class="sd">Grief, remembrance, and the bonds that continue beyond memory.</div>
-        </div>
-      </div>
-      <ul class="principle-list">
-        <li><span class="bullet">·</span> A feelings-aware check-in that adapts to where you are</li>
-        <li><span class="bullet">·</span> Guided reflection and grounding for the hard moments</li>
-        <li><span class="bullet">·</span> Voice &amp; story preservation, while the words are still close</li>
-        <li><span class="bullet">·</span> Family conversation guides and after-loss support</li>
-        <li><span class="bullet">·</span> A community circle of others walking a similar path</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <div class="section-title">What guides this work</div>
-      <ul class="principle-list">
-        <li><span class="bullet">·</span> Recognition over recall</li>
-        <li><span class="bullet">·</span> Dignity over correction</li>
-        <li><span class="bullet">·</span> Connection over compliance</li>
-        <li><span class="bullet">·</span> Voice as emotional anchor</li>
-        <li><span class="bullet">·</span> Caregiving as relational, not transactional</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Built by two people who've sat in those rooms</div>
-      <div class="founders-two">
-        <div class="founder-card">
-          <div class="founder-name">Lisette Diaz-Santiago</div>
-          <div class="founder-role">Co-Founder of MemoriGems · CEO of HuLux Innovations</div>
-          <p class="founder-bio">More than 14 years across healthcare, education, leadership, patient experience and human-centered innovation — informed by the lived experience of supporting her grandfather through progressive dementia. Leads vision, design direction and the company's voice. Presented at the 2026 Alzheimer's Association International Conference on voice-based approaches to dementia care.</p>
-        </div>
-        <div class="founder-card">
-          <div class="founder-name">Edwina Castone</div>
-          <div class="founder-role">Co-Founder of MemoriGems</div>
-          <p class="founder-bio">Brings expertise in learning, family engagement, relationship-centered support and communication — helping people navigate meaningful life experiences through connection and belonging. Has shaped MemoriGems from concept to reality, since before it had a name.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="cta-section">
-      <p class="cta-text">Ready to begin?</p>
-      <a href="/#join" class="cta-button">Join the founding families</a>
-    </div>
-
-    <p class="footer-note">MemoriGems · HuLux Innovations</p>
-
+      <a class="btn btn-primary" href="/founding-families">Join the Founding Families Pilot</a>
+    </nav>
   </div>
+</header>
+
+<main id="main" class="narrow">
+
+  <section class="hero">
+    <div class="hero-mark"><span class="gemi gemi-hero" aria-hidden="true"></span></div>
+    <h1>About MemoriGems</h1>
+    <p>An audio-first space for the voices that bring comfort, recognition, and connection — especially when memory becomes uncertain.</p>
+  </section>
+
+  <section class="sec">
+    <p class="eyebrow"><span class="gemi gemi-13" aria-hidden="true"></span>Why this exists</p>
+    <p>For people living with memory loss, recognition often stays long after recall fades. A familiar voice can quiet anxiety, restore a sense of self, and bridge the distance memory creates.</p>
+        <p>MemoriGems is built around that truth — that voice is one of the most powerful tools we have for emotional connection, and that caregivers deserve a thoughtful way to leave their voice where it's needed most.</p>
+  </section>
+
+  <section class="sec">
+    <p class="eyebrow"><span class="gemi gemi-13" aria-hidden="true"></span>For the caregiver, too</p>
+    <p>MemoriGems holds both people in the relationship — the person living with memory change, and the one walking beside them.</p>
+        <p>The Caregiver Companion is a quiet, judgment-free space for the care partner. It opens with a simple question — <em>how are you feeling today?</em> — and meets you there, offering a few gentle next steps instead of one more task list.</p>
+      <div class="seasons">
+        <div class="season noticing">
+          <p class="sn">The Noticing Season</p>
+          <p class="sw">Before or around diagnosis</p>
+          <p class="sd">Making sense of early changes and preparing emotionally for what may lie ahead.</p>
+        </div>
+        <div class="season holding">
+          <p class="sn">The Holding Season</p>
+          <p class="sw">Active caregiving</p>
+          <p class="sd">Steadying everyday routines while tending to the caregiver's own wellbeing.</p>
+        </div>
+        <div class="season nearing">
+          <p class="sn">The Nearing Season</p>
+          <p class="sw">Being with them as time grows short</p>
+          <p class="sd">Presence over problem-solving, and the conversations worth having while there is time.</p>
+        </div>
+        <div class="season continuing">
+          <p class="sn">The Continuing Season</p>
+          <p class="sw">After loss</p>
+          <p class="sd">Grief, remembrance, and the bonds that continue beyond memory.</p>
+        </div>
+      </div>
+      <ul class="ticks">
+        <li><span class="gemi gemi-13" aria-hidden="true"></span><span>A feelings-aware check-in that adapts to where you are</span></li>
+        <li><span class="gemi gemi-13" aria-hidden="true"></span><span>Guided reflection and grounding for the hard moments</span></li>
+        <li><span class="gemi gemi-13" aria-hidden="true"></span><span>Voice &amp; story preservation, while the words are still close</span></li>
+        <li><span class="gemi gemi-13" aria-hidden="true"></span><span>Family conversation guides and after-loss support</span></li>
+        <li><span class="gemi gemi-13" aria-hidden="true"></span><span>A community circle of others walking a similar path</span></li>
+      </ul>
+  </section>
+
+  <section class="sec">
+    <p class="eyebrow"><span class="gemi gemi-13" aria-hidden="true"></span>What guides this work</p>
+      <ul class="ticks">
+        <li><span class="gemi gemi-13" aria-hidden="true"></span><span>Recognition over recall</span></li>
+        <li><span class="gemi gemi-13" aria-hidden="true"></span><span>Dignity over correction</span></li>
+        <li><span class="gemi gemi-13" aria-hidden="true"></span><span>Connection over compliance</span></li>
+        <li><span class="gemi gemi-13" aria-hidden="true"></span><span>Voice as emotional anchor</span></li>
+        <li><span class="gemi gemi-13" aria-hidden="true"></span><span>Caregiving as relational, not transactional</span></li>
+      </ul>
+  </section>
+
+  <section class="sec">
+    <p class="eyebrow"><span class="gemi gemi-13" aria-hidden="true"></span>Built by two people who've sat in those rooms</p>
+      <div class="founders">
+        <article class="founder">
+          <h3>Lisette Diaz-Santiago</h3>
+          <p class="role">Co-Founder of MemoriGems · CEO of HuLux Innovations</p>
+          <p>More than 14 years across healthcare, education, leadership, patient experience and human-centered innovation — informed by the lived experience of supporting her grandfather through progressive dementia. Leads vision, design direction and the company's voice. Presented at the 2026 Alzheimer's Association International Conference on voice-based approaches to dementia care.</p>
+        </article>
+        <article class="founder">
+          <h3>Edwina Castone</h3>
+          <p class="role">Co-Founder of MemoriGems</p>
+          <p>Brings expertise in learning, family engagement, relationship-centered support and communication — helping people navigate meaningful life experiences through connection and belonging. Has shaped MemoriGems from concept to reality, since before it had a name.</p>
+        </article>
+      </div>
+  </section>
+
+  <section class="close">
+    <h2>Ready to begin?</h2>
+    <a class="btn btn-primary" href="/founding-families">Join the founding families</a>
+  </section>
+
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <a class="brand" href="/">
+      <span class="gemi gemi-38" aria-hidden="true"></span>
+      <span class="brand-name" style="font-size:34px;">Memori<span class="gems">Gems</span></span>
+    </a>
+    <small>MemoriGems · HuLux Innovations</small>
+  </div>
+</footer>
 </body>
 </html>
