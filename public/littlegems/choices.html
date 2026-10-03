@@ -3,139 +3,165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gem Choices — A LittleGems Feelings Game</title>
+<title>Kindness game · LittleGems by MemoriGems</title>
 <meta name="description" content="A free social-emotional learning game for kids. Read a situation and choose the kindest thing to do, collecting gems along the way.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* LittleGems "Crayon box" theme — shared by the color studio, coloring sheets and the three games (Oct 2026).
+     CONTRAST (white text): coral-deep #A9471F 5.8:1 · sky-deep #2E6B78 6.0:1 · mint-deep #3F7A4A 5.1:1.
+     Light coral, sky, mint and sun are for fills, gems and borders only, never for small text. */
   :root{
-    --beige-cream:#FBF6EE;
-    --beige-warm:#FDF0E8;
-    --ink:#2A2317;
-    --ink-soft:#524634;
-    --ink-faint:rgba(42,35,23,0.6);
-    --gold:#B89248; --gold-deep:#8C6E32;
-    --coral:#E07A52; --coral-l:#FDEDE4; --coral-d:#B5552E;
-    --sky:#4E97A6;   --sky-l:#E4F1F4;   --sky-d:#2E6B78;
-    --mint:#6BA876;  --mint-l:#E8F3E9;  --mint-d:#3F7A4A;
-    --sun:#D6A94E;   --sun-l:#FBF0DC;   --sun-d:#946C1E;
-    --serif:'Cormorant Garamond',Georgia,serif;
-    --display:'Cinzel',serif;
-    --sans:'Inter',system-ui,sans-serif;
+    --bg:#FFF6EC;--paper:#FFFFFF;--line:#F2D9C4;--line-strong:#E6C2A6;
+    --coral:#E07A52;--coral-deep:#A9471F;--coral-soft:#FDEDE4;
+    --sky:#4E97A6;--sky-deep:#2E6B78;--sky-soft:#E4F1F4;
+    --mint:#6BA876;--mint-deep:#3F7A4A;--mint-soft:#E8F3E9;
+    --sun-soft:#FBF0DC;--sun-line:#E6C68A;
+    --ink:#2A2317;--ink-soft:#524634;
+    --round:'Fredoka','Nunito',system-ui,sans-serif;--sans:'Nunito',system-ui,sans-serif;
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    font-family:var(--serif);
-    background:
-      radial-gradient(ellipse at top,rgba(224,122,82,0.06) 0%,transparent 55%),
-      radial-gradient(ellipse at bottom left,rgba(78,151,166,0.05) 0%,transparent 50%),
-      linear-gradient(180deg,var(--beige-cream) 0%,var(--beige-warm) 100%);
-    color:var(--ink);
-    min-height:100vh;
-    display:flex;align-items:center;justify-content:center;
-    padding:22px 16px;
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--sans);font-weight:700;color:var(--ink);background:var(--bg);padding:20px 16px 40px;min-height:100vh}
+  button{font:inherit;color:inherit}
+  button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--sky-deep);outline-offset:2px}
+  p{margin:0}
+  .wrap{max-width:1040px;margin:0 auto}
+
+  .lg-nav{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .lg-back{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:14px;text-decoration:none;color:var(--ink-soft);background:var(--paper);border:2px solid var(--line);border-radius:100px;padding:9px 16px;transition:.2s}
+  .lg-back:hover{border-color:var(--coral-deep);color:var(--coral-deep)}
+  .lg-back svg{width:16px;height:16px}
+  .lg-jumps{display:flex;gap:8px;margin-left:auto}
+  .jump-btn{display:inline-flex;align-items:center;font-family:var(--round);font-weight:500;font-size:14px;padding:8px 14px;border-radius:100px;border:2px solid var(--line);color:var(--ink-soft);background:var(--paper);text-decoration:none;white-space:nowrap;transition:.2s}
+  a.jump-btn:hover{border-color:var(--coral-deep);color:var(--coral-deep)}
+  .jump-btn.active{background:var(--coral-deep);border-color:var(--coral-deep);color:#fff;cursor:default}
+
+  .ttl{margin:0 0 16px}
+  .ttl h1{margin:0;font-family:var(--round);font-weight:600;font-size:clamp(28px,4vw,36px);line-height:1.05;color:var(--ink-soft)}
+  .ttl h1 em{font-style:normal;color:var(--coral-deep)}
+  .ttl .sub{margin-top:6px;font-size:17px;font-weight:600;color:var(--ink-soft)}
+
+  .card{background:var(--paper);border:2px solid var(--line);border-radius:22px;padding:22px}
+  .gl{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:start}
+  .side{display:flex;flex-direction:column;gap:14px}
+  .jar-wrap{display:flex;align-items:center;gap:14px}
+  .jar-wrap svg{flex:0 0 auto;width:96px;height:108px}
+  .jar-title{font-family:var(--round);font-weight:600;font-size:20px;color:var(--ink-soft);margin:0 0 2px}
+  .jar-total{font-size:15px;color:var(--ink-soft);margin:0}
+  .jar-total #totalNum{font-family:var(--round);font-weight:600;font-size:24px;color:var(--coral-deep)}
+  .jar-reset{font-weight:800;font-size:13px;color:var(--coral-deep);background:none;border:none;cursor:pointer;margin-top:6px;padding:0;text-decoration:underline}
+  .namebar{display:flex;flex-direction:column;gap:4px;border-top:2px solid var(--line);padding-top:12px}
+  .namebar label{font-size:13px;font-weight:800;color:var(--ink-soft)}
+  .namebar input{font-family:var(--sans);font-weight:700;font-size:16px;color:var(--ink);border:2px solid var(--line);border-radius:12px;background:var(--bg);padding:8px 12px;outline:none;width:100%}
+  .namebar input:focus{border-color:var(--sky-deep)}
+  .namebar input::placeholder{color:#8A7C68}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--round);font-weight:500;font-size:18px;padding:13px 28px;border-radius:16px;background:var(--coral-deep);color:#fff;border:none;cursor:pointer;transition:.2s}
+  .btn:hover{background:#923B17;transform:translateY(-2px)}
+  .btn:active{transform:scale(.97)}
+  .btn[disabled]{opacity:.45;cursor:default;transform:none}
+  .msg{text-align:center;margin-top:16px;min-height:26px;font-size:17px;font-weight:700;color:var(--ink-soft)}
+  .msg .ok{color:var(--mint-deep);font-weight:800}
+  .msg .win{color:var(--coral-deep);font-weight:800}
+  .controls{text-align:center;margin-top:12px}
+  .foot{text-align:center;margin-top:24px;font-size:14px;font-weight:600;color:var(--ink-soft)}
+  .foot a{color:var(--coral-deep);font-weight:800;text-decoration:none}
+
+  @media (max-width:860px){
+    .gl{grid-template-columns:minmax(0,1fr);gap:12px}
+    .side{order:-1;flex-direction:row;align-items:center;gap:12px;padding:10px 14px;border-radius:18px}
+    .jar-wrap{flex:1;gap:10px}
+    .jar-wrap svg{width:48px;height:54px}
+    .jar-title{font-size:16px}
+    .jar-total #totalNum{font-size:18px}
+    .jar-reset{margin-top:2px}
+    .namebar{border-top:none;padding-top:0;flex:0 0 130px}
+    .namebar input{padding:6px 10px;font-size:15px}
+    .namebar .opt{display:none}
   }
-  .wrap{width:100%;max-width:600px}
+  @media (max-width:760px){
+    body{padding:12px 12px 32px}
+    .lg-nav{margin-bottom:12px}
+    .lg-back span{display:none}
+    .lg-back{padding:9px 11px}
+    .lg-jumps{margin-left:0;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+    .lg-jumps::-webkit-scrollbar{display:none}
+    .ttl{margin-bottom:12px}
+    .ttl .sub{font-size:15px}
+    .card{padding:14px;border-radius:18px}
+  }
+  @media (max-width:420px){
+    .namebar{flex-basis:110px}
+    .namebar label{font-size:12px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-  .topline{font-family:var(--display);text-align:center;font-size:11px;letter-spacing:5px;color:var(--mint-d);margin-bottom:12px}
-  h1{font-family:var(--serif);font-weight:500;font-size:clamp(28px,6vw,40px);text-align:center;line-height:1.1;margin-bottom:8px;color:var(--ink)}
-  h1 em{font-style:italic;color:var(--mint-d);font-weight:500}
-  .sub{text-align:center;color:var(--ink-soft);font-size:18px;margin-bottom:24px;font-style:italic}
-
-  .namebar{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-  .namebar label{font-style:italic;color:var(--ink-soft);font-size:15px}
-  .namebar input{font-family:var(--serif);font-size:16px;color:var(--ink);border:none;border-bottom:1.5px solid #D9C39A;background:transparent;padding:2px 6px;width:130px;text-align:center;outline:none}
-  .namebar input:focus{border-bottom-color:var(--coral)}
-
-  .jar-wrap{display:flex;align-items:center;gap:18px;justify-content:center;background:#FFFDF9;border:1px solid rgba(184,146,72,0.2);border-radius:16px;padding:16px 20px;margin-bottom:18px}
-  .jar-wrap svg{flex:0 0 auto}
-  .jar-info{text-align:left}
-  .jar-title{font-family:var(--serif);font-size:18px;color:var(--ink);margin:0 0 2px}
-  .jar-total{font-family:var(--display);font-size:26px;color:var(--coral-d);line-height:1.1;margin:0}
-  .jar-total span{font-family:var(--serif);font-size:15px;color:var(--ink-soft);font-style:italic}
-  .jar-reset{font-family:var(--sans);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-faint);background:none;border:none;cursor:pointer;margin-top:6px;padding:0;text-decoration:underline}
-  .jar-reset:hover{color:var(--coral-d)}
-  @media(max-width:430px){.jar-wrap{gap:12px;padding:14px}.jar-total{font-size:22px}}
-
-  .panel{background:#FFFDF9;border-radius:20px;padding:24px;border:1px solid rgba(184,146,72,0.2);box-shadow:0 20px 50px -30px rgba(140,110,50,0.4)}
-
-  .scene{background:var(--beige-cream);border:1px solid rgba(184,146,72,0.22);border-radius:14px;padding:18px 20px;text-align:center;margin-bottom:20px}
-  .scene .ey{font-family:var(--display);font-size:10px;letter-spacing:3px;color:var(--coral-d);margin:0 0 8px}
-  .scene .q{font-size:20px;color:var(--ink);line-height:1.45;margin:0}
-
+  .scene{background:var(--sun-soft);border:2px solid var(--sun-line);border-radius:16px;padding:16px 20px;text-align:center;margin-bottom:18px}
+  .scene .ey{font-family:var(--round);font-weight:500;font-size:15px;color:var(--sky-deep);margin:0 0 6px}
+  .scene .q{font-family:var(--round);font-weight:500;font-size:22px;line-height:1.35;color:var(--ink)}
   .opts{display:flex;flex-direction:column;gap:14px}
-  .opt{
-    display:flex;align-items:center;gap:14px;width:100%;text-align:left;
-    background:#fff;border:2.5px solid var(--coral);border-radius:14px;
-    padding:14px 18px;cursor:pointer;font-family:var(--serif);
-    box-shadow:0 3px 0 #F5C4B3;transition:transform .1s ease;
-    -webkit-tap-highlight-color:transparent;
-  }
+  .opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:#fff;border:3px solid var(--coral);border-radius:16px;padding:14px 18px;cursor:pointer;transition:transform .1s ease}
   .opt:hover{transform:translateY(-2px)}
   .opt:active{transform:translateY(0)}
-  .opt:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
   .opt .ic{flex:0 0 auto}
-  .opt .tx{font-size:17px;color:var(--ink);font-weight:600;line-height:1.3}
-  .opt.correct{border-color:var(--mint);box-shadow:0 0 0 4px var(--mint-l),0 3px 0 #BFDCC2}
-  .opt.dim{opacity:0.5}
-
-  .msg{text-align:center;margin-top:18px;min-height:26px;font-size:18px;font-style:italic;color:var(--ink-soft)}
-  .msg .ok{color:var(--mint-d);font-style:normal;font-family:var(--sans);font-size:15px;font-weight:500}
-
-  .controls{text-align:center;margin-top:14px}
-  .btn{font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:13px 32px;border-radius:999px;background:var(--ink);color:var(--beige-cream);border:none;cursor:pointer;transition:all .3s ease}
-  .btn:hover{background:var(--mint-d);transform:translateY(-2px)}
-  .btn:active{transform:scale(0.97)}
-
-  .foot{font-family:var(--sans);text-align:center;margin-top:18px;font-size:12px;letter-spacing:1px;color:var(--ink-faint)}
-  .foot a{color:var(--coral-d);text-decoration:none;font-weight:500}
-
+  .opt .tx{font-size:18px;font-weight:800;color:var(--ink);line-height:1.3}
+  .opt.correct{border-color:var(--mint-deep)!important;background:var(--mint-soft);box-shadow:0 4px 0 var(--mint-deep)!important}
+  .opt.dim{opacity:.5}
   @keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
   @keyframes wig{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
-  @keyframes glow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
-  .pop{animation:pop .35s ease}
-  .wig{animation:wig .4s ease}
-  .glow{animation:glow .7s ease 2}
-  @media(prefers-reduced-motion:reduce){.opt,.pop,.wig,.glow,.gembox{animation:none!important;transition:none!important}}
-
+  @keyframes glow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.12)}}
+  .pop{animation:pop .35s ease}.wig{animation:wig .4s ease}.glow{animation:glow .7s ease 2}
   .confetti{position:fixed;width:10px;height:14px;top:-20px;z-index:50;border-radius:2px;pointer-events:none}
   @keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:0}}
+  @media(max-width:760px){.scene .q{font-size:18px}.opt{padding:12px 14px;gap:10px}.opt .tx{font-size:16px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <p class="topline">A LITTLE CHOICES GAME</p>
-  <h1>Gem <em>Choices</em></h1>
-  <p class="sub">Which gem holds the kindest thing to do?</p>
-
-  <div class="namebar">
-    <label for="nick">My name (optional):</label>
-    <input id="nick" type="text" maxlength="14" placeholder="type here" aria-label="Your nickname, optional">
-  </div>
-
-  <div class="jar-wrap">
-    <svg id="jar" viewBox="0 0 160 180" width="120" height="135" aria-label="Your gem jar"></svg>
-    <div class="jar-info">
-      <p class="jar-title" id="jarTitle">My Gem Jar</p>
-      <p class="jar-total"><span id="totalNum">0</span> <span>gems collected</span></p>
-      <button class="jar-reset" id="jarReset">Start over</button>
+  <nav class="lg-nav" aria-label="LittleGems activities">
+    <a class="lg-back" href="/littlegems" aria-label="Back to LittleGems">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      <span>Back to LittleGems</span>
+    </a>
+    <div class="lg-jumps">
+      <a class="jump-btn" href="/littlegems/color">Color online</a>
+      <a class="jump-btn" href="/littlegems/sheets">Coloring sheets</a>
+      <a class="jump-btn" href="/littlegems/match">Match game</a>
+      <span class="jump-btn active" aria-current="page">Kindness game</span>
+      <a class="jump-btn" href="/littlegems/calm">Calming game</a>
     </div>
+  </nav>
+  <header class="ttl"><h1>Kindness <em>game</em></h1><p class="sub">Which gem holds the kindest thing to do?</p></header>
+  <div class="gl">
+    <section class="card game" aria-label="Kindness game">
+      <div class="scene">
+        <p class="ey">The moment</p>
+        <p class="q" id="scene">&hellip;</p>
+      </div>
+      <div class="opts" id="opts"></div>
+      <div class="msg" id="msg">Tap the gem with the kindest choice.</div>
+      <div class="controls"><button class="btn" id="next" style="display:none">Next moment</button></div>
+    </section>
+    <aside class="card side" aria-label="My gem jar">
+      <div class="jar-wrap">
+        <svg id="jar" viewBox="0 0 160 180" width="120" height="135" aria-label="Your gem jar"></svg>
+        <div class="jar-info">
+          <p class="jar-title" id="jarTitle">My Gem Jar</p>
+          <p class="jar-total"><span id="totalNum">0</span> <span>gems collected</span></p>
+          <button class="jar-reset" id="jarReset">Start over</button>
+        </div>
+      </div>
+      <div class="namebar">
+        <label for="nick">My name <span class="opt">(optional)</span></label>
+        <input id="nick" type="text" maxlength="14" placeholder="Your name" aria-label="Your nickname, optional">
+      </div>
+    </aside>
   </div>
-
-  <div class="panel">
-    <div class="scene">
-      <p class="ey">THE MOMENT</p>
-      <p class="q" id="scene">…</p>
-    </div>
-    <div class="opts" id="opts"></div>
-    <div class="msg" id="msg">Tap the gem with the kindest choice.</div>
-    <div class="controls"><button class="btn" id="next" style="display:none">Next moment</button></div>
-  </div>
-
-  <p class="foot">PART OF <a href="https://www.mymemorigems.com/littlegems">LITTLEGEMS</a> · FREE · NO SIGNUP NEEDED</p>
+  <p class="foot">Part of <a href="/littlegems">LittleGems</a> · free · no signup needed</p>
 </div>
-
+<script>(function(){var a=document.querySelector(".lg-jumps .active");if(a&&a.parentNode.scrollWidth>a.parentNode.clientWidth){a.parentNode.scrollLeft=a.offsetLeft-a.parentNode.offsetLeft-12;}})();</script>
 <script>
 (function(){
   var SCENARIOS=[
@@ -229,7 +255,7 @@
       var b=document.createElement("button");
       b.className="opt";
       b.style.borderColor=cols.raw;
-      b.style.boxShadow="0 3px 0 "+cols.lip;
+      b.style.boxShadow="0 4px 0 "+cols.d;
       b.innerHTML=jewelIcon(cols)+'<span class="tx">'+ch.t+'</span>';
       b.addEventListener("click",function(){choose(ch,b,cols);});
       optsEl.appendChild(b);

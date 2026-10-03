@@ -190,10 +190,10 @@
     </a>
     <div class="lg-jumps">
       <span class="jump-btn active" aria-current="page">Color online</span>
-      <a class="jump-btn" href="/littlegems#printables">Coloring sheets</a>
-      <a class="jump-btn" href="/littlegems#game-match">Match game</a>
-      <a class="jump-btn" href="/littlegems#game-choices">Kindness game</a>
-      <a class="jump-btn" href="/littlegems#game-calm">Calming game</a>
+      <a class="jump-btn" href="/littlegems/sheets">Coloring sheets</a>
+      <a class="jump-btn" href="/littlegems/match">Match game</a>
+      <a class="jump-btn" href="/littlegems/choices">Kindness game</a>
+      <a class="jump-btn" href="/littlegems/calm">Calming game</a>
     </div>
   </nav>
 
@@ -372,7 +372,9 @@ modalBg.addEventListener('click',e=>{if(e.target===modalBg)modalBg.classList.rem
 document.getElementById('printBtn').addEventListener('click',async()=>{await document.fonts.ready;const out=await compose();const data=out.toDataURL('image/png');const w=window.open('','_print');w.document.write('<html><head><title>My LittleGem</title><style>@page{margin:10mm;}body{margin:0;display:flex;justify-content:center;}img{max-width:100%;}</style></head><body><img src="'+data+'" onload="setTimeout(function(){print();},250)"/></body></html>');w.document.close();});
 
 document.querySelectorAll('.tpl-tab').forEach(t=>{const s=SHEETS[t.dataset.tpl];if(s)t.querySelector('img').src=s.src;});
+(function(){var h=(location.hash||'').slice(1);if(SHEETS[h]&&h!==state.template){state.template=h;document.querySelectorAll('.tpl-tab').forEach(function(t){t.classList.toggle('active',t.dataset.tpl===h);t.setAttribute('aria-pressed',t.dataset.tpl===h);});}})();
 document.fonts.ready.then(renderTemplate);
 </script>
+<script>(function(){var a=document.querySelector(".lg-jumps .active");if(a&&a.parentNode.scrollWidth>a.parentNode.clientWidth){a.parentNode.scrollLeft=a.offsetLeft-a.parentNode.offsetLeft-12;}})();</script>
 </body>
 </html>

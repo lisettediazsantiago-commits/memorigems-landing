@@ -3,212 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemoriGems Match — A LittleGems Feelings Game</title>
+<title>Match game · LittleGems by MemoriGems</title>
 <meta name="description" content="A free social-emotional learning game for kids. Match each feeling to the moment that causes it, and collect gems along the way.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* LittleGems "Crayon box" theme — shared by the color studio, coloring sheets and the three games (Oct 2026).
+     CONTRAST (white text): coral-deep #A9471F 5.8:1 · sky-deep #2E6B78 6.0:1 · mint-deep #3F7A4A 5.1:1.
+     Light coral, sky, mint and sun are for fills, gems and borders only, never for small text. */
   :root{
-    --beige-cream:#FBF6EE;
-    --beige-warm:#FDF0E8;
-    --ink:#2A2317;
-    --ink-soft:#524634;
-    --ink-faint:rgba(42,35,23,0.6);
-    --gold:#B89248; --gold-deep:#8C6E32;
-    --coral:#E07A52; --coral-l:#FDEDE4; --coral-d:#B5552E;
-    --sky:#4E97A6;   --sky-l:#E4F1F4;   --sky-d:#2E6B78;
-    --mint:#6BA876;  --mint-l:#E8F3E9;  --mint-d:#3F7A4A;
-    --sun:#D6A94E;   --sun-l:#FBF0DC;   --sun-d:#946C1E;
-    --serif:'Cormorant Garamond',Georgia,serif;
-    --display:'Cinzel',serif;
-    --sans:'Inter',system-ui,sans-serif;
+    --bg:#FFF6EC;--paper:#FFFFFF;--line:#F2D9C4;--line-strong:#E6C2A6;
+    --coral:#E07A52;--coral-deep:#A9471F;--coral-soft:#FDEDE4;
+    --sky:#4E97A6;--sky-deep:#2E6B78;--sky-soft:#E4F1F4;
+    --mint:#6BA876;--mint-deep:#3F7A4A;--mint-soft:#E8F3E9;
+    --sun-soft:#FBF0DC;--sun-line:#E6C68A;
+    --ink:#2A2317;--ink-soft:#524634;
+    --round:'Fredoka','Nunito',system-ui,sans-serif;--sans:'Nunito',system-ui,sans-serif;
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    font-family:var(--serif);
-    background:
-      radial-gradient(ellipse at top,rgba(224,122,82,0.06) 0%,transparent 55%),
-      radial-gradient(ellipse at bottom left,rgba(78,151,166,0.05) 0%,transparent 50%),
-      linear-gradient(180deg,var(--beige-cream) 0%,var(--beige-warm) 100%);
-    color:var(--ink);
-    min-height:100vh;
-    display:flex;align-items:center;justify-content:center;
-    padding:22px 16px;
-  }
-  .wrap{width:100%;max-width:600px}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--sans);font-weight:700;color:var(--ink);background:var(--bg);padding:20px 16px 40px;min-height:100vh}
+  button{font:inherit;color:inherit}
+  button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--sky-deep);outline-offset:2px}
+  p{margin:0}
+  .wrap{max-width:1040px;margin:0 auto}
 
-  .topline{
-    font-family:var(--display);
-    text-align:center;font-size:11px;letter-spacing:5px;
-    color:var(--coral-d);margin-bottom:12px;
-  }
-  h1{
-    font-family:var(--serif);font-weight:500;
-    font-size:clamp(28px,6vw,40px);text-align:center;
-    line-height:1.1;margin-bottom:8px;color:var(--ink);
-  }
-  h1 em{font-style:italic;color:var(--coral);font-weight:500}
-  .sub{
-    text-align:center;color:var(--ink-soft);
-    font-size:18px;margin-bottom:24px;font-style:italic;
-  }
+  .lg-nav{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .lg-back{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:14px;text-decoration:none;color:var(--ink-soft);background:var(--paper);border:2px solid var(--line);border-radius:100px;padding:9px 16px;transition:.2s}
+  .lg-back:hover{border-color:var(--coral-deep);color:var(--coral-deep)}
+  .lg-back svg{width:16px;height:16px}
+  .lg-jumps{display:flex;gap:8px;margin-left:auto}
+  .jump-btn{display:inline-flex;align-items:center;font-family:var(--round);font-weight:500;font-size:14px;padding:8px 14px;border-radius:100px;border:2px solid var(--line);color:var(--ink-soft);background:var(--paper);text-decoration:none;white-space:nowrap;transition:.2s}
+  a.jump-btn:hover{border-color:var(--coral-deep);color:var(--coral-deep)}
+  .jump-btn.active{background:var(--coral-deep);border-color:var(--coral-deep);color:#fff;cursor:default}
 
-  .panel{
-    background:#FFFDF9;
-    border-radius:20px;padding:24px;
-    border:1px solid rgba(184,146,72,0.2);
-    box-shadow:0 20px 50px -30px rgba(140,110,50,0.4);
-  }
-  .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-  .brand{display:flex;align-items:center;gap:11px}
-  .brand .dot{
-    width:40px;height:40px;border-radius:50%;
-    background:var(--coral);color:#fff;
-    display:flex;align-items:center;justify-content:center;font-size:19px;
-  }
-  .brand b{font-weight:600;font-size:18px;color:var(--ink);font-family:var(--serif)}
-  .brand span{display:block;font-size:13px;color:var(--ink-faint);font-style:italic}
+  .ttl{margin:0 0 16px}
+  .ttl h1{margin:0;font-family:var(--round);font-weight:600;font-size:clamp(28px,4vw,36px);line-height:1.05;color:var(--ink-soft)}
+  .ttl h1 em{font-style:normal;color:var(--coral-deep)}
+  .ttl .sub{margin-top:6px;font-size:17px;font-weight:600;color:var(--ink-soft)}
 
-  .gembox{
-    display:flex;align-items:center;gap:8px;
-    background:var(--sun-l);padding:7px 16px;border-radius:999px;
-    transition:transform .35s ease;
-  }
-  .gembox .ico{font-size:18px;color:var(--gold)}
-  .gembox b{font-size:20px;font-weight:600;color:var(--gold-deep);font-family:var(--sans)}
+  .card{background:var(--paper);border:2px solid var(--line);border-radius:22px;padding:22px}
+  .gl{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:start}
+  .side{display:flex;flex-direction:column;gap:14px}
+  .jar-wrap{display:flex;align-items:center;gap:14px}
+  .jar-wrap svg{flex:0 0 auto;width:96px;height:108px}
+  .jar-title{font-family:var(--round);font-weight:600;font-size:20px;color:var(--ink-soft);margin:0 0 2px}
+  .jar-total{font-size:15px;color:var(--ink-soft);margin:0}
+  .jar-total #totalNum{font-family:var(--round);font-weight:600;font-size:24px;color:var(--coral-deep)}
+  .jar-reset{font-weight:800;font-size:13px;color:var(--coral-deep);background:none;border:none;cursor:pointer;margin-top:6px;padding:0;text-decoration:underline}
+  .namebar{display:flex;flex-direction:column;gap:4px;border-top:2px solid var(--line);padding-top:12px}
+  .namebar label{font-size:13px;font-weight:800;color:var(--ink-soft)}
+  .namebar input{font-family:var(--sans);font-weight:700;font-size:16px;color:var(--ink);border:2px solid var(--line);border-radius:12px;background:var(--bg);padding:8px 12px;outline:none;width:100%}
+  .namebar input:focus{border-color:var(--sky-deep)}
+  .namebar input::placeholder{color:#8A7C68}
 
-  #board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-  @media(max-width:520px){
-    #board{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
-    .panel{padding:14px}
-    .card{border-radius:11px;border-width:2px;padding:3px;gap:2px}
-    .card svg{width:28px;height:28px}
-    .card .lbl{font-size:10px;line-height:1.1;word-break:break-word;hyphens:auto}
-    .jar-wrap{gap:12px;padding:12px 14px;margin-bottom:12px}
-    .jar-wrap svg{width:78px;height:88px}
-    .jar-total{font-size:20px}
-    .bar{margin-bottom:12px}
-    .topline{margin-bottom:6px}
-    h1{font-size:26px;margin-bottom:4px}
-    .sub{font-size:14px;margin-bottom:12px}
-    .namebar{margin-bottom:10px}
-  }
-
-  .card{
-    aspect-ratio:1/1;border-radius:16px;
-    border:2.5px solid #EBD9B8;background:#fff;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:5px;padding:6px;cursor:pointer;
-    font-family:var(--serif);text-align:center;line-height:1.2;
-    transition:transform .12s ease;
-    -webkit-tap-highlight-color:transparent;
-  }
-  .card:hover{transform:translateY(-3px)}
-  .card:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
-  .card .lbl{font-size:14px;font-weight:600}
-  @media(max-width:480px){.card .lbl{font-size:10px}}
-
-  .msg{
-    text-align:center;margin-top:18px;min-height:26px;
-    font-size:18px;font-style:italic;color:var(--ink-soft);
-  }
-  .msg .ok{color:var(--mint-d);font-style:normal;font-family:var(--sans);font-size:15px;font-weight:500}
-  .msg .win{color:var(--coral-d);font-size:19px}
-
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--round);font-weight:500;font-size:18px;padding:13px 28px;border-radius:16px;background:var(--coral-deep);color:#fff;border:none;cursor:pointer;transition:.2s}
+  .btn:hover{background:#923B17;transform:translateY(-2px)}
+  .btn:active{transform:scale(.97)}
+  .btn[disabled]{opacity:.45;cursor:default;transform:none}
+  .msg{text-align:center;margin-top:16px;min-height:26px;font-size:17px;font-weight:700;color:var(--ink-soft)}
+  .msg .ok{color:var(--mint-deep);font-weight:800}
+  .msg .win{color:var(--coral-deep);font-weight:800}
   .controls{text-align:center;margin-top:12px}
-  .btn{
-    font-family:var(--sans);font-size:12px;font-weight:500;
-    letter-spacing:2px;text-transform:uppercase;
-    padding:13px 32px;border-radius:999px;
-    background:var(--ink);color:var(--beige-cream);border:none;
-    cursor:pointer;transition:all .3s ease;
-  }
-  .btn:hover{background:var(--coral-d);transform:translateY(-2px)}
-  .btn:active{transform:scale(0.97)}
+  .foot{text-align:center;margin-top:24px;font-size:14px;font-weight:600;color:var(--ink-soft)}
+  .foot a{color:var(--coral-deep);font-weight:800;text-decoration:none}
 
-  .foot{
-    font-family:var(--sans);
-    text-align:center;margin-top:18px;
-    font-size:12px;letter-spacing:1px;color:var(--ink-faint);
+  @media (max-width:860px){
+    .gl{grid-template-columns:minmax(0,1fr);gap:12px}
+    .side{order:-1;flex-direction:row;align-items:center;gap:12px;padding:10px 14px;border-radius:18px}
+    .jar-wrap{flex:1;gap:10px}
+    .jar-wrap svg{width:48px;height:54px}
+    .jar-title{font-size:16px}
+    .jar-total #totalNum{font-size:18px}
+    .jar-reset{margin-top:2px}
+    .namebar{border-top:none;padding-top:0;flex:0 0 130px}
+    .namebar input{padding:6px 10px;font-size:15px}
+    .namebar .opt{display:none}
   }
-  .foot a{color:var(--coral-d);text-decoration:none;font-weight:500}
+  @media (max-width:760px){
+    body{padding:12px 12px 32px}
+    .lg-nav{margin-bottom:12px}
+    .lg-back span{display:none}
+    .lg-back{padding:9px 11px}
+    .lg-jumps{margin-left:0;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+    .lg-jumps::-webkit-scrollbar{display:none}
+    .ttl{margin-bottom:12px}
+    .ttl .sub{font-size:15px}
+    .card{padding:14px;border-radius:18px}
+  }
+  @media (max-width:420px){
+    .namebar{flex-basis:110px}
+    .namebar label{font-size:12px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+  .board-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .board-top .lbl2{font-family:var(--round);font-weight:500;font-size:16px;color:var(--sky-deep)}
+  .gembox{display:flex;align-items:center;gap:8px;background:var(--sun-soft);border:2px solid var(--sun-line);padding:5px 14px;border-radius:999px;transition:transform .35s ease}
+  .gembox .ico{font-size:16px;color:#946C1E}
+  .gembox b{font-family:var(--round);font-weight:600;font-size:19px;color:var(--ink-soft)}
+  #board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .card-g{aspect-ratio:1/1;border-radius:16px;border:2px solid var(--line);background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:6px;cursor:pointer;text-align:center;line-height:1.2;transition:transform .12s ease}
+  .card-g:hover{transform:translateY(-3px)}
+  .card-g .lbl{font-family:var(--round);font-weight:500;font-size:16px}
+  .card-g.matched{background:var(--mint-soft)!important;border-color:var(--mint-deep)!important}
+  .card-g.matched .lbl{color:var(--mint-deep)!important}
   @keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
   @keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
   .pop{animation:pop .35s ease}
   .wiggle{animation:wiggle .4s ease}
-  @media(prefers-reduced-motion:reduce){.card,.pop,.wiggle,.gembox{animation:none!important;transition:none!important}}
-
   .confetti{position:fixed;width:10px;height:14px;top:-20px;z-index:50;border-radius:2px;pointer-events:none}
   @keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:0}}
-
-  .namebar{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    margin-bottom:14px;flex-wrap:wrap;
-  }
-  .namebar label{font-style:italic;color:var(--ink-soft);font-size:15px}
-  .namebar input{
-    font-family:var(--serif);font-size:16px;color:var(--ink);
-    border:none;border-bottom:1.5px solid #D9C39A;background:transparent;
-    padding:2px 6px;width:130px;text-align:center;outline:none;
-  }
-  .namebar input:focus{border-bottom-color:var(--coral)}
-
-  .jar-wrap{
-    display:flex;align-items:center;gap:18px;justify-content:center;
-    background:#FFFDF9;border:1px solid rgba(184,146,72,0.2);
-    border-radius:16px;padding:16px 20px;margin-bottom:18px;
-  }
-  .jar-wrap svg{flex:0 0 auto}
-  .jar-info{text-align:left}
-  .jar-title{font-family:var(--serif);font-size:18px;color:var(--ink);margin:0 0 2px}
-  .jar-total{font-family:var(--display);font-size:26px;color:var(--coral-d);line-height:1.1;margin:0}
-  .jar-total span{font-family:var(--serif);font-size:15px;color:var(--ink-soft);font-style:italic}
-  .jar-reset{
-    font-family:var(--sans);font-size:10px;letter-spacing:1px;text-transform:uppercase;
-    color:var(--ink-faint);background:none;border:none;cursor:pointer;
-    margin-top:6px;padding:0;text-decoration:underline;
-  }
-  .jar-reset:hover{color:var(--coral-d)}
-  @media(max-width:430px){.jar-wrap{gap:10px;padding:11px 12px}.jar-wrap svg{width:70px;height:79px}.jar-total{font-size:19px}.card svg{width:26px;height:26px}.card .lbl{font-size:9.5px}}</style>
+  @media(max-width:520px){#board{gap:7px}.card-g{border-radius:12px;padding:3px;gap:2px}.card-g svg{width:28px;height:28px}.card-g .lbl{font-size:11px;line-height:1.1;word-break:break-word;hyphens:auto}}
+</style>
 </head>
 <body>
 <div class="wrap">
-  <p class="topline">A LITTLE FEELINGS GAME</p>
-  <h1>MemoriGems <em>Match</em></h1>
-  <p class="sub">Match each feeling to the moment that gave it.</p>
-
-  <div class="namebar">
-    <label for="nick">My name (optional):</label>
-    <input id="nick" type="text" maxlength="14" placeholder="type here" aria-label="Your nickname, optional">
-  </div>
-
-  <div class="jar-wrap">
-    <svg id="jar" viewBox="0 0 160 180" width="120" height="135" aria-label="Your gem jar"></svg>
-    <div class="jar-info">
-      <p class="jar-title" id="jarTitle">My Gem Jar</p>
-      <p class="jar-total"><span id="totalNum">0</span> <span>gems collected</span></p>
-      <button class="jar-reset" id="jarReset">Start over</button>
+  <nav class="lg-nav" aria-label="LittleGems activities">
+    <a class="lg-back" href="/littlegems" aria-label="Back to LittleGems">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      <span>Back to LittleGems</span>
+    </a>
+    <div class="lg-jumps">
+      <a class="jump-btn" href="/littlegems/color">Color online</a>
+      <a class="jump-btn" href="/littlegems/sheets">Coloring sheets</a>
+      <span class="jump-btn active" aria-current="page">Match game</span>
+      <a class="jump-btn" href="/littlegems/choices">Kindness game</a>
+      <a class="jump-btn" href="/littlegems/calm">Calming game</a>
     </div>
-  </div>
-
-  <div class="panel">
-    <div class="bar">
-      <div class="brand">
-        <div class="dot">◆</div>
-        <div><b>MemoriGems Match</b><span>Match the feeling to the moment</span></div>
+  </nav>
+  <header class="ttl"><h1>Match <em>game</em></h1><p class="sub">Match each feeling to the moment that gave it.</p></header>
+  <div class="gl">
+    <section class="card game" aria-label="Match game">
+      <div class="board-top"><span class="lbl2">Find the pairs</span><div class="gembox" id="gembox" aria-label="Gems this round"><span class="ico">&#9670;</span><b id="gemcount">0</b></div></div>
+      <div id="board" aria-label="Memory match game board"></div>
+      <div class="msg" id="msg">Tap two cards to find a matching pair.</div>
+      <div class="controls"><button class="btn" id="reset">Play again</button></div>
+    </section>
+    <aside class="card side" aria-label="My gem jar">
+      <div class="jar-wrap">
+        <svg id="jar" viewBox="0 0 160 180" width="120" height="135" aria-label="Your gem jar"></svg>
+        <div class="jar-info">
+          <p class="jar-title" id="jarTitle">My Gem Jar</p>
+          <p class="jar-total"><span id="totalNum">0</span> <span>gems collected</span></p>
+          <button class="jar-reset" id="jarReset">Start over</button>
+        </div>
       </div>
-      <div class="gembox" id="gembox"><span class="ico">◆</span><b id="gemcount">0</b></div>
-    </div>
-    <div id="board" aria-label="Memory match game board"></div>
-    <div class="msg" id="msg">Tap two cards to find a matching pair.</div>
-    <div class="controls"><button class="btn" id="reset">Play again</button></div>
+      <div class="namebar">
+        <label for="nick">My name <span class="opt">(optional)</span></label>
+        <input id="nick" type="text" maxlength="14" placeholder="Your name" aria-label="Your nickname, optional">
+      </div>
+    </aside>
   </div>
-
-  <p class="foot">PART OF <a href="https://www.mymemorigems.com/littlegems">LITTLEGEMS</a> · FREE · NO SIGNUP NEEDED</p>
+  <p class="foot">Part of <a href="/littlegems">LittleGems</a> · free · no signup needed</p>
 </div>
-
+<script>(function(){var a=document.querySelector(".lg-jumps .active");if(a&&a.parentNode.scrollWidth>a.parentNode.clientWidth){a.parentNode.scrollLeft=a.offsetLeft-a.parentNode.offsetLeft-12;}})();</script>
 <script>
 (function(){
   var STROKE="#7A5B00", SKIN="#FBC02D";
@@ -380,7 +330,7 @@
     board.innerHTML="";
     deck.forEach(function(card){
       var cell=document.createElement("button");
-      cell.className="card";cell.setAttribute("aria-label","Hidden card");
+      cell.className="card-g";cell.setAttribute("aria-label","Hidden card");
       cell.innerHTML=backFace();
       cell.addEventListener("click",function(){flip(card,cell);});
       board.appendChild(cell);
@@ -389,14 +339,14 @@
   function flip(card,cell){
     if(lock||cell.dataset.open||cell.dataset.done)return;
     cell.style.background=card.c.light;cell.style.borderColor=card.c.raw;
-    cell.className="card pop";cell.setAttribute("aria-label",card.label);
+    cell.className="card-g pop";cell.setAttribute("aria-label",card.label);
     cell.innerHTML=card.art+'<span class="lbl" style="color:'+card.c.dark+'">'+card.label+'</span>';
     cell.dataset.open="1";flipped.push({card:card,cell:cell});
     if(flipped.length===2){
       lock=true;var a=flipped[0],b=flipped[1];
       if(a.card.pid===b.card.pid&&a.card.type!==b.card.type){
         setTimeout(function(){
-          [a,b].forEach(function(o){o.cell.dataset.done="1";o.cell.style.opacity="0.62";o.cell.className="card wiggle";});
+          [a,b].forEach(function(o){o.cell.dataset.done="1";o.cell.className="card-g matched wiggle";});
           gems++;gemEl.textContent=gems;
           gembox.classList.remove("pop");void gembox.offsetWidth;gembox.classList.add("pop");
           total++;saveTotal();drawJar();
@@ -407,7 +357,7 @@
       } else {
         msg.textContent="Not a match — try again.";
         setTimeout(function(){
-          [a,b].forEach(function(o){o.cell.style.background="#fff";o.cell.style.borderColor="#EBD9B8";o.cell.className="card";o.cell.setAttribute("aria-label","Hidden card");o.cell.innerHTML=backFace();delete o.cell.dataset.open;});
+          [a,b].forEach(function(o){o.cell.style.background="";o.cell.style.borderColor="";o.cell.className="card-g";o.cell.setAttribute("aria-label","Hidden card");o.cell.innerHTML=backFace();delete o.cell.dataset.open;});
           flipped=[];lock=false;
         },950);
       }
