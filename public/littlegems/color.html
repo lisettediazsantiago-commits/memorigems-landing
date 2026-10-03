@@ -6,220 +6,213 @@
 <title>Color a Gem online · LittleGems by MemoriGems</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@600;700;800&family=Inter:wght@600&display=swap" rel="stylesheet">
 <style>
+  /* LittleGems "Crayon box" studio — Oct 2026.
+     Pages on the left, the sheet in the middle, the crayon box on the right.
+     On phones: pages become a strip, the sheet comes first, tools sit in a tray pinned to the bottom.
+     CONTRAST (white text): coral-deep #A9471F 5.8:1 · sky-deep #2E6B78 6.0:1 · mint-deep #3F7A4A 5.1:1.
+     Light coral, sky, mint and sun are for fills and crayons only, never for text. */
   :root{
-    --beige-cream:#FBF6EE;--beige-warm:#FDF0E8;--beige-paper:#FFFDF9;--beige-deep:#F2E2CF;
-    --gold:#B89248;--gold-deep:#8C6E32;--gold-pale:#E8D9B5;
-    --coral:#E07A52;--coral-deep:#B5552E;--coral-soft:#FDEDE4;
-    --sky:#4E97A6;--sky-deep:#2E6B78;--sky-soft:#E4F1F4;
-    --mint:#6BA876;--mint-deep:#3F7A4A;--mint-soft:#E8F3E9;
-    --sun:#D6A94E;--sun-deep:#946C1E;--sun-soft:#FBF0DC;
-    --ink:#2A2317;--ink-soft:#524634;--ink-faint:rgba(42,35,23,.6);
-    --serif:'Cormorant Garamond',serif;--display:'Cinzel',serif;--sans:'Inter',system-ui,sans-serif;
-    --card-shadow:0 24px 60px -30px rgba(140,110,50,.5), 0 4px 14px -8px rgba(42,35,23,.2);
+    --bg:#FFF6EC;--paper:#FFFFFF;--line:#F2D9C4;--line-strong:#E6C2A6;
+    --coral:#E07A52;--coral-deep:#A9471F;--coral-soft:#FDEDE4;
+    --sky-deep:#2E6B78;--sky-soft:#E4F1F4;
+    --mint-deep:#3F7A4A;
+    --sun-soft:#FBF0DC;--sun-line:#E6C68A;
+    --ink:#2A2317;--ink-soft:#524634;
+    --round:'Fredoka','Nunito',system-ui,sans-serif;--sans:'Nunito',system-ui,sans-serif;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
-  body{font-family:var(--sans);color:var(--ink);padding:22px 14px 56px;min-height:100vh;
-    background:
-      radial-gradient(ellipse at top, rgba(224,122,82,.08) 0%, transparent 55%),
-      radial-gradient(ellipse at bottom left, rgba(78,151,166,.06) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom right, rgba(107,168,118,.05) 0%, transparent 50%),
-      linear-gradient(180deg,#FBF6EE,#FDF0E8 50%,#FBF6EE);
-    background-attachment:fixed;}
-  .wrap{max-width:1080px;margin:0 auto;}
-  header.site{text-align:center;margin-bottom:14px;}
-  .eyebrow{font-family:var(--display);font-size:11px;font-weight:500;letter-spacing:5px;color:var(--coral-deep);}
-  .brand{font-family:var(--serif);font-weight:400;font-size:40px;letter-spacing:-1px;color:var(--ink-soft);line-height:1;margin:8px 0 2px;}
-  .brand .gems{color:var(--coral);font-weight:700;}
-  .tagline{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink-soft);margin:4px 0 0;}
-  .studio{display:grid;grid-template-columns:282px 1fr;gap:22px;align-items:start;margin-top:22px;}
-  @media (max-width:880px){.studio{grid-template-columns:1fr;}}
-  .panel{background:var(--beige-paper);border:.5px solid rgba(184,146,72,.25);border-radius:16px;padding:18px;box-shadow:0 12px 30px -22px rgba(140,110,50,.4);}
-  .panel h2{font-family:var(--serif);font-weight:500;font-size:21px;margin:0 0 14px;color:var(--ink);display:flex;align-items:center;gap:9px;}
-  .panel h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);}
-  .group{margin-bottom:18px;}.group:last-child{margin-bottom:0;}
-  .lbl{font-family:var(--display);font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px;}
-  .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
-  .tool{border:1px solid rgba(184,146,72,.3);background:#fff;border-radius:13px;padding:11px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:.2s;font-family:var(--sans);font-weight:600;font-size:11px;color:var(--ink-soft);}
-  .tool svg{width:23px;height:23px;}
-  .tool:hover{transform:translateY(-2px);border-color:var(--coral);}
-  .tool.active{background:var(--coral);color:#fff;border-color:var(--coral);box-shadow:0 8px 16px -9px rgba(181,85,46,.8);}
-  .tool.active svg *{stroke:#fff !important;}
-  .swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;}
-  .swatch{aspect-ratio:1;border-radius:50%;cursor:pointer;border:3px solid #fff;box-shadow:0 0 0 1.5px rgba(184,146,72,.4);transition:.15s;}
-  .swatch:hover{transform:scale(1.12);}
-  .swatch.active{box-shadow:0 0 0 3px var(--coral-deep);transform:scale(1.12);}
-  .swatch.white{border:3px solid #e6dccb;}
-  .custom-row{display:flex;align-items:center;gap:10px;margin-top:12px;}
-  .custom-row label{font-family:var(--sans);font-weight:600;font-size:12px;color:var(--ink-soft);}
-  input[type=color]{width:42px;height:34px;border:none;background:none;padding:0;cursor:pointer;}
-  input[type=color]::-webkit-color-swatch-wrapper{padding:0;}
-  input[type=color]::-webkit-color-swatch{border:2px solid var(--gold-pale);border-radius:9px;}
-  .sizes{display:flex;gap:10px;}
-  .size-btn{flex:1;border:1px solid rgba(184,146,72,.3);background:#fff;border-radius:12px;height:46px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
-  .size-btn:hover{border-color:var(--coral);}
-  .size-btn.active{border-color:var(--coral);background:var(--coral-soft);}
-  .size-dot{background:var(--coral-deep);border-radius:50%;}
-  .stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
-  .stamp{border:1px solid rgba(184,146,72,.3);background:#fff;border-radius:12px;height:48px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
-  .stamp:hover{transform:translateY(-2px);border-color:var(--coral);}
-  .stamp.active{border-color:var(--coral);background:var(--coral-soft);}
-  .stamp svg{width:25px;height:25px;}
-  .actions{display:flex;flex-direction:column;gap:10px;}
-  .btn{border:none;border-radius:100px;padding:14px 16px;font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:.22s;}
-  .btn svg{width:17px;height:17px;}
-  .btn-primary{background:var(--ink);color:var(--beige-cream);}
-  .btn-primary:hover{background:var(--coral-deep);transform:translateY(-2px);}
-  .btn-gold{background:var(--gold);color:#fff;}
-  .btn-gold:hover{filter:brightness(.96);transform:translateY(-2px);}
-  .btn-ghost{background:#fff;color:var(--coral-deep);border:1px solid var(--coral);}
-  .btn-ghost:hover{background:var(--coral-soft);}
-  .mini-actions{display:flex;gap:10px;}.mini-actions .btn{flex:1;padding:12px 6px;font-size:12px;}
-  .stage-wrap{display:flex;flex-direction:column;align-items:center;}
-  .template-switch{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:16px;background:var(--beige-paper);padding:6px;border-radius:18px;border:.5px solid rgba(184,146,72,.3);box-shadow:0 8px 20px -16px rgba(140,110,50,.5);max-width:560px;}
-  .tpl-tab{border:none;background:transparent;padding:9px 14px;border-radius:100px;cursor:pointer;font-family:var(--sans);font-weight:600;font-size:12px;color:var(--ink-faint);transition:.2s;white-space:nowrap;}
-  .tpl-tab:hover{color:var(--coral-deep);}
-  .tpl-tab.active{background:var(--coral);color:#fff;}
-  .mode-switch{display:none;justify-content:center;gap:6px;margin:0 0 14px;background:var(--beige-paper);padding:5px;border-radius:100px;border:.5px solid rgba(184,146,72,.3);box-shadow:0 8px 20px -16px rgba(140,110,50,.5);}
-  .mode-switch button{border:none;background:transparent;padding:9px 18px;border-radius:100px;cursor:pointer;font-family:var(--sans);font-weight:600;font-size:13px;color:var(--ink-faint);transition:.2s;display:flex;align-items:center;gap:6px;}
-  .mode-switch button.active{background:var(--coral);color:#fff;}
+  body{font-family:var(--sans);font-weight:700;color:var(--ink);background:var(--bg);padding:20px 16px 48px;min-height:100vh;}
+  button{font:inherit;color:inherit;}
+  button:focus-visible,a:focus-visible{outline:3px solid var(--sky-deep);outline-offset:2px;}
+  .wrap{max-width:1180px;margin:0 auto;}
+
+  /* ===== top navigation: back + other activities ===== */
+  .lg-nav{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .lg-back{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:14px;text-decoration:none;color:var(--ink-soft);background:var(--paper);border:2px solid var(--line);border-radius:100px;padding:9px 16px;transition:.2s;}
+  .lg-back:hover{border-color:var(--coral-deep);color:var(--coral-deep);}
+  .lg-back svg{width:16px;height:16px;}
+  .lg-jumps{display:flex;gap:8px;margin-left:auto;}
+  .jump-btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--round);font-weight:500;font-size:14px;padding:8px 14px;border-radius:100px;border:2px solid var(--line);color:var(--ink-soft);background:var(--paper);text-decoration:none;white-space:nowrap;transition:.2s;}
+  .jump-btn svg{width:15px;height:15px;}
+  a.jump-btn:hover{border-color:var(--coral-deep);color:var(--coral-deep);}
+  .jump-btn.active{background:var(--coral-deep);border-color:var(--coral-deep);color:#fff;cursor:default;}
+
+  /* ===== studio grid ===== */
+  .studio{display:grid;grid-template-columns:190px minmax(0,520px) 330px;justify-content:center;gap:26px;align-items:start;}
+  .lbl{font-family:var(--round);font-weight:600;font-size:15px;color:var(--sky-deep);margin:0 0 8px;}
+
+  /* pages: pick by picture */
+  .pages{display:flex;flex-direction:column;gap:8px;}
+  .tpl-tab{display:flex;align-items:center;gap:10px;padding:6px;border-radius:14px;background:var(--paper);border:2px solid var(--line);cursor:pointer;text-align:left;font-weight:800;font-size:14px;line-height:1.2;color:var(--ink-soft);transition:.2s;}
+  .tpl-tab:hover{border-color:var(--line-strong);transform:translateX(2px);}
+  .tpl-tab img{width:52px;height:67px;flex:0 0 52px;border-radius:7px;border:1px solid #eee;background:#fff;object-fit:cover;}
+  .tpl-tab.active{border-color:var(--coral-deep);background:var(--coral-soft);color:var(--coral-deep);}
+
+  /* the sheet */
+  .stage{display:flex;flex-direction:column;align-items:center;min-width:0;}
+  .brandline{align-self:flex-start;display:flex;align-items:baseline;gap:10px;margin:0 0 12px;flex-wrap:wrap;}
+  .brand{font-family:var(--round);font-weight:600;font-size:32px;line-height:1;color:var(--ink-soft);margin:0;}
+  .brand .gems{color:var(--coral-deep);}
+  .brand-sub{font-family:var(--round);font-weight:500;font-size:18px;color:var(--sky-deep);}
+  .mode-switch{display:none;gap:4px;margin:0 0 12px;background:var(--paper);padding:4px;border-radius:100px;border:2px solid var(--line);}
+  .mode-switch button{border:none;background:transparent;padding:8px 16px;border-radius:100px;cursor:pointer;font-weight:800;font-size:14px;color:var(--ink-soft);display:flex;align-items:center;gap:6px;}
+  .mode-switch button svg{width:17px;height:17px;}
+  .mode-switch button.active{background:var(--sky-deep);color:#fff;}
   @media (pointer:coarse){.mode-switch{display:flex;}}
   .touch-only{display:none;}
   @media (pointer:coarse){.touch-only{display:inline;}}
-  .card-shell{position:relative;width:100%;max-width:560px;aspect-ratio:612/792;background:#fff;border-radius:18px;box-shadow:var(--card-shadow);overflow:hidden;touch-action:none;border:.5px solid rgba(184,146,72,.2);}
+  .card-shell{position:relative;width:100%;max-width:520px;aspect-ratio:612/792;background:#fff;border-radius:20px;border:3px solid var(--line);overflow:hidden;touch-action:none;}
   .card-shell.scroll-mode{touch-action:pan-y;}
   .card-shell.scroll-mode #drawCanvas{pointer-events:none;cursor:default;}
   .card-shell.scroll-mode .field{pointer-events:none;}
   #sheetImg{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1;pointer-events:none;user-select:none;-webkit-user-drag:none;}
   #drawCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;cursor:crosshair;}
   .overlay-inputs{position:absolute;inset:0;z-index:3;pointer-events:none;}
-  .field{position:absolute;pointer-events:auto;border:none;background:transparent;outline:none;font-family:var(--sans);font-weight:600;color:#4a3f2c;resize:none;overflow:hidden;text-align:center;line-height:1.25;border-radius:6px;transition:background .15s;}
+  .field{position:absolute;pointer-events:auto;border:none;background:transparent;outline:none;font-family:'Inter',sans-serif;font-weight:600;color:#4a3f2c;resize:none;overflow:hidden;text-align:center;line-height:1.25;border-radius:6px;transition:background .15s;}
   .field:hover{background:rgba(224,122,82,.08);}
   .field:focus{background:rgba(224,122,82,.14);}
-  .hint{text-align:center;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--ink-soft);margin-top:16px;max-width:520px;line-height:1.5;}
-  .hint b{font-style:normal;color:var(--coral-deep);}
+  .hint{text-align:center;font-weight:600;font-size:15px;color:var(--ink-soft);margin:14px 0 0;max-width:500px;line-height:1.55;}
+  .hint b{color:var(--coral-deep);font-weight:800;}
+
+  /* the kit: tools, crayon box, sizes, actions */
+  .kit{display:flex;flex-direction:column;gap:14px;}
+  .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .tool{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 4px 9px;border-radius:18px;background:var(--paper);border:2px solid var(--line);cursor:pointer;font-family:var(--round);font-weight:500;font-size:15px;color:var(--ink-soft);transition:.2s;}
+  .tool svg{width:28px;height:28px;}
+  .tool:hover{border-color:var(--line-strong);transform:translateY(-2px);}
+  .tool.active{background:var(--sky-deep);border-color:var(--sky-deep);color:#fff;}
+  .stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .stamp{height:50px;border-radius:14px;background:var(--paper);border:2px solid var(--line);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;}
+  .stamp svg{width:26px;height:26px;}
+  .stamp.active{border-color:var(--sky-deep);background:var(--sky-soft);}
+  .box{background:var(--sun-soft);border:2px solid var(--sun-line);border-radius:18px;padding:12px 12px 10px;}
+  .swatches{display:grid;grid-template-columns:repeat(10,1fr);gap:4px 2px;padding-top:6px;}
+  .swatch{border:none;background:none;padding:0;cursor:pointer;display:flex;justify-content:center;transition:transform .18s;}
+  .swatch svg{width:22px;height:54px;display:block;}
+  .swatch:hover{transform:translateY(-4px);}
+  .swatch.active{transform:translateY(-10px);}
+  .swatch.active svg{filter:drop-shadow(0 4px 3px rgba(42,35,23,.32));}
+  .custom-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+  .custom-row label{font-weight:800;font-size:14px;color:var(--ink-soft);}
+  input[type=color]{width:44px;height:34px;border:none;background:none;padding:0;cursor:pointer;}
+  input[type=color]::-webkit-color-swatch-wrapper{padding:0;}
+  input[type=color]::-webkit-color-swatch{border:2px solid var(--sun-line);border-radius:9px;}
+  .sizes{display:flex;align-items:center;gap:8px;background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:6px 10px;}
+  .sizes .lbl{margin:0 4px 0 0;}
+  .size-btn{flex:1;height:38px;border:none;border-radius:12px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
+  .size-btn.active{background:var(--sky-soft);}
+  .size-dot{background:var(--sky-deep);border-radius:50%;}
+  .actions{display:flex;flex-direction:column;gap:10px;}
+  .two{display:flex;gap:10px;}
+  .btn{border:none;border-radius:16px;padding:14px 16px;font-family:var(--round);font-weight:500;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:.2s;flex:1;}
+  .btn svg{width:20px;height:20px;}
+  .btn-primary{background:var(--coral-deep);color:#fff;}
+  .btn-primary:hover{background:#923B17;transform:translateY(-2px);}
+  .btn-print{background:var(--mint-deep);color:#fff;}
+  .btn-print:hover{background:#346840;transform:translateY(-2px);}
+  .btn-ghost{background:var(--paper);color:var(--ink-soft);border:2px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--coral-deep);color:var(--coral-deep);}
+  .btn-label-short{display:none;}
+
   .modal-bg{position:fixed;inset:0;background:rgba(42,35,23,.55);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;}
   .modal-bg.show{display:flex;}
-  .modal{background:var(--beige-paper);border-radius:20px;padding:26px;max-width:420px;width:100%;text-align:center;box-shadow:0 30px 70px -20px rgba(42,35,23,.6);animation:pop .28s ease;}
+  .modal{background:var(--paper);border-radius:22px;padding:26px;max-width:420px;width:100%;text-align:center;box-shadow:0 30px 70px -20px rgba(42,35,23,.6);animation:pop .28s ease;}
   @keyframes pop{from{transform:scale(.92);opacity:0;}to{transform:scale(1);opacity:1;}}
-  .modal h3{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:26px;margin:0 0 6px;}
-  .modal p{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink-soft);margin:0 0 16px;}
-  .modal img{width:100%;border-radius:12px;border:1px solid var(--gold-pale);margin-bottom:16px;box-shadow:0 8px 20px -12px rgba(0,0,0,.3);}
+  .modal h3{font-family:var(--round);font-weight:600;color:var(--ink);font-size:26px;margin:0 0 6px;}
+  .modal p{font-weight:600;font-size:15px;color:var(--ink-soft);margin:0 0 16px;}
+  .modal img{width:100%;border-radius:12px;border:2px solid var(--line);margin-bottom:16px;}
   .modal .btn{width:100%;margin-bottom:10px;}
-  footer.site{text-align:center;margin-top:32px;font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink-faint);}
-  footer.site .gems{color:var(--gold-deep);font-weight:600;font-style:normal;}
-  /* ===== top navigation: back + other activities ===== */
-  .lg-nav{max-width:1180px;margin:0 auto 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
-  .lg-back{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.3px;text-decoration:none;color:var(--ink-soft);background:var(--beige-paper);border:1px solid rgba(184,146,72,.35);border-radius:100px;padding:10px 18px;transition:all .25s ease;box-shadow:0 8px 20px -16px rgba(140,110,50,.5);}
-  .lg-back:hover{background:var(--ink);color:var(--beige-cream);border-color:var(--ink);transform:translateY(-1px);}
-  .lg-back svg{width:15px;height:15px;}
-  .lg-jumps{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto;}
-  .jump-btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:10px 16px;border-radius:100px;border:1px solid var(--coral);color:var(--coral-deep);background:rgba(255,255,255,.6);text-decoration:none;transition:all .25s ease;cursor:pointer;}
-  .jump-btn:hover{transform:translateY(-1px);}
-  .jump-btn svg{width:14px;height:14px;}
-  .jump-btn.active{cursor:default;}
-  .jump-btn.active:hover{transform:none;}
-  .jump-btn.j-color{background:var(--coral);border-color:var(--coral);color:#fff;}
-  .jump-btn.j-print{border-color:var(--gold);color:var(--gold-deep);}
-  .jump-btn.j-print:hover{background:var(--gold);color:#fff;}
-  .jump-btn.j-match{border-color:var(--coral);color:var(--coral-deep);}
-  .jump-btn.j-match:hover{background:var(--coral);color:#fff;}
-  .jump-btn.j-choices{border-color:var(--mint);color:var(--mint-deep);}
-  .jump-btn.j-choices:hover{background:var(--mint);color:#fff;}
-  .jump-btn.j-calm{border-color:var(--sky);color:var(--sky-deep);}
-  .jump-btn.j-calm:hover{background:var(--sky);color:#fff;}
-  @media (max-width:760px){.lg-nav{justify-content:center;}.lg-back{width:100%;justify-content:center;}.lg-jumps{margin-left:0;width:100%;justify-content:center;}}
+  footer.site{text-align:center;margin-top:32px;font-weight:600;font-size:14px;color:var(--ink-soft);}
+  footer.site .gems{color:var(--coral-deep);font-weight:800;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+
+  /* ===== tablet: kit drops under the sheet ===== */
+  @media (max-width:1100px) and (min-width:761px){
+    .studio{grid-template-columns:170px minmax(0,1fr);}
+    .kit{grid-column:1 / -1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;}
+  }
+
+  /* ===== phone: sheet first, tools in a tray pinned to the bottom ===== */
+  @media (max-width:760px){
+    body{padding:12px 0 0;}
+    .wrap{padding:0 12px;}
+    .lg-nav{margin-bottom:10px;}
+    .lg-back span{display:none;}
+    .lg-back{padding:9px 11px;}
+    .lg-jumps{margin-left:0;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;}
+    .lg-jumps::-webkit-scrollbar{display:none;}
+    .studio{grid-template-columns:minmax(0,1fr);gap:10px;}
+    .pages{order:1;flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:2px;scrollbar-width:none;}
+    .pages::-webkit-scrollbar{display:none;}
+    .pages > .lbl{display:none;}
+    .tpl-tab{flex:0 0 76px;flex-direction:column;gap:4px;padding:5px;font-size:11px;text-align:center;line-height:1.1;}
+    .tpl-tab img{width:46px;height:59px;flex:0 0 auto;}
+    .tpl-tab:hover{transform:none;}
+    .stage{order:2;}
+    .brandline{display:none;}
+    .hint{font-size:14px;margin:10px 0 4px;}
+    .kit{order:3;position:sticky;bottom:0;z-index:20;margin:0 -12px;padding:10px 12px calc(12px + env(safe-area-inset-bottom,0px));background:var(--paper);border-top:2px solid var(--line);border-radius:22px 22px 0 0;box-shadow:0 -12px 28px -18px rgba(42,35,23,.4);gap:9px;}
+    .kit .lbl{display:none;}
+    .tools{grid-template-columns:repeat(6,1fr);gap:6px;}
+    .tool{padding:0;height:46px;border-radius:14px;justify-content:center;background:var(--bg);}
+    .tool span{display:none;}
+    .tool svg{width:24px;height:24px;}
+    .stamps{gap:6px;}
+    .stamp{height:42px;}
+    .box{padding:4px 8px 6px;border-radius:14px;}
+    .swatches{display:flex;overflow-x:auto;gap:2px;padding-top:12px;scrollbar-width:none;}
+    .swatches::-webkit-scrollbar{display:none;}
+    .swatch{flex:0 0 28px;}
+    .swatch svg{width:20px;height:48px;}
+    .custom-row{display:none;}
+    .sizes{padding:3px 6px;border-radius:14px;}
+    .sizes .lbl{display:block;font-size:13px;}
+    .size-btn{height:32px;}
+    .actions{flex-direction:row;}
+    .btn{padding:12px;font-size:16px;border-radius:14px;}
+    .actions > .btn-primary{flex:1;}
+    .two{flex:0 0 auto;gap:8px;}
+    .two .btn{flex:0 0 48px;padding:0;height:48px;}
+    .two .btn .btn-label{display:none;}
+    footer.site{margin:18px 0 0;padding-bottom:12px;}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <nav class="lg-nav" aria-label="LittleGems activities">
-    <a class="lg-back" href="/littlegems">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-      Back to LittleGems
+    <a class="lg-back" href="/littlegems" aria-label="Back to LittleGems">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      <span>Back to LittleGems</span>
     </a>
     <div class="lg-jumps">
-      <span class="jump-btn j-color active" aria-current="page">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c2-1 3-3 4-5l9-9 3 3-9 9c-2 1-4 2-7 2z"/><path d="M14 5l5 5"/></svg>
-        Color online
-      </span>
-      <a class="jump-btn j-print" href="/littlegems#printables">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-2 6H8z"/><path d="M8 9l-2 12h12l-2-12"/></svg>
-        Coloring sheets
-      </a>
-      <a class="jump-btn j-match" href="/littlegems#game-match">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        Match game
-      </a>
-      <a class="jump-btn j-choices" href="/littlegems#game-choices">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>
-        Kindness game
-      </a>
-      <a class="jump-btn j-calm" href="/littlegems#game-calm">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
-        Calming game
-      </a>
+      <span class="jump-btn active" aria-current="page">Color online</span>
+      <a class="jump-btn" href="/littlegems#printables">Coloring sheets</a>
+      <a class="jump-btn" href="/littlegems#game-match">Match game</a>
+      <a class="jump-btn" href="/littlegems#game-choices">Kindness game</a>
+      <a class="jump-btn" href="/littlegems#game-calm">Calming game</a>
     </div>
   </nav>
-  <header class="site">
-    <div class="eyebrow">A LITTLE GEM YOU CAN COLOR</div>
-    <div class="brand"><span>Little</span><span class="gems">Gems</span></div>
-    <p class="tagline">Color it on the screen — then keep it forever.</p>
-  </header>
 
   <div class="studio">
-    <aside class="panel">
-      <h2><span class="dot"></span>My Art Tools</h2>
-      <div class="group">
-        <div class="lbl">Tools</div>
-        <div class="tools" id="tools">
-          <button class="tool active" data-tool="brush"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21c2-1 3-3 4-5l9-9 3 3-9 9c-2 1-4 2-7 2z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 5l5 5" stroke="#524634" stroke-width="1.6"/></svg>Brush</button>
-          <button class="tool" data-tool="crayon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 21l-3 1 1-3 11-11 2 2L7 21z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 6l4 4" stroke="#524634" stroke-width="1.6"/></svg>Crayon</button>
-          <button class="tool" data-tool="fill"><svg viewBox="0 0 24 24" fill="none"><path d="M5 11l6-6 7 7-6 6a2 2 0 0 1-3 0l-4-4a2 2 0 0 1 0-3z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M19 15c1 1.5 1.5 2.5 1.5 3a1.5 1.5 0 1 1-3 0c0-.5.5-1.5 1.5-3z" stroke="#524634" stroke-width="1.6"/></svg>Fill</button>
-          <button class="tool" data-tool="stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M5 9l3-4h8l3 4-7 9z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/></svg>Stamp</button>
-          <button class="tool" data-tool="eraser"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16l7-7 6 6-4 4H7l-3-3z" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M11 9l5 5" stroke="#524634" stroke-width="1.6"/></svg>Eraser</button>
-          <button class="tool" data-tool="undo" id="undoBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M9 7L4 11l5 4" stroke="#524634" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 11h9a6 6 0 0 1 0 12H9" stroke="#524634" stroke-width="1.6" stroke-linecap="round"/></svg>Undo</button>
-        </div>
-      </div>
-      <div class="group">
-        <div class="lbl">Colors</div>
-        <div class="swatches" id="swatches"></div>
-        <div class="custom-row"><label for="customColor">Any color:</label><input type="color" id="customColor" value="#E07A52" /></div>
-      </div>
-      <div class="group">
-        <div class="lbl">Brush Size</div>
-        <div class="sizes" id="sizes">
-          <button class="size-btn" data-size="6"><span class="size-dot" style="width:8px;height:8px;"></span></button>
-          <button class="size-btn active" data-size="14"><span class="size-dot" style="width:15px;height:15px;"></span></button>
-          <button class="size-btn" data-size="26"><span class="size-dot" style="width:26px;height:26px;"></span></button>
-        </div>
-      </div>
-      <div class="group" id="stampGroup" style="display:none;">
-        <div class="lbl">Pick a Stamp</div>
-        <div class="stamps" id="stamps">
-          <button class="stamp active" data-stamp="gem"><svg viewBox="0 0 24 24" fill="none"><path d="M5 9l3-4h8l3 4-7 9z" stroke="#B5552E" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 9h14" stroke="#B5552E" stroke-width="1.1"/></svg></button>
-          <button class="stamp" data-stamp="heart"><svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" stroke="#E07A52" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
-          <button class="stamp" data-stamp="star"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.3 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19l1-5.8L3.5 9.1l5.9-.8z" stroke="#D6A94E" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
-          <button class="stamp" data-stamp="sparkle"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c.5 4 1.5 5.5 6 6-4.5.5-5.5 2-6 6-.5-4-1.5-5.5-6-6 4.5-.5 5.5-2 6-6z" stroke="#4E97A6" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
-        </div>
-      </div>
-    </aside>
+    <div class="pages" id="tplSwitch" role="group" aria-label="Pick a page">
+      <div class="lbl">Pick a page</div>
+      <button class="tpl-tab active" data-tpl="special" aria-pressed="true"><img alt="" /><span>Someone Special</span></button>
+      <button class="tpl-tab" data-tpl="friend" aria-pressed="false"><img alt="" /><span>Friendship</span></button>
+      <button class="tpl-tab" data-tpl="grand" aria-pressed="false"><img alt="" /><span>Grandparent</span></button>
+      <button class="tpl-tab" data-tpl="today" aria-pressed="false"><img alt="" /><span>Today's Gem</span></button>
+      <button class="tpl-tab" data-tpl="forever" aria-pressed="false"><img alt="" /><span>Keep Forever</span></button>
+      <button class="tpl-tab" data-tpl="feelings" aria-pressed="false"><img alt="" /><span>Feelings</span></button>
+    </div>
 
-    <section class="stage-wrap">
-      <div class="template-switch" id="tplSwitch">
-        <button class="tpl-tab active" data-tpl="special">Someone Special</button>
-        <button class="tpl-tab" data-tpl="friend">Friendship</button>
-        <button class="tpl-tab" data-tpl="grand">Grandparent</button>
-        <button class="tpl-tab" data-tpl="today">Today's Gem</button>
-        <button class="tpl-tab" data-tpl="forever">Keep Forever</button>
-        <button class="tpl-tab" data-tpl="feelings">Feelings</button>
-      </div>
-
+    <section class="stage">
+      <div class="brandline"><h1 class="brand">Little<span class="gems">Gems</span></h1><span class="brand-sub">coloring studio</span></div>
       <div class="mode-switch" id="modeSwitch" role="group" aria-label="Canvas mode">
-        <button id="modeColor" class="active" type="button">✏️ Color</button>
-        <button id="modeScroll" type="button">✋ Move page</button>
+        <button id="modeColor" class="active" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c2-1 3-3 4-5l9-9 3 3-9 9c-2 1-4 2-7 2z"/><path d="M14 5l5 5"/></svg>Color</button>
+        <button id="modeScroll" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11V4.5a1.5 1.5 0 0 1 3 0V12M14 11V6.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3 15a1.5 1.5 0 0 1 2.5-1.7L8 16"/></svg>Move page</button>
       </div>
 
       <div class="card-shell" id="cardShell">
@@ -228,27 +221,58 @@
         <div class="overlay-inputs" id="overlayInputs"></div>
       </div>
 
-      <p class="hint">Pick a color, then draw right on the page. Tap <b>Stamp</b> for gems &amp; hearts, and tap any line to <b>type</b>. When you're done, <b>Save my picture</b>. <span class="touch-only">On a phone you start in <b>✋ Move page</b> so you can scroll safely — tap a color or <b>✏️ Color</b> to start coloring, then <b>✋ Move page</b> whenever you want to scroll again.</span></p>
+      <p class="hint">Pick a crayon, then color right on the page. Tap <b>Stamp</b> for gems and hearts, and tap the box at the bottom to <b>type</b>. <span class="touch-only">Tap <b>Move page</b> when you want to scroll.</span></p>
+    </section>
 
-      <div class="panel" style="width:100%;max-width:560px;margin-top:16px;">
-        <div class="actions">
-          <button class="btn btn-primary" id="saveBtn">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12M8 11l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            Save my picture
-          </button>
-          <div class="mini-actions">
-            <button class="btn btn-gold" id="printBtn">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M7 8V4h10v4M7 18H5a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="15" width="10" height="6" rx="1" stroke="#fff" stroke-width="1.7"/></svg>
-              Print it
-            </button>
-            <button class="btn btn-ghost" id="clearBtn">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Start over
-            </button>
-          </div>
+    <aside class="kit" aria-label="Art tools">
+      <div>
+        <div class="lbl">Tools</div>
+        <div class="tools" id="tools">
+          <button class="tool active" data-tool="brush" aria-label="Brush"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c2-1 3-3 4-5l9-9 3 3-9 9c-2 1-4 2-7 2z"/><path d="M14 5l5 5"/></svg><span>Brush</span></button>
+          <button class="tool" data-tool="crayon" aria-label="Crayon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21l-3 1 1-3 11-11 2 2L7 21z"/><path d="M14 6l4 4"/></svg><span>Crayon</span></button>
+          <button class="tool" data-tool="fill" aria-label="Fill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l6-6 7 7-6 6a2 2 0 0 1-3 0l-4-4a2 2 0 0 1 0-3z"/><path d="M19 15c1 1.5 1.5 2.5 1.5 3a1.5 1.5 0 1 1-3 0c0-.5.5-1.5 1.5-3z"/></svg><span>Fill</span></button>
+          <button class="tool" data-tool="stamp" aria-label="Stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l3-4h8l3 4-7 9z"/><path d="M5 9h14"/></svg><span>Stamp</span></button>
+          <button class="tool" data-tool="eraser" aria-label="Eraser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16l7-7 6 6-4 4H7l-3-3z"/><path d="M11 9l5 5"/></svg><span>Eraser</span></button>
+          <button class="tool" data-tool="undo" id="undoBtn" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7L4 11l5 4"/><path d="M4 11h9a6 6 0 0 1 0 12H9"/></svg><span>Undo</span></button>
         </div>
       </div>
-    </section>
+      <div id="stampGroup" style="display:none;">
+        <div class="lbl">Pick a stamp</div>
+        <div class="stamps" id="stamps">
+          <button class="stamp active" data-stamp="gem" aria-label="Gem stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M5 9l3-4h8l3 4-7 9z" stroke="#A9471F" stroke-width="1.7" stroke-linejoin="round"/><path d="M5 9h14" stroke="#A9471F" stroke-width="1.2"/></svg></button>
+          <button class="stamp" data-stamp="heart" aria-label="Heart stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" stroke="#E07A52" stroke-width="1.7" stroke-linejoin="round"/></svg></button>
+          <button class="stamp" data-stamp="star" aria-label="Star stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.3 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19l1-5.8L3.5 9.1l5.9-.8z" stroke="#C8962F" stroke-width="1.7" stroke-linejoin="round"/></svg></button>
+          <button class="stamp" data-stamp="sparkle" aria-label="Sparkle stamp"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c.5 4 1.5 5.5 6 6-4.5.5-5.5 2-6 6-.5-4-1.5-5.5-6-6 4.5-.5 5.5-2 6-6z" stroke="#2E6B78" stroke-width="1.7" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="lbl">Crayon box</div>
+        <div class="swatches" id="swatches" role="group" aria-label="Colors"></div>
+        <div class="custom-row"><label for="customColor">Any color:</label><input type="color" id="customColor" value="#E07A52" /></div>
+      </div>
+      <div class="sizes" id="sizes" role="group" aria-label="Brush size">
+        <span class="lbl">Size</span>
+        <button class="size-btn" data-size="6" aria-label="Small"><span class="size-dot" style="width:8px;height:8px;"></span></button>
+        <button class="size-btn active" data-size="14" aria-label="Medium"><span class="size-dot" style="width:15px;height:15px;"></span></button>
+        <button class="size-btn" data-size="26" aria-label="Large"><span class="size-dot" style="width:24px;height:24px;"></span></button>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="saveBtn">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12M8 11l4 4 4-4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+          Save my picture
+        </button>
+        <div class="two">
+          <button class="btn btn-print" id="printBtn" aria-label="Print it">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 8V4h10v4M7 18H5a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="15" width="10" height="6" rx="1" stroke="currentColor" stroke-width="1.8"/></svg>
+            <span class="btn-label">Print</span>
+          </button>
+          <button class="btn btn-ghost" id="clearBtn" aria-label="Start over">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="btn-label">Start over</span>
+          </button>
+        </div>
+      </div>
+    </aside>
   </div>
 
   <footer class="site">Made with care for little hands · <span class="gems">LittleGems by MemoriGems</span></footer>
@@ -287,7 +311,8 @@ const SHEETS={
 
 const PALETTE=['#E07A52','#F4A38A','#FDEDE4','#D6A94E','#F2D58A','#6BA876','#3F7A4A','#4E97A6','#2E6B78','#9B7BB8','#B5552E','#8C6E32','#8D5524','#C68642','#E0AC69','#F1C27D','#FFDBAC','#2A2317','#8A8070','#FFFFFF'];
 const swatchWrap=document.getElementById('swatches');
-PALETTE.forEach(c=>{const s=document.createElement('div');s.className='swatch'+(c==='#FFFFFF'?' white':'')+(c===state.color?' active':'');s.style.background=c;s.dataset.color=c;s.addEventListener('click',()=>setColor(c));swatchWrap.appendChild(s);});
+const COLOR_NAMES=['Coral','Peach','Blush','Gold','Butter','Leaf green','Forest green','Sky blue','Deep teal','Lavender','Brick','Olive','Brown','Caramel','Tan','Honey','Cream','Black','Gray','White'];
+PALETTE.forEach((c,i)=>{const s=document.createElement('button');s.type='button';s.className='swatch'+(c===state.color?' active':'');s.dataset.color=c;s.setAttribute('aria-label',COLOR_NAMES[i]||c);s.innerHTML='<svg viewBox="0 0 20 52" aria-hidden="true"><path d="M10 1 16 13H4z" fill="'+c+'"/><rect x="3" y="13" width="14" height="38" rx="3" fill="'+c+'"/><rect x="3" y="20" width="14" height="5" fill="rgba(0,0,0,.14)"/><rect x="3" y="40" width="14" height="5" fill="rgba(0,0,0,.14)"/><path d="M10 1 16 13H4zM3 13h14v38H3z" fill="none" stroke="rgba(42,35,23,.28)" stroke-width="1"/></svg>';s.addEventListener('click',()=>setColor(c));swatchWrap.appendChild(s);});
 function setColor(c){state.color=c;document.querySelectorAll('.swatch').forEach(el=>el.classList.toggle('active',el.dataset.color===c));document.getElementById('customColor').value=(c.length===7?c:'#E07A52');}
 document.getElementById('customColor').addEventListener('input',e=>{state.color=e.target.value;document.querySelectorAll('.swatch').forEach(el=>el.classList.remove('active'));});
 
@@ -300,7 +325,7 @@ const modeScrollBtn=document.getElementById('modeScroll');
 function setCanvasMode(m){state.canvasMode=m;const scroll=(m==='scroll');cardShell.classList.toggle('scroll-mode',scroll);modeColorBtn.classList.toggle('active',!scroll);modeScrollBtn.classList.toggle('active',scroll);if(scroll)state.drawing=false;}
 modeColorBtn.addEventListener('click',()=>setCanvasMode('color'));
 modeScrollBtn.addEventListener('click',()=>setCanvasMode('scroll'));
-document.querySelector('aside').addEventListener('click',e=>{if(e.target.closest('.swatch,.tool,.size-btn,.stamp'))setCanvasMode('color');});
+document.querySelector('.kit').addEventListener('click',e=>{if(e.target.closest('.swatch,.tool,.size-btn,.stamp'))setCanvasMode('color');});
 document.getElementById('customColor').addEventListener('input',()=>setCanvasMode('color'));
 setCanvasMode(matchMedia('(pointer:coarse)').matches?'scroll':'color');
 
@@ -332,7 +357,7 @@ drawCanvas.addEventListener('pointerup',end);
 drawCanvas.addEventListener('pointerleave',end);
 drawCanvas.addEventListener('touchstart',e=>{if(state.canvasMode!=='scroll')e.preventDefault();},{passive:false});
 
-document.querySelectorAll('.tpl-tab').forEach(tab=>{tab.addEventListener('click',()=>{if(tab.dataset.tpl===state.template)return;if(undoStack.length&&!confirm('Switch page? Your current drawing will be cleared.'))return;state.template=tab.dataset.tpl;document.querySelectorAll('.tpl-tab').forEach(t=>t.classList.toggle('active',t===tab));clearDraw();renderTemplate();});});
+document.querySelectorAll('.tpl-tab').forEach(tab=>{tab.addEventListener('click',()=>{if(tab.dataset.tpl===state.template)return;if(undoStack.length&&!confirm('Switch page? Your current drawing will be cleared.'))return;state.template=tab.dataset.tpl;document.querySelectorAll('.tpl-tab').forEach(t=>{t.classList.toggle('active',t===tab);t.setAttribute('aria-pressed',t===tab);});clearDraw();renderTemplate();});});
 function clearDraw(){dctx.save();dctx.setTransform(1,0,0,1,0,0);dctx.clearRect(0,0,drawCanvas.width,drawCanvas.height);dctx.restore();undoStack=[];}
 document.getElementById('clearBtn').addEventListener('click',()=>{if(confirm('Start over with a fresh page?')){clearDraw();document.querySelectorAll('.field').forEach(f=>f.value='');}});
 
@@ -346,6 +371,7 @@ document.getElementById('modalClose').addEventListener('click',()=>modalBg.class
 modalBg.addEventListener('click',e=>{if(e.target===modalBg)modalBg.classList.remove('show');});
 document.getElementById('printBtn').addEventListener('click',async()=>{await document.fonts.ready;const out=await compose();const data=out.toDataURL('image/png');const w=window.open('','_print');w.document.write('<html><head><title>My LittleGem</title><style>@page{margin:10mm;}body{margin:0;display:flex;justify-content:center;}img{max-width:100%;}</style></head><body><img src="'+data+'" onload="setTimeout(function(){print();},250)"/></body></html>');w.document.close();});
 
+document.querySelectorAll('.tpl-tab').forEach(t=>{const s=SHEETS[t.dataset.tpl];if(s)t.querySelector('img').src=s.src;});
 document.fonts.ready.then(renderTemplate);
 </script>
 </body>
